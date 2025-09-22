@@ -11,7 +11,7 @@ const BATCH_SIZE = 25;
 
 function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5">
       {Array.from({ length: BATCH_SIZE }).map((_, i) => (
         <div key={i} className="flex flex-col space-y-3">
           <Skeleton className="h-[250px] w-full rounded-xl" />
@@ -25,47 +25,50 @@ function ProductGridSkeleton() {
   );
 }
 
-export function ProductGridLoader() {
+export function ProductGridLoader({ category }: { category?: string }) {
   const [products, setProducts] = useState<AppProduct[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const fetchAndSetProducts = useCallback(async (page: number, keepExisting = false) => {
-    setIsLoading(true);
-    const newProducts = await serverFetchProducts({ page, limit: BATCH_SIZE });
-    
-    setProducts(prev => {
-      const updatedProducts = keepExisting ? [...prev, ...newProducts] : newProducts;
-      // Keep only the latest two batches (50 products)
-      if (updatedProducts.length > BATCH_SIZE * 2) {
-        return updatedProducts.slice(-BATCH_SIZE * 2);
+  const fetchAndSetProducts = useCallback(
+    async (page: number, keepExisting = false) => {
+      setIsLoading(true);
+      const newProducts = await serverFetchProducts({ page, limit: BATCH_SIZE, category });
+
+      setProducts((prev) => {
+        const updatedProducts = keepExisting ? [...prev, ...newProducts] : newProducts;
+        // Keep only the latest two batches (50 products)
+        if (updatedProducts.length > BATCH_SIZE * 2) {
+          return updatedProducts.slice(-BATCH_SIZE * 2);
+        }
+        return updatedProducts;
+      });
+
+      setHasMore(newProducts.length === BATCH_SIZE);
+      setCurrentPage(page);
+      setIsLoading(false);
+
+      // Smooth scroll to the top of the grid
+      if (gridRef.current && !keepExisting) {
+        gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      return updatedProducts;
-    });
+    },
+    [category]
+  );
 
-    setHasMore(newProducts.length === BATCH_SIZE);
-    setCurrentPage(page);
-    setIsLoading(false);
-
-    // Smooth scroll to the top of the grid
-    if (gridRef.current && !keepExisting) {
-      gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, []);
-  
   useEffect(() => {
     // Fetch initial products
     fetchAndSetProducts(1, false);
-  }, [fetchAndSetProducts]);
+  }, [fetchAndSetProducts, category]);
 
   const loadMoreProducts = () => {
     if (hasMore && !isLoading) {
       fetchAndSetProducts(currentPage + 1, true);
     }
   };
-  
+
   const loadPreviousProducts = () => {
     if (currentPage > 1 && !isLoading) {
       fetchAndSetProducts(currentPage - 1, false);
@@ -82,7 +85,7 @@ export function ProductGridLoader() {
 
   return (
     <div ref={gridRef}>
-       {currentPage > 1 && (
+      {currentPage > 1 && (
         <div className="mb-8 flex justify-center">
           <Button onClick={loadPreviousProducts} disabled={isLoading}>
             {isLoading ? 'Loading...' : 'Load Previous'}

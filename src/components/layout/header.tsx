@@ -12,6 +12,8 @@ import { usePathname } from 'next/navigation';
 const navItems = [
   { name: 'Home', href: '/' },
   { name: 'All Products', href: '/products' },
+  { name: 'Lawn Suits', href: '/products/category/lawn-suits' },
+  { name: 'Bridal Dresses', href: '/products/category/bridal-dresses' },
 ];
 
 export function Header() {
