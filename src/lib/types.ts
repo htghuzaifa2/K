@@ -8,6 +8,8 @@ export type Product = {
   image: string;
   additionalImages: string[];
   stock: number;
+  longDescription?: string;
+  specifications?: Record<string, string>;
 };
 
 export type CartItem = {

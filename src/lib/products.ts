@@ -10,6 +10,8 @@ export type AppProduct = {
     price: number;
     category: string;
     images: string[];
+    longDescription?: string;
+    specifications?: Record<string, string>;
 };
 
 
@@ -31,6 +33,8 @@ function transformProduct(product: RawProduct): AppProduct {
         price: product.price,
         category: Array.isArray(product.category) ? product.category[0] : product.category,
         images: [product.image, ...product.additionalImages].filter(Boolean),
+        longDescription: product.longDescription,
+        specifications: product.specifications
     };
 }
 

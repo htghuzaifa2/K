@@ -7,6 +7,8 @@ import { AddToCartButton } from '@/components/product/add-to-cart-button';
 import { RelatedProducts } from '@/components/product/related-products';
 import { Suspense } from 'react';
 import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 type ProductPageProps = {
   params: {
@@ -20,6 +22,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) {
     notFound();
   }
+
+  const hasDetails = product.longDescription || (product.specifications && Object.keys(product.specifications).length > 0);
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -67,6 +71,47 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </Card>
         </div>
       </div>
+      
+      {hasDetails && (
+        <div className="mt-12">
+          <Tabs defaultValue="description">
+            <TabsList>
+              {product.longDescription && <TabsTrigger value="description">Description</TabsTrigger>}
+              {product.specifications && Object.keys(product.specifications).length > 0 && (
+                <TabsTrigger value="specifications">Specifications</TabsTrigger>
+              )}
+            </TabsList>
+            {product.longDescription && (
+              <TabsContent value="description">
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="prose max-w-none text-card-foreground" dangerouslySetInnerHTML={{ __html: product.longDescription.replace(/\n/g, '<br />') }} />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            )}
+            {product.specifications && Object.keys(product.specifications).length > 0 && (
+              <TabsContent value="specifications">
+                 <Card>
+                  <CardContent className="pt-6">
+                    <Table>
+                      <TableBody>
+                        {Object.entries(product.specifications).map(([key, value]) => (
+                          <TableRow key={key}>
+                            <TableCell className="font-medium">{key}</TableCell>
+                            <TableCell>{value}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            )}
+          </Tabs>
+        </div>
+      )}
+
       <Separator className="my-12" />
       <Suspense fallback={<p className="text-center">Loading recommendations...</p>}>
         <RelatedProducts currentProduct={product} />
