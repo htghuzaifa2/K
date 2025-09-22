@@ -1,24 +1,54 @@
+
 'use client';
 
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import Image from 'next/image';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { Button } from '../ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
 
 type FullscreenImageProps = {
-  imageUrl: string | null;
+  images: string[];
+  startIndex: number | null;
   onOpenChange: (open: boolean) => void;
 };
 
-export function FullscreenImage({ imageUrl, onOpenChange }: FullscreenImageProps) {
+export function FullscreenImage({ images, startIndex, onOpenChange }: FullscreenImageProps) {
+  const [currentIndex, setCurrentIndex] = useState(startIndex);
+
+  useEffect(() => {
+    setCurrentIndex(startIndex);
+  }, [startIndex]);
+  
+  const handleNext = () => {
+    if (currentIndex === null) return;
+    setCurrentIndex((prevIndex) => (prevIndex! + 1) % images.length);
+  };
+
+  const handlePrevious = () => {
+    if (currentIndex === null) return;
+    setCurrentIndex((prevIndex) => (prevIndex! - 1 + images.length) % images.length);
+  };
+
+  const handleDotClick = (index: number) => {
+    setCurrentIndex(index);
+  }
+
+  const isOpen = currentIndex !== null;
+  const imageUrl = isOpen ? images[currentIndex] : null;
+
   return (
-    <Dialog open={!!imageUrl} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="h-screen max-h-screen w-screen max-w-full border-0 bg-black/80 p-4 backdrop-blur-sm">
         <VisuallyHidden>
             <DialogTitle>Fullscreen Product Image</DialogTitle>
             <DialogDescription>
-                A larger view of the product image. Press escape to close.
-            </DialogDescription>
+                A larger view of the product image. Use arrow buttons or dots to navigate. Press escape to close.
+            </Dialog-Description>
         </VisuallyHidden>
+        
         {imageUrl && (
           <div className="relative h-full w-full">
             <Image
@@ -30,6 +60,43 @@ export function FullscreenImage({ imageUrl, onOpenChange }: FullscreenImageProps
             />
           </div>
         )}
+
+        {images.length > 1 && (
+            <>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 text-white hover:bg-black/75 hover:text-white"
+                    onClick={handlePrevious}
+                >
+                    <ChevronLeft className="h-6 w-6" />
+                    <span className="sr-only">Previous Image</span>
+                </Button>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 text-white hover:bg-black/75 hover:text-white"
+                    onClick={handleNext}
+                >
+                    <ChevronRight className="h-6 w-6" />
+                    <span className="sr-only">Next Image</span>
+                </Button>
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center gap-2">
+                    {images.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => handleDotClick(index)}
+                        className={cn(
+                        'h-2 w-2 rounded-full transition-all bg-white/50',
+                        currentIndex === index ? 'w-4 bg-white' : 'hover:bg-white/75'
+                        )}
+                        aria-label={`Go to image ${index + 1}`}
+                    />
+                    ))}
+                </div>
+            </>
+        )}
+
       </DialogContent>
     </Dialog>
   );

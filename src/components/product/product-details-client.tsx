@@ -19,7 +19,7 @@ type ProductDetailsClientProps = {
 };
 
 export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
-  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+  const [fullscreenImageIndex, setFullscreenImageIndex] = useState<number | null>(null);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
@@ -74,7 +74,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                           variant="ghost"
                           size="icon"
                           className="absolute top-2 right-2 z-10 h-8 w-8 rounded-full bg-black/50 text-white hover:bg-black/75 hover:text-white"
-                          onClick={() => setFullscreenImage(img)}
+                          onClick={() => setFullscreenImageIndex(index)}
                         >
                           <Maximize className="h-4 w-4" />
                           <span className="sr-only">View fullscreen</span>
@@ -163,10 +163,11 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
         )}
       </div>
       <FullscreenImage
-        imageUrl={fullscreenImage}
+        images={product.images}
+        startIndex={fullscreenImageIndex}
         onOpenChange={(isOpen) => {
           if (!isOpen) {
-            setFullscreenImage(null);
+            setFullscreenImageIndex(null);
           }
         }}
       />
