@@ -4,10 +4,9 @@
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import Image from 'next/image';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { Button } from '../ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useState, type ComponentProps } from 'react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
-import { useEffect, useState, useCallback } from 'react';
 
 type FullscreenImageProps = {
   images: string[];
@@ -16,51 +15,47 @@ type FullscreenImageProps = {
 };
 
 export function FullscreenImage({ images, startIndex, onOpenChange }: FullscreenImageProps) {
-  const [currentIndex, setCurrentIndex] = useState(startIndex);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    setCurrentIndex(startIndex);
-  }, [startIndex]);
-
-  const handleNext = useCallback(() => {
-    if (currentIndex === null) return;
-    setCurrentIndex((prevIndex) => (prevIndex! + 1) % images.length);
-  }, [currentIndex, images.length]);
-
-  const handlePrevious = useCallback(() => {
-    if (currentIndex === null) return;
-    setCurrentIndex((prevIndex) => (prevIndex! - 1 + images.length) % images.length);
-  }, [currentIndex, images.length]);
-
-  const handleDotClick = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowRight') {
-        handleNext();
-      } else if (event.key === 'ArrowLeft') {
-        handlePrevious();
+    if (startIndex !== null) {
+      setCurrent(startIndex);
+      if (api) {
+        api.scrollTo(startIndex, true);
       }
+    }
+  }, [startIndex, api]);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    const onSelect = (api: CarouselApi) => {
+      setCurrent(api.selectedScrollSnap());
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    api.on('select', onSelect);
+
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      api.off('select', onSelect);
     };
-  }, [handleNext, handlePrevious]);
+  }, [api]);
 
-  const isOpen = currentIndex !== null;
-  const imageUrl = isOpen ? images[currentIndex] : null;
-
+  const isOpen = startIndex !== null;
+  
   if (!isOpen) {
     return null;
   }
+
+  const handleDotClick = (index: number) => {
+    api?.scrollTo(index);
+  };
   
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="h-screen max-h-screen w-screen max-w-full border-0 bg-black/80 p-4 backdrop-blur-sm">
+      <DialogContent className="h-screen max-h-screen w-screen max-w-full border-0 bg-black/80 p-0 text-white backdrop-blur-sm">
         <VisuallyHidden>
             <DialogTitle>Fullscreen Product Image</DialogTitle>
             <DialogDescription>
@@ -68,54 +63,52 @@ export function FullscreenImage({ images, startIndex, onOpenChange }: Fullscreen
             </DialogDescription>
         </VisuallyHidden>
         
-        {imageUrl && (
-          <div className="relative h-full w-full">
-            <Image
-              src={imageUrl}
-              alt="Fullscreen product view"
-              fill
-              className="object-contain"
-              sizes="100vw"
-            />
-          </div>
-        )}
-
-        {images.length > 1 && (
-            <>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 text-white hover:bg-black/75 hover:text-white"
-                    onClick={handlePrevious}
-                >
-                    <ChevronLeft className="h-6 w-6" />
-                    <span className="sr-only">Previous Image</span>
-                </Button>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 text-white hover:bg-black/75 hover:text-white"
-                    onClick={handleNext}
-                >
-                    <ChevronRight className="h-6 w-6" />
-                    <span className="sr-only">Next Image</span>
-                </Button>
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center gap-2">
-                    {images.map((_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handleDotClick(index)}
-                        className={cn(
-                        'h-2 w-2 rounded-full transition-all bg-white/50',
-                        currentIndex === index ? 'w-4 bg-white' : 'hover:bg-white/75'
-                        )}
-                        aria-label={`Go to image ${index + 1}`}
-                    />
+        <div className="relative h-full w-full">
+            <Carousel 
+                setApi={setApi} 
+                className="h-full w-full"
+                opts={{
+                    loop: true,
+                    startIndex: startIndex ?? 0,
+                }}
+            >
+                <CarouselContent className="h-full">
+                    {images.map((img, index) => (
+                        <CarouselItem key={index} className="h-full">
+                            <div className="relative h-full w-full">
+                                <Image
+                                    src={img}
+                                    alt={`Fullscreen product view ${index + 1}`}
+                                    fill
+                                    className="object-contain"
+                                    sizes="100vw"
+                                />
+                            </div>
+                        </CarouselItem>
                     ))}
-                </div>
-            </>
-        )}
-
+                </CarouselContent>
+                
+                {images.length > 1 && (
+                    <>
+                        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 text-white hover:bg-black/75 hover:text-white" />
+                        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 text-white hover:bg-black/75 hover:text-white" />
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center gap-2">
+                            {images.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleDotClick(index)}
+                                className={cn(
+                                'h-2 w-2 rounded-full transition-all bg-white/50',
+                                current === index ? 'w-4 bg-white' : 'hover:bg-white/75'
+                                )}
+                                aria-label={`Go to image ${index + 1}`}
+                            />
+                            ))}
+                        </div>
+                    </>
+                )}
+            </Carousel>
+        </div>
       </DialogContent>
     </Dialog>
   );
