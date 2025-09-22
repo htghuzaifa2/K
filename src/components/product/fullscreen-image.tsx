@@ -75,7 +75,7 @@ export function FullscreenImage({ images, startIndex, onOpenChange }: Fullscreen
                 <CarouselContent className="h-full">
                     {images.map((img, index) => (
                         <CarouselItem key={index} className="h-full">
-                            <div className="relative h-full w-full">
+                            <div className="relative h-full w-full flex items-center justify-center">
                                 <Image
                                     src={img}
                                     alt={`Fullscreen product view ${index + 1}`}
