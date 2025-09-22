@@ -29,7 +29,7 @@ export function ProductGridLoader() {
   const [products, setProducts] = useState<AppProduct[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Start with loading true for initial fetch
   const ref = useRef(null);
   const isInView = useInView(ref);
 
@@ -37,9 +37,16 @@ export function ProductGridLoader() {
     if (isLoading || !hasMore) return;
     setIsLoading(true);
     const newProducts = await serverFetchProducts({ page: page + 1, limit: BATCH_SIZE });
-    setProducts((prev) => [...prev, ...newProducts]);
-    setPage((prev) => prev + 1);
-    setHasMore(newProducts.length === BATCH_SIZE);
+    
+    if (newProducts.length > 0) {
+      setProducts((prev) => [...prev, ...newProducts]);
+      setPage((prev) => prev + 1);
+    }
+    
+    if (newProducts.length < BATCH_SIZE) {
+      setHasMore(false);
+    }
+
     setIsLoading(false);
   }, [page, isLoading, hasMore]);
 
@@ -48,31 +55,36 @@ export function ProductGridLoader() {
         setIsLoading(true);
         const initialProducts = await serverFetchProducts({ page: 1, limit: BATCH_SIZE });
         setProducts(initialProducts);
-        setHasMore(initialProducts.length === BATCH_SIZE);
+        if (initialProducts.length < BATCH_SIZE) {
+          setHasMore(false);
+        }
         setIsLoading(false);
     }
     getInitialProducts();
   }, []);
 
   useEffect(() => {
-    if (isInView) {
+    // Only trigger loadMore if it's not the initial load
+    if (isInView && !isLoading) {
       loadMoreProducts();
     }
-  }, [isInView, loadMoreProducts]);
+  }, [isInView, isLoading, loadMoreProducts]);
 
   return (
-    <>
+    <div className="min-h-[100vh]">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
       <div ref={ref} className="mt-8 h-10 w-full">
-        {hasMore && <ProductGridSkeleton />}
+        {hasMore && (
+          <ProductGridSkeleton />
+        )}
       </div>
        {!hasMore && products.length > 0 && (
          <p className="mt-8 text-center text-muted-foreground">You&apos;ve reached the end!</p>
        )}
-    </>
+    </div>
   );
 }
