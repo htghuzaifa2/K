@@ -6,12 +6,13 @@ import { fetchProducts as serverFetchProducts } from '@/app/actions';
 import { ProductCard } from './product-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
+import { ProductGrid } from './product-grid';
 
-const BATCH_SIZE = 10;
+const BATCH_SIZE = 25;
 
 function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {Array.from({ length: BATCH_SIZE }).map((_, i) => (
         <div key={i} className="flex flex-col space-y-3">
           <Skeleton className="h-[250px] w-full rounded-xl" />
@@ -29,38 +30,39 @@ export function ProductGridLoader() {
   const [products, setProducts] = useState<AppProduct[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const loadProducts = useCallback(async (pageToLoad: number) => {
+  const loadMoreProducts = useCallback(async () => {
+    if (isLoading || !hasMore) return;
+
     setIsLoading(true);
-    const newProducts = await serverFetchProducts({ page: pageToLoad, limit: BATCH_SIZE });
+    const nextPage = page + 1;
+    const newProducts = await serverFetchProducts({ page: nextPage, limit: BATCH_SIZE });
     
-    setProducts(newProducts);
-    setPage(pageToLoad);
+    if (newProducts.length > 0) {
+      setProducts(prev => [...prev, ...newProducts]);
+      setPage(nextPage);
+    }
     
-    // Simple check to see if there are more products
-    const moreProductsCheck = await serverFetchProducts({ page: pageToLoad + 1, limit: 1 });
-    setHasMore(moreProductsCheck.length > 0);
-    
+    if (newProducts.length < BATCH_SIZE) {
+      setHasMore(false);
+    }
+
     setIsLoading(false);
-    window.scrollTo(0, 0); // Scroll to top on page change
-  }, []);
+  }, [page, hasMore, isLoading]);
 
   useEffect(() => {
-    loadProducts(1);
-  }, [loadProducts]);
-
-  const handlePrevious = () => {
-    if (page > 1) {
-      loadProducts(page - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (hasMore) {
-      loadProducts(page + 1);
-    }
-  };
+    const fetchInitialProducts = async () => {
+      setIsLoading(true);
+      const initialProducts = await serverFetchProducts({ page: 1, limit: BATCH_SIZE });
+      setProducts(initialProducts);
+      setHasMore(initialProducts.length === BATCH_SIZE);
+      setPage(1);
+      setIsLoading(false);
+    };
+    fetchInitialProducts();
+  }, []);
+  
 
   if (isLoading && products.length === 0) {
     return (
@@ -72,24 +74,14 @@ export function ProductGridLoader() {
 
   return (
     <div>
-      {isLoading ? (
-        <ProductGridSkeleton />
-      ) : (
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+      <ProductGrid products={products} />
+      {hasMore && (
+        <div className="mt-8 flex justify-center">
+          <Button onClick={loadMoreProducts} disabled={isLoading}>
+            {isLoading ? 'Loading...' : 'Load More'}
+          </Button>
         </div>
       )}
-
-      <div className="mt-8 flex justify-center gap-4">
-        <Button onClick={handlePrevious} disabled={page <= 1 || isLoading}>
-          Load Previous
-        </Button>
-        <Button onClick={handleNext} disabled={!hasMore || isLoading}>
-          Load More
-        </Button>
-      </div>
     </div>
   );
 }
