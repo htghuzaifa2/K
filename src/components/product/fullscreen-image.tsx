@@ -7,7 +7,7 @@ import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Button } from '../ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 type FullscreenImageProps = {
   images: string[];
@@ -21,24 +21,43 @@ export function FullscreenImage({ images, startIndex, onOpenChange }: Fullscreen
   useEffect(() => {
     setCurrentIndex(startIndex);
   }, [startIndex]);
-  
-  const handleNext = () => {
+
+  const handleNext = useCallback(() => {
     if (currentIndex === null) return;
     setCurrentIndex((prevIndex) => (prevIndex! + 1) % images.length);
-  };
+  }, [currentIndex, images.length]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (currentIndex === null) return;
     setCurrentIndex((prevIndex) => (prevIndex! - 1 + images.length) % images.length);
-  };
+  }, [currentIndex, images.length]);
 
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
-  }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowRight') {
+        handleNext();
+      } else if (event.key === 'ArrowLeft') {
+        handlePrevious();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleNext, handlePrevious]);
 
   const isOpen = currentIndex !== null;
   const imageUrl = isOpen ? images[currentIndex] : null;
 
+  if (!isOpen) {
+    return null;
+  }
+  
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="h-screen max-h-screen w-screen max-w-full border-0 bg-black/80 p-4 backdrop-blur-sm">
@@ -46,7 +65,7 @@ export function FullscreenImage({ images, startIndex, onOpenChange }: Fullscreen
             <DialogTitle>Fullscreen Product Image</DialogTitle>
             <DialogDescription>
                 A larger view of the product image. Use arrow buttons or dots to navigate. Press escape to close.
-            </Dialog-Description>
+            </DialogDescription>
         </VisuallyHidden>
         
         {imageUrl && (
