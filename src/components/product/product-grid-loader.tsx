@@ -7,11 +7,11 @@ import { ProductCard } from './product-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 
-const BATCH_SIZE = 8;
+const BATCH_SIZE = 10;
 
 function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {Array.from({ length: BATCH_SIZE }).map((_, i) => (
         <div key={i} className="flex flex-col space-y-3">
           <Skeleton className="h-[250px] w-full rounded-xl" />
@@ -75,7 +75,7 @@ export function ProductGridLoader() {
       {isLoading ? (
         <ProductGridSkeleton />
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
