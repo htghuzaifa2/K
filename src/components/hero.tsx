@@ -72,7 +72,7 @@ export default function Hero() {
                     alt={slide.headline}
                     fill
                     priority={index === 0}
-                    className="object-cover"
+                    className="object-contain"
                     data-ai-hint={slide.hint}
                   />
                   <div className="absolute inset-0 bg-black/40" />

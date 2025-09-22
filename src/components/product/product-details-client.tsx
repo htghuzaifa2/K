@@ -36,7 +36,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                           src={img}
                           alt={`${product.name} image ${index + 1}`}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           priority={index === 0}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           data-ai-hint="product image"
