@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { AppProduct } from '@/lib/products';
 import { fetchProducts as serverFetchProducts } from '@/app/actions';
 import { ProductCard } from './product-card';
@@ -29,54 +29,41 @@ export function ProductGridLoader() {
   const [products, setProducts] = useState<AppProduct[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const ref = useRef(null);
   const isInView = useInView(ref);
 
-  const loadMoreProducts = useCallback(async () => {
-    if (isLoading || !hasMore) return;
+  const loadMoreProducts = async () => {
     setIsLoading(true);
-    const newProducts = await serverFetchProducts({ page: page + 1, limit: BATCH_SIZE });
-    
+    const newProducts = await serverFetchProducts({ page, limit: BATCH_SIZE });
     if (newProducts.length > 0) {
       setProducts((prev) => [...prev, ...newProducts]);
       setPage((prev) => prev + 1);
     }
-    
     if (newProducts.length < BATCH_SIZE) {
       setHasMore(false);
     }
-
     setIsLoading(false);
-  }, [page, isLoading, hasMore]);
+  };
 
   useEffect(() => {
-    async function getInitialProducts() {
-        setIsLoading(true);
-        const initialProducts = await serverFetchProducts({ page: 1, limit: BATCH_SIZE });
-        setProducts(initialProducts);
-        if (initialProducts.length < BATCH_SIZE) {
-          setHasMore(false);
-        }
-        setIsLoading(false);
-        setIsInitialLoad(false);
+    if (page === 1 && products.length === 0) {
+      loadMoreProducts();
     }
-    getInitialProducts();
   }, []);
 
   useEffect(() => {
-    if (isInView && !isLoading && !isInitialLoad) {
+    if (isInView && !isLoading && hasMore && page > 1) {
       loadMoreProducts();
     }
-  }, [isInView, isLoading, isInitialLoad, loadMoreProducts]);
+  }, [isInView, isLoading, hasMore, page]);
 
-  if (isInitialLoad) {
+  if (isLoading && page === 1) {
     return (
-      <div className="min-h-[calc(100vh-200px)]"> 
+      <div className="min-h-screen"> 
         <ProductGridSkeleton />
       </div>
-    )
+    );
   }
 
   return (
