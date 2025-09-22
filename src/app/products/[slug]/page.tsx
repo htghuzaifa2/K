@@ -1,7 +1,7 @@
 'use client';
 
 import { getProductBySlug } from '@/lib/products';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
@@ -17,19 +17,15 @@ import { Maximize } from 'lucide-react';
 import { FullscreenImage } from '@/components/product/fullscreen-image';
 import ProductLoading from './loading';
 
-type ProductPageProps = {
-  params: {
-    slug: string;
-  };
-};
-
-export default function ProductPage({ params }: ProductPageProps) {
+export default function ProductPage() {
   const [product, setProduct] = useState<AppProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
-  const { slug } = params;
+  const params = useParams();
+  const slug = params.slug as string;
 
   useEffect(() => {
+    if (!slug) return;
     const fetchProduct = async () => {
       setLoading(true);
       const fetchedProduct = await getProductBySlug(slug);
