@@ -1,3 +1,5 @@
+'use client';
+
 import { getProductBySlug } from '@/lib/products';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
@@ -5,10 +7,15 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { AddToCartButton } from '@/components/product/add-to-cart-button';
 import { RelatedProducts } from '@/components/product/related-products';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import type { AppProduct } from '@/lib/products';
+import { Button } from '@/components/ui/button';
+import { Maximize } from 'lucide-react';
+import { FullscreenImage } from '@/components/product/fullscreen-image';
+import ProductLoading from './loading';
 
 type ProductPageProps = {
   params: {
@@ -16,8 +23,24 @@ type ProductPageProps = {
   };
 };
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await getProductBySlug(params.slug);
+export default function ProductPage({ params }: ProductPageProps) {
+  const [product, setProduct] = useState<AppProduct | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      setLoading(true);
+      const fetchedProduct = await getProductBySlug(params.slug);
+      setProduct(fetchedProduct);
+      setLoading(false);
+    };
+    fetchProduct();
+  }, [params.slug]);
+
+  if (loading) {
+    return <ProductLoading />;
+  }
 
   if (!product) {
     notFound();
@@ -26,6 +49,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const hasDetails = product.longDescription || (product.specifications && Object.keys(product.specifications).length > 0);
 
   return (
+    <>
     <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <div>
@@ -47,6 +71,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
                        <div className="absolute top-2 left-2 z-10 rounded-full bg-black/50 px-3 py-1 text-xs font-bold text-white">
                         ID: {product.id}
                       </div>
+                      <Button
+                          variant="ghost"
+                          size="icon"
+                          className="absolute top-2 right-2 z-10 h-8 w-8 rounded-full bg-black/50 text-white hover:bg-black/75 hover:text-white"
+                          onClick={() => setFullscreenImage(img)}
+                        >
+                          <Maximize className="h-4 w-4" />
+                          <span className="sr-only">View fullscreen</span>
+                        </Button>
                     </CardContent>
                   </Card>
                 </CarouselItem>
@@ -120,5 +153,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <RelatedProducts currentProduct={product} />
       </Suspense>
     </div>
+    <FullscreenImage
+        imageUrl={fullscreenImage}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) {
+            setFullscreenImage(null);
+          }
+        }}
+      />
+    </>
   );
 }
