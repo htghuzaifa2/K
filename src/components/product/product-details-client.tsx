@@ -1,9 +1,10 @@
+
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { AddToCartButton } from '@/components/product/add-to-cart-button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
@@ -11,6 +12,7 @@ import type { AppProduct } from '@/lib/products';
 import { Button } from '@/components/ui/button';
 import { Maximize } from 'lucide-react';
 import { FullscreenImage } from '@/components/product/fullscreen-image';
+import { cn } from '@/lib/utils';
 
 type ProductDetailsClientProps = {
   product: AppProduct;
@@ -18,15 +20,39 @@ type ProductDetailsClientProps = {
 
 export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    const onSelect = (api: CarouselApi) => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    };
+    
+    api.on('select', onSelect);
+
+    return () => {
+      api.off('select', onSelect);
+    };
+  }, [api]);
 
   const hasDetails = product.longDescription || (product.specifications && Object.keys(product.specifications).length > 0);
+
+  const handleDotClick = (index: number) => {
+    api?.scrollTo(index);
+  };
 
   return (
     <>
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div>
-            <Carousel className="w-full">
+            <Carousel setApi={setApi} className="w-full">
               <CarouselContent>
                 {product.images.map((img, index) => (
                   <CarouselItem key={index}>
@@ -61,6 +87,21 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
               <CarouselPrevious className="left-4" />
               <CarouselNext className="right-4" />
             </Carousel>
+             {product.images.length > 1 && (
+              <div className="mt-4 flex justify-center gap-2">
+                {product.images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleDotClick(index)}
+                    className={cn(
+                      'h-2 w-2 rounded-full transition-all',
+                      current === index + 1 ? 'w-4 bg-primary' : 'bg-muted'
+                    )}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
