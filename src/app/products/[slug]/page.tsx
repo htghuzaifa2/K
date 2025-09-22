@@ -55,19 +55,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
 
         <div>
-          <Card>
+          <Card className="flex h-full flex-col">
             <CardHeader>
               <CardTitle className="font-headline text-4xl">{product.name}</CardTitle>
-              <p className="text-3xl font-bold text-primary">PKR {product.price}</p>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-grow space-y-4">
               <CardDescription className="text-base">{product.description}</CardDescription>
-              <div className="mt-6">
-                <AddToCartButton product={product} size="lg">
-                  Add to Cart
-                </AddToCartButton>
-              </div>
+              <p className="text-3xl font-bold text-primary">PKR {product.price}</p>
             </CardContent>
+            <div className="p-6 pt-0">
+              <AddToCartButton product={product} size="lg" className="w-full">
+                Add to Cart
+              </AddToCartButton>
+            </div>
           </Card>
         </div>
       </div>
