@@ -27,16 +27,17 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [product, setProduct] = useState<AppProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+  const { slug } = params;
 
   useEffect(() => {
-    const fetchProduct = async (slug: string) => {
+    const fetchProduct = async () => {
       setLoading(true);
       const fetchedProduct = await getProductBySlug(slug);
       setProduct(fetchedProduct);
       setLoading(false);
     };
-    fetchProduct(params.slug);
-  }, [params.slug]);
+    fetchProduct();
+  }, [slug]);
 
   if (loading) {
     return <ProductLoading />;
