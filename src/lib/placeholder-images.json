@@ -1,3 +1,148 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "prod_001_img_1",
+      "description": "Cosmic Dream Tee front",
+      "imageUrl": "/placeholder-1.jpg",
+      "imageHint": "space t-shirt"
+    },
+    {
+      "id": "prod_001_img_2",
+      "description": "Cosmic Dream Tee back",
+      "imageUrl": "/placeholder-2.jpg",
+      "imageHint": "galaxy print"
+    },
+    {
+      "id": "prod_002_img_1",
+      "description": "Urban Explorer Hoodie front",
+      "imageUrl": "/placeholder-3.jpg",
+      "imageHint": "gray hoodie"
+    },
+    {
+      "id": "prod_002_img_2",
+      "description": "Urban Explorer Hoodie detail",
+      "imageUrl": "/placeholder-4.jpg",
+      "imageHint": "hoodie fabric"
+    },
+    {
+      "id": "prod_003_img_1",
+      "description": "Retro Wave Sneakers side",
+      "imageUrl": "/placeholder-5.jpg",
+      "imageHint": "colorful sneakers"
+    },
+    {
+      "id": "prod_003_img_2",
+      "description": "Retro Wave Sneakers top",
+      "imageUrl": "/placeholder-6.jpg",
+      "imageHint": "retro shoes"
+    },
+    {
+      "id": "prod_004_img_1",
+      "description": "Minimalist Chrono Watch face",
+      "imageUrl": "/placeholder-7.jpg",
+      "imageHint": "minimalist watch"
+    },
+    {
+      "id": "prod_004_img_2",
+      "description": "Minimalist Chrono Watch on wrist",
+      "imageUrl": "/placeholder-8.jpg",
+      "imageHint": "watch lifestyle"
+    },
+    {
+      "id": "prod_005_img_1",
+      "description": "Nomad Tech Backpack front",
+      "imageUrl": "/placeholder-9.jpg",
+      "imageHint": "black backpack"
+    },
+    {
+      "id": "prod_005_img_2",
+      "description": "Nomad Tech Backpack open",
+      "imageUrl": "/placeholder-10.jpg",
+      "imageHint": "tech bag"
+    },
+    {
+      "id": "prod_006_img_1",
+      "description": "Performance Joggers front",
+      "imageUrl": "/placeholder-11.jpg",
+      "imageHint": "sports joggers"
+    },
+    {
+      "id": "prod_006_img_2",
+      "description": "Performance Joggers action",
+      "imageUrl": "/placeholder-12.jpg",
+      "imageHint": "running pants"
+    },
+    {
+      "id": "prod_007_img_1",
+      "description": "Classic Denim Jacket",
+      "imageUrl": "/placeholder-13.jpg",
+      "imageHint": "denim jacket"
+    },
+    {
+      "id": "prod_007_img_2",
+      "description": "Classic Denim Jacket lifestyle",
+      "imageUrl": "/placeholder-14.jpg",
+      "imageHint": "jean jacket"
+    },
+    {
+      "id": "prod_008_img_1",
+      "description": "Vista Polarized Sunglasses",
+      "imageUrl": "/placeholder-15.jpg",
+      "imageHint": "black sunglasses"
+    },
+    {
+      "id": "prod_008_img_2",
+      "description": "Vista Polarized Sunglasses lifestyle",
+      "imageUrl": "/placeholder-16.jpg",
+      "imageHint": "sunglasses fashion"
+    },
+    {
+      "id": "prod_009_img_1",
+      "description": "Organic Cotton Beanie",
+      "imageUrl": "/placeholder-17.jpg",
+      "imageHint": "black beanie"
+    },
+    {
+      "id": "prod_009_img_2",
+      "description": "Organic Cotton Beanie worn",
+      "imageUrl": "/placeholder-18.jpg",
+      "imageHint": "winter hat"
+    },
+    {
+      "id": "prod_010_img_1",
+      "description": "Aero-Light Windbreaker",
+      "imageUrl": "/placeholder-19.jpg",
+      "imageHint": "light jacket"
+    },
+    {
+      "id": "prod_010_img_2",
+      "description": "Aero-Light Windbreaker action",
+      "imageUrl": "/placeholder-20.jpg",
+      "imageHint": "running jacket"
+    },
+    {
+      "id": "prod_011_img_1",
+      "description": "Everyday Leather Belt",
+      "imageUrl": "/placeholder-21.jpg",
+      "imageHint": "leather belt"
+    },
+    {
+      "id": "prod_011_img_2",
+      "description": "Everyday Leather Belt buckle",
+      "imageUrl": "/placeholder-22.jpg",
+      "imageHint": "belt buckle"
+    },
+    {
+      "id": "prod_012_img_1",
+      "description": "Breeze Linen Shirt",
+      "imageUrl": "/placeholder-23.jpg",
+      "imageHint": "white shirt"
+    },
+    {
+      "id": "prod_012_img_2",
+      "description": "Breeze Linen Shirt fabric",
+      "imageUrl": "/placeholder-24.jpg",
+      "imageHint": "linen fabric"
+    }
+  ]
 }

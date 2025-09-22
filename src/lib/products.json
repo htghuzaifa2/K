@@ -1,0 +1,122 @@
+[
+  {
+    "id": "prod_001",
+    "slug": "cosmic-dream-tee",
+    "name": "Cosmic Dream Tee",
+    "description": "A t-shirt that's out of this world. Made from 100% premium cotton, this tee features a stunning cosmic print that is sure to turn heads. Perfect for dreamers and stargazers.",
+    "price": 29.99,
+    "category": "T-Shirts",
+    "images": ["/placeholder-1.jpg", "/placeholder-2.jpg"],
+    "createdAt": "2024-07-21T10:00:00Z"
+  },
+  {
+    "id": "prod_002",
+    "slug": "urban-explorer-hoodie",
+    "name": "Urban Explorer Hoodie",
+    "description": "Stay warm and stylish on your city adventures. This hoodie is crafted from a soft fleece blend and features a minimalist design with a modern fit. Your go-to for chilly evenings.",
+    "price": 59.99,
+    "category": "Hoodies",
+    "images": ["/placeholder-3.jpg", "/placeholder-4.jpg"],
+    "createdAt": "2024-07-20T11:30:00Z"
+  },
+  {
+    "id": "prod_003",
+    "slug": "retro-wave-sneakers",
+    "name": "Retro Wave Sneakers",
+    "description": "Step back in time with these 80s inspired sneakers. Combining classic style with modern comfort, they feature a cushioned sole and a vibrant color palette. Lace up and feel the nostalgia.",
+    "price": 89.99,
+    "category": "Shoes",
+    "images": ["/placeholder-5.jpg", "/placeholder-6.jpg"],
+    "createdAt": "2024-07-19T09:00:00Z"
+  },
+  {
+    "id": "prod_004",
+    "slug": "minimalist-chrono-watch",
+    "name": "Minimalist Chrono Watch",
+    "description": "Elegance in simplicity. This watch boasts a clean, minimalist face, a genuine leather strap, and precise chronograph movement. A timeless accessory for any occasion.",
+    "price": 149.99,
+    "category": "Accessories",
+    "images": ["/placeholder-7.jpg", "/placeholder-8.jpg"],
+    "createdAt": "2024-07-18T14:00:00Z"
+  },
+  {
+    "id": "prod_005",
+    "slug": "nomad-tech-backpack",
+    "name": "Nomad Tech Backpack",
+    "description": "The ultimate backpack for the modern traveler. With dedicated compartments for your laptop and gadgets, durable water-resistant material, and an ergonomic design for comfort.",
+    "price": 79.99,
+    "category": "Accessories",
+    "images": ["/placeholder-9.jpg", "/placeholder-10.jpg"],
+    "createdAt": "2024-07-17T16:20:00Z"
+  },
+  {
+    "id": "prod_006",
+    "slug": "performance-joggers",
+    "name": "Performance Joggers",
+    "description": "Engineered for movement. These joggers are made from a lightweight, stretchable fabric that wicks away moisture, keeping you comfortable whether you're at the gym or on the go.",
+    "price": 49.99,
+    "category": "Pants",
+    "images": ["/placeholder-11.jpg", "/placeholder-12.jpg"],
+    "createdAt": "2024-07-16T08:45:00Z"
+  },
+  {
+    "id": "prod_007",
+    "slug": "classic-denim-jacket",
+    "name": "Classic Denim Jacket",
+    "description": "A wardrobe staple that never goes out of style. Our denim jacket is crafted from high-quality denim with a comfortable fit, perfect for layering over any outfit.",
+    "price": 99.99,
+    "category": "Jackets",
+    "images": ["/placeholder-13.jpg", "/placeholder-14.jpg"],
+    "createdAt": "2024-07-15T12:00:00Z"
+  },
+  {
+    "id": "prod_008",
+    "slug": "vista-polarized-sunglasses",
+    "name": "Vista Polarized Sunglasses",
+    "description": "Protect your eyes with style. The Vista sunglasses feature polarized lenses to reduce glare and provide 100% UV protection, all in a sleek, modern frame.",
+    "price": 69.99,
+    "category": "Accessories",
+    "images": ["/placeholder-15.jpg", "/placeholder-16.jpg"],
+    "createdAt": "2024-07-14T13:10:00Z"
+  },
+  {
+    "id": "prod_009",
+    "slug": "organic-cotton-beanie",
+    "name": "Organic Cotton Beanie",
+    "description": "Simple, soft, and sustainable. This beanie is made from 100% organic cotton for a comfortable, breathable fit that keeps you warm without overheating.",
+    "price": 24.99,
+    "category": "Accessories",
+    "images": ["/placeholder-17.jpg", "/placeholder-18.jpg"],
+    "createdAt": "2024-07-13T10:00:00Z"
+  },
+  {
+    "id": "prod_010",
+    "slug": "aero-light-windbreaker",
+    "name": "Aero-Light Windbreaker",
+    "description": "Feather-light and ready for anything. This windbreaker is designed to pack down small and provide essential protection from wind and light rain. Ideal for runners and cyclists.",
+    "price": 74.99,
+    "category": "Jackets",
+    "images": ["/placeholder-19.jpg", "/placeholder-20.jpg"],
+    "createdAt": "2024-07-12T11:00:00Z"
+  },
+  {
+    "id": "prod_011",
+    "slug": "everyday-leather-belt",
+    "name": "Everyday Leather Belt",
+    "description": "The perfect finishing touch. Made from genuine full-grain leather, this belt is built to last and will develop a unique patina over time. A classic accessory for any wardrobe.",
+    "price": 44.99,
+    "category": "Accessories",
+    "images": ["/placeholder-21.jpg", "/placeholder-22.jpg"],
+    "createdAt": "2024-07-11T15:00:00Z"
+  },
+  {
+    "id": "prod_012",
+    "slug": "breeze-linen-shirt",
+    "name": "Breeze Linen Shirt",
+    "description": "Stay cool and look sharp. This shirt is woven from 100% pure linen, making it exceptionally breathable and perfect for warm weather. Effortless style for any sunny day.",
+    "price": 64.99,
+    "category": "Shirts",
+    "images": ["/placeholder-23.jpg", "/placeholder-24.jpg"],
+    "createdAt": "2024-07-10T10:30:00Z"
+  }
+]
