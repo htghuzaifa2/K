@@ -17,8 +17,9 @@ export function ProductCard({ product }: ProductCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
+      className="flex flex-col"
     >
-      <Card className="overflow-hidden rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-xl">
+      <Card className="flex flex-col flex-grow overflow-hidden rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-xl">
         <CardContent className="p-0">
           <div className="group relative">
             <Link href={`/products/${product.slug}`}>
@@ -34,8 +35,8 @@ export function ProductCard({ product }: ProductCardProps) {
               </div>
             </Link>
           </div>
-          <div className="p-4">
-            <h3 className="truncate text-lg font-semibold font-headline">
+          <div className="p-4 flex flex-col flex-grow">
+            <h3 className="text-lg font-semibold font-headline min-h-[56px] flex-grow">
               <Link href={`/products/${product.slug}`}>{product.name}</Link>
             </h3>
             <div className="mt-2 flex items-center justify-between">

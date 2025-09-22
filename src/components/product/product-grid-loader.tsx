@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import type { AppProduct } from '@/lib/products';
 import { fetchProducts as serverFetchProducts } from '@/app/actions';
 import { ProductCard } from './product-card';
@@ -29,36 +29,41 @@ export function ProductGridLoader() {
   const [products, setProducts] = useState<AppProduct[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref);
 
-  const loadMoreProducts = async () => {
+  const loadMoreProducts = useCallback(async () => {
+    if (isLoading || !hasMore) return;
+
     setIsLoading(true);
     const newProducts = await serverFetchProducts({ page, limit: BATCH_SIZE });
+    
     if (newProducts.length > 0) {
       setProducts((prev) => [...prev, ...newProducts]);
       setPage((prev) => prev + 1);
     }
+    
     if (newProducts.length < BATCH_SIZE) {
       setHasMore(false);
     }
+    
     setIsLoading(false);
-  };
+  }, [page, isLoading, hasMore]);
 
   useEffect(() => {
-    if (page === 1 && products.length === 0) {
+    if (page === 1) {
       loadMoreProducts();
     }
-  }, []);
+  }, [loadMoreProducts, page]);
 
   useEffect(() => {
     if (isInView && !isLoading && hasMore && page > 1) {
       loadMoreProducts();
     }
-  }, [isInView, isLoading, hasMore, page]);
+  }, [isInView, isLoading, hasMore, page, loadMoreProducts]);
 
-  if (isLoading && page === 1) {
+  if (products.length === 0 && isLoading) {
     return (
       <div className="min-h-screen"> 
         <ProductGridSkeleton />
