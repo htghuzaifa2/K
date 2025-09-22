@@ -29,7 +29,8 @@ export function ProductGridLoader() {
   const [products, setProducts] = useState<AppProduct[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(true); // Start with loading true for initial fetch
+  const [isLoading, setIsLoading] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const ref = useRef(null);
   const isInView = useInView(ref);
 
@@ -59,19 +60,27 @@ export function ProductGridLoader() {
           setHasMore(false);
         }
         setIsLoading(false);
+        setIsInitialLoad(false);
     }
     getInitialProducts();
   }, []);
 
   useEffect(() => {
-    // Only trigger loadMore if it's not the initial load
-    if (isInView && !isLoading) {
+    if (isInView && !isLoading && !isInitialLoad) {
       loadMoreProducts();
     }
-  }, [isInView, isLoading, loadMoreProducts]);
+  }, [isInView, isLoading, isInitialLoad, loadMoreProducts]);
+
+  if (isInitialLoad) {
+    return (
+      <div className="min-h-[calc(100vh-200px)]"> 
+        <ProductGridSkeleton />
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-[100vh]">
+    <div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
@@ -79,7 +88,9 @@ export function ProductGridLoader() {
       </div>
       <div ref={ref} className="mt-8 h-10 w-full">
         {hasMore && (
-          <ProductGridSkeleton />
+          <div className="mt-8">
+            <ProductGridSkeleton />
+          </div>
         )}
       </div>
        {!hasMore && products.length > 0 && (
