@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { getProducts } from '@/lib/products';
-import type { Product } from '@/lib/types';
+import type { AppProduct } from '@/lib/products';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ScrollArea } from '../ui/scroll-area';
@@ -20,8 +20,8 @@ import { ScrollArea } from '../ui/scroll-area';
 export function SearchOverlay() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<AppProduct[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<AppProduct[]>([]);
 
   useEffect(() => {
     if (isOpen && allProducts.length === 0) {

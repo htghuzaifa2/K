@@ -1,14 +1,13 @@
 import { getRelatedProducts } from '@/ai/flows/related-product-recommendations';
-import { getProductsByNames } from '@/lib/products';
-import type { Product } from '@/lib/types';
+import { getProductsByNames, type AppProduct } from '@/lib/products';
 import { ProductCard } from './product-card';
 
 type RelatedProductsProps = {
-  currentProduct: Product;
+  currentProduct: AppProduct;
 };
 
 export async function RelatedProducts({ currentProduct }: RelatedProductsProps) {
-  let relatedProductsList: Product[] = [];
+  let relatedProductsList: AppProduct[] = [];
   try {
     const recommendations = await getRelatedProducts({
       productName: currentProduct.name,

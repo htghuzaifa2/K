@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import type { Product } from '@/lib/types';
-import { fetchProducts } from '@/app/actions';
+import type { AppProduct } from '@/lib/products';
+import { fetchProducts as serverFetchProducts } from '@/app/actions';
 import { ProductCard } from './product-card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useInView } from 'framer-motion';
@@ -26,7 +26,7 @@ function ProductGridSkeleton() {
 }
 
 export function ProductGridLoader() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<AppProduct[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +36,7 @@ export function ProductGridLoader() {
   const loadMoreProducts = useCallback(async () => {
     if (isLoading || !hasMore) return;
     setIsLoading(true);
-    const newProducts = await fetchProducts({ page: page + 1, limit: BATCH_SIZE });
+    const newProducts = await serverFetchProducts({ page: page + 1, limit: BATCH_SIZE });
     setProducts((prev) => [...prev, ...newProducts]);
     setPage((prev) => prev + 1);
     setHasMore(newProducts.length === BATCH_SIZE);
@@ -46,7 +46,7 @@ export function ProductGridLoader() {
   useEffect(() => {
     async function getInitialProducts() {
         setIsLoading(true);
-        const initialProducts = await fetchProducts({ page: 1, limit: BATCH_SIZE });
+        const initialProducts = await serverFetchProducts({ page: 1, limit: BATCH_SIZE });
         setProducts(initialProducts);
         setHasMore(initialProducts.length === BATCH_SIZE);
         setIsLoading(false);

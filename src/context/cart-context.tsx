@@ -1,12 +1,14 @@
 'use client';
 
 import React, { createContext, useState, useEffect, useCallback } from 'react';
-import type { CartItem, Product } from '@/lib/types';
+import type { CartItem } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
+
+type ProductInCart = CartItem['product'];
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: Product) => void;
+  addToCart: (product: ProductInCart) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -44,7 +46,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [cartItems]);
 
-  const addToCart = useCallback((product: Product) => {
+  const addToCart = useCallback((product: ProductInCart) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.product.id === product.id);
       if (existingItem) {

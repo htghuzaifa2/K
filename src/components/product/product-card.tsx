@@ -2,13 +2,13 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Product } from '@/lib/types';
+import type { AppProduct } from '@/lib/products';
 import { Card, CardContent } from '@/components/ui/card';
 import { AddToCartButton } from './add-to-cart-button';
 import { motion } from 'framer-motion';
 
 type ProductCardProps = {
-  product: Product;
+  product: AppProduct;
 };
 
 export function ProductCard({ product }: ProductCardProps) {

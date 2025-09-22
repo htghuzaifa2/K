@@ -2,18 +2,29 @@
 
 import { Button, type ButtonProps } from '@/components/ui/button';
 import { useCart } from '@/hooks/use-cart';
-import type { Product } from '@/lib/types';
+import type { AppProduct } from '@/lib/products';
 import { ShoppingCart } from 'lucide-react';
 
 type AddToCartButtonProps = {
-  product: Product;
+  product: AppProduct;
 } & ButtonProps;
 
 export function AddToCartButton({ product, ...props }: AddToCartButtonProps) {
   const { addToCart } = useCart();
 
+  const handleAddToCart = () => {
+    const cartProduct = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        images: product.images,
+        slug: product.slug,
+    };
+    addToCart(cartProduct);
+  }
+
   return (
-    <Button size="icon" onClick={() => addToCart(product)} {...props}>
+    <Button size="icon" onClick={handleAddToCart} {...props}>
       <ShoppingCart className="h-4 w-4" />
       <span className="sr-only">Add to cart</span>
     </Button>
