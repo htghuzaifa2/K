@@ -44,6 +44,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         data-ai-hint="product image"
                       />
+                       <div className="absolute top-2 left-2 z-10 rounded-full bg-black/50 px-3 py-1 text-xs font-bold text-white">
+                        ID: {product.id}
+                      </div>
                     </CardContent>
                   </Card>
                 </CarouselItem>
