@@ -5,7 +5,7 @@ type RelatedProductsProps = {
   currentProduct: AppProduct;
 };
 
-const RECOMMENDATION_COUNT = 4;
+const RECOMMENDATION_COUNT = 10;
 
 export async function RelatedProducts({ currentProduct }: RelatedProductsProps) {
   let relatedProductsList: AppProduct[] = [];
@@ -41,7 +41,7 @@ export async function RelatedProducts({ currentProduct }: RelatedProductsProps) 
   return (
     <div>
       <h2 className="mb-6 text-center text-3xl font-bold tracking-tight font-headline">You May Also Like</h2>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {relatedProductsList.slice(0, RECOMMENDATION_COUNT).map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
