@@ -29,13 +29,13 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProduct = async (slug: string) => {
       setLoading(true);
-      const fetchedProduct = await getProductBySlug(params.slug);
+      const fetchedProduct = await getProductBySlug(slug);
       setProduct(fetchedProduct);
       setLoading(false);
     };
-    fetchProduct();
+    fetchProduct(params.slug);
   }, [params.slug]);
 
   if (loading) {
