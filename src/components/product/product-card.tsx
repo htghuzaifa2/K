@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -11,9 +12,15 @@ import { Button } from '@/components/ui/button';
 
 type ProductCardProps = {
   product: AppProduct;
+  onQuickView: (product: AppProduct) => void;
 };
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, onQuickView }: ProductCardProps) {
+  const handleQuickViewClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onQuickView(product);
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -44,6 +51,7 @@ export function ProductCard({ product }: ProductCardProps) {
               variant="secondary"
               className="absolute top-2 right-2 h-8 w-8 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
               aria-label="Product preview"
+              onClick={handleQuickViewClick}
             >
               <Eye className="h-4 w-4" />
             </Button>
