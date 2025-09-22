@@ -89,7 +89,7 @@ export function SearchOverlay() {
                   </div>
                   <div>
                     <p className="font-medium">{product.name}</p>
-                    <p className="text-sm text-muted-foreground">${product.price.toFixed(2)}</p>
+                    <p className="text-sm text-muted-foreground">PKR {product.price.toFixed(2)}</p>
                   </div>
                 </Link>
               ))}

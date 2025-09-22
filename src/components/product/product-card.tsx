@@ -39,7 +39,7 @@ export function ProductCard({ product }: ProductCardProps) {
               <Link href={`/products/${product.slug}`}>{product.name}</Link>
             </h3>
             <div className="mt-2 flex items-center justify-between">
-              <p className="text-xl font-bold text-foreground">${product.price.toFixed(2)}</p>
+              <p className="text-xl font-bold text-foreground">PKR {product.price.toFixed(2)}</p>
               <AddToCartButton product={product} />
             </div>
           </div>

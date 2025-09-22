@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <Card>
             <CardHeader>
               <CardTitle className="font-headline text-4xl">{product.name}</CardTitle>
-              <p className="text-3xl font-bold text-primary">${product.price.toFixed(2)}</p>
+              <p className="text-3xl font-bold text-primary">PKR {product.price.toFixed(2)}</p>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base">{product.description}</CardDescription>
