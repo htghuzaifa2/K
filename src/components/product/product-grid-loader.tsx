@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { AppProduct } from '@/lib/products';
 import { fetchProducts as serverFetchProducts } from '@/app/actions';
 import { ProductCard } from './product-card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useInView } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 
 const BATCH_SIZE = 8;
 
@@ -30,42 +30,41 @@ export function ProductGridLoader() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const ref = useRef(null);
-  const isInView = useInView(ref);
 
-  const loadMoreProducts = useCallback(async () => {
-    if (isLoading || !hasMore) return;
-
+  const loadProducts = useCallback(async (pageToLoad: number) => {
     setIsLoading(true);
-    const newProducts = await serverFetchProducts({ page, limit: BATCH_SIZE });
+    const newProducts = await serverFetchProducts({ page: pageToLoad, limit: BATCH_SIZE });
     
-    if (newProducts.length > 0) {
-      setProducts((prev) => [...prev, ...newProducts]);
-      setPage((prev) => prev + 1);
-    }
+    setProducts(newProducts);
+    setPage(pageToLoad);
     
-    if (newProducts.length < BATCH_SIZE) {
-      setHasMore(false);
-    }
+    // Simple check to see if there are more products
+    const moreProductsCheck = await serverFetchProducts({ page: pageToLoad + 1, limit: 1 });
+    setHasMore(moreProductsCheck.length > 0);
     
     setIsLoading(false);
-  }, [page, isLoading, hasMore]);
+    window.scrollTo(0, 0); // Scroll to top on page change
+  }, []);
 
   useEffect(() => {
-    if (page === 1) {
-      loadMoreProducts();
-    }
-  }, [loadMoreProducts, page]);
+    loadProducts(1);
+  }, [loadProducts]);
 
-  useEffect(() => {
-    if (isInView && !isLoading && hasMore && page > 1) {
-      loadMoreProducts();
+  const handlePrevious = () => {
+    if (page > 1) {
+      loadProducts(page - 1);
     }
-  }, [isInView, isLoading, hasMore, page, loadMoreProducts]);
+  };
 
-  if (products.length === 0 && isLoading) {
+  const handleNext = () => {
+    if (hasMore) {
+      loadProducts(page + 1);
+    }
+  };
+
+  if (isLoading && products.length === 0) {
     return (
-      <div className="min-h-screen"> 
+      <div className="min-h-screen">
         <ProductGridSkeleton />
       </div>
     );
@@ -73,21 +72,24 @@ export function ProductGridLoader() {
 
   return (
     <div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+      {isLoading ? (
+        <ProductGridSkeleton />
+      ) : (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+
+      <div className="mt-8 flex justify-center gap-4">
+        <Button onClick={handlePrevious} disabled={page <= 1 || isLoading}>
+          Load Previous
+        </Button>
+        <Button onClick={handleNext} disabled={!hasMore || isLoading}>
+          Load More
+        </Button>
       </div>
-      <div ref={ref} className="mt-8 h-10 w-full">
-        {hasMore && (
-          <div className="mt-8">
-            <ProductGridSkeleton />
-          </div>
-        )}
-      </div>
-       {!hasMore && products.length > 0 && (
-         <p className="mt-8 text-center text-muted-foreground">You&apos;ve reached the end!</p>
-       )}
     </div>
   );
 }
