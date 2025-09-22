@@ -29,10 +29,10 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
     const itemsText = cartItems
       .map(
         (item) =>
-          `- ${item.product.name} (x${item.quantity}) - PKR ${(item.product.price * item.quantity).toFixed(2)}`
+          `- ${item.product.name} (x${item.quantity}) - PKR ${item.product.price * item.quantity}`
       )
       .join('\n');
-    const totalText = `\n*Total: PKR ${cartTotal.toFixed(2)}*`;
+    const totalText = `\n*Total: PKR ${cartTotal}*`;
     const message = `${WHATSAPP_MESSAGE_HEADER}\n\n${itemsText}\n${totalText}`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`, '_blank');
@@ -64,7 +64,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                       <Link href={`/products/${item.product.slug}`} className="font-medium hover:underline">
                         {item.product.name}
                       </Link>
-                      <p className="text-sm text-muted-foreground">PKR {item.product.price.toFixed(2)}</p>
+                      <p className="text-sm text-muted-foreground">PKR {item.product.price}</p>
                       <UpdateItemQuantity productId={item.product.id} quantity={item.quantity} />
                     </div>
                   </div>
@@ -75,7 +75,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
               <Separator />
               <div className="flex items-center justify-between font-semibold">
                 <span>Total</span>
-                <span>PKR {cartTotal.toFixed(2)}</span>
+                <span>PKR {cartTotal}</span>
               </div>
               <Button onClick={handleCheckout} className="w-full">
                 Checkout via WhatsApp

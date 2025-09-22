@@ -36,11 +36,11 @@ export function ProductCard({ product }: ProductCardProps) {
             </Link>
           </div>
           <div className="p-4 flex flex-col flex-grow">
-            <h3 className="text-lg font-semibold font-headline min-h-[56px] flex-grow">
+            <h3 className="text-lg font-semibold font-headline leading-tight">
               <Link href={`/products/${product.slug}`}>{product.name}</Link>
             </h3>
-            <div className="mt-2 flex items-center justify-between">
-              <p className="text-xl font-bold text-foreground">PKR {product.price.toFixed(2)}</p>
+            <div className="mt-auto pt-2 flex items-center justify-between">
+              <p className="text-xl font-bold text-foreground">PKR {product.price}</p>
               <AddToCartButton product={product} />
             </div>
           </div>
