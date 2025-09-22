@@ -20,7 +20,7 @@ export function ProductCard({ product }: ProductCardProps) {
       className="flex flex-col"
     >
       <Card className="flex flex-col flex-grow overflow-hidden rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-xl">
-        <CardContent className="p-0">
+        <CardContent className="p-0 flex flex-col flex-grow">
           <div className="group relative">
             <Link href={`/products/${product.slug}`}>
               <div className="relative aspect-square w-full overflow-hidden">
