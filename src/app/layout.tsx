@@ -11,7 +11,7 @@ import { ScrollToTop } from '@/components/scroll-to-top';
 
 export const metadata: Metadata = {
   title: APP_NAME,
-  description: 'Discover the latest trends in Pakistani fashion at kimi.pk. Shop our curated collection of high-quality lawn suits, bridal dresses, and contemporary apparel. Experience seamless online shopping and celebrate your style with us.',
+  description: 'Your premier destination for the latest in tech. Shop our curated collection of high-quality gadgets and electronics. Experience seamless online shopping with us.',
 };
 
 export default function RootLayout({
