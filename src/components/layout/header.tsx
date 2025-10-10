@@ -14,7 +14,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Menu } from 'lucide-react';
+import { useState } from 'react';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 
 const navItems = [
   { name: 'Home', href: '/' },
@@ -31,8 +34,25 @@ const otherNavItems = [
     { name: 'Contact', href: '/contact' },
 ];
 
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+    const pathname = usePathname();
+    const isActive = pathname === href;
+    return (
+        <Link
+            href={href}
+            className={cn(
+                'relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
+                'after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full',
+                isActive ? 'text-primary after:w-full' : ''
+            )}
+        >
+            {children}
+        </Link>
+    );
+}
+
 export function Header() {
-  const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -41,18 +61,11 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2">
             <span className="font-bold text-lg font-headline">{APP_NAME}</span>
           </Link>
-          <nav className="hidden items-center gap-4 md:flex">
+          <nav className="hidden items-center gap-6 md:flex">
             {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary',
-                  pathname === item.href ? 'text-primary' : 'text-muted-foreground'
-                )}
-              >
+              <NavLink key={item.href} href={item.href}>
                 {item.name}
-              </Link>
+              </NavLink>
             ))}
              <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none">
@@ -67,23 +80,51 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
             {otherNavItems.map((item) => (
-                <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                    'text-sm font-medium transition-colors hover:text-primary',
-                    pathname === item.href ? 'text-primary' : 'text-muted-foreground'
-                    )}
-                >
+                <NavLink key={item.href} href={item.href}>
                     {item.name}
-                </Link>
+                </NavLink>
             ))}
           </nav>
         </div>
+        
         <div className="flex items-center gap-2">
-          <SearchOverlay />
-          <CartIcon />
-          <ThemeToggle />
+            <div className="hidden md:flex items-center gap-2">
+                <SearchOverlay />
+                <CartIcon />
+                <ThemeToggle />
+            </div>
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <div className="flex flex-col gap-6 p-6">
+              <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+                <span className="font-bold text-lg font-headline">{APP_NAME}</span>
+              </Link>
+                <nav className="flex flex-col gap-4">
+                  {[...navItems, ...categoryItems, ...otherNavItems].map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="text-lg font-medium"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </nav>
+                <div className="flex items-center gap-4 mt-4">
+                    <SearchOverlay />
+                    <CartIcon />
+                    <ThemeToggle />
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
