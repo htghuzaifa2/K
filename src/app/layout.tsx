@@ -10,8 +10,8 @@ import { APP_NAME } from '@/lib/constants';
 import { ScrollToTop } from '@/components/scroll-to-top';
 
 export const metadata: Metadata = {
-  title: `${APP_NAME}`,
-  description: 'Redefining the online shopping experience.',
+  title: APP_NAME,
+  description: 'Discover the latest trends in Pakistani fashion at kimi.pk. Shop our curated collection of high-quality lawn suits, bridal dresses, and contemporary apparel. Experience seamless online shopping and celebrate your style with us.',
 };
 
 export default function RootLayout({
