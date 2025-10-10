@@ -85,7 +85,7 @@ export default function Hero() {
                     {slide.subheadline}
                   </p>
                   <Button asChild size="lg" className="mt-8">
-                    <Link href={slide.link} prefetch={false}>{slide.cta}</Link>
+                    <Link href={slide.link}>{slide.cta}</Link>
                   </Button>
                 </div>
               </div>

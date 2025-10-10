@@ -62,7 +62,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
                   Add to Cart
                 </AddToCartButton>
               <Button asChild variant="outline" className="w-full" onClick={() => onOpenChange(false)}>
-                <Link href={`/products/${product.slug}`} prefetch={false}>View Full Details</Link>
+                <Link href={`/products/${product.slug}`}>View Full Details</Link>
               </Button>
             </div>
           </div>
