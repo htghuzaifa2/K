@@ -8,13 +8,7 @@ import { SearchOverlay } from '@/components/search/search-overlay';
 import { APP_NAME } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ChevronDown, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
@@ -22,16 +16,9 @@ import { Button } from '@/components/ui/button';
 const navItems = [
   { name: 'Home', href: '/' },
   { name: 'All Products', href: '/products' },
-];
-
-const categoryItems = [
-    { name: 'Lawn Suits', href: '/products/category/lawn-suits' },
-    { name: 'Bridal Dresses', href: '/products/category/bridal-dresses' },
-];
-
-const otherNavItems = [
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+  { name: 'Categories', href: '/categories' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -67,23 +54,6 @@ export function Header() {
                 {item.name}
               </NavLink>
             ))}
-             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none">
-                Categories <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {categoryItems.map((item) => (
-                    <DropdownMenuItem key={item.href} asChild>
-                        <Link href={item.href}>{item.name}</Link>
-                    </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            {otherNavItems.map((item) => (
-                <NavLink key={item.href} href={item.href}>
-                    {item.name}
-                </NavLink>
-            ))}
           </nav>
         </div>
         
@@ -106,7 +76,7 @@ export function Header() {
                 <span className="font-bold text-lg font-headline">{APP_NAME}</span>
               </Link>
                 <nav className="flex flex-col gap-4">
-                  {[...navItems, ...categoryItems, ...otherNavItems].map((item) => (
+                  {navItems.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
