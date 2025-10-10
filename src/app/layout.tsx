@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/context/theme-provider';
@@ -6,6 +7,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { APP_NAME } from '@/lib/constants';
+import { ScrollToTop } from '@/components/scroll-to-top';
 
 export const metadata: Metadata = {
   title: `${APP_NAME}`,
@@ -34,6 +36,7 @@ export default function RootLayout({
               <Footer />
             </div>
             <Toaster />
+            <ScrollToTop />
           </CartProvider>
         </ThemeProvider>
       </body>
