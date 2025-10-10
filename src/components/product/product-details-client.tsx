@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import type { AppProduct } from '@/lib/products';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { ShoppingCart } from 'lucide-react';
 
 type ProductDetailsClientProps = {
   product: AppProduct;
@@ -99,16 +100,17 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
           </div>
 
           <div>
-            <Card className="flex h-full flex-col">
+            <Card className="flex h-full flex-col border-0 shadow-none">
               <CardHeader>
-                <CardTitle className="font-headline text-4xl">{product.name}</CardTitle>
+                <CardTitle className="font-headline text-4xl tracking-tight">{product.name}</CardTitle>
               </CardHeader>
-              <CardContent className="flex-grow space-y-4">
-                <CardDescription className="text-base">{product.description}</CardDescription>
-                <p className="text-3xl font-bold text-primary">PKR {product.price}</p>
+              <CardContent className="flex-grow space-y-6">
+                <CardDescription className="text-lg text-muted-foreground">{product.description}</CardDescription>
+                <p className="text-4xl font-extrabold text-primary">PKR {product.price}</p>
               </CardContent>
               <div className="p-6 pt-0">
-                <AddToCartButton product={product} size="lg" className="w-full">
+                <AddToCartButton product={product} size="lg" className="w-full text-lg">
+                  <ShoppingCart className="mr-2 h-5 w-5" />
                   Add to Cart
                 </AddToCartButton>
               </div>
