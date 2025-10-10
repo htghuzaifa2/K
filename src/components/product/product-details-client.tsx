@@ -10,8 +10,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import type { AppProduct } from '@/lib/products';
 import { Button } from '@/components/ui/button';
-import { Maximize } from 'lucide-react';
-import { FullscreenImage } from '@/components/product/fullscreen-image';
 import { cn } from '@/lib/utils';
 
 type ProductDetailsClientProps = {
@@ -19,7 +17,6 @@ type ProductDetailsClientProps = {
 };
 
 export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
-  const [fullscreenImageIndex, setFullscreenImageIndex] = useState<number | null>(null);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
@@ -52,7 +49,13 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div>
-            <Carousel setApi={setApi} className="w-full">
+            <Carousel 
+                setApi={setApi} 
+                className="w-full"
+                opts={{
+                    loop: true,
+                }}
+            >
               <CarouselContent>
                 {product.images.map((img, index) => (
                   <CarouselItem key={index}>
@@ -70,15 +73,6 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                         <div className="absolute top-2 left-2 z-10 rounded-full bg-black/50 px-3 py-1 text-xs font-bold text-white">
                           ID: {product.id}
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="absolute top-2 right-2 z-10 h-8 w-8 rounded-full bg-black/50 text-white hover:bg-black/75 hover:text-white"
-                          onClick={() => setFullscreenImageIndex(index)}
-                        >
-                          <Maximize className="h-4 w-4" />
-                          <span className="sr-only">View fullscreen</span>
-                        </Button>
                       </CardContent>
                     </Card>
                   </CarouselItem>
@@ -162,15 +156,6 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
           </div>
         )}
       </div>
-      <FullscreenImage
-        images={product.images}
-        startIndex={fullscreenImageIndex}
-        onOpenChange={(isOpen) => {
-          if (!isOpen) {
-            setFullscreenImageIndex(null);
-          }
-        }}
-      />
     </>
   );
 }
