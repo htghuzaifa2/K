@@ -67,7 +67,12 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
         title: product.name,
         text: `Check out this product: ${product.name}`,
         url: window.location.href,
-      }).catch(console.error);
+      }).catch((error) => {
+        // Silently fail if the user cancels the share dialog.
+        if (error.name !== 'AbortError') {
+          console.error(error);
+        }
+      });
     } else {
       copyUrlToClipboard();
     }
