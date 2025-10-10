@@ -1,5 +1,5 @@
-import { ProductGridLoader } from '@/components/product/product-grid-loader';
-import { getAllCategories } from '@/lib/products';
+import { ProductGrid } from '@/components/product/product-grid';
+import { getAllCategories, getProductsByCategory } from '@/lib/products';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
@@ -17,6 +17,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
+  const products = await getProductsByCategory(decodedCategory);
+
   const title = decodedCategory
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -28,7 +30,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
       <Suspense fallback={<p>Loading products...</p>}>
-        <ProductGridLoader key={decodedCategory} category={decodedCategory} />
+        <ProductGrid products={products} />
       </Suspense>
     </div>
   );

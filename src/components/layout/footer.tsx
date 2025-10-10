@@ -18,7 +18,7 @@ export function Footer() {
         <div className="flex flex-col items-center">
             <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2" aria-label="Footer">
                 {footerLinks.map((link) => (
-                    <Link key={link.name} href={link.href} className="text-sm text-muted-foreground hover:text-primary">
+                    <Link key={link.name} href={link.href} className="text-sm text-muted-foreground hover:text-primary" prefetch={false}>
                         {link.name}
                     </Link>
                 ))}

@@ -31,7 +31,7 @@ export default async function CategoriesPage() {
           const categorySlug = encodeURIComponent(category);
           
           return (
-            <Link key={category} href={`/products/category/${categorySlug}`} passHref>
+            <Link key={category} href={`/products/category/${categorySlug}`} passHref prefetch={false}>
               <Card className="group relative block overflow-hidden rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-xl">
                 <div className="relative aspect-video w-full">
                   <Image

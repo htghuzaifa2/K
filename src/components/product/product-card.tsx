@@ -31,7 +31,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
       <Card className="flex flex-col flex-grow overflow-hidden rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-xl">
         <CardContent className="p-0 flex flex-col flex-grow">
           <div className="group relative">
-            <Link href={`/products/${product.slug}`}>
+            <Link href={`/products/${product.slug}`} prefetch={false}>
               <div className="relative aspect-square w-full overflow-hidden">
                 <Image
                   src={product.images[0]}
@@ -58,7 +58,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           </div>
           <div className="p-4 flex flex-col flex-grow">
             <h3 className="text-lg font-semibold font-headline leading-tight flex-grow">
-              <Link href={`/products/${product.slug}`}>{product.name}</Link>
+              <Link href={`/products/${product.slug}`} prefetch={false}>{product.name}</Link>
             </h3>
             <div className="mt-2 flex items-center justify-between">
               <p className="text-xl font-bold text-foreground">PKR {product.price}</p>

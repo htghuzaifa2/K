@@ -1,8 +1,14 @@
-import Hero from '@/components/hero';
-import { ProductGridLoader } from '@/components/product/product-grid-loader';
+import { ProductGrid } from '@/components/product/product-grid';
+import { getProducts } from '@/lib/products';
 import { Suspense } from 'react';
+import Hero from '@/components/hero';
 
-export default function Home() {
+const PRODUCTS_PER_PAGE = 10;
+
+export default async function Home() {
+  const allProducts = await getProducts();
+  const newArrivals = allProducts.slice(0, PRODUCTS_PER_PAGE);
+
   return (
     <div>
       <Hero />
@@ -11,7 +17,7 @@ export default function Home() {
           New Arrivals
         </h2>
         <Suspense fallback={<p>Loading products...</p>}>
-          <ProductGridLoader />
+          <ProductGrid products={newArrivals} />
         </Suspense>
       </div>
     </div>

@@ -61,7 +61,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                       />
                     </div>
                     <div className="flex-grow">
-                      <Link href={`/products/${item.product.slug}`} className="font-medium hover:underline">
+                      <Link href={`/products/${item.product.slug}`} className="font-medium hover:underline" prefetch={false}>
                         {item.product.name}
                       </Link>
                       <p className="text-sm text-muted-foreground">PKR {item.product.price}</p>

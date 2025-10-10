@@ -76,6 +76,7 @@ export function SearchOverlay() {
                   href={`/products/${product.slug}`}
                   className="flex items-center gap-4 rounded-md p-2 hover:bg-accent"
                   onClick={() => setIsOpen(false)}
+                  prefetch={false}
                 >
                   <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md">
                     <Image
