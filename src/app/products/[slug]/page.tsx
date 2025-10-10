@@ -1,3 +1,4 @@
+
 import { getProductBySlug } from '@/lib/products';
 import { notFound } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
@@ -12,7 +13,7 @@ type ProductPageProps = {
 };
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   const product = await getProductBySlug(slug);
 
   if (!product) {
