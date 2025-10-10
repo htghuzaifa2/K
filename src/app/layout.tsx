@@ -3,6 +3,7 @@ import './globals.css';
 import { ThemeProvider } from '@/context/theme-provider';
 import { CartProvider } from '@/context/cart-context';
 import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { APP_NAME } from '@/lib/constants';
 
@@ -30,6 +31,7 @@ export default function RootLayout({
             <div className="flex min-h-screen flex-col">
               <Header />
               <main className="flex-grow">{children}</main>
+              <Footer />
             </div>
             <Toaster />
           </CartProvider>
