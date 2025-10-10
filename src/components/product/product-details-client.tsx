@@ -3,15 +3,16 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
-import { AddToCartButton } from '@/components/product/add-to-cart-button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-import type { AppProduct } from '@/lib/products';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Share2, Copy } from 'lucide-react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import type { AppProduct } from '@/lib/products';
+import { useToast } from '@/hooks/use-toast';
+import { useCart } from '@/hooks/use-cart';
 
 type ProductDetailsClientProps = {
   product: AppProduct;
@@ -20,30 +21,59 @@ type ProductDetailsClientProps = {
 export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const { toast } = useToast();
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    const cartProduct = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        images: product.images,
+        slug: product.slug,
+    };
+    addToCart(cartProduct);
+  }
 
   useEffect(() => {
     if (!api) {
       return;
     }
-
     setCurrent(api.selectedScrollSnap() + 1);
-
     const onSelect = (api: CarouselApi) => {
       setCurrent(api.selectedScrollSnap() + 1);
     };
-    
     api.on('select', onSelect);
-
     return () => {
       api.off('select', onSelect);
     };
   }, [api]);
 
-  const hasDetails = product.longDescription || (product.specifications && Object.keys(product.specifications).length > 0);
-
   const handleDotClick = (index: number) => {
     api?.scrollTo(index);
   };
+
+  const copyUrlToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    toast({
+      title: "Copied to clipboard!",
+      description: "You can now share the link with others.",
+    });
+  };
+
+  const shareProduct = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: product.name,
+        text: `Check out this product: ${product.name}`,
+        url: window.location.href,
+      }).catch(console.error);
+    } else {
+      copyUrlToClipboard();
+    }
+  };
+
+  const hasDetails = product.longDescription || (product.specifications && Object.keys(product.specifications).length > 0);
 
   return (
     <>
@@ -71,9 +101,6 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           data-ai-hint="product image"
                         />
-                        <div className="absolute top-2 left-2 z-10 rounded-full bg-black/50 px-3 py-1 text-xs font-bold text-white">
-                          ID: {product.id}
-                        </div>
                       </CardContent>
                     </Card>
                   </CarouselItem>
@@ -99,47 +126,38 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
             )}
           </div>
 
-          <div>
-            <Card className="flex h-full flex-col border-0 shadow-none">
-              <CardHeader>
-                <CardTitle className="font-headline text-4xl tracking-tight">{product.name}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow space-y-6">
-                <CardDescription className="text-lg text-muted-foreground">{product.description}</CardDescription>
-                <p className="text-4xl font-extrabold text-primary">PKR {product.price}</p>
-              </CardContent>
-              <div className="p-6 pt-0">
-                <AddToCartButton product={product} size="lg" className="w-full text-lg">
-                  <ShoppingCart className="mr-2 h-5 w-5" />
-                  Add to Cart
-                </AddToCartButton>
-              </div>
-            </Card>
-          </div>
-        </div>
+          <div className="flex flex-col space-y-6">
+            <h1 className="font-headline text-4xl font-bold tracking-tight lg:text-5xl">{product.name}</h1>
+            <p className="text-3xl font-bold text-primary">PKR {product.price}</p>
+            <p className="text-lg text-muted-foreground">{product.description}</p>
+            
+            <div className="flex items-center gap-4">
+              <Button size="lg" className="flex-grow text-lg" onClick={handleAddToCart}>
+                <ShoppingCart className="mr-2 h-5 w-5" />
+                Add to Cart
+              </Button>
+              <Button variant="outline" size="icon" aria-label="Share" onClick={shareProduct}>
+                <Share2 className="h-5 w-5" />
+              </Button>
+              <Button variant="outline" size="icon" aria-label="Copy link" onClick={copyUrlToClipboard}>
+                <Copy className="h-5 w-5" />
+              </Button>
+            </div>
 
-        {hasDetails && (
-          <div className="mt-12">
-            <Tabs defaultValue="description">
-              <TabsList>
-                {product.longDescription && <TabsTrigger value="description">Description</TabsTrigger>}
-                {product.specifications && Object.keys(product.specifications).length > 0 && (
-                  <TabsTrigger value="specifications">Specifications</TabsTrigger>
-                )}
-              </TabsList>
-              {product.longDescription && (
-                <TabsContent value="description">
-                  <Card>
-                    <CardContent className="pt-6">
+            {hasDetails && (
+              <Accordion type="single" collapsible className="w-full">
+                {product.longDescription && (
+                  <AccordionItem value="description">
+                    <AccordionTrigger>Description</AccordionTrigger>
+                    <AccordionContent>
                       <div className="prose max-w-none text-card-foreground" dangerouslySetInnerHTML={{ __html: product.longDescription.replace(/\n/g, '<br />') }} />
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              )}
-              {product.specifications && Object.keys(product.specifications).length > 0 && (
-                <TabsContent value="specifications">
-                  <Card>
-                    <CardContent className="pt-6">
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+                {product.specifications && Object.keys(product.specifications).length > 0 && (
+                  <AccordionItem value="specifications">
+                    <AccordionTrigger>Specifications</AccordionTrigger>
+                    <AccordionContent>
                       <Table>
                         <TableBody>
                           {Object.entries(product.specifications).map(([key, value]) => (
@@ -150,13 +168,13 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                           ))}
                         </TableBody>
                       </Table>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              )}
-            </Tabs>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+              </Accordion>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </>
   );

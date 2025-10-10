@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button, type ButtonProps } from '@/components/ui/button';
@@ -12,7 +13,10 @@ type AddToCartButtonProps = {
 export function AddToCartButton({ product, ...props }: AddToCartButtonProps) {
   const { addToCart } = useCart();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    
     const cartProduct = {
         id: product.id,
         name: product.name,
