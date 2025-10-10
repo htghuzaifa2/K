@@ -1,18 +1,11 @@
 
 import { APP_NAME } from '@/lib/constants';
 import Link from 'next/link';
-import { Facebook, Instagram, Twitter } from 'lucide-react';
-
-const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <path d="M21 7.25a6.1 6.1 0 0 0-4.25-4.25C13.5 2 12 3.5 12 6.5v6.5a4.5 4.5 0 1 0 4.5 4.5c0-1.74-1.46-3-3-3a3 3 0 0 0-3 3V10a1 1 0 0 1-1-1V6.5a4.5 4.5 0 1 1 9 0Z" />
-    </svg>
-)
 
 export function Footer() {
   return (
     <footer className="border-t bg-background text-foreground">
-      <div className="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2">
