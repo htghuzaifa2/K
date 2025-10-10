@@ -19,7 +19,7 @@ export function Footer() {
                 <span className="text-xl font-bold font-headline">{APP_NAME}</span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">
-              Your premier destination for the latest trends in Pakistani fashion. Delivering across Pakistan with fast, reliable shipping.
+              Your premier destination for the latest tech gadgets and electronics. Delivering across Pakistan with fast, reliable shipping.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-8 md:col-span-3 md:grid-cols-3">
