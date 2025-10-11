@@ -1,9 +1,9 @@
 
-import { ProductGrid } from '@/components/product/product-grid';
 import { getProducts } from '@/lib/products';
 import { Suspense } from 'react';
 import Hero from '@/components/hero';
-import { ScrollRestorer } from '@/components/scroll-restorer';
+import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-grid';
+import { fetchProducts } from './actions';
 
 // Fisher-Yates shuffle algorithm
 function shuffle(array: any[]) {
@@ -28,6 +28,7 @@ function shuffle(array: any[]) {
 export default async function Home() {
   const allProducts = await getProducts();
   const shuffledProducts = shuffle(allProducts);
+  const initialProducts = await fetchProducts({ allProducts: shuffledProducts, page: 1, limit: 25 });
 
   return (
     <div>
@@ -37,10 +38,10 @@ export default async function Home() {
           Featured Products
         </h2>
         <Suspense fallback={<p>Loading products...</p>}>
-          <ScrollRestorer sessionKey="home_scroll" />
-          <ProductGrid products={shuffledProducts} />
+          <InfiniteWindowedGrid allProducts={shuffledProducts} initialProducts={initialProducts.products} />
         </Suspense>
       </div>
     </div>
   );
 }
+

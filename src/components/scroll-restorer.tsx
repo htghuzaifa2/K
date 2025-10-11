@@ -14,7 +14,6 @@ export function ScrollRestorer({ sessionKey }: ScrollRestorerProps) {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Check if navigation type is 'reload'
     const navigationEntries = performance.getEntriesByType("navigation");
     const isReload = navigationEntries.length > 0 && (navigationEntries[0] as PerformanceNavigationTiming).type === 'reload';
 
@@ -23,7 +22,10 @@ export function ScrollRestorer({ sessionKey }: ScrollRestorerProps) {
     } else {
       const storedScrollY = sessionStorage.getItem(sessionKey);
       if (storedScrollY) {
-        window.scrollTo(0, parseInt(storedScrollY, 10));
+        // Use requestAnimationFrame to ensure the scroll happens after render
+        requestAnimationFrame(() => {
+          window.scrollTo(0, parseInt(storedScrollY, 10));
+        });
       }
     }
 
@@ -33,7 +35,7 @@ export function ScrollRestorer({ sessionKey }: ScrollRestorerProps) {
         cancelIdleCallback(timeoutRef.current as unknown as number);
       }
       timeoutRef.current = requestIdleCallback(() => {
-        if (pathname === '/') { // Only save scroll for the homepage
+        if (pathname === '/') { 
            sessionStorage.setItem(sessionKey, String(scrollY.current));
         }
       }) as unknown as NodeJS.Timeout;
