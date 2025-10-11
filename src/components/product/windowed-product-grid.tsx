@@ -61,11 +61,14 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
       setEndIndex(WINDOW_SIZE);
       setStartIndex(0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // This effect should only run once on mount.
 
+  useEffect(() => {
     const handleScroll = () => {
        sessionStorage.setItem('featuredScrollY', window.scrollY.toString());
        if (startIndex > 0) {
-         if (window.scrollY < lastScrollY.current) {
+         if (window.scrollY < lastScrollY.current && window.scrollY > 100) {
             setShowLoadPrevious(true);
          } else {
             setShowLoadPrevious(false);
@@ -87,8 +90,7 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
         window.removeEventListener('scroll', handleScroll);
         window.removeEventListener('beforeunload', handleBeforeUnload);
     }
-
-  }, [allProducts, restoreState, displayedProducts, startIndex]);
+  }, [displayedProducts, startIndex]);
   
   const handleLoadMore = () => {
     setIsLoading(true);
@@ -121,20 +123,28 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
     
     const currentScrollY = window.scrollY;
     
+    // Get the height of the current first row of products
+    let oldFirstRowHeight = 0;
+    if (gridRef.current && gridRef.current.children.length > 0) {
+        oldFirstRowHeight = (gridRef.current.children[0] as HTMLElement).offsetHeight;
+    }
+
     setStartIndex(newStart);
     setEndIndex(newEnd);
     setDisplayedProducts(newProducts);
 
-    // After render, adjust scroll position. This is tricky.
-    // We can't know the exact height, so this is an approximation.
-    // A better way would be to measure, but this is a simple approach.
+    // After render, adjust scroll position to account for the newly prepended items.
     requestAnimationFrame(() => {
         if (gridRef.current) {
             const firstRow = gridRef.current.children[0];
             if (firstRow) {
-                const cardHeight = (firstRow as HTMLElement).offsetHeight;
-                // We loaded a new row, so scroll up by that height plus gap
-                window.scrollTo(0, currentScrollY + cardHeight + 24);
+                // Approximate the height of the newly added row
+                const newRowHeight = (firstRow as HTMLElement).offsetHeight;
+                const gap = 24; // from gap-6
+                
+                // Adjust scroll position to keep the user's view stable.
+                const scrollAdjustment = newRowHeight + gap - oldFirstRowHeight;
+                window.scrollTo(0, currentScrollY + scrollAdjustment);
             }
         }
     });
