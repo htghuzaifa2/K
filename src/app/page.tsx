@@ -42,9 +42,12 @@ function HomePageContent() {
   });
 
   const gridRef =  useRef<{ loadPrevious: () => Promise<void> }>(null);
+  const hasLoadedInitialProducts = useRef(false);
 
   useEffect(() => {
     async function loadInitial() {
+      if (hasLoadedInitialProducts.current) return;
+      
       setIsLoading(true);
       const fetchedProducts = await getProducts();
       const shuffled = shuffle(fetchedProducts);
@@ -58,6 +61,7 @@ function HomePageContent() {
         hasMore: initial.hasMore,
       });
       setIsLoading(false);
+      hasLoadedInitialProducts.current = true;
     }
     loadInitial();
   }, []);
