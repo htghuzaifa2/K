@@ -1,12 +1,12 @@
 
+import { ProductGrid } from '@/components/product/product-grid';
+import { getProducts } from '@/lib/products';
 import { Suspense } from 'react';
 import Hero from '@/components/hero';
-import { fetchShuffledProducts } from '@/app/actions';
-import { WindowedProductGrid } from '@/components/product/windowed-product-grid';
-
 
 export default async function Home() {
-  const allProducts = await fetchShuffledProducts();
+  const allProducts = await getProducts();
+  const featuredProducts = allProducts.slice(0, 10);
 
   return (
     <div>
@@ -16,7 +16,7 @@ export default async function Home() {
           Featured Products
         </h2>
         <Suspense fallback={<p>Loading products...</p>}>
-          <WindowedProductGrid allProducts={allProducts} />
+          <ProductGrid products={featuredProducts} />
         </Suspense>
       </div>
     </div>
