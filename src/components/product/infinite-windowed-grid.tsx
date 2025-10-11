@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { AppProduct } from '@/lib/products';
 import { fetchProducts } from '@/app/actions';
 import { ProductGrid } from './product-grid';
@@ -22,6 +22,8 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(allProducts.length > initialProducts.length);
   const [startIndexInAll, setStartIndexInAll] = useState(0);
+
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const { ref: topRef, inView: topInView } = useInView({ threshold: 0 });
   const { ref: bottomRef, inView: bottomInView } = useInView({ threshold: 0 });
@@ -48,8 +50,23 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
             let updatedProducts = uniqueProducts;
             if (updatedProducts.length > MAX_PRODUCTS_IN_DOM && newHasMore) {
                 const toRemove = updatedProducts.length - MAX_PRODUCTS_IN_DOM;
+                
+                // --- Scroll position anchoring ---
+                const firstKeptElement = gridRef.current?.children[0]?.children[toRemove];
+                const oldOffsetTop = (firstKeptElement as HTMLElement)?.offsetTop ?? 0;
+
                 updatedProducts = updatedProducts.slice(toRemove);
                 setStartIndexInAll(prevIdx => prevIdx + toRemove);
+
+                // After state updates, adjust scroll
+                requestAnimationFrame(() => {
+                    const newOffsetTop = (gridRef.current?.children[0]?.children[0] as HTMLElement)?.offsetTop ?? 0;
+                    const scrollAdjustment = newOffsetTop - oldOffsetTop;
+                    if(scrollAdjustment > 0){
+                        window.scrollBy(0, -scrollAdjustment);
+                    }
+                });
+                 // --- End scroll position anchoring ---
             }
             return updatedProducts;
         });
@@ -101,7 +118,9 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
   return (
     <div>
       <div ref={topRef} className="h-1" />
-      <ProductGrid products={products} />
+      <div ref={gridRef}>
+        <ProductGrid products={products} />
+      </div>
       <div ref={bottomRef} className="h-1" />
       {isLoading && (
         <div className="flex justify-center items-center py-8">
@@ -112,3 +131,4 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
     </div>
   );
 }
+
