@@ -30,28 +30,64 @@ function shuffle(array: any[]) {
   return array;
 }
 
-function HomePageContent({ 
-  allProducts,
-  initialProducts,
-  isLoading,
-  gridState,
-  handleLoadPrevious,
-  handleGridStateChange
-}: {
-  allProducts: AppProduct[];
-  initialProducts: AppProduct[];
-  isLoading: boolean;
-  gridState: any;
-  handleLoadPrevious: () => void;
-  handleGridStateChange: (newState: any) => void;
-}) {
+export default function Home() {
+  const [allProducts, setAllProducts] = useState<AppProduct[]>([]);
+  const [initialProducts, setInitialProducts] = useState<AppProduct[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [gridState, setGridState] = useState<{ products: AppProduct[], startIndexInAll: number, page: number, hasMore: boolean }>({
+    products: [],
+    startIndexInAll: 0,
+    page: 1,
+    hasMore: true,
+  });
+
   const gridRef =  useRef<{ loadPrevious: () => Promise<void> }>(null);
+  const hasLoadedInitialProducts = useRef(false);
 
   useEffect(() => {
-    if (gridRef.current?.loadPrevious) {
-        (gridRef.current.loadPrevious as any) = handleLoadPrevious;
+    async function loadInitial() {
+      if (hasLoadedInitialProducts.current) return;
+      hasLoadedInitialProducts.current = true;
+      
+      setIsLoading(true);
+      const fetchedProducts = await getProducts();
+      const shuffled = shuffle(fetchedProducts);
+      const initial = await fetchProducts({ allProducts: shuffled, page: 1, limit: 25 });
+      
+      setAllProducts(shuffled);
+      setInitialProducts(initial.products);
+      
+      setGridState({
+        products: initial.products,
+        startIndexInAll: 0,
+        page: 1,
+        hasMore: initial.hasMore,
+      });
+
+      setIsLoading(false);
     }
-  }, [handleLoadPrevious])
+    loadInitial();
+  }, []);
+  
+  const handleLoadPrevious = useCallback(async () => {
+    if (gridRef.current) {
+        setIsLoading(true);
+        await gridRef.current.loadPrevious();
+        setIsLoading(false);
+    }
+  }, []);
+  
+  const handleGridStateChange = useCallback((newState: { products: AppProduct[], startIndexInAll: number, page: number, hasMore: boolean, isLoading: boolean }) => {
+    setGridState({
+      products: newState.products,
+      startIndexInAll: newState.startIndexInAll,
+      page: newState.page,
+      hasMore: newState.hasMore,
+    });
+    if (isLoading !== newState.isLoading) {
+      setIsLoading(newState.isLoading);
+    }
+  }, [isLoading]);
 
   if (isLoading && initialProducts.length === 0) {
     return (
@@ -108,70 +144,4 @@ function HomePageContent({
       </div>
     </div>
   );
-}
-
-
-export default function Home() {
-  const [allProducts, setAllProducts] = useState<AppProduct[]>([]);
-  const [initialProducts, setInitialProducts] = useState<AppProduct[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [gridState, setGridState] = useState<{ products: AppProduct[], startIndexInAll: number, page: number, hasMore: boolean }>({
-    products: [],
-    startIndexInAll: 0,
-    page: 1,
-    hasMore: true,
-  });
-
-  const gridRef =  useRef<{ loadPrevious: () => Promise<void> }>(null);
-  const hasLoadedInitialProducts = useRef(false);
-
-  useEffect(() => {
-    async function loadInitial() {
-      if (hasLoadedInitialProducts.current) return;
-      
-      setIsLoading(true);
-      const fetchedProducts = await getProducts();
-      const shuffled = shuffle(fetchedProducts);
-      const initial = await fetchProducts({ allProducts: shuffled, page: 1, limit: 25 });
-      setAllProducts(shuffled);
-      setInitialProducts(initial.products);
-      setGridState({
-        products: initial.products,
-        startIndexInAll: 0,
-        page: 1,
-        hasMore: initial.hasMore,
-      });
-      setIsLoading(false);
-      hasLoadedInitialProducts.current = true;
-    }
-    loadInitial();
-  }, []);
-  
-  const handleLoadPrevious = async () => {
-    if (gridRef.current) {
-        setIsLoading(true);
-        await gridRef.current.loadPrevious();
-    }
-  };
-  
-  const handleGridStateChange = useCallback((newState: { products: AppProduct[], startIndexInAll: number, page: number, hasMore: boolean, isLoading: boolean }) => {
-    setGridState({
-      products: newState.products,
-      startIndexInAll: newState.startIndexInAll,
-      page: newState.page,
-      hasMore: newState.hasMore,
-    });
-    if (isLoading !== newState.isLoading) {
-      setIsLoading(newState.isLoading);
-    }
-  }, [isLoading]);
-
-  return <HomePageContent 
-    allProducts={allProducts}
-    initialProducts={initialProducts}
-    isLoading={isLoading}
-    gridState={gridState}
-    handleLoadPrevious={handleLoadPrevious}
-    handleGridStateChange={handleGridStateChange}
-  />;
 }

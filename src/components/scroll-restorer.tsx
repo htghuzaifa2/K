@@ -22,9 +22,9 @@ export function ScrollRestorer({ sessionKey }: ScrollRestorerProps) {
 
     if (isReload) {
       sessionStorage.removeItem(sessionKey);
-    } else {
+    } else if (pathname === '/') {
       const storedScrollY = sessionStorage.getItem(sessionKey);
-      if (storedScrollY && pathname === '/') {
+      if (storedScrollY) {
         window.scrollTo(0, parseInt(storedScrollY, 10));
       }
     }
