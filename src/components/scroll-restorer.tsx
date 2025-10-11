@@ -11,9 +11,12 @@ type ScrollRestorerProps = {
 export function ScrollRestorer({ sessionKey }: ScrollRestorerProps) {
   const pathname = usePathname();
   const scrollY = useRef<number>(0);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
+  
   useEffect(() => {
+    // Only run on client
+    if (typeof window === 'undefined') return;
+
+    // Check if navigation was a reload
     const navigationEntries = performance.getEntriesByType("navigation");
     const isReload = navigationEntries.length > 0 && (navigationEntries[0] as PerformanceNavigationTiming).type === 'reload';
 
@@ -21,33 +24,23 @@ export function ScrollRestorer({ sessionKey }: ScrollRestorerProps) {
       sessionStorage.removeItem(sessionKey);
     } else {
       const storedScrollY = sessionStorage.getItem(sessionKey);
-      if (storedScrollY) {
-        // Use requestAnimationFrame to ensure the scroll happens after render
-        requestAnimationFrame(() => {
-          window.scrollTo(0, parseInt(storedScrollY, 10));
-        });
+      if (storedScrollY && pathname === '/') {
+        window.scrollTo(0, parseInt(storedScrollY, 10));
       }
     }
 
     const handleScroll = () => {
-      scrollY.current = window.scrollY;
-      if (timeoutRef.current) {
-        cancelIdleCallback(timeoutRef.current as unknown as number);
+      // Only save scroll position for the homepage
+      if (pathname === '/') {
+        scrollY.current = window.scrollY;
+        sessionStorage.setItem(sessionKey, String(scrollY.current));
       }
-      timeoutRef.current = requestIdleCallback(() => {
-        if (pathname === '/') { 
-           sessionStorage.setItem(sessionKey, String(scrollY.current));
-        }
-      }) as unknown as NodeJS.Timeout;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-       if (timeoutRef.current) {
-        cancelIdleCallback(timeoutRef.current as unknown as number);
-      }
     };
   }, [pathname, sessionKey]);
 

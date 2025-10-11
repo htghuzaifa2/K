@@ -30,7 +30,88 @@ function shuffle(array: any[]) {
   return array;
 }
 
-function HomePageContent() {
+function HomePageContent({ 
+  allProducts,
+  initialProducts,
+  isLoading,
+  gridState,
+  handleLoadPrevious,
+  handleGridStateChange
+}: {
+  allProducts: AppProduct[];
+  initialProducts: AppProduct[];
+  isLoading: boolean;
+  gridState: any;
+  handleLoadPrevious: () => void;
+  handleGridStateChange: (newState: any) => void;
+}) {
+  const gridRef =  useRef<{ loadPrevious: () => Promise<void> }>(null);
+
+  useEffect(() => {
+    if (gridRef.current?.loadPrevious) {
+        (gridRef.current.loadPrevious as any) = handleLoadPrevious;
+    }
+  }, [handleLoadPrevious])
+
+  if (isLoading && initialProducts.length === 0) {
+    return (
+       <div>
+        <Hero />
+        <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+          <h2 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
+            Featured Products
+          </h2>
+          <div className="flex justify-center items-center py-8">
+            <Loader2 className="mr-2 h-8 w-8 animate-spin" />
+            <span>Loading Products...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <ScrollRestorer sessionKey="homepage-scroll" />
+      <Hero />
+      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <h2 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
+          Featured Products
+        </h2>
+
+         {gridState.startIndexInAll > 0 && (
+           <div className="flex justify-center mb-6">
+            <Button
+                onClick={handleLoadPrevious}
+                disabled={isLoading}
+            >
+                {isLoading ? (
+                    <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Loading...
+                    </>
+                ) : (
+                    'Load Previous'
+                )}
+            </Button>
+           </div>
+        )}
+
+        <Suspense fallback={<p>Loading products...</p>}>
+          <InfiniteWindowedGrid
+            ref={gridRef}
+            allProducts={allProducts}
+            initialProducts={initialProducts}
+            onStateChange={handleGridStateChange}
+          />
+        </Suspense>
+      </div>
+    </div>
+  );
+}
+
+
+export default function Home() {
   const [allProducts, setAllProducts] = useState<AppProduct[]>([]);
   const [initialProducts, setInitialProducts] = useState<AppProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -80,71 +161,17 @@ function HomePageContent() {
       page: newState.page,
       hasMore: newState.hasMore,
     });
-    // Sync loading state from child component
     if (isLoading !== newState.isLoading) {
       setIsLoading(newState.isLoading);
     }
   }, [isLoading]);
 
-  if (isLoading && initialProducts.length === 0) {
-    return (
-       <div>
-        <Hero />
-        <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-          <h2 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
-            Featured Products
-          </h2>
-          <div className="flex justify-center items-center py-8">
-            <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-            <span>Loading Products...</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-
-  return (
-    <div>
-      <ScrollRestorer sessionKey="homepage-scroll" />
-      <Hero />
-      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <h2 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
-          Featured Products
-        </h2>
-
-         {gridState.startIndexInAll > 0 && (
-           <div className="flex justify-center mb-6">
-            <Button
-                onClick={handleLoadPrevious}
-                disabled={isLoading}
-            >
-                {isLoading ? (
-                    <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Loading...
-                    </>
-                ) : (
-                    'Load Previous'
-                )}
-            </Button>
-           </div>
-        )}
-
-        <Suspense fallback={<p>Loading products...</p>}>
-          <InfiniteWindowedGrid
-            ref={gridRef}
-            allProducts={allProducts}
-            initialProducts={initialProducts}
-            onStateChange={handleGridStateChange}
-          />
-        </Suspense>
-      </div>
-    </div>
-  );
-}
-
-
-export default function Home() {
-  return <HomePageContent />;
+  return <HomePageContent 
+    allProducts={allProducts}
+    initialProducts={initialProducts}
+    isLoading={isLoading}
+    gridState={gridState}
+    handleLoadPrevious={handleLoadPrevious}
+    handleGridStateChange={handleGridStateChange}
+  />;
 }
