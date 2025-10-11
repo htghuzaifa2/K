@@ -9,6 +9,7 @@ import { fetchProducts } from './actions';
 import type { AppProduct } from '@/lib/products';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { ScrollRestorer } from '@/components/scroll-restorer';
 
 // Fisher-Yates shuffle algorithm
 function shuffle(array: any[]) {
@@ -65,7 +66,6 @@ function HomePageContent() {
     if (gridRef.current) {
         setIsLoading(true);
         await gridRef.current.loadPrevious();
-        // The isLoading state will be set to false via onStateChange
     }
   };
   
@@ -102,6 +102,7 @@ function HomePageContent() {
 
   return (
     <div>
+      <ScrollRestorer sessionKey="homepage-scroll" />
       <Hero />
       <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <h2 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">

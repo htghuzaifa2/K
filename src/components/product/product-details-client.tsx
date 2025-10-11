@@ -7,13 +7,14 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ShoppingCart, Share2, Copy } from 'lucide-react';
+import { ShoppingCart, Share2, Copy, ArrowLeft } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import type { AppProduct } from '@/lib/products';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/use-cart';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useRouter } from 'next/navigation';
 
 type ProductDetailsClientProps = {
   product: AppProduct;
@@ -45,6 +46,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
   const [current, setCurrent] = useState(0);
   const { toast } = useToast();
   const { addToCart } = useCart();
+  const router = useRouter();
 
   const handleAddToCart = () => {
     const cartProduct = {
@@ -104,7 +106,16 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
 
   return (
     <>
-      <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 relative">
+        <Button
+          variant="outline"
+          size="icon"
+          className="absolute top-4 left-4 z-10 hidden md:flex"
+          onClick={() => router.back()}
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span className="sr-only">Go back</span>
+        </Button>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div>
             <Carousel 
