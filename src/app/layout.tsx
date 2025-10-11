@@ -8,6 +8,7 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { APP_NAME } from '@/lib/constants';
 import { ScrollToTop } from '@/components/scroll-to-top';
+import { PrefetchController } from '@/components/prefetch-controller';
 
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -37,6 +38,7 @@ export default function RootLayout({
             </div>
             <Toaster />
             <ScrollToTop />
+            <PrefetchController />
           </CartProvider>
         </ThemeProvider>
       </body>
