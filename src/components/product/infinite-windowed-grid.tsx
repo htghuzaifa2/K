@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { AppProduct } from '@/lib/products';
 import { fetchProducts } from '@/app/actions';
 import { ProductGrid } from './product-grid';
@@ -9,7 +9,7 @@ import { Loader2 } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 
 const BATCH_SIZE = 25;
-const MAX_PRODUCTS = 55; // Roughly 2 batches (25*2) + some buffer
+const MAX_PRODUCTS_IN_DOM = 55;
 
 type InfiniteWindowedGridProps = {
   initialProducts: AppProduct[];
@@ -20,72 +20,69 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
   const [products, setProducts] = useState(initialProducts);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(allProducts.length > BATCH_SIZE);
-  
-  const [startIndex, setStartIndex] = useState(0);
+  const [hasMore, setHasMore] = useState(allProducts.length > initialProducts.length);
+  const [startIndexInAll, setStartIndexInAll] = useState(0);
 
-  const { ref: topRef, inView: topInView } = useInView();
-  const { ref: bottomRef, inView: bottomInView } = useInView();
+  const { ref: topRef, inView: topInView } = useInView({ threshold: 0 });
+  const { ref: bottomRef, inView: bottomInView } = useInView({ threshold: 0 });
 
   const loadMoreProducts = useCallback(async (direction: 'next' | 'prev') => {
     if (isLoading) return;
-    setIsLoading(true);
-
+    
     if (direction === 'next' && hasMore) {
+        setIsLoading(true);
         const nextPage = page + 1;
         const { products: newProducts, hasMore: newHasMore } = await fetchProducts({ allProducts, page: nextPage, limit: BATCH_SIZE });
-
-        setProducts(prev => {
-            const combined = [...prev, ...newProducts];
-            if (combined.length > MAX_PRODUCTS) {
-                const unloadedCount = combined.length - MAX_PRODUCTS;
-                setStartIndex(prevIndex => prevIndex + unloadedCount);
-                return combined.slice(unloadedCount);
-            }
-            return combined;
-        });
-
-        setPage(nextPage);
-        setHasMore(newHasMore);
-
-    } else if (direction === 'prev' && startIndex > 0) {
-        const newStartIndex = Math.max(0, startIndex - BATCH_SIZE);
-        const productsToPrepend = allProducts.slice(newStartIndex, startIndex);
         
         setProducts(prev => {
-            const combined = [...productsToPrepend, ...prev];
-            const newEndIndex = newStartIndex + combined.length;
-            if(newEndIndex > startIndex + MAX_PRODUCTS) {
-                 const sliceIndex = newEndIndex - (startIndex + MAX_PRODUCTS);
-                 return combined.slice(0, combined.length - sliceIndex);
+            let updatedProducts = [...prev, ...newProducts];
+            if (updatedProducts.length > MAX_PRODUCTS_IN_DOM && newHasMore) {
+                const toRemove = updatedProducts.length - MAX_PRODUCTS_IN_DOM;
+                updatedProducts = updatedProducts.slice(toRemove);
+                setStartIndexInAll(prev => prev + toRemove);
             }
-            return combined;
-
+            return updatedProducts;
         });
-        setStartIndex(newStartIndex);
-    }
+        
+        setPage(nextPage);
+        setHasMore(newHasMore);
+        setIsLoading(false);
 
-    // A small delay to allow UI to update before resetting loading state
-    setTimeout(() => setIsLoading(false), 100);
-  }, [isLoading, hasMore, allProducts, page, startIndex]);
+    } else if (direction === 'prev' && startIndexInAll > 0) {
+        setIsLoading(true);
+        const newStartIndex = Math.max(0, startIndexInAll - BATCH_SIZE);
+        const productsToPrepend = allProducts.slice(newStartIndex, startIndexInAll);
+
+        setProducts(prev => {
+            let updatedProducts = [...productsToPrepend, ...prev];
+            if (updatedProducts.length > MAX_PRODUCTS_IN_DOM) {
+                 updatedProducts = updatedProducts.slice(0, MAX_PRODUCTS_IN_DOM);
+            }
+            return updatedProducts;
+        });
+
+        setStartIndexInAll(newStartIndex);
+        setIsLoading(false);
+    }
+  }, [isLoading, hasMore, page, startIndexInAll, allProducts]);
 
   useEffect(() => {
-    if (bottomInView && !isLoading && hasMore) {
+    if (bottomInView && !isLoading) {
       loadMoreProducts('next');
     }
-  }, [bottomInView, isLoading, hasMore, loadMoreProducts]);
+  }, [bottomInView, isLoading, loadMoreProducts]);
 
   useEffect(() => {
-    if (topInView && !isLoading && startIndex > 0) {
+    if (topInView && !isLoading) {
       loadMoreProducts('prev');
     }
-  }, [topInView, isLoading, startIndex, loadMoreProducts]);
+  }, [topInView, isLoading, loadMoreProducts]);
 
   return (
     <div>
-      <div ref={topRef} style={{ height: 1 }} />
+      <div ref={topRef} className="h-1" />
       <ProductGrid products={products} />
-      <div ref={bottomRef} style={{ height: 1 }} />
+      <div ref={bottomRef} className="h-1" />
       {isLoading && (
         <div className="flex justify-center items-center py-8">
           <Loader2 className="mr-2 h-8 w-8 animate-spin" />
@@ -95,3 +92,4 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
     </div>
   );
 }
+
