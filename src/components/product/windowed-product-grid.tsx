@@ -24,8 +24,8 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
   const [startIndex, setStartIndex] = useState(0);
   
   const gridRef = useRef<HTMLDivElement>(null);
-  const loadPreviousTimeout = useRef<NodeJS.Timeout | null>(null);
-
+  const lastScrollY = useRef(0);
+  
   const [showLoadPrevious, setShowLoadPrevious] = useState(false);
 
   const restoreState = useCallback(() => {
@@ -64,13 +64,23 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
 
     const handleScroll = () => {
        sessionStorage.setItem('featuredScrollY', window.scrollY.toString());
+       if (startIndex > 0) {
+         if (window.scrollY < lastScrollY.current) {
+            setShowLoadPrevious(true);
+         } else {
+            setShowLoadPrevious(false);
+         }
+       } else {
+         setShowLoadPrevious(false);
+       }
+       lastScrollY.current = window.scrollY;
     };
     const handleBeforeUnload = () => {
       const visibleIds = displayedProducts.map(p => p.id).join(',');
       sessionStorage.setItem('featuredVisibleIds', visibleIds);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
@@ -78,11 +88,7 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
         window.removeEventListener('beforeunload', handleBeforeUnload);
     }
 
-  }, [allProducts, restoreState]);
-
-  useEffect(() => {
-    setShowLoadPrevious(startIndex > 0);
-  }, [startIndex]);
+  }, [allProducts, restoreState, displayedProducts, startIndex]);
   
   const handleLoadMore = () => {
     setIsLoading(true);
@@ -112,10 +118,26 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
     const newEnd = Math.min(newStart + MAX_DOM_NODES, endIndex);
 
     const newProducts = allProducts.slice(newStart, newEnd);
-
+    
+    const currentScrollY = window.scrollY;
+    
     setStartIndex(newStart);
     setEndIndex(newEnd);
     setDisplayedProducts(newProducts);
+
+    // After render, adjust scroll position. This is tricky.
+    // We can't know the exact height, so this is an approximation.
+    // A better way would be to measure, but this is a simple approach.
+    requestAnimationFrame(() => {
+        if (gridRef.current) {
+            const firstRow = gridRef.current.children[0];
+            if (firstRow) {
+                const cardHeight = (firstRow as HTMLElement).offsetHeight;
+                // We loaded a new row, so scroll up by that height plus gap
+                window.scrollTo(0, currentScrollY + cardHeight + 24);
+            }
+        }
+    });
   };
 
 
@@ -131,7 +153,7 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
             exit={{ y: -100, opacity: 0 }}
             className="sticky top-16 z-40 flex justify-center py-2 bg-background/80 backdrop-blur-sm"
           >
-            <Button onClick={handleLoadPrevious} variant="secondary">
+            <Button onClick={handleLoadPrevious} variant="default">
                 Load Previous {WINDOW_SIZE}
             </Button>
           </motion.div>
@@ -139,9 +161,20 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
       </AnimatePresence>
       
       <div ref={gridRef} className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <AnimatePresence>
         {displayedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} onQuickView={setQuickViewProduct} />
+          <motion.div
+             key={product.id}
+             layout
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             exit={{ opacity: 0 }}
+             transition={{ duration: 0.3 }}
+           >
+            <ProductCard product={product} onQuickView={setQuickViewProduct} />
+          </motion.div>
         ))}
+        </AnimatePresence>
       </div>
       
       {hasMore && (
