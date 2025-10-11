@@ -69,7 +69,7 @@ function HomePageContent() {
     }
   };
   
-  const handleGridStateChange = (newState: { products: AppProduct[], startIndexInAll: number, page: number, hasMore: boolean, isLoading: boolean }) => {
+  const handleGridStateChange = useCallback((newState: { products: AppProduct[], startIndexInAll: number, page: number, hasMore: boolean, isLoading: boolean }) => {
     setGridState({
       products: newState.products,
       startIndexInAll: newState.startIndexInAll,
@@ -80,7 +80,7 @@ function HomePageContent() {
     if (isLoading !== newState.isLoading) {
       setIsLoading(newState.isLoading);
     }
-  };
+  }, [isLoading]);
 
   if (isLoading && initialProducts.length === 0) {
     return (
