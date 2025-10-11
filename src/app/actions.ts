@@ -1,3 +1,4 @@
+
 'use server';
 
 import { getProducts, getProductsByCategory } from '@/lib/products';
@@ -15,5 +16,8 @@ export async function fetchProducts({
   const start = (page - 1) * limit;
   const end = start + limit;
   const products = allProducts.slice(start, end);
-  return products;
+  return {
+    products,
+    hasMore: allProducts.length > end,
+  };
 }

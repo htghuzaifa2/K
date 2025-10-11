@@ -1,3 +1,4 @@
+
 import type { Product as RawProduct } from '@/lib/types';
 import productsData from './products.json';
 
@@ -16,11 +17,11 @@ export type AppProduct = {
 
 
 // Simulate an async API call
-async function fetchProducts(): Promise<RawProduct[]> {
+async function fetchProductsData(): Promise<RawProduct[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(productsData as RawProduct[]);
-    }, 500); // 500ms delay
+    }, 100); // 100ms delay, faster than before
   });
 }
 
@@ -38,10 +39,15 @@ function transformProduct(product: RawProduct): AppProduct {
     };
 }
 
+let allProductsCache: AppProduct[] | null = null;
 
 export async function getProducts(): Promise<AppProduct[]> {
-  const products = await fetchProducts();
-  return products.map(transformProduct);
+  if (allProductsCache) {
+    return allProductsCache;
+  }
+  const products = await fetchProductsData();
+  allProductsCache = products.map(transformProduct);
+  return allProductsCache;
 }
 
 export async function getProductBySlug(slug: string): Promise<AppProduct | null> {
@@ -51,8 +57,13 @@ export async function getProductBySlug(slug: string): Promise<AppProduct | null>
 
 export async function getProductsByCategory(category: string): Promise<AppProduct[]> {
   const products = await getProducts();
-  return products.filter((p) => p.category.toLowerCase() === category.toLowerCase());
+  const lowerCaseCategory = category.toLowerCase();
+  return products.filter((p) => {
+      const productCategory = Array.isArray(p.category) ? p.category : [p.category];
+      return productCategory.some(c => c.toLowerCase() === lowerCaseCategory);
+  });
 }
+
 
 export async function getProductsByNames(names: string[]): Promise<AppProduct[]> {
   const products = await getProducts();
@@ -62,6 +73,6 @@ export async function getProductsByNames(names: string[]): Promise<AppProduct[]>
 
 export async function getAllCategories(): Promise<string[]> {
     const products = await getProducts();
-    const categories = new Set(products.map(p => p.category));
+    const categories = new Set(products.flatMap(p => p.category));
     return Array.from(categories);
 }
