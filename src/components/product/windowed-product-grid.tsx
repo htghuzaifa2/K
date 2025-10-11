@@ -61,8 +61,8 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
       setEndIndex(WINDOW_SIZE);
       setStartIndex(0);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // This effect should only run once on mount.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allProducts, restoreState]);
 
   useEffect(() => {
     const handleScroll = () => {
