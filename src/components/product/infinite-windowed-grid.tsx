@@ -1,14 +1,12 @@
 
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useImperativeHandle, forwardRef } from 'react';
 import type { AppProduct } from '@/lib/products';
 import { fetchProducts } from '@/app/actions';
 import { ProductGrid } from './product-grid';
 import { Loader2 } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
 const BATCH_SIZE = 25;
 const MAX_PRODUCTS_IN_DOM = 55;
@@ -16,35 +14,27 @@ const MAX_PRODUCTS_IN_DOM = 55;
 type InfiniteWindowedGridProps = {
   initialProducts: AppProduct[];
   allProducts: AppProduct[];
+  onStateChange: (state: { products: AppProduct[], startIndexInAll: number, page: number, hasMore: boolean }) => void;
 };
 
-export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteWindowedGridProps) {
+type GridHandle = {
+  loadPrevious: () => Promise<void>;
+};
+
+export const InfiniteWindowedGrid = forwardRef<GridHandle, InfiniteWindowedGridProps>(({ initialProducts, allProducts, onStateChange }, ref) => {
   const [products, setProducts] = useState(initialProducts);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(allProducts.length > initialProducts.length);
   const [startIndexInAll, setStartIndexInAll] = useState(0);
-  const [showLoadPrevious, setShowLoadPrevious] = useState(false);
   
   const gridRef = useRef<HTMLDivElement>(null);
-  const lastScrollY = useRef(0);
 
   const { ref: bottomRef, inView: bottomInView } = useInView({ threshold: 0 });
 
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY < lastScrollY.current && currentScrollY > 200 && startIndexInAll > 0) {
-      setShowLoadPrevious(true);
-    } else {
-      setShowLoadPrevious(false);
-    }
-    lastScrollY.current = currentScrollY;
-  }, [startIndexInAll]);
-
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+    onStateChange({ products, startIndexInAll, page, hasMore });
+  }, [products, startIndexInAll, page, hasMore, onStateChange]);
 
   const loadMoreProducts = useCallback(async () => {
     if (isLoading || !hasMore) return;
@@ -56,6 +46,7 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
     setProducts(prev => {
         const uniqueNewProducts = newProducts.filter(np => !prev.some(p => p.id === np.id));
         let updatedProducts = [...prev, ...uniqueNewProducts];
+        
         if (updatedProducts.length > MAX_PRODUCTS_IN_DOM && newHasMore) {
             const toRemove = updatedProducts.length - MAX_PRODUCTS_IN_DOM;
             
@@ -94,6 +85,7 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
       setProducts(prev => {
           const uniqueProductsToPrepend = productsToPrepend.filter(p => !prev.some(pp => pp.id === p.id));
           let updatedProducts = [...uniqueProductsToPrepend, ...prev];
+          
           if (updatedProducts.length > MAX_PRODUCTS_IN_DOM) {
                updatedProducts = updatedProducts.slice(0, MAX_PRODUCTS_IN_DOM);
           }
@@ -101,9 +93,13 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
       });
 
       setStartIndexInAll(newStartIndex);
+      setPage(prev => Math.max(1, prev - 1));
       setIsLoading(false);
-      setShowLoadPrevious(false);
   }, [isLoading, startIndexInAll, allProducts]);
+
+  useImperativeHandle(ref, () => ({
+    loadPrevious: loadPreviousProducts
+  }));
 
   useEffect(() => {
     if (bottomInView && !isLoading) {
@@ -113,26 +109,6 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
 
   return (
     <div>
-       <div className="fixed top-20 left-1/2 -translate-x-1/2 z-40 transition-all duration-300">
-         <Button
-            onClick={loadPreviousProducts}
-            className={cn(
-                'transition-all duration-300 shadow-lg',
-                showLoadPrevious ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20 pointer-events-none'
-            )}
-            disabled={isLoading}
-        >
-            {isLoading ? (
-                <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Loading...
-                </>
-            ) : (
-                'Load Previous'
-            )}
-        </Button>
-      </div>
-
       <div ref={gridRef}>
         <ProductGrid products={products} />
       </div>
@@ -147,4 +123,6 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
       )}
     </div>
   );
-}
+});
+
+InfiniteWindowedGrid.displayName = 'InfiniteWindowedGrid';
