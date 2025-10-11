@@ -62,7 +62,7 @@ export function WindowedProductGrid({ allProducts }: WindowedProductGridProps) {
       setStartIndex(0);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allProducts, restoreState]);
+  }, [allProducts]);
 
   useEffect(() => {
     const handleScroll = () => {
