@@ -8,7 +8,7 @@ import { ProductGrid } from './product-grid';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 
-const PRODUCTS_PER_PAGE = 25;
+const PRODUCTS_PER_PAGE = 8;
 
 type InfiniteProductGridProps = {
   initialProducts: {
@@ -27,7 +27,7 @@ export function InfiniteProductGrid({ initialProducts, category }: InfiniteProdu
   const loadMoreProducts = async () => {
     setIsLoading(true);
     const nextPage = page + 1;
-    const { products: newProducts, hasMore: newHasMore } = await fetchProducts({
+    const { products: newProducts, newHasMore } = await fetchProducts({
       page: nextPage,
       limit: PRODUCTS_PER_PAGE,
       category,
