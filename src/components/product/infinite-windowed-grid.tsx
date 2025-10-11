@@ -7,6 +7,8 @@ import { fetchProducts } from '@/app/actions';
 import { ProductGrid } from './product-grid';
 import { Loader2 } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const BATCH_SIZE = 25;
 const MAX_PRODUCTS_IN_DOM = 55;
@@ -22,113 +24,125 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(allProducts.length > initialProducts.length);
   const [startIndexInAll, setStartIndexInAll] = useState(0);
-
+  const [showLoadPrevious, setShowLoadPrevious] = useState(false);
+  
   const gridRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
 
-  const { ref: topRef, inView: topInView } = useInView({ threshold: 0 });
   const { ref: bottomRef, inView: bottomInView } = useInView({ threshold: 0 });
 
-  const loadMoreProducts = useCallback(async (direction: 'next' | 'prev') => {
-    if (isLoading) return;
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY < lastScrollY.current && currentScrollY > 200 && startIndexInAll > 0) {
+      setShowLoadPrevious(true);
+    } else {
+      setShowLoadPrevious(false);
+    }
+    lastScrollY.current = currentScrollY;
+  }, [startIndexInAll]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  const loadMoreProducts = useCallback(async () => {
+    if (isLoading || !hasMore) return;
     
-    if (direction === 'next' && hasMore) {
-        setIsLoading(true);
-        const nextPage = page + 1;
-        const { products: newProducts, hasMore: newHasMore } = await fetchProducts({ allProducts, page: nextPage, limit: BATCH_SIZE });
-        
-        setProducts(prev => {
-            const combined = [...prev, ...newProducts];
-            const uniqueIds = new Set();
-            const uniqueProducts = combined.filter(p => {
-              if (uniqueIds.has(p.id)) {
-                return false;
-              }
-              uniqueIds.add(p.id);
-              return true;
-            });
+    setIsLoading(true);
+    const nextPage = page + 1;
+    const { products: newProducts, hasMore: newHasMore } = await fetchProducts({ allProducts, page: nextPage, limit: BATCH_SIZE });
+    
+    setProducts(prev => {
+        let updatedProducts = [...prev, ...newProducts];
+        if (updatedProducts.length > MAX_PRODUCTS_IN_DOM && newHasMore) {
+            const toRemove = updatedProducts.length - MAX_PRODUCTS_IN_DOM;
+            
+            const firstKeptElement = gridRef.current?.children[0]?.children[toRemove];
+            const oldOffsetTop = (firstKeptElement as HTMLElement)?.offsetTop ?? 0;
 
-            let updatedProducts = uniqueProducts;
-            if (updatedProducts.length > MAX_PRODUCTS_IN_DOM && newHasMore) {
-                const toRemove = updatedProducts.length - MAX_PRODUCTS_IN_DOM;
-                
-                // --- Scroll position anchoring ---
-                const firstKeptElement = gridRef.current?.children[0]?.children[toRemove];
-                const oldOffsetTop = (firstKeptElement as HTMLElement)?.offsetTop ?? 0;
+            updatedProducts = updatedProducts.slice(toRemove);
+            setStartIndexInAll(prevIdx => prevIdx + toRemove);
 
-                updatedProducts = updatedProducts.slice(toRemove);
-                setStartIndexInAll(prevIdx => prevIdx + toRemove);
-
-                // After state updates, adjust scroll
-                requestAnimationFrame(() => {
-                    const newOffsetTop = (gridRef.current?.children[0]?.children[0] as HTMLElement)?.offsetTop ?? 0;
+            requestAnimationFrame(() => {
+                if (gridRef.current?.children[0]?.children[0]) {
+                    const newOffsetTop = (gridRef.current.children[0].children[0] as HTMLElement)?.offsetTop ?? 0;
                     const scrollAdjustment = newOffsetTop - oldOffsetTop;
                     if(scrollAdjustment > 0){
                         window.scrollBy(0, -scrollAdjustment);
                     }
-                });
-                 // --- End scroll position anchoring ---
-            }
-            return updatedProducts;
-        });
-        
-        setPage(nextPage);
-        setHasMore(newHasMore);
-        setIsLoading(false);
-
-    } else if (direction === 'prev' && startIndexInAll > 0) {
-        setIsLoading(true);
-        const newStartIndex = Math.max(0, startIndexInAll - BATCH_SIZE);
-        const productsToPrepend = allProducts.slice(newStartIndex, startIndexInAll);
-
-        setProducts(prev => {
-            const combined = [...productsToPrepend, ...prev];
-            const uniqueIds = new Set();
-            const uniqueProducts = combined.filter(p => {
-              if (uniqueIds.has(p.id)) {
-                return false;
-              }
-              uniqueIds.add(p.id);
-              return true;
+                }
             });
+        }
+        return updatedProducts;
+    });
+    
+    setPage(nextPage);
+    setHasMore(newHasMore);
+    setIsLoading(false);
 
-            let updatedProducts = uniqueProducts;
-            if (updatedProducts.length > MAX_PRODUCTS_IN_DOM) {
-                 updatedProducts = updatedProducts.slice(0, MAX_PRODUCTS_IN_DOM);
-            }
-            return updatedProducts;
-        });
+  }, [isLoading, hasMore, page, allProducts]);
 
-        setStartIndexInAll(newStartIndex);
-        setIsLoading(false);
-    }
-  }, [isLoading, hasMore, page, startIndexInAll, allProducts]);
+  const loadPreviousProducts = useCallback(async () => {
+      if (isLoading || startIndexInAll === 0) return;
+
+      setIsLoading(true);
+      const newStartIndex = Math.max(0, startIndexInAll - BATCH_SIZE);
+      const productsToPrepend = allProducts.slice(newStartIndex, startIndexInAll);
+
+      setProducts(prev => {
+          let updatedProducts = [...productsToPrepend, ...prev];
+          if (updatedProducts.length > MAX_PRODUCTS_IN_DOM) {
+               updatedProducts = updatedProducts.slice(0, MAX_PRODUCTS_IN_DOM);
+          }
+          return updatedProducts;
+      });
+
+      setStartIndexInAll(newStartIndex);
+      setIsLoading(false);
+      setShowLoadPrevious(false);
+  }, [isLoading, startIndexInall, allProducts]);
 
   useEffect(() => {
     if (bottomInView && !isLoading) {
-      loadMoreProducts('next');
+      loadMoreProducts();
     }
   }, [bottomInView, isLoading, loadMoreProducts]);
 
-  useEffect(() => {
-    if (topInView && !isLoading) {
-      loadMoreProducts('prev');
-    }
-  }, [topInView, isLoading, loadMoreProducts]);
-
   return (
     <div>
-      <div ref={topRef} className="h-1" />
+       <div className="fixed top-20 left-1/2 -translate-x-1/2 z-40 transition-all duration-300">
+         <Button
+            onClick={loadPreviousProducts}
+            className={cn(
+                'transition-all duration-300 shadow-lg',
+                showLoadPrevious ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20 pointer-events-none'
+            )}
+            disabled={isLoading}
+        >
+            {isLoading ? (
+                <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Loading...
+                </>
+            ) : (
+                'Load Previous'
+            )}
+        </Button>
+      </div>
+
       <div ref={gridRef}>
         <ProductGrid products={products} />
       </div>
+
       <div ref={bottomRef} className="h-1" />
-      {isLoading && (
+
+      {isLoading && hasMore && (
         <div className="flex justify-center items-center py-8">
           <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-          <span>Loading Products...</span>
+          <span>Loading More Products...</span>
         </div>
       )}
     </div>
   );
 }
-
