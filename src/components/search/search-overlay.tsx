@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -38,11 +38,33 @@ function SearchResultImage({ product }: { product: AppProduct }) {
   )
 }
 
+// Levenshtein distance function for fuzzy search
+const levenshtein = (s1: string, s2: string): number => {
+  const track = Array(s2.length + 1).fill(null).map(() =>
+    Array(s1.length + 1).fill(null));
+  for (let i = 0; i <= s1.length; i += 1) {
+    track[0][i] = i;
+  }
+  for (let j = 0; j <= s2.length; j += 1) {
+    track[j][0] = j;
+  }
+  for (let j = 1; j <= s2.length; j += 1) {
+    for (let i = 1; i <= s1.length; i += 1) {
+      const indicator = s1[i - 1] === s2[j - 1] ? 0 : 1;
+      track[j][i] = Math.min(
+        track[j][i - 1] + 1, // deletion
+        track[j - 1][i] + 1, // insertion
+        track[j - 1][i - 1] + indicator, // substitution
+      );
+    }
+  }
+  return track[s2.length][s1.length];
+};
+
 export function SearchOverlay() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [allProducts, setAllProducts] = useState<AppProduct[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<AppProduct[]>([]);
 
   useEffect(() => {
     if (isOpen && allProducts.length === 0) {
@@ -50,19 +72,43 @@ export function SearchOverlay() {
     }
   }, [isOpen, allProducts.length]);
 
-  useEffect(() => {
-    if (searchQuery.length > 1) {
-      const lowerCaseQuery = searchQuery.toLowerCase();
-      const results = allProducts.filter(
-        (product) =>
-          product.name.toLowerCase().includes(lowerCaseQuery) ||
-          product.description.toLowerCase().includes(lowerCaseQuery) ||
-          product.category.toLowerCase().includes(lowerCaseQuery)
-      );
-      setFilteredProducts(results);
-    } else {
-      setFilteredProducts([]);
+  const filteredProducts = useMemo(() => {
+    if (searchQuery.length === 0) {
+      return [];
     }
+
+    const lowerCaseQuery = searchQuery.toLowerCase();
+
+    // Rule 1: ID Search
+    if (/^\d+$/.test(searchQuery)) {
+      const productById = allProducts.find(p => p.id === searchQuery);
+      return productById ? [productById] : [];
+    }
+
+    // Rule 2: Title Search
+    // Tier A: Starts-with
+    let results = allProducts.filter(p => 
+      p.name.toLowerCase().startsWith(lowerCaseQuery)
+    );
+
+    // Tier B: Any-word
+    if (results.length === 0) {
+      const queryWords = lowerCaseQuery.split(/[\s,.-_]+/);
+      results = allProducts.filter(p => {
+        const titleWords = p.name.toLowerCase().split(/[\s,.-_]+/);
+        return queryWords.some(qw => titleWords.includes(qw));
+      });
+    }
+
+    // Tier C: Fuzzy search
+    if (results.length === 0) {
+      results = allProducts.filter(p => 
+        levenshtein(p.name.toLowerCase(), lowerCaseQuery) <= 2
+      );
+    }
+    
+    return results;
+
   }, [searchQuery, allProducts]);
 
   return (
@@ -79,7 +125,7 @@ export function SearchOverlay() {
         </DialogHeader>
         <div className="p-6 pt-0">
           <Input
-            placeholder="e.g. Urban Hoodie"
+            placeholder="Search by product name or ID"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="text-lg"
