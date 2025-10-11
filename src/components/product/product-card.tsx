@@ -47,7 +47,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
                 />
               </div>
             </Link>
-            <div className="absolute top-2 left-2 rounded-full bg-black/50 px-2 py-1 text-xs font-bold text-white">
+            <div className="absolute top-2 left-2 rounded-full bg-black/50 px-2 py-1 text-xs font-bold text-white opacity-0 transition-opacity group-hover:opacity-100">
               ID: {product.id}
             </div>
             <Button
