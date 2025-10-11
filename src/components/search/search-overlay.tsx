@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -16,6 +17,26 @@ import type { AppProduct } from '@/lib/products';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ScrollArea } from '../ui/scroll-area';
+import { Skeleton } from '../ui/skeleton';
+import { cn } from '@/lib/utils';
+
+function SearchResultImage({ product }: { product: AppProduct }) {
+  const [isLoading, setIsLoading] = useState(true);
+  return (
+    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md">
+      {isLoading && <Skeleton className="absolute inset-0" />}
+      <Image
+        src={product.images[0]}
+        alt={product.name}
+        fill
+        className={cn('object-contain transition-opacity duration-300', isLoading ? 'opacity-0' : 'opacity-100')}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        data-ai-hint="product image"
+        onLoad={() => setIsLoading(false)}
+      />
+    </div>
+  )
+}
 
 export function SearchOverlay() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,16 +98,7 @@ export function SearchOverlay() {
                   className="flex items-center gap-4 rounded-md p-2 hover:bg-accent"
                   onClick={() => setIsOpen(false)}
                 >
-                  <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md">
-                    <Image
-                      src={product.images[0]}
-                      alt={product.name}
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      data-ai-hint="product image"
-                    />
-                  </div>
+                  <SearchResultImage product={product} />
                   <div>
                     <p className="font-medium">{product.name}</p>
                     <p className="text-sm text-muted-foreground">PKR {product.price}</p>

@@ -1,14 +1,16 @@
 
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { AppProduct } from '@/lib/products';
 import { Card, CardContent } from '@/components/ui/card';
 import { AddToCartButton } from './add-to-cart-button';
-import { motion } from 'framer-motion';
 import { Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils';
 
 type ProductCardProps = {
   product: AppProduct;
@@ -16,30 +18,32 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product, onQuickView }: ProductCardProps) {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
   const handleQuickViewClick = (e: React.MouseEvent) => {
     e.preventDefault();
     onQuickView(product);
-  }
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="flex flex-col"
-    >
+    <div className="flex flex-col">
       <Card className="flex flex-col flex-grow overflow-hidden rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-xl">
         <CardContent className="p-0 flex flex-col flex-grow">
           <div className="group relative">
             <Link href={`/products/${product.slug}`}>
               <div className="relative aspect-square w-full overflow-hidden">
+                {isImageLoading && <Skeleton className="absolute inset-0" />}
                 <Image
                   src={product.images[0]}
                   alt={product.name}
                   fill
-                  className="object-contain transition-transform duration-300 group-hover:scale-105"
+                  className={cn(
+                    'object-contain transition-opacity duration-300 group-hover:scale-105',
+                    isImageLoading ? 'opacity-0' : 'opacity-100'
+                  )}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   data-ai-hint="product image"
+                  onLoad={() => setIsImageLoading(false)}
                 />
               </div>
             </Link>
@@ -67,6 +71,6 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import type { AppProduct } from '@/lib/products';
 import Image from 'next/image';
@@ -9,6 +10,27 @@ import Link from 'next/link';
 import { AddToCartButton } from './add-to-cart-button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 import { ScrollArea } from '../ui/scroll-area';
+import { Skeleton } from '../ui/skeleton';
+import { cn } from '@/lib/utils';
+
+
+function CarouselImage({ img, productName, index }: { img: string, productName: string, index: number }) {
+  const [isLoading, setIsLoading] = useState(true);
+  return (
+    <div className="relative aspect-square">
+      {isLoading && <Skeleton className="absolute inset-0 rounded-md" />}
+      <Image
+        src={img}
+        alt={`${productName} image ${index + 1}`}
+        fill
+        className={cn("object-contain rounded-md transition-opacity duration-300", isLoading ? 'opacity-0' : 'opacity-100')}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        data-ai-hint="product image"
+        onLoad={() => setIsLoading(false)}
+      />
+    </div>
+  )
+}
 
 type QuickViewProps = {
   product: AppProduct | null;
@@ -30,16 +52,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
               <CarouselContent>
                 {product.images.map((img, index) => (
                   <CarouselItem key={index}>
-                    <div className="relative aspect-square">
-                      <Image
-                        src={img}
-                        alt={`${product.name} image ${index + 1}`}
-                        fill
-                        className="object-contain rounded-md"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        data-ai-hint="product image"
-                      />
-                    </div>
+                    <CarouselImage img={img} productName={product.name} index={index} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
