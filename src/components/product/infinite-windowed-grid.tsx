@@ -54,7 +54,8 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
     const { products: newProducts, hasMore: newHasMore } = await fetchProducts({ allProducts, page: nextPage, limit: BATCH_SIZE });
     
     setProducts(prev => {
-        let updatedProducts = [...prev, ...newProducts];
+        const uniqueNewProducts = newProducts.filter(np => !prev.some(p => p.id === np.id));
+        let updatedProducts = [...prev, ...uniqueNewProducts];
         if (updatedProducts.length > MAX_PRODUCTS_IN_DOM && newHasMore) {
             const toRemove = updatedProducts.length - MAX_PRODUCTS_IN_DOM;
             
@@ -91,7 +92,8 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
       const productsToPrepend = allProducts.slice(newStartIndex, startIndexInAll);
 
       setProducts(prev => {
-          let updatedProducts = [...productsToPrepend, ...prev];
+          const uniqueProductsToPrepend = productsToPrepend.filter(p => !prev.some(pp => pp.id === p.id));
+          let updatedProducts = [...uniqueProductsToPrepend, ...prev];
           if (updatedProducts.length > MAX_PRODUCTS_IN_DOM) {
                updatedProducts = updatedProducts.slice(0, MAX_PRODUCTS_IN_DOM);
           }
@@ -101,7 +103,7 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
       setStartIndexInAll(newStartIndex);
       setIsLoading(false);
       setShowLoadPrevious(false);
-  }, [isLoading, startIndexInall, allProducts]);
+  }, [isLoading, startIndexInAll, allProducts]);
 
   useEffect(() => {
     if (bottomInView && !isLoading) {
