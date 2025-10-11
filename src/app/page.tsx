@@ -44,6 +44,7 @@ function HomePageContent() {
 
   useEffect(() => {
     async function loadInitial() {
+      setIsLoading(true);
       const fetchedProducts = await getProducts();
       const shuffled = shuffle(fetchedProducts);
       const initial = await fetchProducts({ allProducts: shuffled, page: 1, limit: 25 });
@@ -61,10 +62,27 @@ function HomePageContent() {
   }, []);
   
   const handleLoadPrevious = async () => {
-    await gridRef.current?.loadPrevious();
+    if (gridRef.current) {
+        setIsLoading(true);
+        await gridRef.current.loadPrevious();
+        // The isLoading state will be set to false via onStateChange
+    }
+  };
+  
+  const handleGridStateChange = (newState: { products: AppProduct[], startIndexInAll: number, page: number, hasMore: boolean, isLoading: boolean }) => {
+    setGridState({
+      products: newState.products,
+      startIndexInAll: newState.startIndexInAll,
+      page: newState.page,
+      hasMore: newState.hasMore,
+    });
+    // Sync loading state from child component
+    if (isLoading !== newState.isLoading) {
+      setIsLoading(newState.isLoading);
+    }
   };
 
-  if (isLoading) {
+  if (isLoading && initialProducts.length === 0) {
     return (
        <div>
         <Hero />
@@ -113,7 +131,7 @@ function HomePageContent() {
             ref={gridRef}
             allProducts={allProducts}
             initialProducts={initialProducts}
-            onStateChange={setGridState}
+            onStateChange={handleGridStateChange}
           />
         </Suspense>
       </div>
