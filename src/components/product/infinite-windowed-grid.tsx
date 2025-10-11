@@ -35,11 +35,21 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
         const { products: newProducts, hasMore: newHasMore } = await fetchProducts({ allProducts, page: nextPage, limit: BATCH_SIZE });
         
         setProducts(prev => {
-            let updatedProducts = [...prev, ...newProducts];
+            const combined = [...prev, ...newProducts];
+            const uniqueIds = new Set();
+            const uniqueProducts = combined.filter(p => {
+              if (uniqueIds.has(p.id)) {
+                return false;
+              }
+              uniqueIds.add(p.id);
+              return true;
+            });
+
+            let updatedProducts = uniqueProducts;
             if (updatedProducts.length > MAX_PRODUCTS_IN_DOM && newHasMore) {
                 const toRemove = updatedProducts.length - MAX_PRODUCTS_IN_DOM;
                 updatedProducts = updatedProducts.slice(toRemove);
-                setStartIndexInAll(prev => prev + toRemove);
+                setStartIndexInAll(prevIdx => prevIdx + toRemove);
             }
             return updatedProducts;
         });
@@ -54,7 +64,17 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
         const productsToPrepend = allProducts.slice(newStartIndex, startIndexInAll);
 
         setProducts(prev => {
-            let updatedProducts = [...productsToPrepend, ...prev];
+            const combined = [...productsToPrepend, ...prev];
+            const uniqueIds = new Set();
+            const uniqueProducts = combined.filter(p => {
+              if (uniqueIds.has(p.id)) {
+                return false;
+              }
+              uniqueIds.add(p.id);
+              return true;
+            });
+
+            let updatedProducts = uniqueProducts;
             if (updatedProducts.length > MAX_PRODUCTS_IN_DOM) {
                  updatedProducts = updatedProducts.slice(0, MAX_PRODUCTS_IN_DOM);
             }
@@ -92,4 +112,3 @@ export function InfiniteWindowedGrid({ initialProducts, allProducts }: InfiniteW
     </div>
   );
 }
-
