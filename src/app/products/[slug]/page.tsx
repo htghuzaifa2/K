@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: ProductPageProps, parent: Res
 
   if (!product) {
     return {
-      title: `Product not found - ${APP_NAME}`,
+      title: `Product not found`,
       description: "The product you are looking for does not exist.",
     }
   }

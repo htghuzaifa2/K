@@ -25,7 +25,10 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: APP_NAME,
+  title: {
+    default: APP_NAME,
+    template: `%s - ${APP_NAME}`,
+  },
   description: 'Your premier destination for the latest in tech. Shop our curated collection of high-quality gadgets and electronics. Experience seamless online shopping with us.',
 };
 
