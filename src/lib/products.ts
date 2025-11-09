@@ -47,7 +47,7 @@ export async function getProducts(): Promise<AppProduct[]> {
 }
 
 export async function getProductBySlug(slug: string): Promise<AppProduct | null> {
-  const products = await getTransformedProducts();
+  const products = await getProducts();
   return products.find((p) => p.slug === slug) || null;
 }
 
