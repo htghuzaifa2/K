@@ -135,7 +135,9 @@ export default function ContactPage() {
       <section className="text-center max-w-3xl mx-auto bg-secondary/50 dark:bg-secondary/20 rounded-xl p-8 animate-fade-in-up" style={{ animationDelay: '600ms', animationFillMode: 'backwards' }}>
         <h2 className="text-3xl font-bold font-headline">Our Commitment</h2>
         <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-           We believe in building trust through clear communication. Every query is important to us, and our goal is to provide you with fast, professional, and reliable support at every step of your journey with {APP_NAME}.
+           <span className="animate-text-gradient bg-gradient-to-r from-primary via-accent to-primary bg-[200%_auto] bg-clip-text font-semibold text-transparent">
+                We believe in building trust through clear communication. Every query is important to us, and our goal is to provide you with fast, professional, and reliable support at every step of your journey with {APP_NAME}.
+           </span>
         </p>
       </section>
     </div>

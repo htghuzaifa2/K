@@ -22,8 +22,10 @@ export function Footer() {
                     </Link>
                 ))}
             </nav>
-            <p className="mt-6 text-center text-xs text-muted-foreground">
-                &copy; {new Date().getFullYear()} {APP_NAME}. All Rights Reserved.
+            <p className="mt-6 text-center text-xs">
+                <span className="animate-text-gradient bg-gradient-to-r from-primary via-accent to-primary bg-[200%_auto] bg-clip-text font-semibold text-transparent">
+                    &copy; {new Date().getFullYear()} {APP_NAME}. All Rights Reserved.
+                </span>
             </p>
         </div>
       </div>
