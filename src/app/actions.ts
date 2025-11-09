@@ -4,19 +4,44 @@
 import type { AppProduct } from '@/lib/products';
 import { getProducts, getProductsByCategory } from '@/lib/products';
 
+// Fisher-Yates shuffle algorithm
+function shuffle(array: any[]) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex > 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
 export async function fetchProducts({
   page = 1,
   limit = 8,
   category,
+  shuffle: doShuffle = false,
 }: {
   page?: number;
   limit?: number;
   category?: string;
+  shuffle?: boolean;
 }) {
-  const allProducts = category ? await getProductsByCategory(category) : await getProducts();
+  let allProducts = category ? await getProductsByCategory(category) : await getProducts();
+
+  if (doShuffle) {
+    allProducts = shuffle(allProducts);
+  }
+
   const start = (page - 1) * limit;
   const end = start + limit;
   const products = allProducts.slice(start, end);
+  
   return {
     products,
     hasMore: allProducts.length > end,
@@ -35,7 +60,7 @@ export async function fetchRelatedProductsData(category: string, currentProductI
     if (related.length < limit) {
         const allProducts = await getProducts();
         const otherProducts = allProducts.filter(p => 
-            p.category.toLowerCase() !== category.toLowerCase() && 
+            !categoryProducts.some(cp => cp.id === p.id) &&
             p.id !== currentProductId
         );
         

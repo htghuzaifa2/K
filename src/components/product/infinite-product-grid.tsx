@@ -43,7 +43,7 @@ export function InfiniteProductGrid({ initialProducts, category }: InfiniteProdu
   };
   
   useEffect(() => {
-    // Reset products when category changes
+    // Reset products when category or initial products change
     setProducts(initialProducts.products);
     setPage(1);
     setHasMore(initialProducts.hasMore);
@@ -53,7 +53,7 @@ export function InfiniteProductGrid({ initialProducts, category }: InfiniteProdu
     if (inView && !isLoading) {
       loadMoreProducts();
     }
-  }, [inView, isLoading, loadMoreProducts]);
+  }, [inView, isLoading]);
 
 
   return (
