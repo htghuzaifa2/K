@@ -3,7 +3,6 @@
 
 import { getBlogPostBySlug } from '@/lib/blog-data';
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import styles from '../../styles/blogs.module.css';
 import Link from 'next/link';
@@ -13,28 +12,6 @@ import type { BlogPost } from '@/lib/blog-data';
 type Props = {
   params: { slug: string };
 };
-
-// Metadata generation is tricky on fully client-rendered pages.
-// This will run on the server initially, but we'll update it on the client.
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getBlogPostBySlug(params.slug);
-
-  if (!post) {
-    return {
-      title: `Not Found - ${APP_NAME}`,
-    };
-  }
-
-  return {
-    title: `${post.title} - ${APP_NAME}`,
-    description: post.description,
-    openGraph: {
-        title: post.title,
-        description: post.description,
-        type: 'article',
-    }
-  };
-}
 
 function BlogPostSkeleton() {
     return (
@@ -89,12 +66,4 @@ export default function BlogPostPage({ params }: Props) {
       />
     </article>
   );
-}
-
-// This function is still useful for Next.js to know which slugs to pre-render if possible.
-export async function generateStaticParams() {
-  const posts = getBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
 }
