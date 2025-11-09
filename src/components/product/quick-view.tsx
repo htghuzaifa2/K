@@ -18,7 +18,7 @@ function CarouselImage({ img, index }: { img: ProductImage, index: number }) {
         src={img.url}
         alt={img.altText}
         fill
-        className="object-contain rounded-md"
+        className="object-cover rounded-md"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         data-ai-hint="product image"
         placeholder="blur"

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -72,7 +73,7 @@ export default function Hero() {
                     alt={slide.headline}
                     fill
                     priority={index === 0}
-                    className="object-contain"
+                    className="object-cover"
                     data-ai-hint={slide.hint}
                   />
                   <div className="absolute inset-0 bg-black/40" />

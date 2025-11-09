@@ -56,7 +56,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                         src={item.product.images[0].url}
                         alt={item.product.images[0].altText}
                         fill
-                        className="object-contain"
+                        className="object-cover"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         data-ai-hint="product image"
                         placeholder="blur"
