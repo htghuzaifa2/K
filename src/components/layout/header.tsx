@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu } from 'lucide-react';
 import { useState } from 'react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -24,6 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const mainNavItems = [
   { name: 'Home', href: '/' },
@@ -39,22 +40,40 @@ const moreNavItems = [
     { name: 'FAQ', href: '/faq' },
 ];
 
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function NavLink({ href, children, className }: { href: string; children: React.ReactNode, className?: string }) {
     const pathname = usePathname();
     const isActive = pathname === href;
     return (
         <Link
             href={href}
             className={cn(
-                'relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
-                'after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full',
-                isActive ? 'text-primary after:w-full' : ''
+                'text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
+                isActive ? 'text-primary' : '',
+                className
             )}
         >
             {children}
         </Link>
     );
 }
+
+function MobileNavLink({ href, children, closeMenu }: { href: string; children: React.ReactNode; closeMenu: () => void }) {
+    const pathname = usePathname();
+    const isActive = pathname === href;
+    return (
+        <Link
+            href={href}
+            onClick={closeMenu}
+            className={cn(
+                "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                isActive ? "text-primary font-semibold" : ""
+            )}
+        >
+            <div className="text-base font-medium">{children}</div>
+        </Link>
+    );
+}
+
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -74,7 +93,7 @@ export function Header() {
             ))}
              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary p-0 h-auto">
+                    <Button variant="ghost" className="relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary p-0 h-auto focus-visible:ring-0">
                         More
                         <ChevronDown className="ml-1 h-4 w-4" />
                     </Button>
@@ -91,11 +110,10 @@ export function Header() {
         </div>
         
         <div className="flex items-center gap-2">
-            <div className="hidden md:flex items-center gap-2">
-                <SearchOverlay />
-                <CartIcon />
-                <ThemeToggle />
-            </div>
+            <SearchOverlay />
+            <CartIcon />
+            <ThemeToggle />
+
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -103,50 +121,47 @@ export function Header() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
-              <div className="flex flex-col gap-6 p-6">
-              <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-                <span className="font-bold text-lg font-headline">{APP_NAME}</span>
-              </Link>
-                <nav className="flex flex-col gap-4">
+            <SheetContent side="left" className="flex flex-col p-0">
+                <SheetHeader className="p-6 pb-0">
+                    <SheetTitle>
+                        <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-2">
+                            <span className="font-bold text-lg font-headline">{APP_NAME}</span>
+                        </Link>
+                    </SheetTitle>
+                </SheetHeader>
+              <ScrollArea className="flex-1">
+                <nav className="flex flex-col gap-2 p-6">
                   {mainNavItems.map((item) => (
-                    <Link
+                    <MobileNavLink
                       key={item.href}
                       href={item.href}
-                      className="text-lg font-medium"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      closeMenu={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
-                    </Link>
+                    </MobileNavLink>
                   ))}
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="more-items" className="border-b-0">
-                        <AccordionTrigger className="text-lg font-medium py-0 hover:no-underline">
+                        <AccordionTrigger className="p-3 text-base font-medium hover:no-underline rounded-md hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                             More
                         </AccordionTrigger>
                         <AccordionContent className="pt-2">
-                            <div className="flex flex-col gap-4 pl-4">
+                            <div className="flex flex-col gap-1 pl-4">
                                 {moreNavItems.map((item) => (
-                                    <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    className="text-lg font-medium text-muted-foreground"
-                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    <MobileNavLink
+                                        key={item.href}
+                                        href={item.href}
+                                        closeMenu={() => setIsMobileMenuOpen(false)}
                                     >
-                                    {item.name}
-                                    </Link>
+                                        {item.name}
+                                    </MobileNavLink>
                                 ))}
                             </div>
                         </AccordionContent>
                     </AccordionItem>
                   </Accordion>
                 </nav>
-                <div className="flex items-center gap-4 mt-4">
-                    <SearchOverlay />
-                    <CartIcon />
-                    <ThemeToggle />
-                </div>
-              </div>
+              </ScrollArea>
             </SheetContent>
           </Sheet>
         </div>
