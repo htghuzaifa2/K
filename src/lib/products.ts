@@ -43,7 +43,7 @@ const getTransformedProducts = cache(
 );
 
 export async function getProducts(): Promise<AppProduct[]> {
-  return await getTransformedProducts();
+  return getTransformedProducts();
 }
 
 export async function getProductBySlug(slug: string): Promise<AppProduct | null> {
