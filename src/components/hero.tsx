@@ -88,7 +88,7 @@ export default function Hero() {
                           src={slide.image}
                           alt={slide.imageAlt || "Hero image"}
                           fill
-                          className="object-contain"
+                          className="object-cover"
                           priority={index === 0}
                         />
                          <div className="absolute inset-0 bg-black/50" />
