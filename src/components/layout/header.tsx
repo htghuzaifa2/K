@@ -46,24 +46,26 @@ function NavLink({ href, children, className }: { href: string; children: React.
     const pathname = usePathname();
     const isActive = pathname === href;
     return (
-        <Link
-            href={href}
-            className={cn(
-                'relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
-                className
-            )}
-        >
-            <span className={cn('transition-colors', isActive ? 'text-primary font-semibold' : '')}>
-              {children}
-            </span>
-            <span
+        <div className="group relative">
+            <Link
+                href={href}
+                className={cn(
+                    'relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
+                    className
+                )}
+            >
+                <span className={cn('transition-colors', isActive ? 'text-primary font-semibold' : '')}>
+                {children}
+                </span>
+            </Link>
+             <span
               className={cn(
                 'absolute bottom-[-2px] left-0 h-0.5 w-full scale-x-0 bg-primary transition-transform duration-300 ease-out group-hover:scale-x-100',
                 isActive ? 'scale-x-100' : '',
                 'origin-center'
               )}
             />
-        </Link>
+        </div>
     );
 }
 
@@ -97,25 +99,25 @@ export function Header() {
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
             {mainNavItems.map((item) => (
-              <div key={item.href} className="group">
-                <NavLink href={item.href}>
-                  {item.name}
-                </NavLink>
-              </div>
+              <NavLink key={item.href} href={item.href}>
+                {item.name}
+              </NavLink>
             ))}
              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="group relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary p-0 h-auto focus-visible:ring-0">
-                        More
-                        <ChevronDown className="ml-1 h-4 w-4" />
-                         <span
-                            className={cn(
-                                'absolute bottom-[-2px] left-0 h-0.5 w-full scale-x-0 bg-primary transition-transform duration-300 ease-out group-hover:scale-x-100',
-                                'origin-center'
-                            )}
-                        />
-                    </Button>
-                </DropdownMenuTrigger>
+                <div className="group relative">
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary hover:bg-transparent p-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0">
+                            More
+                            <ChevronDown className="ml-1 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                     <span
+                        className={cn(
+                            'absolute bottom-[-2px] left-0 h-0.5 w-full scale-x-0 bg-primary transition-transform duration-300 ease-out group-hover:scale-x-100',
+                            'origin-center'
+                        )}
+                    />
+                </div>
                 <DropdownMenuContent align="start">
                     {moreNavItems.map((item) => (
                         <DropdownMenuItem key={item.href} asChild>
