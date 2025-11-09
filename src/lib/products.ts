@@ -39,15 +39,9 @@ function transformProduct(product: RawProduct): AppProduct {
     };
 }
 
-let allProductsCache: AppProduct[] | null = null;
-
 export async function getProducts(): Promise<AppProduct[]> {
-  if (allProductsCache) {
-    return allProductsCache;
-  }
   const products = await fetchProductsData();
-  allProductsCache = products.map(transformProduct);
-  return allProductsCache;
+  return products.map(transformProduct);
 }
 
 export async function getProductBySlug(slug: string): Promise<AppProduct | null> {
