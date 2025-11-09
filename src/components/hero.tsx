@@ -30,24 +30,28 @@ const slides = [
     background: "bg-accent/10",
   },
   {
-    title: "Read Our Latest Insights",
-    description: "Explore articles, tutorials, and insights on the latest in tech and design.",
+    title: "Explore Our Insights & Ideas",
+    description: "Your source for tech trends, expert tutorials, and design inspiration.",
     buttonText: "Go to Blogs",
     href: "/blogs",
-    background: "bg-secondary",
+    background: "bg-primary/10",
   },
   {
     title: "Discover Our Handy Tools",
     description: "A collection of handy online tools for developers and designers.",
     buttonText: "Explore Tools",
     href: "/tools",
-    background: "bg-muted",
+    background: "bg-accent/10",
   }
 ];
 
 export default function Hero() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+
+  const plugin = useRef(
+    Autoplay({ delay: 7000, stopOnInteraction: true })
+  );
 
   useEffect(() => {
     if (!api) {
@@ -71,12 +75,7 @@ export default function Hero() {
     <div className="w-full relative">
       <Carousel
         setApi={setApi}
-        plugins={[
-          Autoplay({
-            delay: 7000,
-            stopOnInteraction: true,
-          }),
-        ]}
+        plugins={[plugin.current]}
         opts={{
             loop: true,
         }}
