@@ -58,8 +58,20 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
+  grid-template-columns: 1fr; /* 1 column for ultra-slim mobiles */
+}
+
+@media (min-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for mobiles */
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for tablets and desktops */
+  }
 }
 
 .card {
