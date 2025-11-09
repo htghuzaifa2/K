@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { APP_NAME } from '@/lib/constants';
 import styles from '../../styles/blogs.module.css';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import type { BlogPost } from '@/lib/blog-data';
 
 type Props = {
@@ -32,9 +32,10 @@ function BlogPostSkeleton() {
 export default function BlogPostPage({ params }: Props) {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
+  const resolvedParams = use(params);
 
   useEffect(() => {
-    const foundPost = getBlogPostBySlug(params.slug);
+    const foundPost = getBlogPostBySlug(resolvedParams.slug);
     if (!foundPost) {
       notFound();
     } else {
@@ -49,7 +50,7 @@ export default function BlogPostPage({ params }: Props) {
 
       setLoading(false);
     }
-  }, [params.slug]);
+  }, [resolvedParams.slug]);
 
 
   if (loading || !post) {
