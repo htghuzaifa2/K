@@ -58,4 +58,9 @@ export default function BlogsPage() {
       ) : (
         <div className={styles.noResults}>
           <h2>No posts found</h2>
-          
+          <p>Try adjusting your search query.</p>
+        </div>
+      )}
+    </>
+  );
+}
