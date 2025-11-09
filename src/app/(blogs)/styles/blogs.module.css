@@ -63,7 +63,8 @@
 }
 
 .card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background-color: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
@@ -82,8 +83,27 @@
   font-size: 1.25rem;
   font-weight: 600;
   color: hsl(var(--card-foreground));
-  text-align: center;
+  margin-bottom: 0.75rem;
+  flex-grow: 1;
 }
+
+.cardFooter {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.readMore {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(var(--primary));
+    text-decoration: none;
+}
+
+.readMore:hover {
+    text-decoration: underline;
+}
+
 
 .pagination {
   display: flex;
@@ -176,6 +196,40 @@
     margin-bottom: 1rem;
 }
 
+.articleContent a {
+    color: hsl(var(--primary));
+    text-decoration: none;
+}
+
+.articleContent a:hover {
+    text-decoration: underline;
+}
+
+.articleContent ul, .articleContent ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.articleContent li > p {
+    display: inline;
+}
+
+.articleContent table {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-collapse: collapse;
+}
+
+.articleContent th, .articleContent td {
+    border: 1px solid hsl(var(--border));
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.articleContent th {
+    background-color: hsl(var(--muted));
+}
+
 .footer {
   text-align: center;
   margin-top: 4rem;
@@ -191,7 +245,7 @@
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  height: 94px; /* Approximate height of the new card */
+  height: 140px; /* Approximate height of the new card */
 }
 
 .skeletonTitle {
@@ -200,7 +254,17 @@
     animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     height: 20px;
     width: 80%;
-    margin: 8px auto 0;
+    margin-bottom: 1rem;
+}
+
+.skeletonButton {
+    background-color: hsl(var(--muted));
+    border-radius: 4px;
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    height: 16px;
+    width: 30%;
+    margin-left: auto;
+    margin-top: 2.5rem;
 }
 
 @keyframes pulse {

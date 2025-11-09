@@ -12,7 +12,10 @@ interface BlogCardProps {
 export default function BlogCard({ post }: BlogCardProps) {
   return (
     <Link href={`/blogs/${post.slug}`} className={styles.card}>
-      <h3 className={styles.cardTitle}>{post.title}</h3>
+        <h3 className={styles.cardTitle}>{post.title}</h3>
+        <div className={styles.cardFooter}>
+            <span className={styles.readMore}>Read More &rarr;</span>
+        </div>
     </Link>
   );
 }
