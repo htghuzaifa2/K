@@ -39,6 +39,7 @@ const moreNavItems = [
     { name: 'Tools', href: '/tools' },
     { name: 'Shipping Policy', href: '/shipping-policy' },
     { name: 'Return Policy', href: '/return-policy' },
+    { name: 'Cash on Delivery', href: '/cash-on-delivery' },
     { name: 'FAQ', href: '/faq' },
 ];
 
