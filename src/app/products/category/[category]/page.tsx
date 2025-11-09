@@ -19,7 +19,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
-  const initialProducts = await fetchProducts({ page: 1, limit: 12, category: decodedCategory });
+  const initialProducts = await fetchProducts({ page: 1, limit: 25, category: decodedCategory });
 
   const title = decodedCategory
     .split('-')

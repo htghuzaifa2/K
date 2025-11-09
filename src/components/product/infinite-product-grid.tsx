@@ -9,22 +9,21 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 
-const PRODUCTS_PER_PAGE = 12;
+const PRODUCTS_PER_PAGE = 25; // Updated to 25
+const MAX_PRODUCTS = 75; // Cap at 75
 
-type InfiniteProductGridProps = {
+export function InfiniteProductGrid({ initialProducts, category }: {
   initialProducts: {
     products: AppProduct[];
     hasMore: boolean;
+    total: number;
   };
   category?: string;
-};
-
-export function InfiniteProductGrid({ initialProducts, category }: InfiniteProductGridProps) {
+}) {
   const [products, setProducts] = useState(initialProducts.products);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(initialProducts.hasMore);
+  const [hasMore, setHasMore] = useState(initialProducts.hasMore && initialProducts.products.length < MAX_PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
-  const { ref, inView } = useInView({ threshold: 0 });
 
   const loadMoreProducts = async () => {
     if (isLoading || !hasMore) return;
@@ -36,9 +35,18 @@ export function InfiniteProductGrid({ initialProducts, category }: InfiniteProdu
       limit: PRODUCTS_PER_PAGE,
       category,
     });
-    setProducts((prev) => [...prev, ...newProducts]);
+    
+    setProducts((prev) => {
+        const updatedProducts = [...prev, ...newProducts];
+        if (updatedProducts.length >= MAX_PRODUCTS) {
+            setHasMore(false);
+            return updatedProducts.slice(0, MAX_PRODUCTS);
+        }
+        setHasMore(newHasMore);
+        return updatedProducts;
+    });
+
     setPage(nextPage);
-    setHasMore(newHasMore);
     setIsLoading(false);
   };
   
@@ -46,21 +54,14 @@ export function InfiniteProductGrid({ initialProducts, category }: InfiniteProdu
     // Reset products when category or initial products change
     setProducts(initialProducts.products);
     setPage(1);
-    setHasMore(initialProducts.hasMore);
+    setHasMore(initialProducts.hasMore && initialProducts.products.length < MAX_PRODUCTS);
   }, [category, initialProducts]);
-
-  useEffect(() => {
-    if (inView && !isLoading) {
-      loadMoreProducts();
-    }
-  }, [inView, isLoading]);
-
 
   return (
     <div>
       <ProductGrid products={products} />
       {hasMore && (
-        <div ref={ref} className="mt-8 flex justify-center">
+        <div className="mt-8 flex justify-center">
           <Button onClick={loadMoreProducts} disabled={isLoading} variant="outline">
             {isLoading ? (
               <>

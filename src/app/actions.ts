@@ -23,16 +23,22 @@ function shuffle(array: any[]) {
 
 export async function fetchProducts({
   page = 1,
-  limit = 8,
+  limit = 25, // Updated limit to 25
   category,
   shuffle: doShuffle = false,
+  allProducts: providedProducts,
 }: {
   page?: number;
   limit?: number;
   category?: string;
   shuffle?: boolean;
+  allProducts?: AppProduct[];
 }) {
-  let allProducts = category ? await getProductsByCategory(category) : await getProducts();
+  let allProducts = providedProducts;
+
+  if (!allProducts) {
+    allProducts = category ? await getProductsByCategory(category) : await getProducts();
+  }
 
   if (doShuffle) {
     allProducts = shuffle(allProducts);
@@ -45,6 +51,7 @@ export async function fetchProducts({
   return {
     products,
     hasMore: allProducts.length > end,
+    total: allProducts.length,
   };
 }
 
@@ -71,4 +78,40 @@ export async function fetchRelatedProductsData(category: string, currentProductI
     }
     
     return related.slice(0, limit);
+}
+
+export async function searchProducts(query: string): Promise<AppProduct[]> {
+    const allProducts = await getProducts();
+    if (!query) {
+        return [];
+    }
+
+    const lowerCaseQuery = query.toLowerCase();
+
+    // Rule 1: ID Search (string contains)
+    const idResults = allProducts.filter(p => p.id.toString().includes(lowerCaseQuery));
+    
+    // Rule 2: Title Search
+    // Tier A: Starts-with
+    let titleResults = allProducts.filter(p => p.name.toLowerCase().startsWith(lowerCaseQuery));
+
+    // Tier B: Includes
+    if (titleResults.length < 10) {
+        const includesResults = allProducts.filter(p => p.name.toLowerCase().includes(lowerCaseQuery));
+        includesResults.forEach(ir => {
+            if (!titleResults.some(r => r.id === ir.id)) {
+                titleResults.push(ir);
+            }
+        });
+    }
+
+    // Combine results, giving priority to ID matches, then title matches
+    const combinedResults = [...idResults];
+    titleResults.forEach(tr => {
+        if (!combinedResults.some(r => r.id === tr.id)) {
+            combinedResults.push(tr);
+        }
+    });
+
+    return combinedResults;
 }

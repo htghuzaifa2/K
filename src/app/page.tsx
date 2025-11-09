@@ -5,8 +5,7 @@ import { InfiniteProductGrid } from '@/components/product/infinite-product-grid'
 import { fetchProducts } from './actions';
 
 export default async function Home() {
-  // Fetch initial products directly on the server. This is more robust.
-  const initialProducts = await fetchProducts({ page: 1, limit: 12, shuffle: true });
+  const initialProducts = await fetchProducts({ page: 1, limit: 25, shuffle: true });
 
   return (
     <div>

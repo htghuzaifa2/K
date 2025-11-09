@@ -4,11 +4,10 @@
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { CartIcon } from '@/components/cart/cart-icon';
-import { SearchOverlay } from '@/components/search/search-overlay';
 import { APP_NAME } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, Menu } from 'lucide-react';
+import { ChevronDown, Menu, Search } from 'lucide-react';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
@@ -25,6 +24,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { HeaderSearch } from '../search/header-search';
 
 const mainNavItems = [
   { name: 'Home', href: '/' },
@@ -42,7 +42,7 @@ const moreNavItems = [
     { name: 'FAQ', href: '/faq' },
 ];
 
-function NavLink({ href, children, className }: { href: string; children: React.ReactNode, className?: string }) {
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
     const pathname = usePathname();
     const isActive = pathname === href;
     return (
@@ -50,12 +50,11 @@ function NavLink({ href, children, className }: { href: string; children: React.
             <Link
                 href={href}
                 className={cn(
-                    'relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
-                    className
+                    'relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary'
                 )}
             >
                 <span className={cn('transition-colors', isActive ? 'text-primary font-semibold' : '')}>
-                {children}
+                    {children}
                 </span>
             </Link>
              <span
@@ -85,7 +84,6 @@ function MobileNavLink({ href, children, closeMenu }: { href: string; children: 
         </Link>
     );
 }
-
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -130,7 +128,7 @@ export function Header() {
         </div>
         
         <div className="flex items-center gap-2">
-            <SearchOverlay />
+            <HeaderSearch />
             <CartIcon />
             <ThemeToggle />
 
