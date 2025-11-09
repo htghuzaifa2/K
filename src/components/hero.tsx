@@ -89,10 +89,10 @@ export default function Hero() {
                                 src={slide.image}
                                 alt={slide.imageAlt || "Hero image"}
                                 fill
-                                className="object-cover"
+                                className="object-contain"
                                 priority={index === 0}
                             />
-                            <div className="absolute inset-0 bg-black/50" />
+                             <div className="absolute inset-0 bg-black/50" />
                         </>
                     )}
                     <div className="relative z-10 text-center">
