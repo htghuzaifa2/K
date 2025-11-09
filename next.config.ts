@@ -1,3 +1,4 @@
+
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -37,6 +38,14 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+  },
+  webpack: (config, { isServer }) => {
+    config.module.rules.push({
+      test: /\.html$/,
+      use: 'raw-loader',
+    });
+
+    return config;
   },
 };
 

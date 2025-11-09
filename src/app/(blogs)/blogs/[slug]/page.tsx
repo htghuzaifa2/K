@@ -1,13 +1,14 @@
 
 'use client';
 
-import { getBlogPostBySlug } from '@/lib/blog-data';
+import { getBlogPosts } from '@/lib/blog-data';
 import { notFound } from 'next/navigation';
 import { APP_NAME } from '@/lib/constants';
 import styles from '../../styles/blogs.module.css';
 import Link from 'next/link';
 import { useEffect, useState, use } from 'react';
 import type { BlogPostWithContent } from '@/lib/blog-data';
+import { getBlogPostBySlug as getFullPost } from '@/lib/blog-data-client';
 
 type Props = {
   params: { slug: string };
@@ -35,12 +36,9 @@ export default function BlogPostPage({ params }: Props) {
   const resolvedParams = use(params);
 
   useEffect(() => {
-    // This is now a client-side fetch. In a real app, this would be an API call.
-    // Since we can't make real API calls, we'll simulate it.
-    // For this to work in a real deployed environment, getBlogPostBySlug
-    // would need to be exposed via an API route.
-    // The current implementation with fs.readFileSync will only work in a Node.js environment (dev/build).
-    const foundPost = getBlogPostBySlug(resolvedParams.slug);
+    // This is now a client-side fetch.
+    const foundPost = getFullPost(resolvedParams.slug);
+
     if (!foundPost) {
       notFound();
     } else {

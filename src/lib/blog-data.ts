@@ -14,7 +14,7 @@ export interface BlogPostWithContent extends BlogPost {
   content: string;
 }
 
-const blogPosts: Omit<BlogPost, 'content'>[] = [
+const blogPosts: Omit<BlogPost, 'content' | 'description'>[] = [
   {
     id: 'pta-guide-2025',
     slug: 'the-ultimate-guide-to-pta-phone-registration-2025',
@@ -57,15 +57,21 @@ const blogPosts: Omit<BlogPost, 'content'>[] = [
 const sortedBlogPosts = blogPosts.sort((a, b) => a.title.localeCompare(b.title));
 
 export const getBlogPosts = (): Omit<BlogPost, 'content'>[] => {
+  // This function is safe for the client as it doesn't use 'fs'
   return sortedBlogPosts;
 };
 
+// This function is NOT safe for the client and should only be used in server-side environments if needed.
+// For a fully client-side app, we need a different strategy.
 export const getBlogPostBySlug = (slug: string): BlogPostWithContent | undefined => {
   const post = sortedBlogPosts.find((post) => post.slug === slug);
   if (!post) {
     return undefined;
   }
   
+  // This is a server-side operation. It will fail on the client.
+  // We're keeping it for potential server-side rendering in the future,
+  // but it should not be imported into a 'use client' component.
   try {
     const contentPath = path.join(process.cwd(), 'src', 'lib', 'blog-content', `${post.id}.html`);
     const content = fs.readFileSync(contentPath, 'utf-8');
