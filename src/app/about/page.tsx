@@ -67,7 +67,7 @@ export default function AboutPage() {
             <Card 
               key={feature.title} 
               className={cn(
-                "group text-center p-6 flex flex-col items-center shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300",
+                "group text-center p-6 flex flex-col items-center shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 animate-fade-in-up",
                 "bg-card/50 dark:bg-card/20 backdrop-blur-sm"
               )}
               style={{ animationDelay: `${i * 100}ms` }}
