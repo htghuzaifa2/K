@@ -136,4 +136,46 @@ export function Header() {
             <CartIcon />
             <ThemeToggle />
 
-          <Sheet open={isMobileMenuOpe...
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+                <SheetHeader>
+                    <SheetTitle className="text-left font-headline text-2xl">
+                        {APP_NAME}
+                    </SheetTitle>
+                </SheetHeader>
+                <ScrollArea className="h-[calc(100vh-80px)] pr-4">
+                    <nav className="flex flex-col gap-4 mt-6">
+                        {mainNavItems.map((item) => (
+                            <MobileNavLink key={item.href} href={item.href} closeMenu={() => setIsMobileMenuOpen(false)}>
+                                {item.name}
+                            </MobileNavLink>
+                        ))}
+                        <Accordion type="single" collapsible className="w-full">
+                            <AccordionItem value="more-pages" className="border-none">
+                                <AccordionTrigger className="p-3 text-base font-medium">More</AccordionTrigger>
+                                <AccordionContent className="pb-0 pl-4">
+                                    <div className="flex flex-col gap-2">
+                                        {moreNavItems.map((item) => (
+                                            <MobileNavLink key={item.href} href={item.href} closeMenu={() => setIsMobileMenuOpen(false)}>
+                                                {item.name}
+                                            </MobileNavLink>
+                                        ))}
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </nav>
+                </ScrollArea>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}
