@@ -82,29 +82,7 @@ function MobileNavLink({ href, children, closeMenu }: { href: string; children: 
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
-  const isSpecialSection = pathname.startsWith('/blogs') || pathname.startsWith('/tools');
-
-  // Special header for Blogs and Tools sections
-  if (isSpecialSection) {
-    const currentSection = pathname.startsWith('/blogs') ? 'Blogs' : 'Tools';
-    const otherSection = currentSection === 'Blogs' ? { name: 'Tools', href: '/tools'} : { name: 'Blogs', href: '/blogs'};
-
-    return (
-       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="font-bold text-lg font-headline">{APP_NAME}</span>
-            </Link>
-            <nav className="flex items-center gap-6">
-                <NavLink href={otherSection.href}>{otherSection.name}</NavLink>
-                <ThemeToggle />
-            </nav>
-        </div>
-       </header>
-    );
-  }
-
+  
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">

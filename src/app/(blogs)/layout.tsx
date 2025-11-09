@@ -20,9 +20,6 @@ export default function BlogsLayout({
   return (
     <div className={styles.container}>
         <main className={styles.main}>{children}</main>
-        <footer className={styles.footer}>
-            <p>&copy; {new Date().getFullYear()} {APP_NAME} Blogs. All Rights Reserved.</p>
-        </footer>
     </div>
   );
 }

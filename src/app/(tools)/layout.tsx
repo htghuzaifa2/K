@@ -20,9 +20,6 @@ export default function ToolsLayout({
   return (
     <div className={styles.container}>
       <main className={styles.main}>{children}</main>
-       <footer className={styles.footer}>
-            <p>&copy; {new Date().getFullYear()} {APP_NAME} Tools. All Rights Reserved.</p>
-        </footer>
     </div>
   );
 }
