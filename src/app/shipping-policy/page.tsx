@@ -41,7 +41,7 @@ export default function ShippingPolicyPage() {
       <header className="text-center mb-16 animate-fade-in-up">
         <h1 className="text-4xl md:text-5xl font-extrabold font-headline text-primary tracking-tight">Shipping Policy</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          Thank you for shopping at {APP_NAME}. We are dedicated to ensuring that your orders are delivered safely and on time across Pakistan.
+          Thank you for shopping at ${APP_NAME}. We are dedicated to ensuring that your orders are delivered safely and on time across Pakistan.
         </p>
       </header>
 
@@ -67,13 +67,13 @@ export default function ShippingPolicyPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="text-muted-foreground">
-            <p className="mb-3">We currently accept the following payment options:</p>
+            <p className="mb-3">We accept Advance Payment via the following options:</p>
             <ul className="space-y-2 list-disc list-inside font-medium">
               {paymentMethods.map((method) => (
                 <li key={method}>{method}</li>
               ))}
             </ul>
-             <p className="mt-4 text-sm font-semibold">Cash on Delivery (COD) is not available at the moment.</p>
+             <p className="mt-4 text-sm font-semibold">Cash on Delivery (COD) is also available with an additional fee of Rs. 50.</p>
           </CardContent>
         </Card>
       </div>

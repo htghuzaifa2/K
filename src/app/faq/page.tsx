@@ -13,11 +13,11 @@ const faqSections = [
     questions: [
       {
         q: 'What payment methods do you accept?',
-        a: 'We currently accept payments via Easypaisa, JazzCash, and direct Bank Transfer. All orders must be paid in full at the time of purchase.',
+        a: 'We currently accept payments via Easypaisa, JazzCash, and direct Bank Transfer. We also offer Cash on Delivery.',
       },
       {
         q: 'Is Cash on Delivery (COD) available?',
-        a: 'No, we do not offer Cash on Delivery (COD) at the moment. All payments must be made in advance.',
+        a: 'Yes, Cash on Delivery is available. A standard fee of Rs. 50 is charged by the courier for all COD orders.',
       },
       {
         q: 'How do I place an order?',
