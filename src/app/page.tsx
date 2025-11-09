@@ -1,21 +1,12 @@
 
-'use client';
-
 import { Suspense } from 'react';
 import Hero from '@/components/hero';
 import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
 import { fetchProducts } from './actions';
-import type { AppProduct } from '@/lib/products';
 
-type HomePageProps = {
-  searchParams?: { [key: string]: string | string[] | undefined }
-}
-
-export default function Home({ searchParams }: HomePageProps) {
-
-  // The initial products are now fetched on the server via the loader
-  // and passed to the client component. This is much faster.
-  const initialProducts = JSON.parse(searchParams?.initialProducts as string || '{"products":[],"hasMore":true}');
+export default async function Home() {
+  // Fetch initial products directly on the server. This is more robust.
+  const initialProducts = await fetchProducts({ page: 1, limit: 12, shuffle: true });
 
   return (
     <div>
