@@ -59,7 +59,7 @@ export default function ContactPage() {
       <header className="text-center mb-16 animate-fade-in-up">
         <h1 className="text-4xl md:text-5xl font-extrabold font-headline text-primary tracking-tight">Contact Us</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          At ${APP_NAME}, we value our customers and are always here to help. Whether you have a question about our products, need assistance with an order, or simply want to connect, our support team is ready to assist you.
+          At {APP_NAME}, we value our customers and are always here to help. Whether you have a question about our products, need assistance with an order, or simply want to connect, our support team is ready to assist you.
         </p>
       </header>
       
@@ -135,7 +135,7 @@ export default function ContactPage() {
       <section className="text-center max-w-3xl mx-auto bg-secondary/50 dark:bg-secondary/20 rounded-xl p-8 animate-fade-in-up" style={{ animationDelay: '600ms', animationFillMode: 'backwards' }}>
         <h2 className="text-3xl font-bold font-headline">Our Commitment</h2>
         <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-           We believe in building trust through clear communication. Every query is important to us, and our goal is to provide you with fast, professional, and reliable support at every step of your journey with ${APP_NAME}.
+           We believe in building trust through clear communication. Every query is important to us, and our goal is to provide you with fast, professional, and reliable support at every step of your journey with {APP_NAME}.
         </p>
       </section>
     </div>
