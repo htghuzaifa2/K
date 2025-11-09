@@ -17,29 +17,29 @@ import { cn } from '@/lib/utils';
 const slides = [
   {
     title: "Explore Our Full Collection",
-    description: "Find everything you need, from tech gadgets to lifestyle essentials, all in one place.",
+    description: "Discover everything from cutting-edge tech gadgets to essential lifestyle accessories, all in one place.",
     buttonText: "Shop All Products",
     href: "/products",
     background: "bg-primary/10",
   },
   {
-    title: "Discover Your Perfect Category",
-    description: "Browse curated collections tailored to your interests and needs.",
-    buttonText: "Shop by Category",
+    title: "Shop by Category",
+    description: "Browse our curated collections, thoughtfully organized to help you find exactly what you need.",
+    buttonText: "Explore Categories",
     href: "/categories",
     background: "bg-accent/10",
   },
   {
-    title: "Explore Our Insights & Ideas",
-    description: "Your source for tech trends, expert tutorials, and design inspiration.",
-    buttonText: "Go to Blogs",
+    title: "Insights & Ideas",
+    description: "Your source for the latest tech trends, expert tutorials, and insightful articles.",
+    buttonText: "Read Our Blog",
     href: "/blogs",
     background: "bg-primary/10",
   },
   {
-    title: "Discover Our Handy Tools",
-    description: "A collection of handy online tools for developers and designers.",
-    buttonText: "Explore Tools",
+    title: "The Modern Toolkit",
+    description: "A suite of handy online utilities designed to accelerate your creative and development workflow.",
+    buttonText: "Discover Tools",
     href: "/tools",
     background: "bg-accent/10",
   }
@@ -50,25 +50,40 @@ export default function Hero() {
   const [current, setCurrent] = useState(0);
 
   const plugin = useRef(
-    Autoplay({ delay: 7000, stopOnInteraction: true })
+    Autoplay({ delay: 7000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
 
   useEffect(() => {
     if (!api) {
       return;
     }
+    
     setCurrent(api.selectedScrollSnap());
+    
     const onSelect = (api: CarouselApi) => {
       setCurrent(api.selectedScrollSnap());
     };
+
+    const onInteraction = () => {
+      if (plugin.current.options.stopOnInteraction === false) {
+        plugin.current.reset();
+      }
+    };
+    
     api.on('select', onSelect);
+    api.on('pointerDown', onInteraction);
+
     return () => {
       api.off('select', onSelect);
+      api.off('pointerDown', onInteraction);
     };
   }, [api]);
 
   const handleDotClick = (index: number) => {
     api?.scrollTo(index);
+    if (plugin.current.options.stopOnInteraction === false) {
+        plugin.current.reset();
+    }
   };
 
   return (
