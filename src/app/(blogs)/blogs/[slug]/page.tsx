@@ -1,5 +1,6 @@
 
-import { getBlogPosts, getBlogPostBySlug } from '@/lib/blog-data-client';
+import { getBlogPostBySlug } from '@/lib/blog-data-client';
+import { getBlogPosts } from '@/lib/blog-data';
 import { notFound } from 'next/navigation';
 import { APP_NAME } from '@/lib/constants';
 import styles from '../../styles/blogs.module.css';
