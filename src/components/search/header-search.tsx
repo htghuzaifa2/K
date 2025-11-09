@@ -13,6 +13,7 @@ export function HeaderSearch() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,19 +26,36 @@ export function HeaderSearch() {
     setQuery('');
   };
 
+  // Focus input when it opens
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isOpen]);
 
+  // Handle clicks outside the search component to close it
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        if(isOpen) {
+          setIsOpen(false);
+        }
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [containerRef, isOpen]);
+
+
   return (
-    <div className="flex items-center justify-end">
+    <div ref={containerRef} className="flex items-center justify-end">
        <div className={cn(
             "flex items-center transition-all duration-300 ease-in-out",
             isOpen ? "w-40 lg:w-64" : "w-0"
         )}>
-            <form onSubmit={handleSearch} className={cn("relative w-full transition-opacity duration-300", isOpen ? "opacity-100" : "opacity-0")}>
+            <form onSubmit={handleSearch} className={cn("relative w-full transition-opacity duration-300", isOpen ? "opacity-100" : "opacity-0 pointer-events-none")}>
                  <Input
                     ref={inputRef}
                     type="search"
@@ -45,9 +63,8 @@ export function HeaderSearch() {
                     className="h-9 pr-10"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    onBlur={() => { if(!query) setIsOpen(false) }}
                 />
-                 <Button type="submit" variant="ghost" size="icon" className="absolute right-0 top-0 h-9 w-9">
+                 <Button type="submit" variant="ghost" size="icon" className="absolute right-0 top-0 h-9 w-9 text-muted-foreground">
                     <Search className="h-5 w-5" />
                     <span className="sr-only">Search</span>
                 </Button>
@@ -57,10 +74,7 @@ export function HeaderSearch() {
         variant="ghost" 
         size="icon" 
         onClick={() => setIsOpen(!isOpen)} 
-        className={cn(
-            "transition-opacity",
-            !isOpen && "md:w-auto"
-        )}
+        className={cn("transition-opacity", "flex-shrink-0")}
        >
         {isOpen ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
         <span className="sr-only">{isOpen ? 'Close search' : 'Open search'}</span>
