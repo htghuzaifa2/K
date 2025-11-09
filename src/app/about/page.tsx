@@ -111,7 +111,7 @@ export default function AboutPage() {
 
       <footer className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '750ms', animationFillMode: 'backwards' }}>
         <p className="text-xl font-bold font-headline">
-            <span className="animate-text-gradient bg-gradient-to-r from-teal-400 via-pink-500 to-yellow-500 bg-[200%_auto] bg-clip-text text-transparent">
+            <span className="animate-text-gradient bg-gradient-to-r from-primary via-accent to-primary bg-[200%_auto] bg-clip-text text-transparent">
                 {APP_NAME} – Your Trusted Technology Store in Pakistan.
             </span>
         </p>
