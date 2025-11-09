@@ -30,6 +30,8 @@ const mainNavItems = [
   { name: 'Home', href: '/' },
   { name: 'All Products', href: '/products' },
   { name: 'Categories', href: '/categories' },
+  { name: 'Blogs', href: '/blogs' },
+  { name: 'Tools', href: '/tools' },
 ];
 
 const moreNavItems = [
@@ -77,6 +79,26 @@ function MobileNavLink({ href, children, closeMenu }: { href: string; children: 
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isSpecialSection = pathname.startsWith('/blogs') || pathname.startsWith('/tools');
+
+  // Hide the search and cart icon on the special sections
+  if (isSpecialSection) {
+    return (
+       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <Link href="/" className="flex items-center gap-2">
+              <span className="font-bold text-lg font-headline">{APP_NAME}</span>
+            </Link>
+            <nav className="flex items-center gap-6">
+                <NavLink href="/blogs">Blogs</NavLink>
+                <NavLink href="/tools">Tools</NavLink>
+                <ThemeToggle />
+            </nav>
+        </div>
+       </header>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -114,58 +136,4 @@ export function Header() {
             <CartIcon />
             <ThemeToggle />
 
-          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Open menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col p-0">
-                <SheetHeader className="p-6 pb-0">
-                    <SheetTitle>
-                        <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-2">
-                            <span className="font-bold text-lg font-headline">{APP_NAME}</span>
-                        </Link>
-                    </SheetTitle>
-                </SheetHeader>
-              <ScrollArea className="flex-1">
-                <nav className="flex flex-col gap-2 p-6">
-                  {mainNavItems.map((item) => (
-                    <MobileNavLink
-                      key={item.href}
-                      href={item.href}
-                      closeMenu={() => setIsMobileMenuOpen(false)}
-                    >
-                      {item.name}
-                    </MobileNavLink>
-                  ))}
-                  <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="more-items" className="border-b-0">
-                        <AccordionTrigger className="p-3 text-base font-medium hover:no-underline rounded-md hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            More
-                        </AccordionTrigger>
-                        <AccordionContent className="pt-2">
-                            <div className="flex flex-col gap-1 pl-4">
-                                {moreNavItems.map((item) => (
-                                    <MobileNavLink
-                                        key={item.href}
-                                        href={item.href}
-                                        closeMenu={() => setIsMobileMenuOpen(false)}
-                                    >
-                                        {item.name}
-                                    </MobileNavLink>
-                                ))}
-                            </div>
-                        </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </nav>
-              </ScrollArea>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
-    </header>
-  );
-}
+          <Sheet open={isMobileMenuOpe...
