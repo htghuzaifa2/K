@@ -38,6 +38,7 @@ export default function BlogPostPage({ params }: Props) {
     <article className={styles.article}>
       <Link href="/blogs" className={styles.backLink}>&larr; Back to Blogs</Link>
       <h1 className={styles.articleTitle}>{post.title}</h1>
+      <p className={styles.articleMeta}>by kimi.pk Team</p>
       <div 
         className={styles.articleContent}
         dangerouslySetInnerHTML={{ __html: post.content }} 
