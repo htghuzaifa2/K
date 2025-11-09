@@ -20,6 +20,7 @@ export default function BlogsPage() {
   const page = parseInt(searchParams.get('page') || '1', 10);
 
   const filteredPosts = useMemo(() => {
+    if (!query) return allPosts;
     return performSearch(query, allPosts);
   }, [query, allPosts]);
 
@@ -44,7 +45,7 @@ export default function BlogsPage() {
         </div>
       </header>
 
-      {filteredPosts.length > 0 ? (
+      {currentPosts.length > 0 ? (
         <>
           <div className={styles.grid}>
             {currentPosts.map((post) => (

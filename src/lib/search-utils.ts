@@ -16,10 +16,10 @@ const levenshtein = (s1: string, s2: string): number => {
       const previousHorizontal = distances[i + 1];
       if (s2[j] !== s1[i]) {
         distances[i + 1] = Math.min(
-          distances[i],         // Deletion
-          distances[i + 1],     // Insertion
-          previousDiagonal      // Substitution
-        ) + 1;
+          distances[i] + 1,      // Deletion
+          distances[i + 1],      // Insertion
+          previousDiagonal + 1   // Substitution
+        );
       }
       previousDiagonal = previousHorizontal;
     }
@@ -28,14 +28,15 @@ const levenshtein = (s1: string, s2: string): number => {
   return distances[s1.length];
 };
 
+
 interface SearchableItem {
   slug: string;
   title: string;
-  [key: string]: any;
+  id: string;
 }
 
 export const performSearch = <T extends SearchableItem>(query: string, items: T[]): T[] => {
-  if (!query) {
+  if (!query.trim()) {
     return items;
   }
 
@@ -60,16 +61,16 @@ export const performSearch = <T extends SearchableItem>(query: string, items: T[
     const titleWords = lowerCaseTitle.split(' ').filter(w => w);
     queryWords.forEach(qw => {
       if (titleWords.includes(qw)) {
-        score += 20;
+        score += 20; // Full word match
       }
       titleWords.forEach(tw => {
         if (tw.startsWith(qw)) {
-          score += 10;
+          score += 10; // Partial word match (starts with)
         }
       });
     });
     
-    // Rule 4: Includes bonus
+    // Rule 4: Includes bonus (for partial matches within words)
     if(lowerCaseTitle.includes(lowerCaseQuery)) {
         score += 10;
     }
@@ -77,12 +78,15 @@ export const performSearch = <T extends SearchableItem>(query: string, items: T[
     // Rule 5: Levenshtein distance for fuzzy matching
     const distance = levenshtein(lowerCaseTitle, lowerCaseQuery);
     const maxLen = Math.max(lowerCaseTitle.length, lowerCaseQuery.length);
-    const similarity = (maxLen - distance) / maxLen;
-
-    // Only consider similarity if it's reasonably high
-    if (similarity > 0.6) {
-        score += similarity * 30;
+    // Avoid division by zero
+    if (maxLen > 0) {
+      const similarity = (maxLen - distance) / maxLen;
+      // Only consider similarity if it's reasonably high
+      if (similarity > 0.7) {
+          score += similarity * 30;
+      }
     }
+
 
     return { item, score };
   });

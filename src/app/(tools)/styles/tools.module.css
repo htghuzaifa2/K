@@ -71,33 +71,18 @@
   text-decoration: none;
   color: inherit;
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 12px -4px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 .cardTitle {
   font-size: 1.25rem;
   font-weight: 600;
   color: hsl(var(--card-foreground));
-  margin-bottom: 0.5rem;
-}
-
-.cardDescription {
-  font-size: 1rem;
-  color: hsl(var(--muted-foreground));
-  line-height: 1.6;
-  flex-grow: 1;
-}
-
-.cardCategory {
-    margin-top: 1rem;
-    font-size: 0.875rem;
-    color: hsl(var(--primary));
-    font-weight: 500;
+  text-align: center;
 }
 
 .pagination {
@@ -113,8 +98,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
+  min-width: 40px;
   height: 40px;
+  padding: 0 0.5rem;
   border-radius: 8px;
   border: 1px solid hsl(var(--border));
   background-color: hsl(var(--card));
@@ -171,25 +157,8 @@
 .articleTitle {
   font-size: 2.5rem;
   font-weight: 800;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-}
-
-.meta {
-  display: flex;
-  gap: 1rem;
   margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid hsl(var(--border));
-}
-
-.tag {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background-color: hsl(var(--secondary));
-    color: hsl(var(--secondary-foreground));
-    border-radius: 9999px;
-    font-size: 0.875rem;
+  line-height: 1.2;
 }
 
 .articleContent {
@@ -199,6 +168,13 @@
 
 .articleContent p {
   margin-bottom: 1.5rem;
+}
+
+.articleContent h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .toolPlaceholder {
@@ -224,37 +200,18 @@
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-}
-
-.skeletonIcon, .skeletonTitle, .skeletonText, .skeletonTextShort {
-    background-color: hsl(var(--muted));
-    border-radius: 4px;
-    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.skeletonIcon {
-    height: 32px;
-    width: 32px;
-    margin-bottom: 1rem;
+  height: 94px; /* Approximate height of the new card */
 }
 
 .skeletonTitle {
+    background-color: hsl(var(--muted));
+    border-radius: 4px;
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     height: 20px;
-    width: 75%;
-    margin-bottom: 1rem;
+    width: 80%;
+    margin: 8px auto 0;
 }
 
-.skeletonText {
-    height: 16px;
-    width: 100%;
-    margin-bottom: 0.75rem;
-}
-
-.skeletonTextShort {
-    height: 16px;
-    width: 60%;
-}
 
 @keyframes pulse {
   50% {

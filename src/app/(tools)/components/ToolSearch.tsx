@@ -23,7 +23,7 @@ export default function ToolSearch({ onSearch }: ToolSearchProps) {
       type="text"
       value={text}
       onChange={(e) => setText(e.target.value)}
-      placeholder="Search for tools..."
+      placeholder="Search for tools by title..."
     />
   );
 }

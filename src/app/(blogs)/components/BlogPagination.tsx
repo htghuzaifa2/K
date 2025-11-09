@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import styles from '../styles/blogs.module.css';
 
 interface BlogPaginationProps {
@@ -11,10 +11,16 @@ interface BlogPaginationProps {
 
 export default function BlogPagination({ currentPage, totalPages }: BlogPaginationProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
-      router.push(`/blogs?page=${page}`);
+      const current = new URLSearchParams(Array.from(searchParams.entries()));
+      current.set('page', String(page));
+      const search = current.toString();
+      const query = search ? `?${search}` : "";
+      router.push(`${pathname}${query}`);
     }
   };
 
@@ -24,7 +30,7 @@ export default function BlogPagination({ currentPage, totalPages }: BlogPaginati
         &larr;
       </button>
       <span>
-        {currentPage}
+        Page {currentPage} of {totalPages}
       </span>
       <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
         &rarr;

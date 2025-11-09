@@ -1,5 +1,5 @@
 
-import { getBlogPostBySlug, getBlogPosts } from '@/lib/blog-data';
+import { getBlogPostBySlug, getBlogPosts, getDummyPostContent } from '@/lib/blog-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
@@ -21,13 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${post.title} - ${APP_NAME}`,
-    description: post.excerpt,
+    description: `Read the blog post: ${post.title}`,
     openGraph: {
         title: post.title,
-        description: post.excerpt,
+        description: `Read the blog post: ${post.title}`,
         type: 'article',
-        publishedTime: post.date,
-        authors: [post.author],
     }
   };
 }
@@ -39,30 +37,16 @@ export default function BlogPostPage({ params }: Props) {
     notFound();
   }
   
-  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const postContent = getDummyPostContent(post.title);
 
   return (
     <article className={styles.article}>
       <Link href="/blogs" className={styles.backLink}>&larr; Back to Blogs</Link>
       <h1 className={styles.articleTitle}>{post.title}</h1>
-      <div className={styles.meta}>
-        <span>By {post.author}</span>
-        <span>&bull;</span>
-        <time dateTime={post.date}>{formattedDate}</time>
-      </div>
       <div 
         className={styles.articleContent}
-        dangerouslySetInnerHTML={{ __html: post.content }} 
+        dangerouslySetInnerHTML={{ __html: postContent }} 
       />
-       <div className={styles.tags}>
-        {post.tags.map(tag => (
-            <span key={tag} className={styles.tag}>{tag}</span>
-        ))}
-      </div>
     </article>
   );
 }

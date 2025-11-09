@@ -1,5 +1,5 @@
 
-import { getToolBySlug, getTools } from '@/lib/tool-data';
+import { getToolBySlug, getTools, getDummyToolContent } from '@/lib/tool-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${tool.title} - ${APP_NAME}`,
-    description: tool.description,
+    description: `Use the ${tool.title} tool.`,
     openGraph: {
         title: tool.title,
-        description: tool.description,
+        description: `Use the ${tool.title} tool.`,
         type: 'website',
     }
   };
@@ -37,16 +37,15 @@ export default function ToolPage({ params }: Props) {
     notFound();
   }
 
+  const toolContent = getDummyToolContent(tool.title);
+
   return (
     <article className={styles.article}>
       <Link href="/tools" className={styles.backLink}>&larr; Back to Tools</Link>
       <h1 className={styles.articleTitle}>{tool.title}</h1>
-      <div className={styles.meta}>
-        <span className={styles.tag}>{tool.category}</span>
-      </div>
       <div 
         className={styles.articleContent}
-        dangerouslySetInnerHTML={{ __html: tool.content }} 
+        dangerouslySetInnerHTML={{ __html: toolContent }} 
       />
       <div className={styles.toolPlaceholder}>
         <p>Tool implementation for &quot;{tool.title}&quot; goes here.</p>

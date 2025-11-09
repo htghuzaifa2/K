@@ -30,9 +30,12 @@ const mainNavItems = [
   { name: 'Home', href: '/' },
   { name: 'All Products', href: '/products' },
   { name: 'Categories', href: '/categories' },
-  { name: 'Blogs', href: '/blogs' },
-  { name: 'Tools', href: '/tools' },
 ];
+
+const secondaryNavItems = [
+    { name: 'Blogs', href: '/blogs' },
+    { name: 'Tools', href: '/tools' },
+]
 
 const moreNavItems = [
     { name: 'About Us', href: '/about' },
@@ -82,8 +85,11 @@ export function Header() {
   const pathname = usePathname();
   const isSpecialSection = pathname.startsWith('/blogs') || pathname.startsWith('/tools');
 
-  // Hide the search and cart icon on the special sections
+  // Special header for Blogs and Tools sections
   if (isSpecialSection) {
+    const currentSection = pathname.startsWith('/blogs') ? 'Blogs' : 'Tools';
+    const otherSection = currentSection === 'Blogs' ? { name: 'Tools', href: '/tools'} : { name: 'Blogs', href: '/blogs'};
+
     return (
        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -91,8 +97,7 @@ export function Header() {
               <span className="font-bold text-lg font-headline">{APP_NAME}</span>
             </Link>
             <nav className="flex items-center gap-6">
-                <NavLink href="/blogs">Blogs</NavLink>
-                <NavLink href="/tools">Tools</NavLink>
+                <NavLink href={otherSection.href}>{otherSection.name}</NavLink>
                 <ThemeToggle />
             </nav>
         </div>
@@ -121,7 +126,7 @@ export function Header() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
-                    {moreNavItems.map((item) => (
+                    {[...secondaryNavItems, ...moreNavItems].map((item) => (
                         <DropdownMenuItem key={item.href} asChild>
                             <Link href={item.href}>{item.name}</Link>
                         </DropdownMenuItem>
@@ -151,14 +156,14 @@ export function Header() {
                 </SheetHeader>
                 <ScrollArea className="h-[calc(100vh-80px)] pr-4">
                     <nav className="flex flex-col gap-4 mt-6">
-                        {mainNavItems.map((item) => (
+                        {[...mainNavItems, ...secondaryNavItems].map((item) => (
                             <MobileNavLink key={item.href} href={item.href} closeMenu={() => setIsMobileMenuOpen(false)}>
                                 {item.name}
                             </MobileNavLink>
                         ))}
                         <Accordion type="single" collapsible className="w-full">
                             <AccordionItem value="more-pages" className="border-none">
-                                <AccordionTrigger className="p-3 text-base font-medium">More</AccordionTrigger>
+                                <AccordionTrigger className="p-3 text-base font-medium">More Pages</AccordionTrigger>
                                 <AccordionContent className="pb-0 pl-4">
                                     <div className="flex flex-col gap-2">
                                         {moreNavItems.map((item) => (

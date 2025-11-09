@@ -23,7 +23,7 @@ export default function BlogSearch({ onSearch }: BlogSearchProps) {
       type="text"
       value={text}
       onChange={(e) => setText(e.target.value)}
-      placeholder="Search for posts..."
+      placeholder="Search for posts by title..."
     />
   );
 }

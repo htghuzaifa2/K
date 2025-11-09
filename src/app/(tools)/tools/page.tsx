@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
@@ -19,6 +20,7 @@ export default function ToolsPage() {
   const page = parseInt(searchParams.get('page') || '1', 10);
 
   const filteredTools = useMemo(() => {
+    if (!query) return allTools;
     return performSearch(query, allTools);
   }, [query, allTools]);
 
@@ -42,7 +44,7 @@ export default function ToolsPage() {
         </div>
       </header>
 
-      {filteredTools.length > 0 ? (
+      {currentTools.length > 0 ? (
         <>
           <div className={styles.grid}>
             {currentTools.map((tool) => (

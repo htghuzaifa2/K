@@ -13,10 +13,6 @@ export default function ToolCard({ tool }: ToolCardProps) {
   return (
     <Link href={`/tools/${tool.slug}`} className={styles.card}>
       <h3 className={styles.cardTitle}>{tool.title}</h3>
-      <p className={styles.cardDescription}>{tool.description}</p>
-      <div className={styles.cardCategory}>
-        {tool.category}
-      </div>
     </Link>
   );
 }
