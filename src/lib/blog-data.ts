@@ -1,4 +1,11 @@
 
+import ptaGuideContent from './blog-content/pta-guide-2025';
+import freelancingSetupContent from './blog-content/freelancing-setup-pakistan-2026';
+import seoContent from './blog-content/seo-for-pakistani-developers-2026';
+import securityContent from './blog-content/web-security-for-pakistani-businesses-2026';
+import cloudContent from './blog-content/cloud-rising-over-pakistan';
+import mobileFirstContent from './blog-content/mobile-first-era-pakistan';
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -10,7 +17,16 @@ export interface BlogPostWithContent extends BlogPost {
   content: string;
 }
 
-// The content for these descriptions will be pulled from the client-side loader
+const contentMap: Record<string, string> = {
+  'pta-guide-2025': ptaGuideContent,
+  'freelancing-setup-pakistan-2026': freelancingSetupContent,
+  'seo-for-pakistani-developers-2026': seoContent,
+  'web-security-for-pakistani-businesses-2026': securityContent,
+  'cloud-rising-over-pakistan': cloudContent,
+  'mobile-first-era-pakistan': mobileFirstContent,
+};
+
+
 const blogPosts: BlogPost[] = [
   {
     id: 'pta-guide-2025',
@@ -50,10 +66,30 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
-// Sort posts alphabetically by title
 const sortedBlogPosts = blogPosts.sort((a, b) => a.title.localeCompare(b.title));
 
 export const getBlogPosts = (): BlogPost[] => {
-  // This function is now completely safe for the client as it doesn't use 'fs'
   return sortedBlogPosts;
 };
+
+export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined {
+  const post = sortedBlogPosts.find((p) => p.slug === slug);
+
+  if (!post) {
+    return undefined;
+  }
+
+  const content = contentMap[post.id];
+
+  if (!content) {
+    return {
+      ...post,
+      content: '<p>Error: Blog content not found.</p>',
+    };
+  }
+
+  return {
+    ...post,
+    content,
+  };
+}
