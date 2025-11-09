@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import { getProducts } from '@/lib/products';
+import { fetchAllProductsForSearch } from '@/app/actions';
 import type { AppProduct } from '@/lib/products';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -66,7 +66,7 @@ export function SearchOverlay() {
 
   useEffect(() => {
     if (isOpen && allProducts.length === 0) {
-      getProducts().then(setAllProducts);
+      fetchAllProductsForSearch().then(setAllProducts);
     }
   }, [isOpen, allProducts.length]);
 

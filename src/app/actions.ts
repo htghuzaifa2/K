@@ -25,3 +25,7 @@ export async function fetchProducts({
     newHasMore: allProducts.length > end,
   };
 }
+
+export async function fetchAllProductsForSearch() {
+  return getProducts();
+}
