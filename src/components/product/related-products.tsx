@@ -1,10 +1,11 @@
 
 'use client';
 
-import { getProductsByCategory, getProducts, type AppProduct } from '@/lib/products';
+import { type AppProduct } from '@/lib/products';
 import { ProductCard } from './product-card';
 import { useEffect, useState } from 'react';
 import { QuickView } from './quick-view';
+import { fetchRelatedProductsData } from '@/app/actions';
 
 type RelatedProductsProps = {
   currentProduct: AppProduct;
@@ -17,31 +18,16 @@ export function RelatedProducts({ currentProduct }: RelatedProductsProps) {
   const [quickViewProduct, setQuickViewProduct] = useState<AppProduct | null>(null);
 
   useEffect(() => {
-    async function fetchRelatedProducts() {
-      let related: AppProduct[] = [];
+    async function fetchRelated() {
       try {
-        const categoryProducts = await getProductsByCategory(currentProduct.category);
-        related = categoryProducts.filter(p => p.id !== currentProduct.id);
-
-        if (related.length < RECOMMENDATION_COUNT) {
-          const allProducts = await getProducts();
-          const otherProducts = allProducts.filter(p =>
-            p.category.toLowerCase() !== currentProduct.category.toLowerCase() &&
-            p.id !== currentProduct.id
-          );
-
-          const shuffledOthers = otherProducts.sort(() => 0.5 - Math.random());
-
-          const needed = RECOMMENDATION_COUNT - related.length;
-          related.push(...shuffledOthers.slice(0, needed));
-        }
-        setRelatedProductsList(related.slice(0, RECOMMENDATION_COUNT));
+        const related = await fetchRelatedProductsData(currentProduct.category, currentProduct.id, RECOMMENDATION_COUNT);
+        setRelatedProductsList(related);
       } catch (error) {
         console.error('Failed to get related products:', error);
       }
     }
 
-    fetchRelatedProducts();
+    fetchRelated();
   }, [currentProduct]);
 
 

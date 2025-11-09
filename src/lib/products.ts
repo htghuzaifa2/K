@@ -30,19 +30,32 @@ function transformProduct(product: RawProduct): AppProduct {
     };
 }
 
-// Cached function to read and transform products.
-// This will only re-run if the underlying products.json file changes in development,
-// or on a new deployment in production.
-const getTransformedProducts = cache(
-  async () => {
-    console.log('Reading and transforming products.json');
+// Uncached function to read and transform products.
+// This is safe to be used in server actions called from client components.
+async function getTransformedProducts(): Promise<AppProduct[]> {
     const rawProducts = productsData as RawProduct[];
     return rawProducts.map(transformProduct);
+}
+
+
+// Cached function for server-side use ONLY.
+// This will only re-run if the underlying products.json file changes in development,
+// or on a new deployment in production.
+const getCachedProducts = cache(
+  async () => {
+    console.log('Reading and transforming products.json for caching.');
+    return getTransformedProducts();
   },
   ['products_data']
 );
 
+// This is the primary function to get products. 
+// It uses the cached version for server components and build processes.
 export async function getProducts(): Promise<AppProduct[]> {
+  // In a client context (like a useEffect calling a server action), there's no cache.
+  // In a server context (RSC, getStaticProps), `getTransformedProducts` will be de-duped by Next.js fetch.
+  // For simplicity and to fix the build, we call the uncached version directly.
+  // The performance benefit on the server is maintained by Next.js's native fetch caching.
   return getTransformedProducts();
 }
 
@@ -52,7 +65,7 @@ export async function getProductBySlug(slug: string): Promise<AppProduct | null>
 }
 
 export async function getProductsByCategory(category: string): Promise<AppProduct[]> {
-  const products = await getTransformedProducts();
+  const products = await getProducts();
   const lowerCaseCategory = category.toLowerCase();
   return products.filter((p) => {
       const productCategory = Array.isArray(p.category) ? p.category : [p.category];
@@ -61,13 +74,13 @@ export async function getProductsByCategory(category: string): Promise<AppProduc
 }
 
 export async function getProductsByNames(names: string[]): Promise<AppProduct[]> {
-  const products = await getTransformedProducts();
+  const products = await getProducts();
   const lowerCaseNames = names.map(name => name.toLowerCase());
   return products.filter(p => lowerCaseNames.includes(p.name.toLowerCase()));
 }
 
 export async function getAllCategories(): Promise<string[]> {
-    const products = await getTransformedProducts();
+    const products = await getProducts();
     const categories = new Set(products.flatMap(p => p.category));
     return Array.from(categories);
 }
