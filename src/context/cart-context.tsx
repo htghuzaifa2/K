@@ -1,6 +1,7 @@
+
 'use client';
 
-import React, { createContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useEffect, useCallback, useMemo } from 'react';
 import type { CartItem } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 
@@ -13,7 +14,9 @@ interface CartContextType {
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
   cartCount: number;
-  cartTotal: number;
+  subtotal: number;
+  shippingCost: number;
+  total: number;
   isCartOpen: boolean;
   setIsCartOpen: (isOpen: boolean) => void;
 }
@@ -21,6 +24,9 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const CART_STORAGE_KEY = 'kimi_pk_cart';
+const SHIPPING_THRESHOLD = 2500;
+const SHIPPING_FEE = 200;
+
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -64,11 +70,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [toast]);
 
   const removeFromCart = useCallback((productId: string) => {
-    setCartItems(prevItems => prevItems.filter(item => item.product.id !== productId));
-     toast({
-        title: "Item removed",
-        description: `The item has been removed from your cart.`,
-        variant: 'destructive'
+    setCartItems(prevItems => {
+        const itemToRemove = prevItems.find(item => item.product.id === productId);
+        if (itemToRemove) {
+            toast({
+                title: "Item removed",
+                description: `${itemToRemove.product.name} has been removed.`,
+                variant: 'destructive'
+            });
+        }
+        return prevItems.filter(item => item.product.id !== productId)
     });
   }, [toast]);
 
@@ -85,11 +96,23 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [removeFromCart]);
 
   const clearCart = useCallback(() => {
-    setCartItems([]);
-  }, []);
+    if(cartItems.length > 0){
+        setCartItems([]);
+        toast({
+            title: "Cart cleared",
+            description: `All items have been removed from your cart.`,
+            variant: 'destructive'
+        });
+    }
+  }, [cartItems.length, toast]);
 
-  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const cartTotal = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const cartCount = useMemo(() => cartItems.reduce((acc, item) => acc + item.quantity, 0), [cartItems]);
+  
+  const subtotal = useMemo(() => cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0), [cartItems]);
+
+  const shippingCost = useMemo(() => (subtotal > 0 && subtotal < SHIPPING_THRESHOLD) ? SHIPPING_FEE : 0, [subtotal]);
+
+  const total = useMemo(() => subtotal + shippingCost, [subtotal, shippingCost]);
 
   return (
     <CartContext.Provider
@@ -100,7 +123,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         updateQuantity,
         clearCart,
         cartCount,
-        cartTotal,
+        subtotal,
+        shippingCost,
+        total,
         isCartOpen,
         setIsCartOpen
       }}
