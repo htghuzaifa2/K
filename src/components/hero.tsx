@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -92,7 +91,7 @@ export default function Hero() {
                           className="object-contain"
                           priority={index === 0}
                         />
-                        <div className="absolute inset-0 bg-black/50" />
+                         <div className="absolute inset-0 bg-black/50" />
                       </>
                     )}
                     <div className="relative z-10 text-center">
