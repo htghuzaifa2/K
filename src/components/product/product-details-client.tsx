@@ -14,7 +14,7 @@ import type { AppProduct, ProductImage } from '@/lib/products';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/use-cart';
 import { useRouter } from 'next/navigation';
-import { APP_NAME, BLUR_DATA_URL } from '@/lib/constants';
+import { BLUR_DATA_URL } from '@/lib/constants';
 
 type ProductDetailsClientProps = {
   product: AppProduct;
@@ -47,33 +47,6 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
   const { addToCart } = useCart();
   const router = useRouter();
 
-  useEffect(() => {
-    // Dynamically update meta tags on client-side navigation
-    if (product) {
-      document.title = product.name || `Product – ${APP_NAME}`;
-      
-      let description = '';
-      if (product.description && product.description.length >= 10) {
-        description = product.description;
-      } else if (product.longDescription) {
-        const cleanedDescription = product.longDescription.replace(/<[^>]*>?/gm, '').replace(/(\r\n|\n|\r)/gm, ' ');
-        description = cleanedDescription.length > 160 ? cleanedDescription.substring(0, 157) + '...' : cleanedDescription;
-      }
-      
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (description) {
-        if (!metaDesc) {
-          metaDesc = document.createElement('meta');
-          metaDesc.setAttribute('name', 'description');
-          document.head.appendChild(metaDesc);
-        }
-        metaDesc.setAttribute('content', description);
-      } else if (metaDesc) {
-        // Omit the tag if no suitable description is found
-        metaDesc.removeAttribute('content');
-      }
-    }
-  }, [product]);
 
   const handleAddToCart = () => {
     const cartProduct = {

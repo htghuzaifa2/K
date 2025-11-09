@@ -1,4 +1,6 @@
 
+'use client';
+
 import { getBlogPosts, type BlogPost, type BlogPostWithContent } from './blog-data';
 
 // Import raw content as strings
@@ -44,5 +46,3 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     content,
   };
 }
-// Alias for clarity in components
-export const getFullPost = getBlogPostBySlug;

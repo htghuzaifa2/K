@@ -44,7 +44,7 @@ function SearchResults() {
   }
 
   if (products.length === 0) {
-    return <div className="text-center">No products found matching your search.</div>;
+    return <div className="text-center">No products found matching your search for <span className="font-semibold">&quot;{query}&quot;</span>.</div>;
   }
 
   return <ProductGrid products={products} />;

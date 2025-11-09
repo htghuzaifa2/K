@@ -1,13 +1,11 @@
 
-'use client';
-
-import { getAllCategories } from '@/lib/products';
-import { Suspense, useState, useEffect } from 'react';
+import { getAllCategories, getProductsByCategory } from '@/lib/products';
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
-import { fetchProducts } from '@/app/actions';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-import type { AppProduct } from '@/lib/products';
+import { Metadata } from 'next';
+import { APP_NAME } from '@/lib/constants';
 
 type CategoryPageProps = {
   params: {
@@ -15,50 +13,37 @@ type CategoryPageProps = {
   };
 };
 
-type InitialProductsState = {
-  products: AppProduct[];
-  hasMore: boolean;
-  total: number;
-} | null;
-
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const decodedCategory = decodeURIComponent(params.category);
-  const [initialProducts, setInitialProducts] = useState<InitialProductsState>(null);
-  const [loading, setLoading] = useState(true);
-  const [isValidCategory, setIsValidCategory] = useState(true);
-
-  useEffect(() => {
-    async function loadCategoryData() {
-      setLoading(true);
-      try {
-        const allCategories = await getAllCategories();
-        const valid = allCategories.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
-        setIsValidCategory(valid);
-
-        if (valid) {
-          const productsResult = await fetchProducts({ page: 1, limit: 25, category: decodedCategory });
-          setInitialProducts(productsResult);
-        } else {
-          notFound();
-        }
-      } catch (error) {
-        console.error("Failed to load category data", error);
-        notFound();
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadCategoryData();
-  }, [decodedCategory]);
-
-  const title = decodedCategory
+function formatCategoryTitle(slug: string): string {
+    return slug
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+}
+
+
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const decodedCategory = decodeURIComponent(params.category);
+  const title = formatCategoryTitle(decodedCategory);
+  
+  return {
+    title: title,
+    description: `Shop for ${title} on ${APP_NAME}. Best prices in Pakistan.`,
+  };
+}
+
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const decodedCategory = decodeURIComponent(params.category);
+  
+  const allCategories = await getAllCategories();
+  const isValidCategory = allCategories.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
 
   if (!isValidCategory) {
-      return null;
+    notFound();
   }
+  
+  const initialProducts = await getProductsByCategory(decodedCategory);
+
+  const title = formatCategoryTitle(decodedCategory);
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
@@ -66,12 +51,15 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
       <Suspense fallback={<ProductGridSkeleton />}>
-        {loading || !initialProducts ? (
-          <ProductGridSkeleton />
-        ) : (
-          <InfiniteProductGrid initialProducts={initialProducts} category={decodedCategory} />
-        )}
+          <InfiniteProductGrid initialProducts={{ products: initialProducts.slice(0, 25), hasMore: initialProducts.length > 25, total: initialProducts.length}} category={decodedCategory} />
       </Suspense>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+    const categories = await getAllCategories();
+    return categories.map((category) => ({
+        category: encodeURIComponent(category),
+    }));
 }

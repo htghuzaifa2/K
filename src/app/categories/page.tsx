@@ -1,12 +1,8 @@
 
-'use client';
-
 import { getAllCategories } from '@/lib/products';
 import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 
 const categoryImages: Record<string, { src: string; hint: string }> = {
   'keyboards': { src: 'https://i.postimg.cc/KzNsv0-Ws/Wireless-keyboard-KB036-for-laptop-and-mobile-smooth-silent-keys-available-in-Pakistan.png', hint: 'wireless keyboard' },
@@ -20,44 +16,14 @@ function getCategoryImage(category: string) {
   return categoryImages[normalizedCategory] || { src: 'https://picsum.photos/seed/default/600/400', hint: 'fashion style' };
 }
 
-function CategorySkeleton() {
-    return (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {Array.from({ length: 4 }).map((_, i) => (
-                <Card key={i} className="group relative block overflow-hidden rounded-lg shadow-sm">
-                    <Skeleton className="aspect-video w-full" />
-                </Card>
-            ))}
-        </div>
-    );
-}
-
-export default function CategoriesPage() {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadCategories() {
-      try {
-        const fetchedCategories = await getAllCategories();
-        setCategories(fetchedCategories);
-      } catch (error) {
-        console.error("Failed to load categories", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadCategories();
-  }, []);
+export default async function CategoriesPage() {
+  const categories = await getAllCategories();
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="mb-8 text-center text-4xl font-bold tracking-tight text-foreground font-headline">
         Shop by Category
       </h1>
-      {loading ? (
-        <CategorySkeleton />
-      ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {categories.map((category) => {
             const { src, hint } = getCategoryImage(category);
@@ -88,7 +54,6 @@ export default function CategoriesPage() {
             );
           })}
         </div>
-      )}
     </div>
   );
 }

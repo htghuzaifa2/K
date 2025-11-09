@@ -92,10 +92,28 @@ export async function searchProducts(query: string): Promise<AppProduct[]> {
     const idResults = allProducts.filter(p => p.id.toString().includes(lowerCaseQuery));
     
     // Rule 2: Title Search
-    // Tier A: Starts-with
-    let titleResults = allProducts.filter(p => p.name.toLowerCase().startsWith(lowerCaseQuery));
+    let titleResults: AppProduct[] = [];
 
-    // Tier B: Includes
+    // Tier A: Exact word match
+    const queryWords = lowerCaseQuery.split(' ').filter(w => w);
+    const exactWordMatches = allProducts.filter(p => {
+      const titleWords = p.name.toLowerCase().split(' ');
+      return queryWords.every(qw => titleWords.includes(qw));
+    });
+    titleResults.push(...exactWordMatches);
+
+
+    // Tier B: Starts-with
+    if (titleResults.length < 10) {
+      const startsWithMatches = allProducts.filter(p => p.name.toLowerCase().startsWith(lowerCaseQuery));
+      startsWithMatches.forEach(swm => {
+        if(!titleResults.some(r => r.id === swm.id)) {
+          titleResults.push(swm);
+        }
+      });
+    }
+
+    // Tier C: Includes
     if (titleResults.length < 10) {
         const includesResults = allProducts.filter(p => p.name.toLowerCase().includes(lowerCaseQuery));
         includesResults.forEach(ir => {
@@ -113,5 +131,5 @@ export async function searchProducts(query: string): Promise<AppProduct[]> {
         }
     });
 
-    return combinedResults;
+    return combinedResults.slice(0, 50); // Return a max of 50 results
 }
