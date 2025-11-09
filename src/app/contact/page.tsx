@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Mail, Phone, MessageSquare, User, AtSign, Send, MapPin } from 'lucide-react';
+import { Mail, Phone, MessageSquare, User, AtSign, Send } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { WHATSAPP_PHONE_NUMBER, APP_NAME } from '@/lib/constants';
 
@@ -59,11 +59,11 @@ export default function ContactPage() {
       <header className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-extrabold font-headline text-primary tracking-tight">Contact Us</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          At {APP_NAME}, we value our customers and are always here to help. Whether you have a question about our products, need assistance with an order, or simply want to connect, our support team is ready to assist you.
+          At ${APP_NAME}, we value our customers and are always here to help. Whether you have a question about our products, need assistance with an order, or simply want to connect, our support team is ready to assist you.
         </p>
       </header>
       
-      <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-16">
+      <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16 max-w-4xl mx-auto">
         <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 text-center">
           <CardHeader className="items-center">
             <CardTitle className="flex items-center gap-3 text-2xl font-headline">
@@ -87,24 +87,10 @@ export default function ContactPage() {
           </CardHeader>
           <CardContent>
             <a href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-lg text-primary hover:underline">
-              +{WHATSAPP_PHONE_NUMBER}
+              +${WHATSAPP_PHONE_NUMBER}
             </a>
             <p className="text-muted-foreground mt-2 text-sm">Mon to Sat, 10 AM – 7 PM (PKT)</p>
           </CardContent>
-        </Card>
-        <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 text-center">
-            <CardHeader className="items-center">
-              <CardTitle className="flex items-center gap-3 text-2xl font-headline">
-                <MapPin className="h-8 w-8 text-primary" />
-                Visit Us
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-lg text-foreground">
-                123 Fashion Street<br />
-                Karachi, Pakistan
-              </p>
-            </CardContent>
         </Card>
       </div>
 
@@ -150,7 +136,7 @@ export default function ContactPage() {
       <section className="text-center max-w-3xl mx-auto bg-secondary/50 dark:bg-secondary/20 rounded-xl p-8">
         <h2 className="text-3xl font-bold font-headline">Our Commitment</h2>
         <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-           We believe in building trust through clear communication. Every query is important to us, and our goal is to provide you with fast, professional, and reliable support at every step of your journey with {APP_NAME}.
+           We believe in building trust through clear communication. Every query is important to us, and our goal is to provide you with fast, professional, and reliable support at every step of your journey with ${APP_NAME}.
         </p>
       </section>
     </div>
