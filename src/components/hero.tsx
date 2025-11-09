@@ -81,21 +81,20 @@ export default function Hero() {
             <CarouselItem key={index}>
               <div className="p-0">
                 <Card className="border-0 rounded-none shadow-none">
-                  <CardContent className={cn("relative flex items-center justify-center p-6 h-[40vh] min-h-[300px]", slide.background)}>
+                  <CardContent className={cn("relative flex items-center justify-center p-6 h-[40vh] min-h-[300px]", !slide.image && slide.background)}>
                     {slide.image && (
                       <>
                         <Image
                           src={slide.image}
                           alt={slide.imageAlt || "Hero image"}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           priority={index === 0}
                         />
-                         <div className="absolute inset-0 bg-black/50" />
                       </>
                     )}
-                    <div className="relative z-10 text-center">
-                       <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                    <div className={cn("relative z-10 text-center", slide.image && "text-white")}>
+                       <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
                         {slide.title}
                       </h1>
                       <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl text-white/90">
