@@ -133,22 +133,17 @@ export default function CheckoutPage() {
       .map(item => `*${item.product.name}* (ID: ${item.product.id})\n  - Qty: ${item.quantity}\n  - Price: PKR ${item.product.price * item.quantity}`)
       .join('\n\n');
       
-    const breakdownText = `\nSubtotal: PKR ${subtotal}\nShipping: PKR ${shippingCost}${values.paymentMethod === 'cod' ? `\nCOD Fee: PKR ${COD_FEE}` : ''}\n*Total Amount: PKR ${total}*`;
+    const breakdownText = `Subtotal: PKR ${subtotal}\nShipping: PKR ${shippingCost}${values.paymentMethod === 'cod' ? `\nCOD Fee: PKR ${COD_FEE}` : ''}\n\n*Total Amount: PKR ${total}*`;
     
     const customerDetails = `
-*Customer Details:*
+*CUSTOMER DETAILS*
 - Name: ${values.name}
 - Phone: ${values.phone}${values.email ? `\n- Email: ${values.email}` : ''}
 - Address: ${values.address}, ${values.city ? `${values.city}, ` : ''}${values.province}
-- Payment Method: *${values.paymentMethod === 'cod' ? 'Cash on Delivery' : 'Advance Payment'}*
+- Payment: *${values.paymentMethod === 'cod' ? 'Cash on Delivery' : 'Advance Payment'}*
     `;
 
-    const message = `${WHATSAPP_MESSAGE_HEADER}\n\n*Products:*
---------------------
-${itemsText}
---------------------
-${breakdownText}
---------------------\n${customerDetails}`;
+    const message = `${WHATSAPP_MESSAGE_HEADER}\n\n*ORDER SUMMARY*\n--------------------\n${itemsText}\n--------------------\n${breakdownText}\n--------------------${customerDetails}`;
 
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`, '_blank');
@@ -314,8 +309,8 @@ ${breakdownText}
                                         <FormLabel
                                             htmlFor="advance"
                                             className={cn(
-                                                "flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer",
-                                                field.value === 'advance' && "border-primary"
+                                                "flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
+                                                field.value === 'advance' && "border-primary shadow-md"
                                             )}
                                         >
                                             <Banknote className="mb-3 h-8 w-8" />
@@ -329,8 +324,8 @@ ${breakdownText}
                                         <FormLabel
                                             htmlFor="cod"
                                             className={cn(
-                                                "flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer",
-                                                field.value === 'cod' && "border-primary"
+                                                "flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
+                                                field.value === 'cod' && "border-primary shadow-md"
                                             )}
                                         >
                                             <Truck className="mb-3 h-8 w-8" />
@@ -411,7 +406,7 @@ ${breakdownText}
                             <p>PKR {total}</p>
                         </div>
                         <p className="text-xs text-muted-foreground pt-2">
-                           Cash on Delivery orders include a Rs. 50 confirmation fee.
+                           After submitting, you will be redirected to WhatsApp to confirm your order.
                         </p>
                     </CardFooter>
                 </Card>
