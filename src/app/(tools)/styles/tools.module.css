@@ -59,27 +59,24 @@
 .grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: 1fr; /* 1 column for ultra-slim mobiles */
+  grid-template-columns: 1fr;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 640px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns for mobiles */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns for tablets and desktops */
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  text-align: center;
   background-color: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
@@ -87,7 +84,7 @@
   text-decoration: none;
   color: inherit;
   transition: all 0.2s ease-in-out;
-  aspect-ratio: 1 / 1;
+  min-height: 220px;
 }
 
 .card:hover {
@@ -96,10 +93,24 @@
   border-color: hsl(var(--primary));
 }
 
+.cardIcon {
+    width: 2rem;
+    height: 2rem;
+    color: hsl(var(--primary));
+    margin-bottom: 1rem;
+}
+
 .cardTitle {
   font-size: 1.25rem;
   font-weight: 600;
   color: hsl(var(--card-foreground));
+  margin-bottom: 0.5rem;
+}
+
+.cardDescription {
+    font-size: 0.9rem;
+    color: hsl(var(--muted-foreground));
+    flex-grow: 1;
 }
 
 .pagination {
@@ -217,10 +228,7 @@
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
   padding: 1.5rem;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 220px;
 }
 
 .skeletonTitle {
