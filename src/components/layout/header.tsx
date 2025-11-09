@@ -49,12 +49,20 @@ function NavLink({ href, children, className }: { href: string; children: React.
         <Link
             href={href}
             className={cn(
-                'text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
-                isActive ? 'text-primary' : '',
+                'relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
                 className
             )}
         >
-            {children}
+            <span className={cn('transition-colors', isActive ? 'text-primary font-semibold' : '')}>
+              {children}
+            </span>
+            <span
+              className={cn(
+                'absolute bottom-[-2px] left-0 h-0.5 w-full scale-x-0 bg-primary transition-transform duration-300 ease-out group-hover:scale-x-100',
+                isActive ? 'scale-x-100' : '',
+                'origin-center'
+              )}
+            />
         </Link>
     );
 }
@@ -68,7 +76,7 @@ function MobileNavLink({ href, children, closeMenu }: { href: string; children: 
             onClick={closeMenu}
             className={cn(
                 "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                isActive ? "text-primary font-semibold" : ""
+                isActive ? "bg-accent text-accent-foreground font-semibold" : ""
             )}
         >
             <div className="text-base font-medium">{children}</div>
@@ -89,15 +97,23 @@ export function Header() {
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
             {mainNavItems.map((item) => (
-              <NavLink key={item.href} href={item.href}>
-                {item.name}
-              </NavLink>
+              <div key={item.href} className="group">
+                <NavLink href={item.href}>
+                  {item.name}
+                </NavLink>
+              </div>
             ))}
              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary p-0 h-auto focus-visible:ring-0">
+                    <Button variant="ghost" className="group relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary p-0 h-auto focus-visible:ring-0">
                         More
                         <ChevronDown className="ml-1 h-4 w-4" />
+                         <span
+                            className={cn(
+                                'absolute bottom-[-2px] left-0 h-0.5 w-full scale-x-0 bg-primary transition-transform duration-300 ease-out group-hover:scale-x-100',
+                                'origin-center'
+                            )}
+                        />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
@@ -138,7 +154,7 @@ export function Header() {
                         ))}
                         <Accordion type="single" collapsible className="w-full">
                             <AccordionItem value="more-pages" className="border-none">
-                                <AccordionTrigger className="p-3 text-base font-medium">More Pages</AccordionTrigger>
+                                <AccordionTrigger className="p-3 text-base font-medium hover:no-underline">More Pages</AccordionTrigger>
                                 <AccordionContent className="pb-0 pl-4">
                                     <div className="flex flex-col gap-2">
                                         {moreNavItems.map((item) => (
