@@ -1,10 +1,9 @@
-import type {NextConfig} from 'next';
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   experimental: {
     allowedDevOrigins: ["6000-firebase-studio-1758524891513.cluster-73qgvk7hjjadkrjeyexca5ivva.cloudworkstations.dev"]
   },
-  /* config options here */
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -36,7 +35,7 @@ const nextConfig: NextConfig = {
         hostname: 'i.postimg.cc',
         port: '',
         pathname: '/**',
-      }
+      },
     ],
   },
 };
