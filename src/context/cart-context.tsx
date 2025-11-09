@@ -77,6 +77,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const removeFromCart = useCallback((productId: string) => {
     let itemToRemoveName = '';
+    
     setCartItems(prevItems => {
         const itemToRemove = prevItems.find(item => item.product.id === productId);
         if (itemToRemove) {
@@ -89,7 +90,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         toast({
             title: "Item removed",
             description: `${itemToRemoveName} has been removed.`,
-            variant: 'destructive'
         });
     }
   }, [toast]);
@@ -112,7 +112,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         toast({
             title: "Cart cleared",
             description: `All items have been removed from your cart.`,
-            variant: 'destructive'
         });
     }
   }, [cartItems.length, toast]);
