@@ -37,8 +37,8 @@ export default function ToolsPage() {
   return (
     <>
       <header className={styles.hero}>
-        <h1>Developer & Designer Tools</h1>
-        <p>A curated collection of handy utilities to streamline your workflow.</p>
+        <h1>The Modern Toolkit</h1>
+        <p>A curated suite of utilities designed to accelerate your creative workflow.</p>
         <div className={styles.searchContainer}>
           <ToolSearch onSearch={setQuery} />
         </div>

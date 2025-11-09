@@ -38,8 +38,8 @@ export default function BlogsPage() {
   return (
     <>
       <header className={styles.hero}>
-        <h1>Our Blog</h1>
-        <p>Articles, tutorials, and insights on the latest in technology.</p>
+        <h1>Insights &amp; Ideas</h1>
+        <p>Your source for tech trends, expert tutorials, and design inspiration.</p>
         <div className={styles.searchContainer}>
           <BlogSearch onSearch={setQuery} />
         </div>
