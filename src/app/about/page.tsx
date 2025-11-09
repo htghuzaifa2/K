@@ -70,7 +70,7 @@ export default function AboutPage() {
                 "group text-center p-6 flex flex-col items-center shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 animate-fade-in-up",
                 "bg-card/50 dark:bg-card/20 backdrop-blur-sm"
               )}
-              style={{ animationDelay: `${i * 100}ms` }}
+              style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'backwards' }}
             >
                 {feature.icon}
                 <h3 className="text-xl font-bold mt-4 mb-2 font-headline">{feature.title}</h3>
