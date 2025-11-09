@@ -1,12 +1,15 @@
 
-import { getProductBySlug, getProducts } from '@/lib/products';
+'use client';
+
+import { getProductBySlug } from '@/lib/products';
 import { notFound } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
 import { RelatedProducts } from '@/components/product/related-products';
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { ProductDetailsClient } from '@/components/product/product-details-client';
-import { Metadata, ResolvingMetadata } from 'next';
-import { APP_NAME } from '@/lib/constants';
+import type { AppProduct } from '@/lib/products';
+import { Skeleton } from '@/components/ui/skeleton';
+
 
 type ProductPageProps = {
   params: {
@@ -14,47 +17,63 @@ type ProductPageProps = {
   };
 };
 
-export async function generateMetadata({ params }: ProductPageProps, parent: ResolvingMetadata): Promise<Metadata> {
-  const { slug } = await params;
-  const product = await getProductBySlug(slug);
-
-  if (!product) {
-    return {
-      title: `Product not found`,
-      description: "The product you are looking for does not exist.",
-    }
-  }
-
-  let description = '';
-  if (product.description && product.description.length >= 10) {
-    description = product.description;
-  } else if (product.longDescription) {
-    // Strip HTML and line breaks
-    const cleanedDescription = product.longDescription.replace(/<[^>]*>?/gm, '').replace(/(\r\n|\n|\r)/gm, ' ');
-    if (cleanedDescription.length > 160) {
-      description = cleanedDescription.substring(0, 157) + '...';
-    } else {
-      description = cleanedDescription;
-    }
-  }
-
-  const metadata: Metadata = {
-    title: product.name,
-  };
-
-  if (description) {
-    metadata.description = description;
-  }
-
-  return metadata;
+function ProductDetailsSkeleton() {
+    return (
+        <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                <div>
+                    <Skeleton className="aspect-square w-full rounded-lg" />
+                    <div className="mt-4 flex justify-center gap-2">
+                        <Skeleton className="h-2 w-8 rounded-full" />
+                        <Skeleton className="h-2 w-2 rounded-full" />
+                        <Skeleton className="h-2 w-2 rounded-full" />
+                    </div>
+                </div>
+                <div className="flex flex-col space-y-6">
+                    <Skeleton className="h-12 w-3/4" />
+                    <Skeleton className="h-10 w-1/4" />
+                    <Skeleton className="h-6 w-full" />
+                    <Skeleton className="h-6 w-5/6" />
+                    <Skeleton className="h-12 w-full" />
+                </div>
+            </div>
+        </div>
+    );
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params;
-  const product = await getProductBySlug(slug);
+
+export default function ProductPage({ params }: ProductPageProps) {
+  const { slug } = params;
+  const [product, setProduct] = useState<AppProduct | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadProduct() {
+      setLoading(true);
+      try {
+        const fetchedProduct = await getProductBySlug(slug);
+        if (!fetchedProduct) {
+          notFound();
+        } else {
+          setProduct(fetchedProduct);
+        }
+      } catch (error) {
+        console.error("Failed to fetch product", error);
+        notFound();
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadProduct();
+  }, [slug]);
+
+  if (loading) {
+    return <ProductDetailsSkeleton />;
+  }
 
   if (!product) {
-    notFound();
+    // This will be handled by notFound in useEffect, but as a fallback
+    return null;
   }
 
   return (
@@ -68,13 +87,4 @@ export default async function ProductPage({ params }: ProductPageProps) {
       </div>
     </>
   );
-}
-
-// This helps Next.js to statically generate all product pages at build time.
-export async function generateStaticParams() {
-  const products = await getProducts();
- 
-  return products.map((product) => ({
-    slug: product.slug,
-  }));
 }
