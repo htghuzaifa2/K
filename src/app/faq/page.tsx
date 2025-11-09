@@ -83,8 +83,8 @@ const faqSections = [
 
 export default function FaqPage() {
   return (
-    <div className="container mx-auto px-4 py-12 animate-fade-in-up">
-      <header className="text-center mb-16">
+    <div className="container mx-auto px-4 py-12">
+      <header className="text-center mb-16 animate-fade-in-up">
         <h1 className="text-4xl md:text-5xl font-extrabold font-headline text-primary tracking-tight">Frequently Asked Questions</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
           Have questions? We’ve got answers. Find the information you need below.
@@ -93,7 +93,11 @@ export default function FaqPage() {
       
       <div className="space-y-12 max-w-4xl mx-auto">
         {faqSections.map((section, index) => (
-          <Card key={index} className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <Card 
+            key={index} 
+            className="shadow-lg hover:shadow-xl transition-shadow duration-300 animate-fade-in-up"
+            style={{ animationDelay: `${150 + index * 150}ms`, animationFillMode: 'backwards' }}
+          >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-2xl md:text-3xl font-headline">
                 {section.icon}
@@ -118,7 +122,7 @@ export default function FaqPage() {
         ))}
       </div>
 
-       <section className="text-center mt-16 max-w-3xl mx-auto bg-secondary/50 dark:bg-secondary/20 rounded-xl p-8">
+       <section className="text-center mt-16 max-w-3xl mx-auto bg-secondary/50 dark:bg-secondary/20 rounded-xl p-8 animate-fade-in-up" style={{ animationDelay: `${150 + faqSections.length * 150}ms`, animationFillMode: 'backwards' }}>
         <h2 className="text-3xl font-bold font-headline">Still Have Questions?</h2>
         <p className="text-muted-foreground text-lg leading-relaxed mt-4">
            If you can't find the answer you're looking for, feel free to reach out to our support team.

@@ -36,15 +36,15 @@ const features = [
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 py-12 animate-fade-in-up">
-      <header className="text-center mb-16">
+    <div className="container mx-auto px-4 py-12">
+      <header className="text-center mb-16 animate-fade-in-up">
         <h1 className="text-4xl md:text-5xl font-extrabold font-headline text-primary tracking-tight">About Us</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
           Welcome to {APP_NAME}, Pakistan’s reliable destination for premium technology and gadgets. We are an e-commerce platform dedicated to providing authentic products, competitive prices, and exceptional service to customers across the country.
         </p>
       </header>
 
-      <section className="mb-16">
+      <section className="mb-16 animate-fade-in-up" style={{ animationDelay: '150ms', animationFillMode: 'backwards' }}>
         <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-3xl font-headline">
@@ -61,7 +61,7 @@ export default function AboutPage() {
       </section>
       
       <section className="mb-16">
-        <h2 className="text-3xl font-bold font-headline text-center mb-10">Why Choose {APP_NAME}</h2>
+        <h2 className="text-3xl font-bold font-headline text-center mb-10 animate-fade-in-up" style={{ animationDelay: '300ms', animationFillMode: 'backwards' }}>Why Choose {APP_NAME}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, i) => (
             <Card 
@@ -70,7 +70,7 @@ export default function AboutPage() {
                 "group text-center p-6 flex flex-col items-center shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 animate-fade-in-up",
                 "bg-card/50 dark:bg-card/20 backdrop-blur-sm"
               )}
-              style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'backwards' }}
+              style={{ animationDelay: `${300 + i * 150}ms`, animationFillMode: 'backwards' }}
             >
                 {feature.icon}
                 <h3 className="text-xl font-bold mt-4 mb-2 font-headline">{feature.title}</h3>
@@ -81,7 +81,7 @@ export default function AboutPage() {
       </section>
 
        <section className="mb-16 grid md:grid-cols-2 gap-8">
-         <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+         <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '450ms', animationFillMode: 'backwards' }}>
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-3xl font-headline">
               <Target className="h-8 w-8 text-primary" />
@@ -94,7 +94,7 @@ export default function AboutPage() {
             </p>
           </CardContent>
         </Card>
-         <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+         <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '600ms', animationFillMode: 'backwards' }}>
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-3xl font-headline">
                 <ShieldCheck className="h-8 w-8 text-primary" />
@@ -109,7 +109,7 @@ export default function AboutPage() {
         </Card>
        </section>
 
-      <footer className="text-center mt-12">
+      <footer className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '750ms', animationFillMode: 'backwards' }}>
         <p className="text-xl font-bold font-headline">
             <span className="animate-text-gradient bg-gradient-to-r from-teal-400 via-pink-500 to-yellow-500 bg-[200%_auto] bg-clip-text text-transparent">
                 {APP_NAME} – Your Trusted Technology Store in Pakistan.

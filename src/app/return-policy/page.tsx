@@ -19,10 +19,16 @@ const ineligibleConditions = [
   "If the return request is made after the allowed timeframe.",
 ];
 
+const processSteps = [
+    { title: "⏳ Return Timeframe", content: `Customers must notify us of a return request within <span class="font-bold text-primary">3 days</span> of receiving their order. Requests made after 3 days will not be eligible for return or refund.` },
+    { title: "📦 How to Initiate a Return", content: `<p>To initiate a return for a damaged, defective, or incorrect product:</p><ol class="list-decimal list-inside space-y-2 pl-2"><li>Contact our customer support team with your order number.</li><li>Provide clear photos or a short video showing the issue.</li><li>Our team will verify the claim and guide you through the return process.</li></ol>` },
+    { title: "💳 Refund Process", content: `<ul class="list-disc list-inside space-y-2 pl-2"><li>Once your return is approved and the item is received by us, it will undergo an inspection.</li><li>After approval, your refund will be processed via the original payment method or another mutually agreed method.</li><li>Refund timelines may vary depending on your bank or payment provider.</li></ul>` },
+]
+
 export default function ReturnPolicyPage() {
   return (
-    <div className="container mx-auto px-4 py-12 animate-fade-in-up">
-      <header className="text-center mb-16">
+    <div className="container mx-auto px-4 py-12">
+      <header className="text-center mb-16 animate-fade-in-up">
         <h1 className="text-4xl md:text-5xl font-extrabold font-headline text-primary tracking-tight">Return & Refund Policy</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
           At {APP_NAME}, customer satisfaction is our top priority. We strive to provide high-quality tech products and an excellent shopping experience. Please review our policy carefully to understand when and how returns can be made.
@@ -30,7 +36,7 @@ export default function ReturnPolicyPage() {
       </header>
 
       <div className="grid md:grid-cols-2 gap-8 mb-12">
-        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 border-green-500/50">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 border-green-500/50 animate-fade-in-up" style={{ animationDelay: '150ms', animationFillMode: 'backwards' }}>
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-2xl font-headline text-green-600 dark:text-green-500">
               <CheckCircle2 className="h-8 w-8" />
@@ -49,7 +55,7 @@ export default function ReturnPolicyPage() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 border-destructive/50">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 border-destructive/50 animate-fade-in-up" style={{ animationDelay: '300ms', animationFillMode: 'backwards' }}>
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-2xl font-headline text-destructive">
               <XCircle className="h-8 w-8" />
@@ -70,44 +76,21 @@ export default function ReturnPolicyPage() {
       </div>
 
       <div className="space-y-8 mb-12">
-        <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader>
-                <CardTitle className="font-headline text-2xl">⏳ Return Timeframe</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p className="text-muted-foreground">Customers must notify us of a return request within <span className="font-bold text-primary">3 days</span> of receiving their order. Requests made after 3 days will not be eligible for return or refund.</p>
-            </CardContent>
-        </Card>
-
-        <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader>
-                <CardTitle className="font-headline text-2xl">📦 How to Initiate a Return</CardTitle>
-            </CardHeader>
-            <CardContent className="text-muted-foreground space-y-2">
-                <p>To initiate a return for a damaged, defective, or incorrect product:</p>
-                <ol className="list-decimal list-inside space-y-2 pl-2">
-                    <li>Contact our customer support team with your order number.</li>
-                    <li>Provide clear photos or a short video showing the issue.</li>
-                    <li>Our team will verify the claim and guide you through the return process.</li>
-                </ol>
-            </CardContent>
-        </Card>
-        
-        <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader>
-                <CardTitle className="font-headline text-2xl">💳 Refund Process</CardTitle>
-            </CardHeader>
-            <CardContent className="text-muted-foreground space-y-2">
-                 <ul className="list-disc list-inside space-y-2 pl-2">
-                    <li>Once your return is approved and the item is received by us, it will undergo an inspection.</li>
-                    <li>After approval, your refund will be processed via the original payment method or another mutually agreed method.</li>
-                    <li>Refund timelines may vary depending on your bank or payment provider.</li>
-                </ul>
-            </CardContent>
-        </Card>
+        {processSteps.map((step, index) => (
+            <Card 
+                key={step.title}
+                className="shadow-md hover:shadow-lg transition-shadow duration-300 animate-fade-in-up"
+                style={{ animationDelay: `${450 + index * 150}ms`, animationFillMode: 'backwards' }}
+            >
+                <CardHeader>
+                    <CardTitle className="font-headline text-2xl">{step.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-muted-foreground space-y-2" dangerouslySetInnerHTML={{ __html: step.content }} />
+            </Card>
+        ))}
       </div>
 
-      <section className="text-center max-w-3xl mx-auto bg-secondary/50 dark:bg-secondary/20 rounded-xl p-8">
+      <section className="text-center max-w-3xl mx-auto bg-secondary/50 dark:bg-secondary/20 rounded-xl p-8 animate-fade-in-up" style={{ animationDelay: `${450 + processSteps.length * 150}ms`, animationFillMode: 'backwards' }}>
         <ShieldQuestion className="h-12 w-12 mx-auto text-primary mb-4" />
         <h2 className="text-3xl font-bold font-headline">Need Help?</h2>
         <p className="text-muted-foreground text-lg leading-relaxed mt-4">
