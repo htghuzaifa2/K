@@ -2,12 +2,12 @@
 import { getBlogPosts, type BlogPost, type BlogPostWithContent } from './blog-data';
 
 // Import raw content as strings
-import ptaGuideContent from './blog-content/pta-guide-2025.html';
-import freelancingSetupContent from './blog-content/freelancing-setup-pakistan-2026.html';
-import seoContent from './blog-content/seo-for-pakistani-developers-2026.html';
-import securityContent from './blog-content/web-security-for-pakistani-businesses-2026.html';
-import cloudContent from './blog-content/cloud-rising-over-pakistan.html';
-import mobileFirstContent from './blog-content/mobile-first-era-pakistan.html';
+import ptaGuideContent from './blog-content/pta-guide-2025.ts';
+import freelancingSetupContent from './blog-content/freelancing-setup-pakistan-2026.ts';
+import seoContent from './blog-content/seo-for-pakistani-developers-2026.ts';
+import securityContent from './blog-content/web-security-for-pakistani-businesses-2026.ts';
+import cloudContent from './blog-content/cloud-rising-over-pakistan.ts';
+import mobileFirstContent from './blog-content/mobile-first-era-pakistan.ts';
 
 // Manually map post IDs to their imported content
 const contentMap: Record<string, string> = {
