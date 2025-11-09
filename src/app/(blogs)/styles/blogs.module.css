@@ -63,8 +63,7 @@
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
+  display: block;
   background-color: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
@@ -72,18 +71,24 @@
   text-decoration: none;
   color: inherit;
   transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 120px;
 }
 
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  border-color: hsl(var(--primary));
 }
 
 .cardTitle {
   font-size: 1.25rem;
   font-weight: 600;
   color: hsl(var(--card-foreground));
-  margin-bottom: 0.75rem;
 }
 
 .cardDescription {
@@ -257,7 +262,10 @@
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
   padding: 1.5rem;
-  height: 170px; /* Approximate height of the new card */
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .skeletonTitle {
@@ -266,26 +274,6 @@
     animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     height: 20px;
     width: 80%;
-    margin-bottom: 1rem;
-}
-
-.skeletonDescription {
-    background-color: hsl(var(--muted));
-    border-radius: 4px;
-    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    height: 14px;
-    width: 100%;
-    margin-bottom: 0.5rem;
-}
-
-.skeletonButton {
-    background-color: hsl(var(--muted));
-    border-radius: 4px;
-    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    height: 16px;
-    width: 30%;
-    margin-left: auto;
-    margin-top: 1rem;
 }
 
 @keyframes pulse {

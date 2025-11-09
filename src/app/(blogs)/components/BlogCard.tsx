@@ -13,10 +13,6 @@ export default function BlogCard({ post }: BlogCardProps) {
   return (
     <Link href={`/blogs/${post.slug}`} className={styles.card}>
         <h3 className={styles.cardTitle}>{post.title}</h3>
-        <p className={styles.cardDescription}>{post.description}</p>
-        <div className={styles.cardFooter}>
-            <span className={styles.readMore}>Read More &rarr;</span>
-        </div>
     </Link>
   );
 }
