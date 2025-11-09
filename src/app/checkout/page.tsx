@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useCart } from '@/hooks/use-cart';
@@ -10,11 +9,42 @@ import Link from 'next/link';
 import { CreditCard, ShoppingCart } from 'lucide-react';
 import { WHATSAPP_PHONE_NUMBER, WHATSAPP_MESSAGE_HEADER, BLUR_DATA_URL } from '@/lib/constants';
 import { toast } from '@/hooks/use-toast';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { pakistanProvinces, citiesByProvince } from '@/lib/pakistan-locations';
+import { useState } from 'react';
+
+const formSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters.'),
+  email: z.string().email('Invalid email address.').optional().or(z.literal('')),
+  phone: z.string().min(1, 'Phone number is required.'),
+  province: z.string().min(1, 'Province is required.'),
+  city: z.string().optional(),
+  address: z.string().min(1, 'Address is required.'),
+});
 
 export default function CheckoutPage() {
   const { cartItems, subtotal, shippingCost, total } = useCart();
+  const [selectedProvince, setSelectedProvince] = useState<keyof typeof citiesByProvince | ''>('');
 
-  const handleConfirmOrder = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      province: '',
+      city: '',
+      address: '',
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
     if (cartItems.length === 0) {
       toast({
         variant: 'destructive',
@@ -25,16 +55,22 @@ export default function CheckoutPage() {
     }
 
     const itemsText = cartItems
-      .map(
-        (item) =>
-          `- ${item.product.name} (x${item.quantity}) - PKR ${item.product.price * item.quantity}`
-      )
+      .map(item => `- ${item.product.name} (x${item.quantity}) - PKR ${item.product.price * item.quantity}`)
       .join('\n');
       
     const breakdownText = `\nSubtotal: PKR ${subtotal}\nShipping: PKR ${shippingCost}\n*Total: PKR ${total}*`;
+    
+    const customerDetails = `
+*Customer Details:*
+Name: ${values.name}
+Phone: ${values.phone}${values.email ? `\nEmail: ${values.email}` : ''}
+Address: ${values.address}
+Province: ${values.province}${values.city ? `\nCity: ${values.city}` : ''}
+    `;
+
     const codNote = `\n\n(Note: An additional Rs. 50 fee applies for Cash on Delivery orders, which will be added by our team upon confirmation.)`;
     
-    const message = `${WHATSAPP_MESSAGE_HEADER}\n\n${itemsText}\n${breakdownText}${codNote}`;
+    const message = `${WHATSAPP_MESSAGE_HEADER}\n\n${itemsText}\n${breakdownText}\n\n${customerDetails}${codNote}`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`, '_blank');
   };
@@ -60,53 +96,165 @@ export default function CheckoutPage() {
     <div className="container mx-auto px-4 py-12">
       <header className="text-center mb-12">
         <h1 className="text-4xl font-extrabold font-headline text-primary tracking-tight">Checkout</h1>
-        <p className="mt-3 text-lg text-muted-foreground">Review your order and confirm</p>
+        <p className="mt-3 text-lg text-muted-foreground">Please fill in your details to complete the order</p>
       </header>
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+        <div className="lg:col-span-3">
           <Card>
             <CardHeader>
-              <CardTitle>Order Summary</CardTitle>
+              <CardTitle>Customer Information</CardTitle>
             </CardHeader>
-            <CardContent className="divide-y">
-              {cartItems.map(item => (
-                <div key={item.product.id} className="flex items-center gap-4 py-4">
-                   <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border">
-                     <Image
-                        src={item.product.images[0].url}
-                        alt={item.product.images[0].altText}
-                        fill
-                        className="object-contain"
-                        sizes="80px"
-                        data-ai-hint="product image"
-                        placeholder="blur"
-                        blurDataURL={BLUR_DATA_URL}
+            <CardContent>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Full Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Your full name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email Address <span className="text-muted-foreground">(Optional)</span></FormLabel>
+                          <FormControl>
+                            <Input placeholder="your.email@example.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone Number</FormLabel>
+                          <FormControl>
+                            <Input placeholder="+923001234567" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                   <div className="grid md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="province"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Province</FormLabel>
+                             <Select onValueChange={(value) => {
+                                field.onChange(value);
+                                setSelectedProvince(value as keyof typeof citiesByProvince);
+                                form.setValue('city', '');
+                             }} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select your province" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {pakistanProvinces.map(province => (
+                                    <SelectItem key={province} value={province}>{province}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="city"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>City</FormLabel>
+                             <Select onValueChange={field.onChange} value={field.value} disabled={!selectedProvince}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select your city" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {selectedProvince && citiesByProvince[selectedProvince]?.map(city => (
+                                    <SelectItem key={city} value={city}>{city}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
                    </div>
-                   <div className="flex-grow">
-                     <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline">
-                        {item.product.name}
-                     </Link>
-                     <p className="text-sm text-muted-foreground">Quantity: {item.quantity}</p>
-                   </div>
-                   <div className="text-right">
-                     <p className="font-medium">PKR {item.product.price * item.quantity}</p>
-                     <p className="text-sm text-muted-foreground">PKR {item.product.price} each</p>
-                   </div>
-                </div>
-              ))}
+                  <FormField
+                    control={form.control}
+                    name="address"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Shipping Address</FormLabel>
+                        <FormControl>
+                          <Textarea placeholder="Your complete shipping address" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" size="lg" className="w-full">
+                    <CreditCard className="mr-2 h-5 w-5"/> Confirm Order via WhatsApp
+                  </Button>
+                </form>
+              </Form>
             </CardContent>
           </Card>
         </div>
         
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-2">
             <Card className="sticky top-20">
                 <CardHeader>
-                    <CardTitle>Total Cost</CardTitle>
+                    <CardTitle>Order Summary</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="space-y-2 text-base">
+                <CardContent>
+                    <div className="space-y-4">
+                        {cartItems.map(item => (
+                            <div key={item.product.id} className="flex items-center gap-4">
+                                <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border">
+                                    <Image
+                                        src={item.product.images[0].url}
+                                        alt={item.product.images[0].altText}
+                                        fill
+                                        className="object-contain"
+                                        sizes="64px"
+                                        placeholder="blur"
+                                        blurDataURL={BLUR_DATA_URL}
+                                    />
+                                </div>
+                                <div className="flex-grow">
+                                    <Link href={`/products/${item.product.slug}`} className="font-semibold text-sm hover:underline">
+                                        {item.product.name}
+                                    </Link>
+                                    <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                                </div>
+                                <p className="text-sm font-medium">PKR {item.product.price * item.quantity}</p>
+                            </div>
+                        ))}
+                    </div>
+                </CardContent>
+                <CardFooter className="flex-col items-stretch space-y-4">
+                     <Separator />
+                     <div className="space-y-2 text-base">
                         <div className="flex justify-between">
                             <p className="text-muted-foreground">Subtotal</p>
                             <p className="font-medium">PKR {subtotal}</p>
@@ -124,15 +272,9 @@ export default function CheckoutPage() {
                     <p className="text-xs text-muted-foreground pt-2">
                         Note: An additional Rs. 50 fee for Cash on Delivery will be confirmed by our team via WhatsApp.
                     </p>
-                </CardContent>
-                <CardFooter>
-                    <Button size="lg" className="w-full" onClick={handleConfirmOrder}>
-                        <CreditCard className="mr-2 h-5 w-5"/> Confirm Order via WhatsApp
-                    </Button>
                 </CardFooter>
             </Card>
         </div>
-
       </div>
     </div>
   );
