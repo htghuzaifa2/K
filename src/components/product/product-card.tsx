@@ -1,7 +1,6 @@
 
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { AppProduct } from '@/lib/products';
@@ -9,8 +8,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { AddToCartButton } from './add-to-cart-button';
 import { Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { BLUR_DATA_URL } from '@/lib/constants';
 
 type ProductCardProps = {
   product: AppProduct;
@@ -18,8 +17,6 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product, onQuickView }: ProductCardProps) {
-  const [isImageLoading, setIsImageLoading] = useState(true);
-
   const handleQuickViewClick = (e: React.MouseEvent) => {
     e.preventDefault();
     onQuickView(product);
@@ -32,18 +29,15 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           <div className="group relative">
             <Link href={`/products/${product.slug}`}>
               <div className="relative aspect-square w-full overflow-hidden">
-                {isImageLoading && <Skeleton className="absolute inset-0" />}
                 <Image
                   src={product.images[0].url}
                   alt={product.images[0].altText}
                   fill
-                  className={cn(
-                    'object-contain transition-opacity duration-300 group-hover:scale-105',
-                    isImageLoading ? 'opacity-0' : 'opacity-100'
-                  )}
+                  className="object-contain transition-transform duration-300 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   data-ai-hint="product image"
-                  onLoad={() => setIsImageLoading(false)}
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
                 />
               </div>
             </Link>

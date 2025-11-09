@@ -1,32 +1,28 @@
 
 'use client';
 
-import { useState } from 'react';
+import Image from 'next/image';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import type { AppProduct, ProductImage } from '@/lib/products';
-import Image from 'next/image';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { AddToCartButton } from './add-to-cart-button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 import { ScrollArea } from '../ui/scroll-area';
-import { Skeleton } from '../ui/skeleton';
-import { cn } from '@/lib/utils';
-
+import { BLUR_DATA_URL } from '@/lib/constants';
 
 function CarouselImage({ img, index }: { img: ProductImage, index: number }) {
-  const [isLoading, setIsLoading] = useState(true);
   return (
     <div className="relative aspect-square">
-      {isLoading && <Skeleton className="absolute inset-0 rounded-md" />}
       <Image
         src={img.url}
         alt={img.altText}
         fill
-        className={cn("object-contain rounded-md transition-opacity duration-300", isLoading ? 'opacity-0' : 'opacity-100')}
+        className="object-contain rounded-md"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         data-ai-hint="product image"
-        onLoad={() => setIsLoading(false)}
+        placeholder="blur"
+        blurDataURL={BLUR_DATA_URL}
       />
     </div>
   )

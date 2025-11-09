@@ -9,6 +9,13 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     extend: {
       fontFamily: {
         body: ['Roboto', 'sans-serif'],
@@ -94,22 +101,11 @@ export default {
             backgroundPosition: '200% center',
           },
         },
-        'fade-in-up': {
-          'from': {
-            opacity: '0',
-            transform: 'translateY(20px)',
-          },
-          'to': {
-            opacity: '1',
-            transform: 'translateY(0)',
-          },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'text-gradient': 'text-gradient 3s linear infinite',
-        'fade-in-up': 'fade-in-up 0.6s ease-out',
       },
     },
   },

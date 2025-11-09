@@ -1,6 +1,7 @@
 
 import type { Product as RawProduct, ProductImage } from '@/lib/types';
 import productsData from './products.json';
+import { unstable_cache as cache } from 'next/cache';
 
 // This is the shape of the product object used throughout the app.
 export type AppProduct = {
@@ -14,16 +15,6 @@ export type AppProduct = {
     longDescription?: string;
     specifications?: Record<string, string>;
 };
-
-
-// Simulate an async API call
-async function fetchProductsData(): Promise<RawProduct[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(productsData as RawProduct[]);
-    }, 100); // 100ms delay, faster than before
-  });
-}
 
 function transformProduct(product: RawProduct): AppProduct {
     return {
@@ -39,18 +30,29 @@ function transformProduct(product: RawProduct): AppProduct {
     };
 }
 
+// Cached function to read and transform products.
+// This will only re-run if the underlying products.json file changes in development,
+// or on a new deployment in production.
+const getTransformedProducts = cache(
+  async () => {
+    console.log('Reading and transforming products.json');
+    const rawProducts = productsData as RawProduct[];
+    return rawProducts.map(transformProduct);
+  },
+  ['products_data']
+);
+
 export async function getProducts(): Promise<AppProduct[]> {
-  const products = await fetchProductsData();
-  return products.map(transformProduct);
+  return await getTransformedProducts();
 }
 
 export async function getProductBySlug(slug: string): Promise<AppProduct | null> {
-  const products = await getProducts();
+  const products = await getTransformedProducts();
   return products.find((p) => p.slug === slug) || null;
 }
 
 export async function getProductsByCategory(category: string): Promise<AppProduct[]> {
-  const products = await getProducts();
+  const products = await getTransformedProducts();
   const lowerCaseCategory = category.toLowerCase();
   return products.filter((p) => {
       const productCategory = Array.isArray(p.category) ? p.category : [p.category];
@@ -58,15 +60,14 @@ export async function getProductsByCategory(category: string): Promise<AppProduc
   });
 }
 
-
 export async function getProductsByNames(names: string[]): Promise<AppProduct[]> {
-  const products = await getProducts();
+  const products = await getTransformedProducts();
   const lowerCaseNames = names.map(name => name.toLowerCase());
   return products.filter(p => lowerCaseNames.includes(p.name.toLowerCase()));
 }
 
 export async function getAllCategories(): Promise<string[]> {
-    const products = await getProducts();
+    const products = await getTransformedProducts();
     const categories = new Set(products.flatMap(p => p.category));
     return Array.from(categories);
 }

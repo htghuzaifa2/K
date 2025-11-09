@@ -13,29 +13,27 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import type { AppProduct, ProductImage } from '@/lib/products';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/use-cart';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';
-import { APP_NAME } from '@/lib/constants';
+import { APP_NAME, BLUR_DATA_URL } from '@/lib/constants';
 
 type ProductDetailsClientProps = {
   product: AppProduct;
 };
 
 function CarouselImage({ img, index }: { img: ProductImage, index: number }) {
-  const [isLoading, setIsLoading] = useState(true);
   return (
     <Card className="overflow-hidden">
       <CardContent className="relative aspect-square p-0">
-        {isLoading && <Skeleton className="absolute inset-0" />}
         <Image
           src={img.url}
           alt={img.altText}
           fill
-          className={cn('object-contain transition-opacity duration-300', isLoading ? 'opacity-0' : 'opacity-100')}
+          className="object-contain"
           priority={index === 0}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           data-ai-hint="product image"
-          onLoad={() => setIsLoading(false)}
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
         />
       </CardContent>
     </Card>

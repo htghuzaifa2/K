@@ -17,22 +17,20 @@ import type { AppProduct } from '@/lib/products';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ScrollArea } from '../ui/scroll-area';
-import { Skeleton } from '../ui/skeleton';
-import { cn } from '@/lib/utils';
+import { BLUR_DATA_URL } from '@/lib/constants';
 
 function SearchResultImage({ product }: { product: AppProduct }) {
-  const [isLoading, setIsLoading] = useState(true);
   return (
     <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md">
-      {isLoading && <Skeleton className="absolute inset-0" />}
       <Image
         src={product.images[0].url}
         alt={product.images[0].altText}
         fill
-        className={cn('object-contain transition-opacity duration-300', isLoading ? 'opacity-0' : 'opacity-100')}
+        className="object-contain"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         data-ai-hint="product image"
-        onLoad={() => setIsLoading(false)}
+        placeholder="blur"
+        blurDataURL={BLUR_DATA_URL}
       />
     </div>
   )
@@ -73,7 +71,7 @@ export function SearchOverlay() {
   }, [isOpen, allProducts.length]);
 
   const filteredProducts = useMemo(() => {
-    if (searchQuery.length === 0) {
+    if (searchQuery.length < 2) {
       return [];
     }
 
@@ -91,23 +89,32 @@ export function SearchOverlay() {
       p.name.toLowerCase().startsWith(lowerCaseQuery)
     );
 
-    // Tier B: Any-word
+    // Tier B: Includes
     if (results.length === 0) {
-      const queryWords = lowerCaseQuery.split(/[\s,.-_]+/);
-      results = allProducts.filter(p => {
-        const titleWords = p.name.toLowerCase().split(/[\s,.-_]+/);
-        return queryWords.some(qw => titleWords.includes(qw));
-      });
-    }
-
-    // Tier C: Fuzzy search
-    if (results.length === 0) {
-      results = allProducts.filter(p => 
-        levenshtein(p.name.toLowerCase(), lowerCaseQuery) <= 2
-      );
+        results = allProducts.filter(p => p.name.toLowerCase().includes(lowerCaseQuery));
     }
     
-    return results;
+    // Tier C: Fuzzy search
+    if (results.length < 5) {
+      const fuzzyResults = allProducts
+        .map(p => ({
+          product: p,
+          distance: levenshtein(p.name.toLowerCase(), lowerCaseQuery)
+        }))
+        .filter(p => p.distance <= 3 && p.distance > 0)
+        .sort((a, b) => a.distance - b.distance)
+        .map(p => p.product);
+      
+      const combined = [...results];
+      fuzzyResults.forEach(fr => {
+        if (!combined.some(r => r.id === fr.id)) {
+          combined.push(fr);
+        }
+      });
+      results = combined;
+    }
+    
+    return results.slice(0, 10);
 
   }, [searchQuery, allProducts]);
 
