@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -83,7 +84,6 @@ export default function Hero() {
                 <Card className="border-0 rounded-none shadow-none">
                   <CardContent className={cn("relative flex items-center justify-center p-6 h-[40vh] min-h-[300px]", !slide.image && slide.background)}>
                     {slide.image && (
-                      <>
                         <Image
                           src={slide.image}
                           alt={slide.imageAlt || "Hero image"}
@@ -91,10 +91,12 @@ export default function Hero() {
                           className="object-contain"
                           priority={index === 0}
                         />
-                      </>
                     )}
-                    <div className={cn("relative z-10 text-center", slide.image && "text-white")}>
-                       <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+                    <div className={cn(
+                        "relative z-10 text-center", 
+                        slide.image && "bg-black/50 p-6 rounded-lg"
+                    )}>
+                       <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-white">
                         {slide.title}
                       </h1>
                       <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl text-white/90">
