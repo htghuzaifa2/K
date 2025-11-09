@@ -19,6 +19,7 @@ interface CartContextType {
   total: number;
   isCartOpen: boolean;
   setIsCartOpen: (isOpen: boolean) => void;
+  isCartLoading: boolean;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -31,6 +32,7 @@ const SHIPPING_FEE = 200;
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCartLoading, setIsCartLoading] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -41,16 +43,20 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     } catch (error) {
       console.error("Could not load cart from localStorage", error);
+    } finally {
+        setIsCartLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
-    } catch (error) {
-       console.error("Could not save cart to localStorage", error);
+    if (!isCartLoading) {
+        try {
+            localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
+        } catch (error) {
+            console.error("Could not save cart to localStorage", error);
+        }
     }
-  }, [cartItems]);
+  }, [cartItems, isCartLoading]);
 
   const addToCart = useCallback((product: ProductInCart) => {
     setCartItems(prevItems => {
@@ -127,7 +133,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         shippingCost,
         total,
         isCartOpen,
-        setIsCartOpen
+        setIsCartOpen,
+        isCartLoading,
       }}
     >
       {children}
