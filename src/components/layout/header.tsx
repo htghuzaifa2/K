@@ -8,17 +8,35 @@ import { SearchOverlay } from '@/components/search/search-overlay';
 import { APP_NAME } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import { Menu } from 'lucide-react';
+import { ChevronDown, Menu } from 'lucide-react';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
-const navItems = [
+const mainNavItems = [
   { name: 'Home', href: '/' },
   { name: 'All Products', href: '/products' },
   { name: 'Categories', href: '/categories' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+];
+
+const moreNavItems = [
+    { name: 'About Us', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'Shipping Policy', href: '/shipping-policy' },
+    { name: 'Return Policy', href: '/return-policy' },
+    { name: 'FAQ', href: '/faq' },
 ];
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -49,11 +67,26 @@ export function Header() {
             <span className="font-bold text-lg font-headline">{APP_NAME}</span>
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
-            {navItems.map((item) => (
+            {mainNavItems.map((item) => (
               <NavLink key={item.href} href={item.href}>
                 {item.name}
               </NavLink>
             ))}
+             <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="relative text-sm font-medium text-muted-foreground transition-colors hover:text-primary p-0 h-auto">
+                        More
+                        <ChevronDown className="ml-1 h-4 w-4" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                    {moreNavItems.map((item) => (
+                        <DropdownMenuItem key={item.href} asChild>
+                            <Link href={item.href}>{item.name}</Link>
+                        </DropdownMenuItem>
+                    ))}
+                </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
         </div>
         
@@ -76,7 +109,7 @@ export function Header() {
                 <span className="font-bold text-lg font-headline">{APP_NAME}</span>
               </Link>
                 <nav className="flex flex-col gap-4">
-                  {navItems.map((item) => (
+                  {mainNavItems.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
@@ -86,6 +119,27 @@ export function Header() {
                       {item.name}
                     </Link>
                   ))}
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="more-items" className="border-b-0">
+                        <AccordionTrigger className="text-lg font-medium py-0 hover:no-underline">
+                            More
+                        </AccordionTrigger>
+                        <AccordionContent className="pt-2">
+                            <div className="flex flex-col gap-4 pl-4">
+                                {moreNavItems.map((item) => (
+                                    <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className="text-lg font-medium text-muted-foreground"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                    {item.name}
+                                    </Link>
+                                ))}
+                            </div>
+                        </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </nav>
                 <div className="flex items-center gap-4 mt-4">
                     <SearchOverlay />
