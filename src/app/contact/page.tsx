@@ -82,14 +82,13 @@ export default function ContactPage() {
           <CardHeader className="items-center">
             <CardTitle className="flex items-center gap-3 text-2xl font-headline">
               <Phone className="h-8 w-8 text-primary" />
-              Call or WhatsApp
+              WhatsApp
             </CardTitle>
           </CardHeader>
           <CardContent>
             <a href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-lg text-primary hover:underline">
-              +${WHATSAPP_PHONE_NUMBER}
+              +92 332 9105111
             </a>
-            <p className="text-muted-foreground mt-2 text-sm">Mon to Sat, 10 AM – 7 PM (PKT)</p>
           </CardContent>
         </Card>
       </div>
