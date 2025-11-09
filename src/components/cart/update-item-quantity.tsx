@@ -19,7 +19,7 @@ export function UpdateItemQuantity({ productId, quantity }: UpdateItemQuantityPr
         variant="ghost"
         size="icon"
         className="h-8 w-8"
-        onClick={() => quantity > 1 ? updateQuantity(productId, quantity - 1) : removeFromCart(productId)}
+        onClick={() => (quantity > 1 ? updateQuantity(productId, quantity - 1) : removeFromCart(productId))}
       >
         {quantity > 1 ? <Minus className="h-3 w-3" /> : <Trash2 className="h-3 w-3 text-destructive" />}
         <span className="sr-only">{quantity > 1 ? 'Decrease quantity' : 'Remove item'}</span>

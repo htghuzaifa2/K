@@ -16,7 +16,7 @@ import { ScrollArea } from '../ui/scroll-area';
 import { UpdateItemQuantity } from './update-item-quantity';
 import { WHATSAPP_PHONE_NUMBER, WHATSAPP_MESSAGE_HEADER, BLUR_DATA_URL } from '@/lib/constants';
 import { Separator } from '../ui/separator';
-import { CreditCard, ShoppingCart, Trash2, X } from 'lucide-react';
+import { CreditCard, ShoppingCart, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
 
@@ -65,8 +65,8 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
             <ScrollArea className="flex-grow">
               <div className="flex flex-col gap-5 px-6 py-6">
                 {cartItems.map((item) => (
-                  <div key={item.product.id} className="flex flex-col sm:flex-row items-start gap-4">
-                    <div className="relative h-24 w-24 flex-shrink-0 self-center sm:self-start overflow-hidden rounded-md border">
+                  <div key={item.product.id} className="flex items-start gap-4">
+                    <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border">
                       <Image
                         src={item.product.images[0].url}
                         alt={item.product.images[0].altText}
@@ -80,11 +80,11 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                     </div>
                     <div className="flex flex-grow flex-col gap-2 w-full">
                        <div className="flex items-start justify-between gap-2">
-                         <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline text-sm sm:text-base" onClick={() => onOpenChange(false)}>
+                         <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline text-sm sm:text-base pr-2" onClick={() => onOpenChange(false)}>
                             {item.product.name}
                           </Link>
                          <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground flex-shrink-0" onClick={() => removeFromCart(item.product.id)}>
-                            <X className="h-4 w-4" />
+                            <Trash2 className="h-4 w-4" />
                             <span className="sr-only">Remove item</span>
                          </Button>
                        </div>
