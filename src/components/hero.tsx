@@ -1,16 +1,19 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import Autoplay from "embla-carousel-autoplay";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { Button } from './ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 const slides = [
   {
@@ -38,12 +41,34 @@ const slides = [
 ];
 
 export default function Hero() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+    setCurrent(api.selectedScrollSnap());
+    const onSelect = (api: CarouselApi) => {
+      setCurrent(api.selectedScrollSnap());
+    };
+    api.on('select', onSelect);
+    return () => {
+      api.off('select', onSelect);
+    };
+  }, [api]);
+
+  const handleDotClick = (index: number) => {
+    api?.scrollTo(index);
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <Carousel
+        setApi={setApi}
         plugins={[
           Autoplay({
-            delay: 5000,
+            delay: 9000,
             stopOnInteraction: true,
           }),
         ]}
@@ -64,17 +89,17 @@ export default function Hero() {
                           src={slide.image}
                           alt={slide.imageAlt || "Hero image"}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           priority={index === 0}
                         />
                         <div className="absolute inset-0 bg-black/50" />
                       </>
                     )}
-                    <div className="relative z-10 text-center text-white">
-                      <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                    <div className="relative z-10 text-center">
+                       <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
                         {slide.title}
                       </h1>
-                      <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl">
+                      <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl text-white/90">
                         {slide.description}
                       </p>
                       <Button asChild size="lg" className="mt-8">
@@ -88,6 +113,19 @@ export default function Hero() {
           ))}
         </CarouselContent>
       </Carousel>
+       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleDotClick(index)}
+              className={cn(
+                'h-2 w-2 rounded-full transition-all duration-300',
+                current === index ? 'w-4 bg-white' : 'bg-white/50'
+              )}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+      </div>
     </div>
   );
 }
