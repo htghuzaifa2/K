@@ -7,6 +7,7 @@ import { Suspense } from 'react';
 import { ProductDetailsClient } from '@/components/product/product-details-client';
 import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 type ProductPageProps = {
   params: {
@@ -57,7 +58,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <ProductDetailsClient product={product} />
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Separator className="my-12" />
-        <Suspense fallback={<p className="text-center">Loading recommendations...</p>}>
+        <Suspense fallback={<ProductGridSkeleton />}>
           <RelatedProducts currentProduct={product} />
         </Suspense>
       </div>
