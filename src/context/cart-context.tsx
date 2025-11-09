@@ -76,17 +76,22 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [toast]);
 
   const removeFromCart = useCallback((productId: string) => {
+    let itemToRemoveName = '';
     setCartItems(prevItems => {
         const itemToRemove = prevItems.find(item => item.product.id === productId);
         if (itemToRemove) {
-            toast({
-                title: "Item removed",
-                description: `${itemToRemove.product.name} has been removed.`,
-                variant: 'destructive'
-            });
+            itemToRemoveName = itemToRemove.product.name;
         }
         return prevItems.filter(item => item.product.id !== productId)
     });
+
+    if (itemToRemoveName) {
+        toast({
+            title: "Item removed",
+            description: `${itemToRemoveName} has been removed.`,
+            variant: 'destructive'
+        });
+    }
   }, [toast]);
 
   const updateQuantity = useCallback((productId: string, quantity: number) => {
