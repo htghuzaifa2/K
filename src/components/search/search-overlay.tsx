@@ -26,7 +26,7 @@ function SearchResultImage({ product }: { product: AppProduct }) {
         src={product.images[0].url}
         alt={product.images[0].altText}
         fill
-        className="object-cover"
+        className="object-contain"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         data-ai-hint="product image"
         placeholder="blur"

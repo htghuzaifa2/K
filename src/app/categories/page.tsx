@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const categoryImages: Record<string, { src: string; hint: string }> = {
-  'keyboards': { src: 'https://i.postimg.cc/KzNsv0Ws/Wireless-keyboard-KB036-for-laptop-and-mobile-smooth-silent-keys-available-in-Pakistan.png', hint: 'wireless keyboard' },
+  'keyboards': { src: 'https://i.postimg.cc/KzNsv0-Ws/Wireless-keyboard-KB036-for-laptop-and-mobile-smooth-silent-keys-available-in-Pakistan.png', hint: 'wireless keyboard' },
   'lawn-suits': { src: 'https://picsum.photos/seed/lawn/600/400', hint: 'summer fabric' },
   'bridal-dresses': { src: 'https://picsum.photos/seed/bridal/600/400', hint: 'wedding dress' },
   'women': { src: 'https://picsum.photos/seed/womenfashion/600/400', hint: 'female fashion' },
@@ -39,7 +39,7 @@ export default async function CategoriesPage() {
                     src={src}
                     alt={categoryName}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     data-ai-hint={hint}
                   />
