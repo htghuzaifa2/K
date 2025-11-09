@@ -62,34 +62,34 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
         <Separator />
         {cartItems.length > 0 ? (
           <>
-            <ScrollArea className="flex-grow pr-6">
-              <div className="flex flex-col gap-5 py-6">
+            <ScrollArea className="flex-grow">
+              <div className="flex flex-col gap-5 px-6 py-6">
                 {cartItems.map((item) => (
-                  <div key={item.product.id} className="flex items-start gap-4">
-                    <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border">
+                  <div key={item.product.id} className="flex flex-col sm:flex-row items-start gap-4">
+                    <div className="relative h-24 w-24 flex-shrink-0 self-center sm:self-start overflow-hidden rounded-md border">
                       <Image
                         src={item.product.images[0].url}
                         alt={item.product.images[0].altText}
                         fill
                         className="object-contain"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="96px"
                         data-ai-hint="product image"
                         placeholder="blur"
                         blurDataURL={BLUR_DATA_URL}
                       />
                     </div>
-                    <div className="flex flex-grow flex-col gap-2">
-                       <div className="flex items-start justify-between">
-                         <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline" onClick={() => onOpenChange(false)}>
+                    <div className="flex flex-grow flex-col gap-2 w-full">
+                       <div className="flex items-start justify-between gap-2">
+                         <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline text-sm sm:text-base" onClick={() => onOpenChange(false)}>
                             {item.product.name}
                           </Link>
-                         <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground" onClick={() => removeFromCart(item.product.id)}>
+                         <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground flex-shrink-0" onClick={() => removeFromCart(item.product.id)}>
                             <X className="h-4 w-4" />
                             <span className="sr-only">Remove item</span>
                          </Button>
                        </div>
                       <p className="text-sm text-muted-foreground">PKR {item.product.price}</p>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between mt-2">
                          <UpdateItemQuantity productId={item.product.id} quantity={item.quantity} />
                          <p className="text-sm font-medium">PKR {item.product.price * item.quantity}</p>
                       </div>
@@ -127,14 +127,14 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
             </SheetFooter>
           </>
         ) : (
-          <div className="flex flex-grow flex-col items-center justify-center gap-4 text-center">
+          <div className="flex flex-grow flex-col items-center justify-center gap-4 text-center px-6">
             <div className="rounded-full bg-primary/10 p-4 text-primary">
                 <ShoppingCart className="h-10 w-10" />
             </div>
             <h3 className="text-xl font-semibold">Your cart is empty</h3>
             <p className="text-muted-foreground">Add some products to get started!</p>
-            <Button variant="outline" onClick={() => onOpenChange(false)}>
-              Continue Shopping
+            <Button variant="outline" asChild onClick={() => onOpenChange(false)}>
+              <Link href="/products">Continue Shopping</Link>
             </Button>
           </div>
         )}
