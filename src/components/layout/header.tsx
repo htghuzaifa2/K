@@ -34,6 +34,7 @@ const mainNavItems = [
 ];
 
 const moreNavItems = [
+    { name: 'Checkout', href: '/checkout' },
     { name: 'Contact', href: '/contact' },
     { name: 'Blogs', href: '/blogs' },
     { name: 'Tools', href: '/tools' },

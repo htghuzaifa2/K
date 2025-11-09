@@ -14,11 +14,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ScrollArea } from '../ui/scroll-area';
 import { UpdateItemQuantity } from './update-item-quantity';
-import { WHATSAPP_PHONE_NUMBER, WHATSAPP_MESSAGE_HEADER, BLUR_DATA_URL } from '@/lib/constants';
+import { BLUR_DATA_URL } from '@/lib/constants';
 import { Separator } from '../ui/separator';
 import { CreditCard, ShoppingCart, Trash2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { toast } from '@/hooks/use-toast';
 
 type CartDrawerProps = {
   open: boolean;
@@ -26,31 +24,10 @@ type CartDrawerProps = {
 };
 
 export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
-  const { cartItems, subtotal, shippingCost, total, clearCart, removeFromCart } = useCart();
+  const { cartItems, removeFromCart } = useCart();
 
-  const handleCheckout = () => {
-    if (cartItems.length === 0) {
-      toast({
-        variant: 'destructive',
-        title: 'Your cart is empty',
-        description: 'Please add items to your cart before checking out.',
-      });
-      return;
-    }
-
-    const itemsText = cartItems
-      .map(
-        (item) =>
-          `- ${item.product.name} (x${item.quantity}) - PKR ${item.product.price * item.quantity}`
-      )
-      .join('\n');
-      
-    const breakdownText = `\nSubtotal: PKR ${subtotal}\nShipping: PKR ${shippingCost}\n*Total: PKR ${total}*`;
-    const codNote = `\n(Note: An additional Rs. 50 fee applies for Cash on Delivery orders)`;
-    
-    const message = `${WHATSAPP_MESSAGE_HEADER}\n\n${itemsText}\n${breakdownText}${codNote}`;
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`, '_blank');
+  const handleLinkClick = () => {
+    onOpenChange(false);
   };
 
   return (
@@ -78,9 +55,9 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                         blurDataURL={BLUR_DATA_URL}
                       />
                     </div>
-                    <div className="flex flex-grow flex-col gap-2 w-full">
+                    <div className="flex flex-grow flex-col gap-2">
                        <div className="flex items-start justify-between gap-2">
-                         <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline text-sm sm:text-base pr-2" onClick={() => onOpenChange(false)}>
+                         <Link href={`/products/${item.product.slug}`} className="font-semibold hover:underline text-sm sm:text-base pr-2" onClick={handleLinkClick}>
                             {item.product.name}
                           </Link>
                          <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground flex-shrink-0" onClick={() => removeFromCart(item.product.id)}>
@@ -98,32 +75,12 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                 ))}
               </div>
             </ScrollArea>
-            <SheetFooter className="mt-auto flex-col gap-4 bg-secondary/50 p-6">
-                <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                        <p className="text-muted-foreground">Subtotal</p>
-                        <p className="font-medium">PKR {subtotal}</p>
-                    </div>
-                     <div className="flex justify-between">
-                        <p className="text-muted-foreground">Shipping</p>
-                        <p className="font-medium">PKR {shippingCost}</p>
-                    </div>
-                     <div className="flex justify-between border-t border-border pt-2 text-base font-bold">
-                        <p>Total</p>
-                        <p>PKR {total}</p>
-                    </div>
-                </div>
-              <p className="text-center text-xs text-muted-foreground">
-                Note: An additional Rs. 50 fee applies for Cash on Delivery orders.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                 <Button variant="outline" onClick={clearCart}>
-                    <Trash2 className="mr-2 h-4 w-4" /> Clear Cart
-                  </Button>
-                  <Button onClick={handleCheckout} className="w-full">
-                    <CreditCard className="mr-2 h-4 w-4" /> Checkout
-                </Button>
-              </div>
+            <SheetFooter className="mt-auto bg-secondary/50 p-6">
+              <Button asChild size="lg" className="w-full" onClick={handleLinkClick}>
+                <Link href="/checkout">
+                  <CreditCard className="mr-2 h-5 w-5" /> Proceed to Checkout
+                </Link>
+              </Button>
             </SheetFooter>
           </>
         ) : (
@@ -133,7 +90,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
             </div>
             <h3 className="text-xl font-semibold">Your cart is empty</h3>
             <p className="text-muted-foreground">Add some products to get started!</p>
-            <Button variant="outline" asChild onClick={() => onOpenChange(false)}>
+            <Button variant="outline" asChild onClick={handleLinkClick}>
               <Link href="/products">Continue Shopping</Link>
             </Button>
           </div>
