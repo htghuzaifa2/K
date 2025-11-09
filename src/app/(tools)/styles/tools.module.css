@@ -88,7 +88,7 @@
   justify-content: center; /* Center vertically */
   align-items: center; /* Center horizontally */
   text-align: center;
-  min-height: 120px;
+  aspect-ratio: 1 / 1;
 }
 
 .card:hover {
@@ -218,7 +218,7 @@
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
   padding: 1.5rem;
-  height: 120px; /* Approximate height of the new card */
+  aspect-ratio: 1 / 1;
   display: flex;
   justify-content: center;
   align-items: center;

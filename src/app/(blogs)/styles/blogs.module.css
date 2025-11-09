@@ -89,7 +89,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: 120px;
+  aspect-ratio: 1 / 1;
 }
 
 .card:hover {
@@ -275,7 +275,7 @@
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
   padding: 1.5rem;
-  height: 120px;
+  aspect-ratio: 1 / 1;
   display: flex;
   justify-content: center;
   align-items: center;
