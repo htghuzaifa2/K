@@ -33,13 +33,10 @@ const mainNavItems = [
   { name: 'About Us', href: '/about' },
 ];
 
-const secondaryNavItems = [
-    { name: 'Blogs', href: '/blogs' },
-    { name: 'Tools', href: '/tools' },
-]
-
 const moreNavItems = [
     { name: 'Contact', href: '/contact' },
+    { name: 'Blogs', href: '/blogs' },
+    { name: 'Tools', href: '/tools' },
     { name: 'Shipping Policy', href: '/shipping-policy' },
     { name: 'Return Policy', href: '/return-policy' },
     { name: 'FAQ', href: '/faq' },
@@ -104,7 +101,7 @@ export function Header() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
-                    {[...moreNavItems.slice(0,1), ...secondaryNavItems, ...moreNavItems.slice(1)].map((item) => (
+                    {moreNavItems.map((item) => (
                         <DropdownMenuItem key={item.href} asChild>
                             <Link href={item.href}>{item.name}</Link>
                         </DropdownMenuItem>
@@ -134,7 +131,7 @@ export function Header() {
                 </SheetHeader>
                 <ScrollArea className="h-[calc(100vh-80px)] pr-4">
                     <nav className="flex flex-col gap-4 mt-6">
-                        {[...mainNavItems, ...secondaryNavItems].map((item) => (
+                        {mainNavItems.map((item) => (
                             <MobileNavLink key={item.href} href={item.href} closeMenu={() => setIsMobileMenuOpen(false)}>
                                 {item.name}
                             </MobileNavLink>
@@ -144,7 +141,7 @@ export function Header() {
                                 <AccordionTrigger className="p-3 text-base font-medium">More Pages</AccordionTrigger>
                                 <AccordionContent className="pb-0 pl-4">
                                     <div className="flex flex-col gap-2">
-                                        {[...moreNavItems.slice(0,1), ...moreNavItems.slice(1)].map((item) => (
+                                        {moreNavItems.map((item) => (
                                             <MobileNavLink key={item.href} href={item.href} closeMenu={() => setIsMobileMenuOpen(false)}>
                                                 {item.name}
                                             </MobileNavLink>
