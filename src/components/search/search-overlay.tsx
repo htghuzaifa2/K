@@ -26,8 +26,8 @@ function SearchResultImage({ product }: { product: AppProduct }) {
     <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md">
       {isLoading && <Skeleton className="absolute inset-0" />}
       <Image
-        src={product.images[0]}
-        alt={product.name}
+        src={product.images[0].url}
+        alt={product.images[0].altText}
         fill
         className={cn('object-contain transition-opacity duration-300', isLoading ? 'opacity-0' : 'opacity-100')}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

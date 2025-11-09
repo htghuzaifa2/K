@@ -34,8 +34,8 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
               <div className="relative aspect-square w-full overflow-hidden">
                 {isImageLoading && <Skeleton className="absolute inset-0" />}
                 <Image
-                  src={product.images[0]}
-                  alt={product.name}
+                  src={product.images[0].url}
+                  alt={product.images[0].altText}
                   fill
                   className={cn(
                     'object-contain transition-opacity duration-300 group-hover:scale-105',

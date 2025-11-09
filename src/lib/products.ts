@@ -1,5 +1,5 @@
 
-import type { Product as RawProduct } from '@/lib/types';
+import type { Product as RawProduct, ProductImage } from '@/lib/types';
 import productsData from './products.json';
 
 // This is the shape of the product object used throughout the app.
@@ -10,7 +10,7 @@ export type AppProduct = {
     description: string;
     price: number;
     category: string;
-    images: string[];
+    images: ProductImage[];
     longDescription?: string;
     specifications?: Record<string, string>;
 };
@@ -33,7 +33,7 @@ function transformProduct(product: RawProduct): AppProduct {
         description: product.description,
         price: product.price,
         category: Array.isArray(product.category) ? product.category[0] : product.category,
-        images: [product.image, ...product.additionalImages].filter(Boolean),
+        images: product.images,
         longDescription: product.longDescription,
         specifications: product.specifications
     };

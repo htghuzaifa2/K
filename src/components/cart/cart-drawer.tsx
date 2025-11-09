@@ -52,8 +52,8 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                   <div key={item.product.id} className="flex items-center gap-4">
                     <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md">
                       <Image
-                        src={item.product.images[0]}
-                        alt={item.product.name}
+                        src={item.product.images[0].url}
+                        alt={item.product.images[0].altText}
                         fill
                         className="object-contain"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

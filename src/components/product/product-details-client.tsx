@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import { ShoppingCart, Share2, Copy, ArrowLeft } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-import type { AppProduct } from '@/lib/products';
+import type { AppProduct, ProductImage } from '@/lib/products';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/use-cart';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -21,15 +21,15 @@ type ProductDetailsClientProps = {
   product: AppProduct;
 };
 
-function CarouselImage({ img, productName, index }: { img: string, productName: string, index: number }) {
+function CarouselImage({ img, index }: { img: ProductImage, index: number }) {
   const [isLoading, setIsLoading] = useState(true);
   return (
     <Card className="overflow-hidden">
       <CardContent className="relative aspect-square p-0">
         {isLoading && <Skeleton className="absolute inset-0" />}
         <Image
-          src={img}
-          alt={`${productName} image ${index + 1}`}
+          src={img.url}
+          alt={img.altText}
           fill
           className={cn('object-contain transition-opacity duration-300', isLoading ? 'opacity-0' : 'opacity-100')}
           priority={index === 0}
@@ -157,7 +157,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
               <CarouselContent>
                 {product.images.map((img, index) => (
                   <CarouselItem key={index}>
-                    <CarouselImage img={img} productName={product.name} index={index} />
+                    <CarouselImage img={img} index={index} />
                   </CarouselItem>
                 ))}
               </CarouselContent>

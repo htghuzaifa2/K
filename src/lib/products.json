@@ -18,24 +18,39 @@
       "Battery": "2 × AAA (replaceable)"
     },
     "category": ["keyboards"],
-    "image": "https://i.postimg.cc/KzNsv0Ws/Wireless-keyboard-KB036-for-laptop-and-mobile-smooth-silent-keys-available-in-Pakistan.png",
-    "altTexts": [
-      "Wireless keyboard KB036 for laptop and mobile – smooth silent keys – available in Pakistan",
-      "Slim ergonomic wireless keyboard with soft keys – portable design for office and home use",
-      "Close-up of KB036 wireless keyboard keys showing smooth and quiet typing surface",
-      "Wireless keyboard connected to laptop via Bluetooth – compatible with Windows and Android devices",
-      "Brand new KB036 wireless keyboard box – long battery life and stable wireless connection",
-      "Back panel of KB036 wireless keyboard showing model number and power switch",
-      "Wireless keyboard setup on desk with laptop and mouse – perfect for work and study in Pakistan"
-    ],
-    "additionalImages": [
-      "https://i.postimg.cc/C5xrZjyC/Wireless-keyboard-setup-on-desk-with-laptop-and-mouse-perfect-for-work-and-study-in-Pakistan.png",
-      "https://i.postimg.cc/wMj4thKQ/Wireless-keyboard-with-smooth-silent-keys-for-laptop-and-mobile-Pakistan.png",
-      "https://i.postimg.cc/hjr3P2Yx/Back-panel-of-KB036-wireless-keyboard-showing-model-number-and-power-switch.png",
-      "https://i.postimg.cc/SsrtNgPD/Brand-new-KB036-wireless-keyboard-box-long-battery-life-and-stable-wireless-connection.png",
-      "https://i.postimg.cc/xCRFT6Z6/Close-up-of-KB036-wireless-keyboard-keys-showing-smooth-and-quiet-typing-surface.png",
-      "https://i.postimg.cc/Y93yqdPD/KB036-wireless-keyboard-with-smooth-silent-keys-for-laptop-and-mobile-Pakistan.png",
-      "https://i.postimg.cc/ZRcDKwQ7/Slim-wireless-keyboard-KB036-with-long-battery-life-and-soft-typing-experience.png"
+    "images": [
+      {
+        "url": "https://i.postimg.cc/KzNsv0Ws/Wireless-keyboard-KB036-for-laptop-and-mobile-smooth-silent-keys-available-in-Pakistan.png",
+        "altText": "Wireless keyboard KB036 for laptop and mobile with smooth silent keys available in Pakistan"
+      },
+      {
+        "url": "https://i.postimg.cc/C5xrZjyC/Wireless-keyboard-setup-on-desk-with-laptop-and-mouse-perfect-for-work-and-study-in-Pakistan.png",
+        "altText": "Wireless keyboard setup on desk with laptop and mouse, perfect for work and study in Pakistan"
+      },
+      {
+        "url": "https://i.postimg.cc/wMj4thKQ/Wireless-keyboard-with-smooth-silent-keys-for-laptop-and-mobile-Pakistan.png",
+        "altText": "Slim ergonomic wireless keyboard with soft keys, portable design for office and home use"
+      },
+      {
+        "url": "https://i.postimg.cc/hjr3P2Yx/Back-panel-of-KB036-wireless-keyboard-showing-model-number-and-power-switch.png",
+        "altText": "Back panel of KB036 wireless keyboard showing model number and power switch"
+      },
+      {
+        "url": "https://i.postimg.cc/SsrtNgPD/Brand-new-KB036-wireless-keyboard-box-long-battery-life-and-stable-wireless-connection.png",
+        "altText": "Brand new KB036 wireless keyboard box showing long battery life and stable wireless connection features"
+      },
+      {
+        "url": "https://i.postimg.cc/xCRFT6Z6/Close-up-of-KB036-wireless-keyboard-keys-showing-smooth-and-quiet-typing-surface.png",
+        "altText": "Close-up of KB036 wireless keyboard keys showing smooth and quiet typing surface"
+      },
+      {
+        "url": "https://i.postimg.cc/Y93yqdPD/KB036-wireless-keyboard-with-smooth-silent-keys-for-laptop-and-mobile-Pakistan.png",
+        "altText": "Wireless keyboard connected to laptop via Bluetooth, compatible with Windows and Android devices"
+      },
+      {
+        "url": "https://i.postimg.cc/ZRcDKwQ7/Slim-wireless-keyboard-KB036-with-long-battery-life-and-soft-typing-experience.png",
+        "altText": "Slim wireless keyboard KB036 with long battery life and soft typing experience"
+      }
     ],
     "stock": 50
   }

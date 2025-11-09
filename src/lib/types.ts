@@ -1,3 +1,8 @@
+export type ProductImage = {
+  url: string;
+  altText: string;
+};
+
 export type Product = {
   id: number;
   slug: string;
@@ -5,8 +10,7 @@ export type Product = {
   description: string;
   price: number;
   category: string[];
-  image: string;
-  additionalImages: string[];
+  images: ProductImage[];
   stock: number;
   longDescription?: string;
   specifications?: Record<string, string>;
@@ -17,7 +21,7 @@ export type CartItem = {
     id: string;
     name: string;
     price: number;
-    images: string[];
+    images: ProductImage[];
     slug: string;
   };
   quantity: number;

@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import type { AppProduct } from '@/lib/products';
+import type { AppProduct, ProductImage } from '@/lib/products';
 import Image from 'next/image';
 import { Button } from '../ui/button';
 import Link from 'next/link';
@@ -14,14 +14,14 @@ import { Skeleton } from '../ui/skeleton';
 import { cn } from '@/lib/utils';
 
 
-function CarouselImage({ img, productName, index }: { img: string, productName: string, index: number }) {
+function CarouselImage({ img, index }: { img: ProductImage, index: number }) {
   const [isLoading, setIsLoading] = useState(true);
   return (
     <div className="relative aspect-square">
       {isLoading && <Skeleton className="absolute inset-0 rounded-md" />}
       <Image
-        src={img}
-        alt={`${productName} image ${index + 1}`}
+        src={img.url}
+        alt={img.altText}
         fill
         className={cn("object-contain rounded-md transition-opacity duration-300", isLoading ? 'opacity-0' : 'opacity-100')}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -52,7 +52,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
               <CarouselContent>
                 {product.images.map((img, index) => (
                   <CarouselItem key={index}>
-                    <CarouselImage img={img} productName={product.name} index={index} />
+                    <CarouselImage img={img} index={index} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
