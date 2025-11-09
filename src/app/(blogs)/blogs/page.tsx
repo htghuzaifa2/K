@@ -17,7 +17,7 @@ export default function BlogsPage() {
   const currentPosts = allPosts.slice(0, ITEMS_PER_PAGE);
 
   return (
-    <div className={styles.container}>
+    <>
       <header className={styles.hero}>
         <h1>Insights & Ideas</h1>
         <p>Your source for tech trends, expert tutorials, and design inspiration.</p>
@@ -26,6 +26,6 @@ export default function BlogsPage() {
           <BlogSearch allPosts={allPosts} itemsPerPage={ITEMS_PER_PAGE} />
         </div>
       </header>
-    </div>
+    </>
   );
 }

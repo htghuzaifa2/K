@@ -19,7 +19,7 @@ export default function BlogsLayout({
 }>) {
   return (
     <div className={styles.container}>
-        <main className={styles.main}>{children}</main>
+        {children}
     </div>
   );
 }

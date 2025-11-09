@@ -49,7 +49,7 @@ export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) 
         placeholder="Search for posts by title..."
       />
 
-      <div className="mt-8">
+      <main className={styles.main}>
         {currentPosts.length > 0 ? (
             <>
             <div className={styles.grid}>
@@ -67,7 +67,7 @@ export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) 
             <p>Try adjusting your search query.</p>
             </div>
         )}
-      </div>
+      </main>
     </>
   );
 }
