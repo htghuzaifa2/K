@@ -7,8 +7,9 @@ import { fetchProducts } from '@/app/actions';
 import { ProductGrid } from './product-grid';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { useInView } from 'react-intersection-observer';
 
-const PRODUCTS_PER_PAGE = 8;
+const PRODUCTS_PER_PAGE = 12;
 
 type InfiniteProductGridProps = {
   initialProducts: {
@@ -23,11 +24,14 @@ export function InfiniteProductGrid({ initialProducts, category }: InfiniteProdu
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(initialProducts.hasMore);
   const [isLoading, setIsLoading] = useState(false);
+  const { ref, inView } = useInView({ threshold: 0 });
 
   const loadMoreProducts = async () => {
+    if (isLoading || !hasMore) return;
+    
     setIsLoading(true);
     const nextPage = page + 1;
-    const { products: newProducts, newHasMore } = await fetchProducts({
+    const { products: newProducts, hasMore: newHasMore } = await fetchProducts({
       page: nextPage,
       limit: PRODUCTS_PER_PAGE,
       category,
@@ -45,13 +49,19 @@ export function InfiniteProductGrid({ initialProducts, category }: InfiniteProdu
     setHasMore(initialProducts.hasMore);
   }, [category, initialProducts]);
 
+  useEffect(() => {
+    if (inView && !isLoading) {
+      loadMoreProducts();
+    }
+  }, [inView, isLoading, loadMoreProducts]);
+
 
   return (
     <div>
       <ProductGrid products={products} />
       {hasMore && (
-        <div className="mt-8 flex justify-center">
-          <Button onClick={loadMoreProducts} disabled={isLoading}>
+        <div ref={ref} className="mt-8 flex justify-center">
+          <Button onClick={loadMoreProducts} disabled={isLoading} variant="outline">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -1,7 +1,9 @@
-import { ProductGrid } from '@/components/product/product-grid';
+
 import { getAllCategories, getProductsByCategory } from '@/lib/products';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
+import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
+import { fetchProducts } from '@/app/actions';
 
 type CategoryPageProps = {
   params: {
@@ -17,7 +19,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
-  const products = await getProductsByCategory(decodedCategory);
+  const initialProducts = await fetchProducts({ page: 1, limit: 12, category: decodedCategory });
 
   const title = decodedCategory
     .split('-')
@@ -30,7 +32,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
       <Suspense fallback={<p>Loading products...</p>}>
-        <ProductGrid products={products} />
+        <InfiniteProductGrid initialProducts={initialProducts} category={decodedCategory} />
       </Suspense>
     </div>
   );

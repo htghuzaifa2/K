@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -14,7 +15,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ScrollArea } from '../ui/scroll-area';
 import { UpdateItemQuantity } from './update-item-quantity';
-import { WHATSAPP_PHONE_NUMBER, WHATSAPP_MESSAGE_HEADER } from '@/lib/constants';
+import { WHATSAPP_PHONE_NUMBER, WHATSAPP_MESSAGE_HEADER, BLUR_DATA_URL } from '@/lib/constants';
 import { Separator } from '../ui/separator';
 
 type CartDrawerProps = {
@@ -58,6 +59,8 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                         className="object-contain"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         data-ai-hint="product image"
+                        placeholder="blur"
+                        blurDataURL={BLUR_DATA_URL}
                       />
                     </div>
                     <div className="flex-grow">
