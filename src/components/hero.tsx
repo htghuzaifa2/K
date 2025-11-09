@@ -68,7 +68,7 @@ export default function Hero() {
         setApi={setApi}
         plugins={[
           Autoplay({
-            delay: 9000,
+            delay: 7000,
             stopOnInteraction: true,
           }),
         ]}
@@ -82,7 +82,7 @@ export default function Hero() {
             <CarouselItem key={index}>
               <div className="p-0">
                 <Card className="border-0 rounded-none shadow-none">
-                  <CardContent className={`relative flex items-center justify-center p-6 h-[40vh] min-h-[300px] ${slide.background || ''}`}>
+                  <CardContent className={cn("relative flex items-center justify-center p-6 h-[40vh] min-h-[300px]", slide.background)}>
                     {slide.image && (
                       <>
                         <Image
