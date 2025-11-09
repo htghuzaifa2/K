@@ -84,18 +84,18 @@ export default function Hero() {
                 <Card className="border-0 rounded-none shadow-none">
                   <CardContent className={cn("relative flex items-center justify-center p-6 h-[40vh] min-h-[300px]", !slide.image && slide.background)}>
                     {slide.image && (
-                        <Image
-                          src={slide.image}
-                          alt={slide.imageAlt || "Hero image"}
-                          fill
-                          className="object-contain"
-                          priority={index === 0}
-                        />
+                        <>
+                            <Image
+                                src={slide.image}
+                                alt={slide.imageAlt || "Hero image"}
+                                fill
+                                className="object-cover"
+                                priority={index === 0}
+                            />
+                            <div className="absolute inset-0 bg-black/50" />
+                        </>
                     )}
-                    <div className={cn(
-                        "relative z-10 text-center", 
-                        slide.image && "bg-black/50 p-6 rounded-lg"
-                    )}>
+                    <div className="relative z-10 text-center">
                        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-white">
                         {slide.title}
                       </h1>
