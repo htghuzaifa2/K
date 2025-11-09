@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     default: APP_NAME,
     template: `%s - ${APP_NAME}`,
   },
-  description: 'Your premier destination for the latest in tech. Shop our curated collection of high-quality gadgets and electronics. Experience seamless online shopping with us.',
+  description: 'Shop the latest tech and gadgets in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping.',
 };
 
 export default function RootLayout({
