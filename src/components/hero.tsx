@@ -12,31 +12,36 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from './ui/button';
 import Link from 'next/link';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 const slides = [
   {
     title: "Explore Our Full Collection",
-    description: "Find everything you need, all in one place.",
+    description: "Find everything you need, from tech gadgets to lifestyle essentials, all in one place.",
     buttonText: "Shop All Products",
     href: "/products",
     background: "bg-primary/10",
   },
   {
     title: "Discover Your Perfect Category",
-    description: "Browse curated collections tailored for you.",
+    description: "Browse curated collections tailored to your interests and needs.",
     buttonText: "Shop by Category",
     href: "/categories",
     background: "bg-accent/10",
   },
   {
-    title: "Premium Wireless Keyboards",
-    description: "Elevate your typing experience with our sleek and silent keyboards.",
-    buttonText: "Shop Keyboards",
-    href: "/products/category/keyboards",
-    image: "https://i.postimg.cc/KzNsv0Ws/Wireless-keyboard-KB036-for-laptop-and-mobile-smooth-silent-keys-available-in-Pakistan.png",
-    imageAlt: "Wireless keyboard",
+    title: "Read Our Latest Insights",
+    description: "Explore articles, tutorials, and insights on the latest in tech and design.",
+    buttonText: "Go to Blogs",
+    href: "/blogs",
+    background: "bg-secondary",
+  },
+  {
+    title: "Discover Our Handy Tools",
+    description: "A collection of handy online tools for developers and designers.",
+    buttonText: "Explore Tools",
+    href: "/tools",
+    background: "bg-muted",
   }
 ];
 
@@ -82,24 +87,12 @@ export default function Hero() {
             <CarouselItem key={index}>
               <div className="p-0">
                 <Card className="border-0 rounded-none shadow-none">
-                  <CardContent className={cn("relative flex items-center justify-center p-6 h-[40vh] min-h-[300px]", !slide.image && slide.background)}>
-                    {slide.image && (
-                        <>
-                            <Image
-                                src={slide.image}
-                                alt={slide.imageAlt || "Hero image"}
-                                fill
-                                className="object-contain"
-                                priority={index === 0}
-                            />
-                             <div className="absolute inset-0 bg-black/50" />
-                        </>
-                    )}
+                  <CardContent className={cn("relative flex items-center justify-center p-6 h-[40vh] min-h-[300px]", slide.background)}>
                     <div className="relative z-10 text-center">
-                       <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-white">
+                       <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-foreground">
                         {slide.title}
                       </h1>
-                      <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl text-white/90">
+                      <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl text-foreground/80">
                         {slide.description}
                       </p>
                       <Button asChild size="lg" className="mt-8">
@@ -120,7 +113,7 @@ export default function Hero() {
               onClick={() => handleDotClick(index)}
               className={cn(
                 'h-2 w-2 rounded-full transition-all duration-300',
-                current === index ? 'w-4 bg-white' : 'bg-white/50'
+                current === index ? 'w-4 bg-primary' : 'bg-primary/50'
               )}
               aria-label={`Go to slide ${index + 1}`}
             />
