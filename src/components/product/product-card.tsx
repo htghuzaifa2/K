@@ -59,7 +59,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
               <Link href={`/products/${product.slug}`}>{product.name}</Link>
             </h3>
             <div className="mt-2 flex items-center justify-between">
-              <p className="text-xl font-bold text-foreground">PKR {product.price}</p>
+              <p className="text-xl font-bold text-primary">PKR {product.price}</p>
               <AddToCartButton product={product} />
             </div>
           </div>

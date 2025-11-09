@@ -154,7 +154,7 @@ export function SearchOverlay() {
                   <SearchResultImage product={product} />
                   <div>
                     <p className="font-medium">{product.name}</p>
-                    <p className="text-sm text-muted-foreground">PKR {product.price}</p>
+                    <p className="text-sm text-primary">PKR {product.price}</p>
                   </div>
                 </Link>
               ))}
