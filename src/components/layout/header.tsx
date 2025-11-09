@@ -30,6 +30,7 @@ const mainNavItems = [
   { name: 'Home', href: '/' },
   { name: 'All Products', href: '/products' },
   { name: 'Categories', href: '/categories' },
+  { name: 'About Us', href: '/about' },
 ];
 
 const secondaryNavItems = [
@@ -38,7 +39,6 @@ const secondaryNavItems = [
 ]
 
 const moreNavItems = [
-    { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' },
     { name: 'Shipping Policy', href: '/shipping-policy' },
     { name: 'Return Policy', href: '/return-policy' },
@@ -104,7 +104,7 @@ export function Header() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
-                    {[...secondaryNavItems, ...moreNavItems].map((item) => (
+                    {[...moreNavItems.slice(0,1), ...secondaryNavItems, ...moreNavItems.slice(1)].map((item) => (
                         <DropdownMenuItem key={item.href} asChild>
                             <Link href={item.href}>{item.name}</Link>
                         </DropdownMenuItem>
@@ -144,7 +144,7 @@ export function Header() {
                                 <AccordionTrigger className="p-3 text-base font-medium">More Pages</AccordionTrigger>
                                 <AccordionContent className="pb-0 pl-4">
                                     <div className="flex flex-col gap-2">
-                                        {moreNavItems.map((item) => (
+                                        {[...moreNavItems.slice(0,1), ...moreNavItems.slice(1)].map((item) => (
                                             <MobileNavLink key={item.href} href={item.href} closeMenu={() => setIsMobileMenuOpen(false)}>
                                                 {item.name}
                                             </MobileNavLink>
