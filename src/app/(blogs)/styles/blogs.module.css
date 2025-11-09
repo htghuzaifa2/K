@@ -84,11 +84,17 @@
   font-weight: 600;
   color: hsl(var(--card-foreground));
   margin-bottom: 0.75rem;
-  flex-grow: 1;
+}
+
+.cardDescription {
+    font-size: 0.9rem;
+    color: hsl(var(--muted-foreground));
+    flex-grow: 1;
+    line-height: 1.5;
 }
 
 .cardFooter {
-    margin-top: auto;
+    margin-top: 1rem;
     display: flex;
     justify-content: flex-end;
 }
@@ -251,7 +257,7 @@
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
   padding: 1.5rem;
-  height: 140px; /* Approximate height of the new card */
+  height: 170px; /* Approximate height of the new card */
 }
 
 .skeletonTitle {
@@ -263,6 +269,15 @@
     margin-bottom: 1rem;
 }
 
+.skeletonDescription {
+    background-color: hsl(var(--muted));
+    border-radius: 4px;
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    height: 14px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
 .skeletonButton {
     background-color: hsl(var(--muted));
     border-radius: 4px;
@@ -270,7 +285,7 @@
     height: 16px;
     width: 30%;
     margin-left: auto;
-    margin-top: 2.5rem;
+    margin-top: 1rem;
 }
 
 @keyframes pulse {

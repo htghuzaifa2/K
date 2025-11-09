@@ -71,6 +71,12 @@
   text-decoration: none;
   color: inherit;
   transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  text-align: center;
+  min-height: 120px;
 }
 
 .card:hover {
@@ -82,7 +88,6 @@
   font-size: 1.25rem;
   font-weight: 600;
   color: hsl(var(--card-foreground));
-  text-align: center;
 }
 
 .pagination {
@@ -200,7 +205,10 @@
   border: 1px solid hsl(var(--border));
   border-radius: 12px;
   padding: 1.5rem;
-  height: 94px; /* Approximate height of the new card */
+  height: 120px; /* Approximate height of the new card */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .skeletonTitle {
@@ -209,7 +217,6 @@
     animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     height: 20px;
     width: 80%;
-    margin: 8px auto 0;
 }
 
 
