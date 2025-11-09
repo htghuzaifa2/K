@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -88,10 +89,27 @@ export default {
             height: '0',
           },
         },
+        'text-gradient': {
+          'to': {
+            backgroundPosition: '200% center',
+          },
+        },
+        'fade-in-up': {
+          'from': {
+            opacity: '0',
+            transform: 'translateY(20px)',
+          },
+          'to': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'text-gradient': 'text-gradient 3s linear infinite',
+        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
       },
     },
   },
