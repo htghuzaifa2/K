@@ -1,5 +1,4 @@
 
-
 import { getToolBySlug, getTools } from '@/lib/tool-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
@@ -19,18 +18,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: 'Tool Not Found',
     };
   }
 
+  const url = `https://www.${APP_NAME}/tools/${tool.slug}`;
+  const description = `A free online developer utility: ${tool.title}, provided by ${APP_NAME}.`;
+
   return {
-    title: `${tool.title} - ${APP_NAME}`,
-    description: `Use the ${tool.title} tool.`,
+    title: tool.title,
+    description: description,
+     alternates: {
+      canonical: url,
+    },
     openGraph: {
-        title: tool.title,
-        description: `Use the ${tool.title} tool.`,
+        title: `${tool.title} | ${APP_NAME} Tools`,
+        description: description,
+        url: url,
         type: 'website',
-    }
+    },
+    twitter: {
+      card: 'summary',
+      title: `${tool.title} | ${APP_NAME} Tools`,
+      description: description,
+    },
   };
 }
 

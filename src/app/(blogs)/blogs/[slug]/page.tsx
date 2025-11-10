@@ -19,13 +19,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: 'Not Found',
+      description: `This page could not be found on ${APP_NAME}.`,
     };
   }
 
+  const url = `https://www.${APP_NAME}/blogs/${post.slug}`;
+
   return {
-    title: `${post.title} - ${APP_NAME}`,
+    title: post.title,
     description: post.description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url: url,
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary',
+      title: post.title,
+      description: post.description,
+    },
   };
 }
 

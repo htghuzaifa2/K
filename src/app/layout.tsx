@@ -26,10 +26,34 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: {
-    default: APP_NAME,
-    template: `%s - ${APP_NAME}`,
+    default: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
+    template: `%s | ${APP_NAME}`,
   },
-  description: 'Shop the latest tech and gadgets in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping.',
+  description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
+  openGraph: {
+    title: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
+    description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
+    url: `https://www.${APP_NAME}`,
+    siteName: APP_NAME,
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
+    description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({

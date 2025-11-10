@@ -20,18 +20,23 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
   if (!product) {
     return {
-      title: `Product Not Found - ${APP_NAME}`,
+      title: 'Product Not Found',
     };
   }
 
   const description = product.description || `Buy ${product.name} at the best price in Pakistan on ${APP_NAME}.`;
+  const url = `https://www.${APP_NAME}/products/${product.slug}`;
 
   return {
     title: product.name,
     description: description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title: product.name,
       description: description,
+      url: url,
       images: [
         {
           url: product.images[0].url,
@@ -41,6 +46,12 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
         },
       ],
       type: 'website',
+    },
+     twitter: {
+      card: 'summary_large_image',
+      title: product.name,
+      description: description,
+      images: [product.images[0].url],
     },
   };
 }
