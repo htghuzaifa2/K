@@ -17,6 +17,11 @@ import monetiseBlogContent from './blog-content/monetise-tech-blog-pakistan';
 import localisingProductsContent from './blog-content/localising-digital-products-pakistan';
 import lowCodeNoCodeContent from './blog-content/low-code-no-code-pakistan';
 import smartphonesGuideContent from './blog-content/best-smartphones-under-150k-pakistan';
+import mechanicalKeyboardsContent from './blog-content/mechanical-keyboards-pakistan-2025';
+import smartphoneVsLaptopContent from './blog-content/smartphone-vs-laptop-pakistan-students';
+import wirelessCombosContent from './blog-content/best-wireless-keyboard-mouse-combos-pakistan';
+import twoInOneLaptopsContent from './blog-content/top-2-in-1-laptops-pakistan-2026';
+import emergingAccessoriesContent from './blog-content/emerging-tech-accessories-pakistan-2026';
 
 
 export interface BlogPost {
@@ -102,6 +107,26 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'best-smartphones-under-150k-pakistan': {
     content: smartphonesGuideContent,
     description: 'A Pakistan-focused guide to the best smartphones under PKR 150,000 in 2025, with a look ahead to what to expect in 2026.'
+  },
+  'mechanical-keyboards-pakistan-2025': {
+    content: mechanicalKeyboardsContent,
+    description: 'A friendly, practical roundup for web devs and remote workers in Pakistan — comparing switches, build quality, backlighting, and which keyboards give the best value across budget and premium tiers.'
+  },
+  'smartphone-vs-laptop-pakistan-students': {
+    content: smartphoneVsLaptopContent,
+    description: 'A detailed comparison to help Pakistani students decide between a smartphone and a laptop, considering budget, use-cases like online classes and coding, and long-term value.'
+  },
+  'best-wireless-keyboard-mouse-combos-pakistan': {
+    content: wirelessCombosContent,
+    description: 'A guide to the best wireless keyboard and mouse combos in Pakistan for home office setups in 2025, focusing on productivity, ergonomics, and value.'
+  },
+  'top-2-in-1-laptops-pakistan-2026': {
+    content: twoInOneLaptopsContent,
+    description: 'A review of the top 5 convertible 2-in-1 laptops for Pakistani developers and designers, with a forecast for 2026 trends.'
+  },
+  'emerging-tech-accessories-pakistan-2026': {
+    content: emergingAccessoriesContent,
+    description: 'A guide to emerging tech accessories in Pakistan for 2026, including USB-C hubs, portable monitors, and high-end mechanical keyboards.'
   },
 };
 
@@ -196,6 +221,31 @@ const blogPosts: BlogPost[] = [
     id: 'best-smartphones-under-150k-pakistan',
     slug: 'best-smartphones-under-pkr-150000-in-pakistan-2025-vs-2026',
     title: 'Best Smartphones Under PKR 150,000 in Pakistan — 2025 vs 2026',
+  },
+  {
+    id: 'mechanical-keyboards-pakistan-2025',
+    slug: 'top-mechanical-keyboards-for-pakistani-tech-enthusiasts-2025',
+    title: 'Top Mechanical Keyboards for Pakistani Tech Enthusiasts (2025 Review)',
+  },
+  {
+    id: 'smartphone-vs-laptop-pakistan-students',
+    slug: 'smartphone-vs-laptop-for-pakistani-students-2026-guide',
+    title: 'Smartphone vs. Laptop for Pakistani Students (2026 Guide)',
+  },
+  {
+    id: 'best-wireless-keyboard-mouse-combos-pakistan',
+    slug: 'best-wireless-keyboard-mouse-combos-for-home-office-pakistan-2025',
+    title: 'Best Wireless Keyboard + Mouse Combos for Home Office in Pakistan (2025)',
+  },
+  {
+    id: 'top-2-in-1-laptops-pakistan-2026',
+    slug: 'top-5-2-in-1-laptops-for-pakistani-developers-and-designers-2026',
+    title: 'Top 5 2-in-1 Laptops for Pakistani Developers & Designers (2026 Forecast)',
+  },
+  {
+    id: 'emerging-tech-accessories-pakistan-2026',
+    slug: 'emerging-tech-accessories-in-pakistan-2026-trends',
+    title: 'Emerging Tech Accessories in Pakistan (2026 Trends)',
   },
 ];
 
