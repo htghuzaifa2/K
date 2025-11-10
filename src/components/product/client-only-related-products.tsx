@@ -1,4 +1,3 @@
-
 'use client';
 
 import { type AppProduct } from '@/lib/products';
@@ -8,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { fetchRandomProducts } from '@/app/actions';
 
 type ClientOnlyRelatedProductsProps = {
-  currentProductId: string;
+  currentProductId?: string;
 };
 
 const RECOMMENDATION_COUNT = 4;
@@ -21,7 +20,7 @@ export function ClientOnlyRelatedProducts({ currentProductId }: ClientOnlyRelate
     const loadProducts = async () => {
       setIsLoading(true);
       try {
-        const relatedProducts = await fetchRandomProducts(currentProductId, RECOMMENDATION_COUNT);
+        const relatedProducts = await fetchRandomProducts(currentProductId || '', RECOMMENDATION_COUNT);
         setProducts(relatedProducts);
       } catch (error) {
         console.error("Failed to fetch related products:", error);

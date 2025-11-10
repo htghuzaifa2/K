@@ -1,9 +1,8 @@
-
 import { ProductGridSkeleton } from './product-grid-skeleton';
 import { ClientOnlyRelatedProducts } from './client-only-related-products';
 
 type RelatedProductsProps = {
-  currentProductId: string;
+  currentProductId?: string;
 };
 
 export function RelatedProducts({ currentProductId }: RelatedProductsProps) {
