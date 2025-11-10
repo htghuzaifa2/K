@@ -89,6 +89,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${roboto.variable}`}>
       <head>
         <meta name="theme-color" content="#F26322" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="https://i.postimg.cc/k5FPSpFx/kimi-pk-logo.png" />
       </head>
       <body className="font-body antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
