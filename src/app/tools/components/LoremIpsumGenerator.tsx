@@ -7,9 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Copy, RefreshCw, BookOpen } from 'lucide-react';
+import { Copy, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { FancyAccordionButton } from './FancyAccordionButton';
 
 const loremIpsumWords = "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum".split(' ');
 
@@ -103,18 +104,10 @@ export function LoremIpsumGenerator() {
       <div className="mt-6">
         <Accordion type="single" collapsible>
             <AccordionItem value="guide" className="border-none">
-                <AccordionTrigger className="p-3 rounded-lg hover:no-underline bg-card/50 dark:bg-card/20 hover:bg-card/70 dark:hover:bg-card/40 transition-colors">
-                    <div className="flex items-center gap-4 text-left">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 flex-shrink-0">
-                            <BookOpen className="h-6 w-6 text-primary" />
-                        </div>
-                        <div>
-                            <p className="font-semibold">Read The Guide</p>
-                            <p className="text-sm text-muted-foreground font-normal">Step-by-step instructions</p>
-                        </div>
-                    </div>
+                <AccordionTrigger className="p-0 hover:no-underline [&>svg]:hidden">
+                    <FancyAccordionButton />
                 </AccordionTrigger>
-                <AccordionContent className="mt-2 p-4 rounded-lg bg-card/50 dark:bg-card/20 prose dark:prose-invert max-w-none text-sm">
+                <AccordionContent className="mt-2 p-6 rounded-lg bg-card/50 dark:bg-card/20 prose dark:prose-invert max-w-none text-sm">
                     <p>This tool helps you quickly generate placeholder text for your projects.</p>
                     <ol>
                         <li>Enter the desired number of words in the input field.</li>
