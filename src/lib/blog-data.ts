@@ -12,6 +12,12 @@ import fiveGContent from './blog-content/5g-and-beyond-pakistan';
 import accessibilityContent from './blog-content/accessibility-inclusive-design-pakistan';
 import freelanceMarketplacesContent from './blog-content/freelance-marketplaces-pakistan-2026';
 import websiteSpeedContent from './blog-content/website-speed-optimization-pakistan';
+import renewableEnergyContent from './blog-content/renewable-energy-data-centres-pakistan';
+import monetiseBlogContent from './blog-content/monetise-tech-blog-pakistan';
+import localisingProductsContent from './blog-content/localising-digital-products-pakistan';
+import lowCodeNoCodeContent from './blog-content/low-code-no-code-pakistan';
+import smartphonesGuideContent from './blog-content/best-smartphones-under-150k-pakistan';
+
 
 export interface BlogPost {
   slug: string;
@@ -76,6 +82,26 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'website-speed-optimization-pakistan': {
     content: websiteSpeedContent,
     description: 'A guide on how to make your website lightning-fast for Pakistani mobile users, focusing on local hosting, optimization tools, caching, and CDNs.'
+  },
+  'renewable-energy-data-centres-pakistan': {
+    content: renewableEnergyContent,
+    description: 'Explore how Pakistan’s solar surge and renewable push are transforming hosting and data-centre infrastructure — what it means for web developers, green computing, and future-ready architectures.'
+  },
+  'monetise-tech-blog-pakistan': {
+    content: monetiseBlogContent,
+    description: 'Learn how Pakistani tech bloggers and creators can earn real income from their websites — through AdSense, affiliate programs, SEO, and smart content strategies tailored for the local market.'
+  },
+  'localising-digital-products-pakistan': {
+    content: localisingProductsContent,
+    description: 'A guide for developers on localizing digital products for the Pakistani market, covering UI, language, cultural context, and payment gateways.'
+  },
+  'low-code-no-code-pakistan': {
+    content: lowCodeNoCodeContent,
+    description: 'How Pakistani SMEs can leverage low-code and no-code tools to build a web presence quickly and affordably, and the new opportunities this creates for developers.'
+  },
+  'best-smartphones-under-150k-pakistan': {
+    content: smartphonesGuideContent,
+    description: 'A Pakistan-focused guide to the best smartphones under PKR 150,000 in 2025, with a look ahead to what to expect in 2026.'
   },
 };
 
@@ -145,6 +171,31 @@ const blogPosts: BlogPost[] = [
     id: 'website-speed-optimization-pakistan',
     slug: 'how-to-optimize-website-speed-for-pakistani-mobile-users',
     title: 'How to Optimize Website Speed for Pakistani Mobile Users',
+  },
+  {
+    id: 'renewable-energy-data-centres-pakistan',
+    slug: 'renewable-energy-and-solar-tech-for-data-centres-in-pakistan',
+    title: 'The Growing Role of Renewable Energy & Solar Tech for Data Centres in Pakistan',
+  },
+  {
+    id: 'monetise-tech-blog-pakistan',
+    slug: 'how-to-monetise-your-tech-blog-in-pakistan',
+    title: 'How to Monetise Your Tech Blog in Pakistan: From Ads to Affiliate Marketing',
+  },
+  {
+    id: 'localising-digital-products-pakistan',
+    slug: 'localising-digital-products-for-pakistan-ui-to-payment-gateways',
+    title: 'Localising Digital Products for Pakistan: From UI to Payment Gateways',
+  },
+  {
+    id: 'low-code-no-code-pakistan',
+    slug: 'how-pakistani-smes-can-use-low-code-and-no-code-tools',
+    title: 'How Pakistani SMEs Can Use Low-Code & No-Code Tools for Web Presence',
+  },
+  {
+    id: 'best-smartphones-under-150k-pakistan',
+    slug: 'best-smartphones-under-pkr-150000-in-pakistan-2025-vs-2026',
+    title: 'Best Smartphones Under PKR 150,000 in Pakistan — 2025 vs 2026',
   },
 ];
 
