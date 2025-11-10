@@ -2,6 +2,8 @@
 'use client';
 
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ToolPaginationProps {
   currentPage: number;
@@ -23,27 +25,78 @@ export default function ToolPagination({ currentPage, totalPages }: ToolPaginati
     }
   };
 
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxPagesToShow = 5;
+    const half = Math.floor(maxPagesToShow / 2);
+
+    if (totalPages <= maxPagesToShow) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else if (currentPage <= half) {
+      for (let i = 1; i <= maxPagesToShow - 1; i++) {
+        pages.push(i);
+      }
+      pages.push('...');
+      pages.push(totalPages);
+    } else if (currentPage >= totalPages - half) {
+      pages.push(1);
+      pages.push('...');
+      for (let i = totalPages - maxPagesToShow + 2; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      pages.push('...');
+      for (let i = currentPage - half + 1; i <= currentPage + half - 1; i++) {
+        pages.push(i);
+      }
+      pages.push('...');
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
+  const pageNumbers = getPageNumbers();
+
   return (
-    <nav className="flex items-center justify-center gap-2">
-      <button 
-        onClick={() => handlePageChange(currentPage - 1)} 
+    <nav className="flex items-center justify-center space-x-2">
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="flex h-10 w-10 items-center justify-center rounded-lg border bg-card transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
       >
-        &larr;
+        <ChevronLeft className="h-4 w-4" />
         <span className="sr-only">Previous page</span>
-      </button>
-      <span className="flex h-10 items-center justify-center rounded-lg border border-primary bg-primary px-4 text-sm font-medium text-primary-foreground">
-        Page {currentPage} of {totalPages}
-      </span>
-      <button 
-        onClick={() => handlePageChange(currentPage + 1)} 
+      </Button>
+
+      {pageNumbers.map((page, index) =>
+        typeof page === 'number' ? (
+          <Button
+            key={index}
+            variant={currentPage === page ? 'default' : 'outline'}
+            onClick={() => handlePageChange(page)}
+          >
+            {page}
+          </Button>
+        ) : (
+          <span key={index} className="px-4 py-2">
+            {page}
+          </span>
+        )
+      )}
+
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="flex h-10 w-10 items-center justify-center rounded-lg border bg-card transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
       >
-        &rarr;
+        <ChevronRight className="h-4 w-4" />
         <span className="sr-only">Next page</span>
-      </button>
+      </Button>
     </nav>
   );
 }
