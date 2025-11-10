@@ -11,6 +11,11 @@ const tools: Tool[] = [
     slug: 'lorem-ipsum-generator',
     title: 'Lorem Ipsum Generator',
   },
+  {
+    id: 'text-difference-checker',
+    slug: 'text-difference-checker',
+    title: 'Text Difference Checker',
+  },
 ];
 
 const sortedTools = tools.sort((a, b) => a.title.localeCompare(b.title));

@@ -42,7 +42,8 @@ export default function ToolPage({ params }: Props) {
   }
 
   // Prevent implemented tools from showing placeholder
-  if (tool.slug !== 'lorem-ipsum-generator') {
+  const implementedSlugs = ['lorem-ipsum-generator', 'text-difference-checker'];
+  if (!implementedSlugs.includes(tool.slug)) {
     const toolContent = getDummyToolContent(tool.title);
     return (
         <>
