@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
@@ -43,7 +44,7 @@ export default function ToolsPage() {
         <ToolSearch onSearch={setQuery} />
         {currentTools.length > 0 ? (
           <>
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {currentTools.map((tool) => (
                 <ToolCard key={tool.slug} tool={tool} />
               ))}

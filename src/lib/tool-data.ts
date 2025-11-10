@@ -23,6 +23,7 @@ export const getToolBySlug = (slug: string): Tool | undefined => {
   return sortedTools.find((tool) => tool.slug === slug);
 };
 
-export const getDummyToolContent = (title: string) => `
-  <p>The implementation for the "${title}" tool will be displayed here.</p>
+export const getDummyToolContent = (title: string): string => `
+  <p>The online tool "${title}" is not yet implemented.</p>
+  <p>Please check back later or explore our other available tools.</p>
 `;

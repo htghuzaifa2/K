@@ -10,12 +10,8 @@ import { RelatedProducts } from '@/components/product/related-products';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { Separator } from '@/components/ui/separator';
 
-type Props = {
-  params: { slug: string };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const tool = getToolBySlug(params.slug);
+export async function generateMetadata(): Promise<Metadata> {
+  const tool = getToolBySlug('lorem-ipsum-generator');
 
   if (!tool) {
     return {
@@ -34,8 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ToolPage({ params }: Props) {
-  const tool = getToolBySlug(params.slug);
+export default function ToolPage() {
+  const tool = getToolBySlug('lorem-ipsum-generator');
 
   if (!tool) {
     notFound();
