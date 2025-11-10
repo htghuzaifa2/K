@@ -77,7 +77,7 @@ export function NumberToWordsConverter() {
     let decimalWords = '';
 
     if (decimalPart) {
-      decimalWords = ' and ' + decimalPart.split('').map(digit => ones[parseInt(digit, 10)]).join(' ');
+      decimalWords = ' point ' + decimalPart.split('').map(digit => ones[parseInt(digit, 10)] || 'Zero').join(' ');
     }
 
     return (integerWords + decimalWords).trim();

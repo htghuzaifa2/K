@@ -23,9 +23,12 @@ export function TextStatisticsTool() {
   const { toast } = useToast();
 
   const stats: Stats = useMemo(() => {
+    if (!text.trim()) {
+        return { words: 0, characters: 0, sentences: 0, paragraphs: 0, readingTime: '0 minutes' };
+    }
     const words = text.trim().split(/\s+/).filter(Boolean).length;
     const characters = text.length;
-    const sentences = text.split(/[.!?]+/).filter(Boolean).length;
+    const sentences = text.match(/[^\.!\?]+[\.!\?]+/g)?.length || 0;
     const paragraphs = text.split(/\n+/).filter(p => p.trim() !== '').length;
     
     const wordsPerMinute = 200;

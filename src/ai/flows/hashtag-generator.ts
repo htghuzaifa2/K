@@ -37,9 +37,9 @@ const prompt = ai.definePrompt({
 
   The language for the hashtags should be: {{{language}}}. If no language is specified, use a mix of English and language commonly associated with the topic.
   
-  Please provide a unique mix of popular, niche, and creative hashtags. Avoid overly generic or repetitive tags. Ensure all suggestions are safe for all audiences. Do not include the '#' symbol in your output.`,
+  Please provide a unique mix of popular, niche, and creative hashtags. Avoid overly generic or repetitive tags. Ensure all suggestions are safe for all audiences and do not contain any hateful, religious, political, or adult themes. Do not include the '#' symbol in your output.`,
   config: {
-    temperature: 0.8, // Increase creativity and reduce repetition
+    temperature: 0.9,
     safetySettings: [
       {
         category: 'HARM_CATEGORY_HATE_SPEECH',
@@ -47,15 +47,15 @@ const prompt = ai.definePrompt({
       },
       {
         category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        threshold: 'BLOCK_ONLY_HIGH',
       },
       {
         category: 'HARM_CATEGORY_HARASSMENT',
-        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        threshold: 'BLOCK_ONLY_HIGH',
       },
       {
         category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        threshold: 'BLOCK_ONLY_HIGH',
       },
     ],
   },
