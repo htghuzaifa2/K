@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { diffChars, diffLines } from 'diff';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
-import { Compare, Trash2 } from 'lucide-react';
+import { GitCompare, Trash2 } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export function TextDifferenceChecker() {
@@ -74,7 +74,7 @@ export function TextDifferenceChecker() {
       <Card className="bg-card/50 dark:bg-card/20 backdrop-blur-sm border-border/50">
         <CardHeader className="items-center text-center">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary mb-4">
-                <Compare className="h-6 w-6 text-primary-foreground" />
+                <GitCompare className="h-6 w-6 text-primary-foreground" />
             </div>
             <h1 className="text-3xl font-bold font-headline">Text Difference Checker</h1>
             <p className="text-muted-foreground">Compare two blocks of text and highlight the differences.</p>
@@ -96,7 +96,7 @@ export function TextDifferenceChecker() {
             </div>
             <div className="flex justify-center gap-4">
                 <Button onClick={handleCompare} size="lg">
-                    <Compare className="mr-2 h-4 w-4" /> Compare Texts
+                    <GitCompare className="mr-2 h-4 w-4" /> Compare Texts
                 </Button>
                  <Button onClick={handleClear} size="lg" variant="destructive">
                     <Trash2 className="mr-2 h-4 w-4" /> Clear
