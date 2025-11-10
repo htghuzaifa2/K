@@ -14,9 +14,7 @@ export default function BlogsPage() {
         <p>Your source for tech trends, expert tutorials, and design inspiration.</p>
       </header>
       <main className={styles.main}>
-        <div className={styles.searchContainer}>
-          <BlogSearch allPosts={allPosts} itemsPerPage={ITEMS_PER_PAGE} />
-        </div>
+        <BlogSearch allPosts={allPosts} itemsPerPage={ITEMS_PER_PAGE} />
       </main>
     </>
   );

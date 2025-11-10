@@ -40,7 +40,7 @@ export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) 
   }, [page]);
   
   return (
-    <>
+    <div className={styles.searchContainer}>
       <input
         className={styles.searchInput}
         type="text"
@@ -68,6 +68,6 @@ export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) 
             </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
