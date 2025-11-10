@@ -2,6 +2,15 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/favicon.ico',
+        destination: '/your-real-favicon.ico', // This can be a placeholder path
+        permanent: true,
+      },
+    ];
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
