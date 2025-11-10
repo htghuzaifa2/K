@@ -59,7 +59,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Separator className="my-12" />
         <Suspense fallback={<ProductGridSkeleton />}>
-          <RelatedProducts currentProduct={product} />
+          <RelatedProducts currentProductId={product.id} />
         </Suspense>
       </div>
     </>

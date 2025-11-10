@@ -1,12 +1,13 @@
 
-import { getBlogPostBySlug } from '@/lib/blog-data';
-import { getBlogPosts } from '@/lib/blog-data';
+import { getBlogPostBySlug, getBlogPosts } from '@/lib/blog-data';
 import { notFound } from 'next/navigation';
 import { APP_NAME } from '@/lib/constants';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { CodeBlock } from '@/components/code-block';
 import { Suspense } from 'react';
+import { RelatedBlogs } from '../../components/RelatedBlogs';
+import { Separator } from '@/components/ui/separator';
 
 type Props = {
   params: { slug: string };
@@ -57,16 +58,22 @@ export default function BlogPostPage({ params }: Props) {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <article className="prose dark:prose-invert mx-auto max-w-4xl">
-            <Link href="/blogs" className="mb-8 inline-block text-primary no-underline hover:underline">&larr; Back to Blogs</Link>
-            <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-2">{post.title}</h1>
-            <p className="text-lg italic text-accent">by kimi.pk Team</p>
-            <div>
-                {parseContent(post.content)}
-            </div>
-        </article>
-    </div>
+    <>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <article className="prose dark:prose-invert mx-auto max-w-4xl">
+                <Link href="/blogs" className="mb-8 inline-block text-primary no-underline hover:underline">&larr; Back to Blogs</Link>
+                <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-2">{post.title}</h1>
+                <p className="text-lg italic text-accent">by kimi.pk Team</p>
+                <div>
+                    {parseContent(post.content)}
+                </div>
+            </article>
+        </div>
+        <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+            <Separator className="my-12" />
+            <RelatedBlogs currentBlogSlug={post.slug} />
+        </div>
+    </>
   );
 }
 

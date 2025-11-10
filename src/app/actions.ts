@@ -60,25 +60,13 @@ export async function fetchAllProductsForSearch() {
   return getProducts();
 }
 
-export async function fetchRelatedProductsData(category: string, currentProductId: string, limit: number) {
-    const categoryProducts = await getProductsByCategory(category);
-    let related = categoryProducts.filter(p => p.id !== currentProductId);
-
-    if (related.length < limit) {
-        const allProducts = await getProducts();
-        const otherProducts = allProducts.filter(p => 
-            !categoryProducts.some(cp => cp.id === p.id) &&
-            p.id !== currentProductId
-        );
-        
-        const shuffledOthers = otherProducts.sort(() => 0.5 - Math.random());
-        
-        const needed = limit - related.length;
-        related.push(...shuffledOthers.slice(0, needed));
-    }
-    
-    return related.slice(0, limit);
+export async function fetchRandomProducts(currentProductId: string, limit: number) {
+    const allProducts = await getProducts();
+    const otherProducts = allProducts.filter(p => p.id !== currentProductId);
+    const shuffled = shuffle(otherProducts);
+    return shuffled.slice(0, limit);
 }
+
 
 export async function searchProducts(query: string): Promise<AppProduct[]> {
     const allProducts = await getProducts();

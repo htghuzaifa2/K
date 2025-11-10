@@ -5,31 +5,35 @@ import { type AppProduct } from '@/lib/products';
 import { ProductCard } from './product-card';
 import { useEffect, useState } from 'react';
 import { QuickView } from './quick-view';
-import { fetchRelatedProductsData } from '@/app/actions';
+import { fetchRandomProducts } from '@/app/actions';
+import { ProductGridSkeleton } from './product-grid-skeleton';
 
 type RelatedProductsProps = {
-  currentProduct: AppProduct;
+  currentProductId: string;
 };
 
 const RECOMMENDATION_COUNT = 10;
 
-export function RelatedProducts({ currentProduct }: RelatedProductsProps) {
+export function RelatedProducts({ currentProductId }: RelatedProductsProps) {
   const [relatedProductsList, setRelatedProductsList] = useState<AppProduct[]>([]);
   const [quickViewProduct, setQuickViewProduct] = useState<AppProduct | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchRelated() {
+      setIsLoading(true);
       try {
-        const related = await fetchRelatedProductsData(currentProduct.category, currentProduct.id, RECOMMENDATION_COUNT);
+        const related = await fetchRandomProducts(currentProductId, RECOMMENDATION_COUNT);
         setRelatedProductsList(related);
       } catch (error) {
         console.error('Failed to get related products:', error);
+      } finally {
+        setIsLoading(false);
       }
     }
 
     fetchRelated();
-  }, [currentProduct]);
-
+  }, [currentProductId]);
 
   const handleQuickView = (product: AppProduct) => {
     setQuickViewProduct(product);
@@ -38,6 +42,15 @@ export function RelatedProducts({ currentProduct }: RelatedProductsProps) {
   const closeQuickView = () => {
     setQuickViewProduct(null);
   };
+
+  if (isLoading) {
+    return (
+        <div>
+            <h2 className="mb-6 text-center text-3xl font-bold tracking-tight font-headline">You May Also Like</h2>
+            <ProductGridSkeleton />
+        </div>
+    );
+  }
 
   if (relatedProductsList.length === 0) {
     return null;
