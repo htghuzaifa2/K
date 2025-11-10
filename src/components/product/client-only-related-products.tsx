@@ -2,42 +2,46 @@
 'use client';
 
 import { type AppProduct } from '@/lib/products';
-import { ProductCard } from './product-card';
-import { useState } from 'react';
-import { QuickView } from './quick-view';
+import { ProductGrid } from './product-grid';
+import { ProductGridSkeleton } from './product-grid-skeleton';
+import { useState, useEffect } from 'react';
+import { fetchRandomProducts } from '@/app/actions';
 
 type ClientOnlyRelatedProductsProps = {
-  products: AppProduct[];
+  currentProductId: string;
 };
 
-export function ClientOnlyRelatedProducts({ products }: ClientOnlyRelatedProductsProps) {
-  const [quickViewProduct, setQuickViewProduct] = useState<AppProduct | null>(null);
+const RECOMMENDATION_COUNT = 4;
 
-  const handleQuickView = (product: AppProduct) => {
-    setQuickViewProduct(product);
-  };
+export function ClientOnlyRelatedProducts({ currentProductId }: ClientOnlyRelatedProductsProps) {
+  const [products, setProducts] = useState<AppProduct[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const closeQuickView = () => {
-    setQuickViewProduct(null);
-  };
+  useEffect(() => {
+    const loadProducts = async () => {
+      setIsLoading(true);
+      try {
+        const relatedProducts = await fetchRandomProducts(currentProductId, RECOMMENDATION_COUNT);
+        setProducts(relatedProducts);
+      } catch (error) {
+        console.error("Failed to fetch related products:", error);
+        // Silently fail to not show a broken section
+        setProducts([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  return (
-    <>
-      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} onQuickView={handleQuickView} />
-        ))}
-      </div>
-      <QuickView
-        product={quickViewProduct}
-        open={!!quickViewProduct}
-        onOpenChange={(isOpen) => {
-          if (!isOpen) {
-            closeQuickView();
-          }
-        }}
-      />
-    </>
-  );
+    loadProducts();
+  }, [currentProductId]);
+
+  if (isLoading) {
+    return <ProductGridSkeleton />;
+  }
+
+  if (products.length === 0) {
+    return null; // Don't render the section if there are no products or if fetching failed
+  }
+
+  return <ProductGrid products={products} />;
 }
-
