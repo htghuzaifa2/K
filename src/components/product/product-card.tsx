@@ -23,18 +23,18 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
   };
 
   return (
-    <div className="flex flex-col">
-      <Card className="flex flex-col flex-grow overflow-hidden rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-xl">
+    <div className="flex flex-col h-full">
+      <Card className="flex flex-col flex-grow overflow-hidden rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-xl h-full">
         <CardContent className="p-0 flex flex-col flex-grow">
           <div className="group relative">
             <Link href={`/products/${product.slug}`}>
-              <div className="relative aspect-square w-full overflow-hidden">
+              <div className="relative aspect-square w-full overflow-hidden bg-white">
                 <Image
                   src={product.images[0].url}
                   alt={product.images[0].altText}
                   fill
-                  className="object-contain transition-transform duration-300 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-contain transition-transform duration-300 group-hover:scale-105 p-2"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   data-ai-hint="product image"
                   placeholder="blur"
                   blurDataURL={BLUR_DATA_URL}
@@ -47,7 +47,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             <Button
               size="icon"
               variant="secondary"
-              className="absolute top-2 right-2 h-8 w-8 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
+              className="absolute top-2 right-2 h-8 w-8 rounded-full opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100"
               aria-label="Product preview"
               onClick={handleQuickViewClick}
             >
@@ -55,11 +55,13 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             </Button>
           </div>
           <div className="p-4 flex flex-col flex-grow">
-            <h3 className="text-lg font-semibold font-headline leading-tight flex-grow">
-              <Link href={`/products/${product.slug}`}>{product.name}</Link>
+            <h3 className="text-sm md:text-base font-semibold font-headline leading-tight flex-grow">
+              <Link href={`/products/${product.slug}`} className="hover:text-primary transition-colors">
+                {product.name}
+              </Link>
             </h3>
-            <div className="mt-2 flex items-center justify-between">
-              <p className="text-xl font-bold text-primary">PKR {product.price}</p>
+            <div className="mt-4 flex items-center justify-between">
+              <p className="text-lg md:text-xl font-bold text-primary">PKR {product.price}</p>
               <AddToCartButton product={product} />
             </div>
           </div>

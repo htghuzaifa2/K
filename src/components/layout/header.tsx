@@ -7,7 +7,7 @@ import { CartIcon } from '@/components/cart/cart-icon';
 import { APP_NAME } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, Menu, Search } from 'lucide-react';
+import { ChevronDown, Menu } from 'lucide-react';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
@@ -30,13 +30,13 @@ const mainNavItems = [
   { name: 'Home', href: '/' },
   { name: 'All Products', href: '/products' },
   { name: 'Categories', href: '/categories' },
-  { name: 'About Us', href: '/about' },
+  { name: 'Blogs', href: '/blogs' },
+  { name: 'Tools', href: '/tools' },
 ];
 
 const moreNavItems = [
+    { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' },
-    { name: 'Blogs', href: '/blogs' },
-    { name: 'Tools', href: '/tools' },
     { name: 'Shipping Policy', href: '/shipping-policy' },
     { name: 'Return Policy', href: '/return-policy' },
     { name: 'Cash on Delivery', href: '/cash-on-delivery' },
@@ -45,7 +45,8 @@ const moreNavItems = [
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
     const pathname = usePathname();
-    const isActive = pathname === href;
+    const isActive = pathname === href || (href.startsWith('/products') && pathname.startsWith('/products')) || (href.startsWith('/categories') && pathname.startsWith('/categories')) || (href.startsWith('/blogs') && pathname.startsWith('/blogs')) || (href.startsWith('/tools') && pathname.startsWith('/tools'));
+
     return (
         <div className="group relative">
             <Link
@@ -92,8 +93,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2">
+        <div className="flex items-center gap-4 md:gap-6">
+          <Link href="/" className="flex items-center gap-2 mr-2">
             <span className="font-bold text-lg font-headline">{APP_NAME}</span>
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
@@ -128,7 +129,7 @@ export function Header() {
           </nav>
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
             <HeaderSearch />
             <CartIcon />
             <ThemeToggle />

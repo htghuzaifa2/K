@@ -23,15 +23,15 @@ type ProductDetailsClientProps = {
 
 function CarouselImage({ img, index, onClick }: { img: ProductImage, index: number, onClick: () => void }) {
   return (
-    <Card className="overflow-hidden cursor-pointer" onClick={onClick}>
+    <Card className="overflow-hidden cursor-pointer border-0 rounded-lg shadow-sm" onClick={onClick}>
       <CardContent className="relative aspect-square p-0">
         <Image
           src={img.url}
           alt={img.altText}
           fill
-          className="object-contain"
+          className="object-contain transition-transform duration-300 group-hover:scale-105"
           priority={index === 0}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 45vw"
           data-ai-hint="product image"
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
@@ -55,7 +55,6 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
     setIsFullScreen(true);
   };
 
-
   const handleAddToCart = () => {
     const cartProduct = {
         id: product.id,
@@ -71,9 +70,9 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
     if (!api) {
       return;
     }
-    setCurrent(api.selectedScrollSnap() + 1);
+    setCurrent(api.selectedScrollSnap());
     const onSelect = (api: CarouselApi) => {
-      setCurrent(api.selectedScrollSnap() + 1);
+      setCurrent(api.selectedScrollSnap());
     };
     api.on('select', onSelect);
     return () => {
@@ -100,7 +99,6 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
         text: `Check out this product: ${product.name}`,
         url: window.location.href,
       }).catch((error) => {
-        // Silently fail if the user cancels the share dialog.
         if (error.name !== 'AbortError') {
           console.error(error);
         }
@@ -114,18 +112,18 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
 
   return (
     <>
-      <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 relative">
-        <Button
-          variant="outline"
-          size="icon"
-          className="absolute top-4 left-4 z-10 hidden md:flex"
-          onClick={() => router.back()}
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span className="sr-only">Go back</span>
-        </Button>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div>
+      <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          <div className="sticky top-20">
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute top-0 left-0 z-10 hidden md:flex"
+              onClick={() => router.back()}
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span className="sr-only">Go back</span>
+            </Button>
             <Carousel 
                 setApi={setApi} 
                 className="w-full"
@@ -135,13 +133,17 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
             >
               <CarouselContent>
                 {product.images.map((img, index) => (
-                  <CarouselItem key={index}>
+                  <CarouselItem key={index} className="group">
                     <CarouselImage img={img} index={index} onClick={() => handleImageClick(index)} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-4" />
-              <CarouselNext className="right-4" />
+              {product.images.length > 1 && (
+                <>
+                  <CarouselPrevious className="left-2 md:left-4" />
+                  <CarouselNext className="right-2 md:right-4" />
+                </>
+              )}
             </Carousel>
              {product.images.length > 1 && (
               <div className="mt-4 flex justify-center gap-2">
@@ -151,7 +153,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                     onClick={() => handleDotClick(index)}
                     className={cn(
                       'h-2 w-2 rounded-full transition-all',
-                      current === index + 1 ? 'w-4 bg-primary' : 'bg-muted'
+                      current === index ? 'w-6 bg-primary' : 'bg-muted-foreground/50 hover:bg-muted-foreground'
                     )}
                     aria-label={`Go to slide ${index + 1}`}
                   />
@@ -161,42 +163,44 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
           </div>
 
           <div className="flex flex-col space-y-6">
-            <h1 className="font-headline text-4xl font-bold tracking-tight lg:text-5xl">{product.name}</h1>
-            <p className="text-3xl font-bold text-primary">PKR {product.price}</p>
-            <p className="text-lg text-muted-foreground">{product.description}</p>
+            <h1 className="font-headline text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">{product.name}</h1>
+            <p className="text-3xl lg:text-4xl font-bold text-primary">PKR {product.price}</p>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{product.description}</p>
             
-            <div className="flex items-center gap-4">
-              <Button size="lg" className="flex-grow text-lg" onClick={handleAddToCart}>
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <Button size="lg" className="w-full sm:w-auto flex-grow text-lg" onClick={handleAddToCart}>
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
               </Button>
-              <Button variant="outline" size="icon" aria-label="Share" onClick={shareProduct}>
-                <Share2 className="h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="icon" aria-label="Copy link" onClick={copyUrlToClipboard}>
-                <Copy className="h-5 w-5" />
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" size="icon" aria-label="Share" onClick={shareProduct}>
+                  <Share2 className="h-5 w-5" />
+                </Button>
+                <Button variant="outline" size="icon" aria-label="Copy link" onClick={copyUrlToClipboard}>
+                  <Copy className="h-5 w-5" />
+                </Button>
+              </div>
             </div>
 
             {hasDetails && (
-              <Accordion type="single" collapsible className="w-full">
+              <Accordion type="single" collapsible className="w-full pt-4">
                 {product.longDescription && (
                   <AccordionItem value="description">
-                    <AccordionTrigger>Description</AccordionTrigger>
+                    <AccordionTrigger className="text-lg font-semibold">Description</AccordionTrigger>
                     <AccordionContent>
-                      <div className="prose max-w-none text-card-foreground" dangerouslySetInnerHTML={{ __html: product.longDescription.replace(/\n/g, '<br />') }} />
+                      <div className="prose dark:prose-invert max-w-none text-muted-foreground" dangerouslySetInnerHTML={{ __html: product.longDescription.replace(/\n/g, '<br />') }} />
                     </AccordionContent>
                   </AccordionItem>
                 )}
                 {product.specifications && Object.keys(product.specifications).length > 0 && (
                   <AccordionItem value="specifications">
-                    <AccordionTrigger>Specifications</AccordionTrigger>
+                    <AccordionTrigger className="text-lg font-semibold">Specifications</AccordionTrigger>
                     <AccordionContent>
                       <Table>
                         <TableBody>
                           {Object.entries(product.specifications).map(([key, value]) => (
                             <TableRow key={key}>
-                              <TableCell className="font-medium">{key}</TableCell>
+                              <TableCell className="font-medium capitalize">{key.replace(/_/g, ' ')}</TableCell>
                               <TableCell>{value}</TableCell>
                             </TableRow>
                           ))}
