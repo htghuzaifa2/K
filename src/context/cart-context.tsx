@@ -71,6 +71,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     toast({
         title: "Added to cart",
         description: `${product.name} is now in your cart.`,
+        duration: 3000,
     });
     setIsCartOpen(true);
   }, [toast]);
@@ -90,6 +91,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         toast({
             title: "Item removed",
             description: `${itemToRemoveName} has been removed.`,
+            duration: 3000,
         });
     }
   }, [toast]);
@@ -112,6 +114,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         toast({
             title: "Cart cleared",
             description: `All items have been removed from your cart.`,
+            duration: 3000,
         });
     }
   }, [cartItems.length, toast]);
