@@ -1,9 +1,17 @@
+
 import ptaGuideContent from './blog-content/pta-guide-2025';
 import freelancingSetupContent from './blog-content/freelancing-setup-pakistan-2026';
 import seoContent from './blog-content/seo-for-pakistani-developers-2026';
 import securityContent from './blog-content/web-security-for-pakistani-businesses-2026';
 import cloudContent from './blog-content/cloud-rising-over-pakistan';
 import mobileFirstContent from './blog-content/mobile-first-era-pakistan';
+import pwaGuideContent from './blog-content/pwa-guide-pakistan-2026';
+import cryptoTrendsContent from './blog-content/pakistan-crypto-trends-2026';
+import iotProjectsContent from './blog-content/iot-projects-pakistan-budget';
+import fiveGContent from './blog-content/5g-and-beyond-pakistan';
+import accessibilityContent from './blog-content/accessibility-inclusive-design-pakistan';
+import freelanceMarketplacesContent from './blog-content/freelance-marketplaces-pakistan-2026';
+import websiteSpeedContent from './blog-content/website-speed-optimization-pakistan';
 
 export interface BlogPost {
   slug: string;
@@ -41,6 +49,34 @@ const contentMap: Record<string, { content: string, description: string }> = {
       content: mobileFirstContent,
       description: 'Why mobile-first web design is non-negotiable in Pakistan and how developers can build faster, more accessible sites for a mobile-driven audience.'
   },
+  'pwa-guide-pakistan-2026': {
+    content: pwaGuideContent,
+    description: 'A guide to Progressive Web Apps (PWAs) in Pakistan for 2026, explaining what they are, why they matter for the local market, and how developers can build them.'
+  },
+  'pakistan-crypto-trends-2026': {
+    content: cryptoTrendsContent,
+    description: 'An overview of the crypto landscape in Pakistan for web developers in 2026, covering regulatory bodies like PVARA, opportunities in dApps, and risks involved.'
+  },
+  'iot-projects-pakistan-budget': {
+    content: iotProjectsContent,
+    description: 'Practical, low-cost IoT project ideas for Pakistan — agriculture sensors, home automation, smart-city mini-projects — with local hardware cost hints and simple coding steps.'
+  },
+  '5g-and-beyond-pakistan': {
+    content: fiveGContent,
+    description: 'With faster mobile networks coming to Pakistan, web developers must gear up for bigger changes. Here’s what to watch and how to prepare for the 2026-27 era.'
+  },
+  'accessibility-inclusive-design-pakistan': {
+    content: accessibilityContent,
+    description: 'Learn how Pakistani web developers can make the internet friendlier for everyone — from users with disabilities to low-bandwidth mobile visitors.'
+  },
+  'freelance-marketplaces-pakistan-2026': {
+    content: freelanceMarketplacesContent,
+    description: 'In 2026, freelancing in Pakistan is a full-fledged career. Discover the top platforms and strategies for web developers to secure clients both locally and internationally.'
+  },
+  'website-speed-optimization-pakistan': {
+    content: websiteSpeedContent,
+    description: 'A guide on how to make your website lightning-fast for Pakistani mobile users, focusing on local hosting, optimization tools, caching, and CDNs.'
+  },
 };
 
 
@@ -75,6 +111,41 @@ const blogPosts: BlogPost[] = [
     slug: 'welcome-to-pakistans-mobile-first-era',
     title: 'Welcome to Pakistan’s Mobile-First Era',
   },
+  {
+    id: 'pwa-guide-pakistan-2026',
+    slug: 'the-web-that-feels-like-an-app-a-guide-to-pwas-in-pakistan',
+    title: 'The Web That Feels Like an App: A Guide to PWAs in Pakistan',
+  },
+  {
+    id: 'pakistan-crypto-trends-2026',
+    slug: 'pakistan-crypto-trends-2026-for-web-developers',
+    title: 'Pakistan Crypto Trends 2026: A Guide for Web Developers',
+  },
+  {
+    id: 'iot-projects-pakistan-budget',
+    slug: 'iot-projects-you-can-build-in-pakistan-on-a-budget',
+    title: 'IoT Projects You Can Build in Pakistan on a Budget',
+  },
+  {
+    id: '5g-and-beyond-pakistan',
+    slug: '5g-and-beyond-what-it-means-for-pakistani-web-developers',
+    title: '5G & Beyond: What It Means for Pakistani Web Developers',
+  },
+  {
+    id: 'accessibility-inclusive-design-pakistan',
+    slug: 'accessibility-and-inclusive-web-design-for-pakistani-users',
+    title: 'Accessibility & Inclusive Web Design for Pakistani Users',
+  },
+  {
+    id: 'freelance-marketplaces-pakistan-2026',
+    slug: 'freelance-marketplaces-for-pakistani-web-developers-2026',
+    title: 'Freelance Marketplaces for Pakistani Web Developers in 2026',
+  },
+  {
+    id: 'website-speed-optimization-pakistan',
+    slug: 'how-to-optimize-website-speed-for-pakistani-mobile-users',
+    title: 'How to Optimize Website Speed for Pakistani Mobile Users',
+  },
 ];
 
 const sortedBlogPosts = blogPosts.sort((a, b) => a.title.localeCompare(b.title));
@@ -106,3 +177,4 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     description: data.description,
   };
 }
+    

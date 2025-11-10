@@ -1,0 +1,45 @@
+
+export default `
+      <h2>🔌 Internet of Things (IoT) Projects You Can Build in Pakistan on a Budget</h2>
+      <p>Practical, low-cost IoT project ideas for Pakistan — agriculture sensors, home automation, smart-city mini-projects — with local hardware cost hints, simple coding steps, and how web developers can integrate dashboards and backends.</p>
+      
+      <h2>💡 Why IoT makes sense in Pakistan</h2>
+      <p>Small farms, chai shops, and corner stores all live where data could save time and money. A little sensor and a cheap microcontroller can feel like putting a smart heartbeat into a place that already hums with life.</p>
+      
+      <h3>Quick price orientation (local sources)</h3>
+      <p>Here are representative local prices so you can plan a budget-friendly build (prices fluctuate — check the vendor before you buy):</p>
+      <ul class="list-disc list-inside space-y-2 pl-2">
+        <li>ESP32 development board (Wi-Fi + Bluetooth): ~₨1,500–3,000.</li>
+        <li>Arduino Uno (good for beginners): ~₨950–1,350.</li>
+        <li>Raspberry Pi Pico (RP2040 microcontroller; Pico W adds Wi-Fi): ~₨1,600.</li>
+        <li>Soil moisture sensor (basic probe): ~₨120–210.</li>
+        <li>DHT22 temperature & humidity sensor: prices vary.</li>
+        <li>HC-SR04 ultrasonic sensor (distance / tank level): ~₨150–300.</li>
+        <li>SIM800L GSM/GPRS module (for SMS/2G data): ~₨1,150–1,600.</li>
+      </ul>
+      
+      <h2>1. Smart Irrigation (Budget: ₨1,800–5,000)</h2>
+      <p><strong>What it solves:</strong> Saves water and reduces manual watering — ideal for small farms and home gardens in Punjab, Sindh, KPK.</p>
+      <p><strong>Core hardware:</strong> ESP32 board, Soil moisture sensor, 5V relay module.</p>
+      <p><strong>Web integration:</strong> Create a tiny backend (Node.js/Express) to receive telemetry. Build a lightweight dashboard (React or plain HTML/Chart.js) to show soil graphs.</p>
+
+      <h2>2. Home Automation Lite (Budget: ₨2,000–6,000)</h2>
+      <p><strong>What it solves:</strong> Control lights, fans, and appliances remotely.</p>
+      <p><strong>Core hardware:</strong> ESP32 or NodeMCU, Relay module(s), optional DHT22 for temp/humidity.</p>
+      <p><strong>Web integration:</strong> Use WebSockets for real-time state reflection. Provide a mobile-first control panel.</p>
+
+      <h2>3. Smart Water Tank / Level Monitor (Budget: ₨1,000–3,000)</h2>
+      <p><strong>What it solves:</strong> Avoid overflow and know water levels remotely — a common need in Karachi.</p>
+      <p><strong>Core hardware:</strong> ESP32 or Arduino + Wi-Fi, HC-SR04 ultrasonic sensor.</p>
+      <p><strong>Web integration:</strong> Display tank level with a simple gauge. Add SMS alerts via Twilio or a local GSM module.</p>
+      
+      <h2>4. Air Quality & Heat Alert for Small Shops (Budget: ₨2,000–4,500)</h2>
+      <p><strong>What it solves:</strong> Monitors CO₂/PM2.5 and temperature for small factories or clinics.</p>
+      <p><strong>Core hardware:</strong> ESP32, MQ-135 or PMS7003 sensor, DHT22.</p>
+      <p><strong>Web integration:</strong> Push readings to a backend and show heatmaps on a dashboard. Alert owner via SMS/WhatsApp.</p>
+      
+      <h2>✨ Closing</h2>
+      <p>Start small — a soil probe, a tiny pump, a single graph on your phone. In Pakistan, little gadgets can do big kindness for farmers, shopkeepers, and family homes. Build something useful, ship it light, and let the data do the talking.</p>
+      <p class="italic">“One sensor, one signal — and suddenly the neighborhood learns to listen.” 🌱</p>
+`;
+    
