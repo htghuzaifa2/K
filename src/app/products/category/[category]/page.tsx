@@ -6,6 +6,8 @@ import { InfiniteProductGrid } from '@/components/product/infinite-product-grid'
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
+import { ScrollRestorer } from '@/components/scroll-restorer';
+
 
 type CategoryPageProps = {
   params: {
@@ -47,6 +49,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <ScrollRestorer sessionKey={`category_${decodedCategory}_scroll`} />
       <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
         {title}
       </h1>
