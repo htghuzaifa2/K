@@ -40,6 +40,11 @@ export const metadata: Metadata = {
     title: APP_NAME,
     statusBarStyle: 'default',
   },
+  icons: {
+    icon: logoUrl,
+    shortcut: logoUrl,
+    apple: logoUrl,
+  },
   openGraph: {
     title: {
       default: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
