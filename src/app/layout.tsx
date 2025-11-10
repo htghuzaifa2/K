@@ -24,7 +24,7 @@ const roboto = Roboto({
   display: 'swap',
 });
 
-const logoUrl = 'https://i.postimg.cc/k5FPSpFx/kimi-pk-logo.png';
+const logoUrl = 'https://i.postimg.cc/9QNw5Hmd/kimi-pk.png';
 
 export const metadata: Metadata = {
   metadataBase: new URL(`https://www.${APP_NAME}`),
@@ -96,7 +96,7 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#F26322" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="https://i.postimg.cc/k5FPSpFx/kimi-pk-logo.png" />
+        <link rel="apple-touch-icon" href={logoUrl} />
       </head>
       <body className="font-body antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -115,4 +115,3 @@ export default function RootLayout({
     </html>
   );
 }
-
