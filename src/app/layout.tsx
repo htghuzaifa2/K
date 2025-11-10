@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     statusBarStyle: 'default',
   },
   icons: {
-    icon: logoUrl,
-    shortcut: logoUrl,
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
     apple: logoUrl,
   },
   openGraph: {
