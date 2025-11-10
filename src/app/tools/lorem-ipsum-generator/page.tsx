@@ -1,5 +1,5 @@
 
-import { LoremIpsumGenerator } from './LoremIpsumGenerator';
+import { LoremIpsumGenerator } from '../components/LoremIpsumGenerator';
 import { getToolBySlug } from '@/lib/tool-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';

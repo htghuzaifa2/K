@@ -1,14 +1,13 @@
 
-
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getTools, type Tool } from '@/lib/tool-data';
 import { performSearch } from '@/lib/search-utils';
-import ToolSearch from '../components/ToolSearch';
-import ToolCard from '../components/ToolCard';
-import ToolPagination from '../components/ToolPagination';
+import ToolSearch from './components/ToolSearch';
+import ToolCard from './components/ToolCard';
+import ToolPagination from './components/ToolPagination';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -44,7 +43,7 @@ export default function ToolsPage() {
         <ToolSearch onSearch={setQuery} />
         {currentTools.length > 0 ? (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
               {currentTools.map((tool) => (
                 <ToolCard key={tool.slug} tool={tool} />
               ))}
