@@ -1,0 +1,36 @@
+
+{
+  "name": "kimi.pk",
+  "short_name": "kimi.pk",
+  "description": "Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#F26322",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/k5FPSpFx/kimi-pk-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.postimg.cc/k5FPSpFx/kimi-pk-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://i.postimg.cc/k5FPSpFx/kimi-pk-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.postimg.cc/k5FPSpFx/kimi-pk-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

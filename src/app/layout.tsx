@@ -24,24 +24,48 @@ const roboto = Roboto({
   display: 'swap',
 });
 
+const logoUrl = 'https://i.postimg.cc/k5FPSpFx/kimi-pk-logo.png';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(`https://www.${APP_NAME}`),
   title: {
     default: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
     template: `%s | ${APP_NAME}`,
   },
   description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
+  manifest: '/manifest.json',
+  icons: {
+    icon: logoUrl,
+    shortcut: logoUrl,
+    apple: logoUrl,
+  },
   openGraph: {
-    title: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
+    title: {
+      default: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
+      template: `%s | ${APP_NAME}`,
+    },
     description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
     url: `https://www.${APP_NAME}`,
     siteName: APP_NAME,
+    images: [
+      {
+        url: logoUrl,
+        width: 512,
+        height: 512,
+        alt: `${APP_NAME} Logo`,
+      },
+    ],
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
+    title: {
+      default: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
+      template: `%s | ${APP_NAME}`,
+    },
     description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
+    images: [logoUrl],
   },
   robots: {
     index: true,
@@ -63,6 +87,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${roboto.variable}`}>
+      <head>
+        <meta name="theme-color" content="#F26322" />
+      </head>
       <body className="font-body antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <CartProvider>
