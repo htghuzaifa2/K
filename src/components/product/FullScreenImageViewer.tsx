@@ -21,7 +21,7 @@ export function FullScreenImageViewer({ images, startIndex, open, onOpenChange }
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="p-0 border-0 bg-transparent w-screen h-screen max-w-none flex items-center justify-center">
-        <VisuallyHidden>
+        <VisuallyHidden asChild>
             <DialogTitle>Full-screen Product Image Viewer</DialogTitle>
         </VisuallyHidden>
         <Carousel
