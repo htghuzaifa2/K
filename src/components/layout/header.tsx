@@ -25,7 +25,10 @@ import {
 } from '@/components/ui/accordion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { HeaderSearch } from '../search/header-search';
-import { Logo } from '../icons';
+import Image from 'next/image';
+
+const logoUrl = 'https://i.postimg.cc/9QNw5Hmd/kimi-pk.png';
+
 
 const mainNavItems = [
   { name: 'Home', href: '/' },
@@ -96,7 +99,7 @@ export function Header() {
       <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4 md:gap-6">
           <Link href="/" className="flex items-center gap-2 mr-2">
-            <Logo />
+            <Image src={logoUrl} alt={`${APP_NAME} logo`} width={24} height={24} className="h-6 w-auto" />
             <span className="font-bold text-lg font-headline">{APP_NAME}</span>
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
