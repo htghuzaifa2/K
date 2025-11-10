@@ -198,7 +198,7 @@ export default function CheckoutPage() {
                         </FormItem>
                         )}
                     />
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid xs:grid-cols-2 gap-6">
                         <FormField
                         control={form.control}
                         name="email"
@@ -226,7 +226,7 @@ export default function CheckoutPage() {
                         )}
                         />
                     </div>
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid xs:grid-cols-2 gap-6">
                         <FormField
                             control={form.control}
                             name="province"
@@ -300,7 +300,7 @@ export default function CheckoutPage() {
                                     <RadioGroup
                                     onValueChange={field.onChange}
                                     defaultValue={field.value}
-                                    className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                                    className="grid grid-cols-1 xs:grid-cols-2 gap-4"
                                     >
                                     <FormItem>
                                         <FormControl>
@@ -416,3 +416,5 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
+    
