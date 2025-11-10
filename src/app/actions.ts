@@ -3,6 +3,19 @@
 
 import type { AppProduct } from '@/lib/products';
 import { getProducts, getProductsByCategory } from '@/lib/products';
+import productsSummaryData from '@/lib/products-summary.json';
+
+type ProductSummary = {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  image: {
+    url: string;
+    altText: string;
+  }
+};
+
 
 // Fisher-Yates shuffle algorithm
 function shuffle(array: any[]) {
@@ -60,11 +73,27 @@ export async function fetchAllProductsForSearch() {
   return getProducts();
 }
 
-export async function fetchRandomProducts(currentProductId: string, limit: number) {
-    const allProducts = await getProducts();
-    const otherProducts = allProducts.filter(p => p.id !== currentProductId);
+export async function fetchProductsSummary(currentProductId?: string, limit: number = 4) {
+    let otherProducts = productsSummaryData;
+
+    if (currentProductId) {
+        otherProducts = productsSummaryData.filter(p => p.id !== currentProductId);
+    }
+    
     const shuffled = shuffle(otherProducts);
-    return shuffled.slice(0, limit);
+    const summaryList = shuffled.slice(0, limit);
+
+    // We need to transform the summary into the shape expected by ProductCard
+    return summaryList.map(p => ({
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+        price: p.price,
+        images: [p.image],
+        // Add dummy values for fields not in summary
+        description: '',
+        category: [],
+    }));
 }
 
 

@@ -4,7 +4,7 @@ import { type AppProduct } from '@/lib/products';
 import { ProductGrid } from './product-grid';
 import { ProductGridSkeleton } from './product-grid-skeleton';
 import { useState, useEffect } from 'react';
-import { fetchRandomProducts } from '@/app/actions';
+import { fetchProductsSummary } from '@/app/actions';
 
 type ClientOnlyRelatedProductsProps = {
   currentProductId?: string;
@@ -20,7 +20,7 @@ export function ClientOnlyRelatedProducts({ currentProductId }: ClientOnlyRelate
     const loadProducts = async () => {
       setIsLoading(true);
       try {
-        const relatedProducts = await fetchRandomProducts(currentProductId || '', RECOMMENDATION_COUNT);
+        const relatedProducts = await fetchProductsSummary(currentProductId, RECOMMENDATION_COUNT);
         setProducts(relatedProducts);
       } catch (error) {
         console.error("Failed to fetch related products:", error);
