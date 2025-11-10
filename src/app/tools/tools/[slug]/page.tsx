@@ -9,6 +9,8 @@ import { RelatedProducts } from '@/components/product/related-products';
 import { Suspense } from 'react';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
+export const runtime = 'edge';
+
 type Props = {
   params: { slug: string };
 };
