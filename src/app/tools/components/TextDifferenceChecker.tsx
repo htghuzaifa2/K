@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { diffChars, diffLines } from 'diff';
+import { diffChars } from 'diff';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
 import { GitCompare, Trash2 } from 'lucide-react';
@@ -18,7 +18,7 @@ export function TextDifferenceChecker() {
   const [viewType, setViewType] = useState('split');
 
   const handleCompare = () => {
-    const differences = diffLines(text1, text2);
+    const differences = diffChars(text1, text2);
     setDiff(differences);
   };
   
@@ -37,32 +37,31 @@ export function TextDifferenceChecker() {
     diff.forEach((part, index) => {
         const style = {
             whiteSpace: 'pre-wrap',
-            display: 'block',
-            padding: '0.25rem 0.5rem',
-            fontFamily: 'monospace',
-        };
-        const addedStyle = {...style, background: 'hsla(140, 100%, 25%, 0.3)' };
-        const removedStyle = {...style, background: 'hsla(0, 100%, 35%, 0.3)' };
+            wordBreak: 'break-word',
+        } as React.CSSProperties;
+        
+        const addedStyle = {...style, background: 'hsla(140, 100%, 25%, 0.3)', textDecoration: 'underline' };
+        const removedStyle = {...style, background: 'hsla(0, 100%, 35%, 0.3)', textDecoration: 'line-through' };
+        
+        const key = `diff-${index}`;
 
         if (part.added) {
-            rightContent.push(<span key={index} style={addedStyle}>{part.value}</span>);
+            rightContent.push(<span key={key} style={addedStyle}>{part.value}</span>);
         } else if (part.removed) {
-            leftContent.push(<span key={index} style={removedStyle}>{part.value}</span>);
+            leftContent.push(<span key={key} style={removedStyle}>{part.value}</span>);
         } else {
-            // To keep alignment, we need to add placeholder lines
-            const lineCount = part.value.split('\n').length - 1;
-            leftContent.push(<span key={`left-${index}`} style={style}>{part.value}</span>);
-            rightContent.push(<span key={`right-${index}`} style={style}>{part.value}</span>);
+            leftContent.push(<span key={`left-${key}`} style={style}>{part.value}</span>);
+            rightContent.push(<span key={`right-${key}`} style={style}>{part.value}</span>);
         }
     });
 
     return (
-        <div className="grid grid-cols-2 gap-2 border rounded-md bg-background overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 border rounded-md bg-background overflow-hidden font-mono">
              <ScrollArea className="h-96">
-                <div className="p-2">{leftContent}</div>
+                <div className="p-4">{leftContent}</div>
              </ScrollArea>
              <ScrollArea className="h-96">
-                <div className="p-2">{rightContent}</div>
+                <div className="p-4">{rightContent}</div>
              </ScrollArea>
         </div>
     );
@@ -86,25 +85,31 @@ export function TextDifferenceChecker() {
                     onChange={(e) => setText1(e.target.value)}
                     placeholder="Paste the first block of text here..."
                     rows={10}
+                    className="font-mono"
                 />
                 <Textarea
                     value={text2}
                     onChange={(e) => setText2(e.target.value)}
                     placeholder="Paste the second block of text here..."
                     rows={10}
+                    className="font-mono"
                 />
             </div>
             <div className="flex justify-center gap-4">
                 <Button onClick={handleCompare} size="lg">
                     <GitCompare className="mr-2 h-4 w-4" /> Compare Texts
                 </Button>
-                 <Button onClick={handleClear} size="lg" variant="destructive">
+                 <Button onClick={handleClear} size="lg" variant="destructive" disabled={!text1 && !text2}>
                     <Trash2 className="mr-2 h-4 w-4" /> Clear
                 </Button>
             </div>
             {diff.length > 0 && (
                 <div className="space-y-4">
                     <h3 className="text-xl font-semibold text-center">Differences</h3>
+                    <div className="flex items-center gap-4 text-sm justify-center">
+                        <div className="flex items-center gap-2"><span className="w-4 h-4 bg-red-500/30"></span>Removed</div>
+                        <div className="flex items-center gap-2"><span className="w-4 h-4 bg-green-500/30"></span>Added</div>
+                    </div>
                     {renderDiff()}
                 </div>
             )}
@@ -123,7 +128,7 @@ export function TextDifferenceChecker() {
                         <li>Paste the original text into the left box.</li>
                         <li>Paste the modified text into the right box.</li>
                         <li>Click the "Compare Texts" button.</li>
-                        <li>The differences will be shown below: text removed from the original will be highlighted in red on the left, and text added to the new version will be highlighted in green on the right.</li>
+                        <li>The differences will be shown below: text removed from the original will be highlighted in red, and text added to the new version will be highlighted in green. The tool highlights individual character changes for granular comparison.</li>
                     </ol>
                     <p>It's useful for programmers checking code changes, writers tracking edits, or anyone needing to spot differences in documents.</p>
                 </AccordionContent>

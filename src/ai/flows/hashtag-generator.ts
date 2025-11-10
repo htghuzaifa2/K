@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -30,13 +31,34 @@ const prompt = ai.definePrompt({
   name: 'hashtagGeneratorPrompt',
   input: { schema: HashtagGeneratorInputSchema },
   output: { schema: HashtagGeneratorOutputSchema },
-  prompt: `You are a social media expert specializing in creating viral and engaging hashtags. 
+  prompt: `You are a social media expert specializing in creating viral, engaging, and brand-safe hashtags. 
   
-  Generate a list of 15-20 relevant hashtags for the following topic: {{{topic}}}.
+  Generate a list of 15-20 highly relevant, creative, and diverse hashtags for the following topic: {{{topic}}}.
 
   The language for the hashtags should be: {{{language}}}. If no language is specified, use a mix of English and language commonly associated with the topic.
   
-  Please provide a mix of popular, niche, and creative hashtags. Do not include the '#' symbol in your output.`,
+  Please provide a unique mix of popular, niche, and creative hashtags. Avoid overly generic or repetitive tags. Ensure all suggestions are safe for all audiences. Do not include the '#' symbol in your output.`,
+  config: {
+    temperature: 0.8, // Increase creativity and reduce repetition
+    safetySettings: [
+      {
+        category: 'HARM_CATEGORY_HATE_SPEECH',
+        threshold: 'BLOCK_ONLY_HIGH',
+      },
+      {
+        category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+      {
+        category: 'HARM_CATEGORY_HARASSMENT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+      {
+        category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+    ],
+  },
 });
 
 const hashtagGeneratorFlow = ai.defineFlow(
