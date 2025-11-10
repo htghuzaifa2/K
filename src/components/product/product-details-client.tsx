@@ -15,14 +15,15 @@ import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/use-cart';
 import { useRouter } from 'next/navigation';
 import { BLUR_DATA_URL } from '@/lib/constants';
+import { FullScreenImageViewer } from './FullScreenImageViewer';
 
 type ProductDetailsClientProps = {
   product: AppProduct;
 };
 
-function CarouselImage({ img, index }: { img: ProductImage, index: number }) {
+function CarouselImage({ img, index, onClick }: { img: ProductImage, index: number, onClick: () => void }) {
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden cursor-pointer" onClick={onClick}>
       <CardContent className="relative aspect-square p-0">
         <Image
           src={img.url}
@@ -46,6 +47,13 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
   const { toast } = useToast();
   const { addToCart } = useCart();
   const router = useRouter();
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [fullScreenStartIndex, setFullScreenStartIndex] = useState(0);
+
+  const handleImageClick = (index: number) => {
+    setFullScreenStartIndex(index);
+    setIsFullScreen(true);
+  };
 
 
   const handleAddToCart = () => {
@@ -128,7 +136,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
               <CarouselContent>
                 {product.images.map((img, index) => (
                   <CarouselItem key={index}>
-                    <CarouselImage img={img} index={index} />
+                    <CarouselImage img={img} index={index} onClick={() => handleImageClick(index)} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -202,6 +210,12 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
           </div>
         </div>
       </div>
+      <FullScreenImageViewer
+        images={product.images}
+        startIndex={fullScreenStartIndex}
+        open={isFullScreen}
+        onOpenChange={setIsFullScreen}
+      />
     </>
   );
 }
