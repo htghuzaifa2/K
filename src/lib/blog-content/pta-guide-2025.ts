@@ -1,3 +1,4 @@
+
 export default `
       <h2>🇵🇰 Welcome to the Age of Approval</h2>
       <p>So you’ve finally got your dream phone — maybe a shiny iPhone from Dubai, or a Galaxy that crossed oceans just to meet you.<br>You unbox it, charge it, insert your SIM… and then — “Your device is not PTA approved.”</p>
@@ -80,3 +81,4 @@ export default `
       <h2>✨ Final Words:</h2>
       <p class="italic">In this digital age, rules may seem tough,<br>but honest paths always shine enough.<br>So register right, stay smart, stay clear —<br>because real power is having nothing to fear. 🌙</p>
 `;
+

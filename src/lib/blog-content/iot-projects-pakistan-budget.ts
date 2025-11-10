@@ -22,6 +22,38 @@ export default `
       <p><strong>What it solves:</strong> Saves water and reduces manual watering — ideal for small farms and home gardens in Punjab, Sindh, KPK.</p>
       <p><strong>Core hardware:</strong> ESP32 board, Soil moisture sensor, 5V relay module.</p>
       <p><strong>Web integration:</strong> Create a tiny backend (Node.js/Express) to receive telemetry. Build a lightweight dashboard (React or plain HTML/Chart.js) to show soil graphs.</p>
+<pre><code class="language-cpp">// (conceptual)
+#include <WiFi.h>
+#include <HTTPClient.h>
+int soilPin = 34;
+int relayPin = 16;
+int threshold = 1500; // Example threshold
+
+void setup() {
+  pinMode(relayPin, OUTPUT);
+  // WiFi connection logic here
+}
+
+void loop() {
+  int moisture = analogRead(soilPin);
+  if (moisture < threshold) {
+    digitalWrite(relayPin, HIGH);
+  } else {
+    digitalWrite(relayPin, LOW);
+  }
+
+  // Send data to web dashboard
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    http.begin("https://your-backend.example.com/telemetry");
+    http.addHeader("Content-Type", "application/json");
+    String payload = "{\\"moisture\\":" + String(moisture) + "}";
+    http.POST(payload);
+    http.end();
+  }
+  delay(60000); // once a minute
+}</code></pre>
+
 
       <h2>2. Home Automation Lite (Budget: ₨2,000–6,000)</h2>
       <p><strong>What it solves:</strong> Control lights, fans, and appliances remotely.</p>

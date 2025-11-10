@@ -93,3 +93,4 @@ export default `
         <li>If budget is below ~PKR 70,000, upgrade your smartphone and wait a year for laptop deals.</li>
       </ul>
 `;
+

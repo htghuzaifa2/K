@@ -28,7 +28,7 @@ export default `
       <p><strong>Pro tip:</strong> Always take a 50% advance payment before starting custom projects.</p>
       
       <h2>⏰ Deliverables & Client Management</h2>
-      <p>To maintain a professional image, share project timelines, use tools like Trello for progress tracking, and communicate professionally via email or Slack. Offering maintenance packages can create a steady income source.</p>
+      <p>To maintain a professional image, share a project timeline, use tools like Trello for progress tracking, and communicate professionally via email or Slack. Offering maintenance packages can create a steady income source.</p>
       
       <h2>✨ Final Thoughts</h2>
       <p>Freelancing success isn’t about luck—it’s about building trust. Show your work, price confidently, deliver on time, and maintain strong client relationships. Pakistan’s tech talent is world-class; it’s time to showcase it globally.</p>

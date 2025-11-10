@@ -32,7 +32,8 @@ export default `
       
       <h2>🔄 8. Minify and Bundle Your Files</h2>
       <p>Reduce code by minifying CSS, JS, and HTML. Combine multiple scripts into single bundles and load non-essential JS with \`defer\` or \`async\` to speed up initial rendering.</p>
-      
+<pre><code class="language-html"><script src="app.js" defer></script></code></pre>
+
       <h2>🌙 Final Thoughts</h2>
       <p>Optimizing for Pakistani mobile users means balancing speed, data efficiency, and user experience. By following these steps, you can ensure your site loads quickly for everyone, from Karachi to Kashmir. Fast websites show respect for your visitors' time, data, and devices.</p>
 `;

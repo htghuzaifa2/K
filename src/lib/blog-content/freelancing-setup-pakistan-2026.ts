@@ -1,3 +1,4 @@
+
 export default `
       <h2>🇵🇰 Freelancing — The New Frontier</h2>
       <p>Gone are the days when “office job” meant traffic jams, tea breaks, and typing under fluorescent lights.<br>Now, many Pakistanis have turned their rooms into mini offices, their laptops into earning machines, and their internet into a passport to global projects.</p>
@@ -105,3 +106,4 @@ export default `
       <h2>✨ Final Words:</h2>
       <p class="italic">In this land of chai, code, and call drops rare,<br>A dreamer types — with hope in the air.<br>Build your setup, your story, your way,<br>Because every keystroke can light your day. 💫</p>
 `;
+

@@ -91,3 +91,4 @@ export default `
       <p>Low-code and no-code platforms are opening digital doors for everyone — from a home baker in Sialkot to a tailor in Quetta. And as internet access spreads, these tools will be the fastest way to bring Pakistan’s small businesses into the online economy.</p>
       <p>So, whether you’re a small business owner or a web developer — remember: The goal isn’t just to build websites. It’s to build presence, trust, and a digital Pakistan.</p>
 `;
+

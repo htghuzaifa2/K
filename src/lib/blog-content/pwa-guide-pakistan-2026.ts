@@ -42,7 +42,7 @@ export default `
       <ol class="list-decimal list-inside space-y-2 pl-2">
         <li>Start with a mobile-first responsive site.</li>
         <li>Add a manifest file (manifest.json):
-          <pre><code class="language-json">{
+<pre><code class="language-json">{
   "name": "Kimi.pk Tools",
   "short_name": "KimiTools",
   "start_url": "/",
@@ -59,7 +59,7 @@ export default `
 }</code></pre>
         </li>
         <li>Register a Service Worker:
-          <pre><code class="language-javascript">if ('serviceWorker' in navigator) {
+<pre><code class="language-javascript">if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }</code></pre>
         </li>
