@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/accordion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { HeaderSearch } from '../search/header-search';
+import { Logo } from '../icons';
 
 const mainNavItems = [
   { name: 'Home', href: '/' },
@@ -85,14 +86,6 @@ function MobileNavLink({ href, children, closeMenu }: { href: string; children: 
             <div className="text-base font-medium">{children}</div>
         </Link>
     );
-}
-
-function Logo() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary">
-        <path d="M14.2207 6.3478C14.5829 5.8643 15.2536 5.76611 15.7371 6.12831C16.2206 6.49051 16.3188 7.16118 15.9566 7.64468L12.0151 13.0655L16.2486 16.5367C16.7116 16.9079 16.8143 17.5753 16.4431 18.0384C16.0719 18.5014 15.4045 18.604 14.9415 18.2328L10.708 14.7617L8.43354 17.6522C8.01774 18.1724 7.28873 18.2707 6.76853 17.8549C6.24833 17.4391 6.14999 16.7101 6.56579 16.19L10.0315 11.9685L6.3478 8.77935C5.8643 8.41715 5.76611 7.74648 6.12831 7.26298C6.49051 6.77948 7.16118 6.68128 7.64468 7.04348L11.3284 10.2327L14.2207 6.3478Z" fill="currentColor"/>
-    </svg>
-  );
 }
 
 export function Header() {
