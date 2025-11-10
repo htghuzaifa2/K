@@ -118,7 +118,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
             <Button
               variant="outline"
               size="icon"
-              className="absolute top-0 left-0 z-10 hidden md:flex"
+              className="absolute -top-4 -left-2 z-10 hidden md:flex"
               onClick={() => router.back()}
             >
               <ArrowLeft className="h-4 w-4" />
@@ -167,12 +167,12 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
             <p className="text-3xl lg:text-4xl font-bold text-primary">PKR {product.price}</p>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{product.description}</p>
             
-            <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-stretch gap-3">
               <Button size="lg" className="w-full sm:w-auto flex-grow text-lg" onClick={handleAddToCart}>
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
               </Button>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 justify-center">
                 <Button variant="outline" size="icon" aria-label="Share" onClick={shareProduct}>
                   <Share2 className="h-5 w-5" />
                 </Button>
