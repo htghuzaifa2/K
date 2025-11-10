@@ -1,7 +1,6 @@
 
 import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
-import styles from './styles/tools.module.css';
 
 export const metadata: Metadata = {
   title: `Tools - ${APP_NAME}`,
@@ -18,8 +17,8 @@ export default function ToolsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>{children}</main>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {children}
     </div>
   );
 }

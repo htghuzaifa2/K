@@ -3,7 +3,6 @@ import { getToolBySlug, getTools, getDummyToolContent } from '@/lib/tool-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
-import styles from '../../styles/tools.module.css';
 import Link from 'next/link';
 
 type Props = {
@@ -40,17 +39,18 @@ export default function ToolPage({ params }: Props) {
   const toolContent = getDummyToolContent(tool.title);
 
   return (
-    <article className={styles.article}>
-      <Link href="/tools" className={styles.backLink}>&larr; Back to Tools</Link>
-      <h1 className={styles.articleTitle}>{tool.title}</h1>
-      <div 
-        className={styles.articleContent}
-        dangerouslySetInnerHTML={{ __html: toolContent }} 
-      />
-      <div className={styles.toolPlaceholder}>
-        <p>Tool implementation for &quot;{tool.title}&quot; goes here.</p>
-      </div>
-    </article>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <article className="prose dark:prose-invert mx-auto max-w-4xl">
+            <Link href="/tools" className="mb-8 inline-block text-primary no-underline hover:underline">&larr; Back to Tools</Link>
+            <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">{tool.title}</h1>
+            <div 
+                dangerouslySetInnerHTML={{ __html: toolContent }} 
+            />
+            <div className="mt-8 p-8 border-2 border-dashed border-border rounded-xl text-center text-muted-foreground">
+                <p>Tool implementation for &quot;{tool.title}&quot; goes here.</p>
+            </div>
+        </article>
+    </div>
   );
 }
 

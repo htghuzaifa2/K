@@ -8,7 +8,6 @@ import { performSearch } from '@/lib/search-utils';
 import ToolSearch from '../components/ToolSearch';
 import ToolCard from '../components/ToolCard';
 import ToolPagination from '../components/ToolPagination';
-import styles from '../styles/tools.module.css';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -35,32 +34,33 @@ export default function ToolsPage() {
   }, [page]);
 
   return (
-    <>
-      <header className={styles.hero}>
-        <h1>The Modern Toolkit</h1>
-        <p>A curated suite of utilities designed to accelerate your creative workflow.</p>
-        <div className={styles.searchContainer}>
-          <ToolSearch onSearch={setQuery} />
-        </div>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="text-center py-16 border-b">
+        <h1 className="text-5xl font-extrabold text-primary tracking-tight">The Modern Toolkit</h1>
+        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">A curated suite of utilities designed to accelerate your creative workflow.</p>
       </header>
-
-      {currentTools.length > 0 ? (
-        <>
-          <div className={styles.grid}>
-            {currentTools.map((tool) => (
-              <ToolCard key={tool.slug} tool={tool} />
-            ))}
+      <main className="py-8 space-y-8">
+        <ToolSearch onSearch={setQuery} />
+        {currentTools.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {currentTools.map((tool) => (
+                <ToolCard key={tool.slug} tool={tool} />
+              ))}
+            </div>
+            {totalPages > 1 && (
+              <div className="mt-12">
+                <ToolPagination currentPage={page} totalPages={totalPages} />
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="text-center py-16">
+            <h2 className="text-xl font-semibold">No tools found</h2>
+            <p className="text-muted-foreground mt-2">Try adjusting your search query.</p>
           </div>
-          {totalPages > 1 && (
-            <ToolPagination currentPage={page} totalPages={totalPages} />
-          )}
-        </>
-      ) : (
-         <div className={styles.noResults}>
-          <h2>No tools found</h2>
-          <p>Try adjusting your search query.</p>
-        </div>
-      )}
-    </>
+        )}
+      </main>
+    </div>
   );
 }
