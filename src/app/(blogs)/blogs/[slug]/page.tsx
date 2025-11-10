@@ -1,6 +1,6 @@
 
 import { getBlogPostBySlug } from '@/lib/blog-data';
-import { getBlogPosts }s from '@/lib/blog-data';
+import { getBlogPosts } from '@/lib/blog-data';
 import { notFound } from 'next/navigation';
 import { APP_NAME } from '@/lib/constants';
 import Link from 'next/link';
