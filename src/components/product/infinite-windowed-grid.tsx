@@ -14,14 +14,13 @@ const MAX_PRODUCTS_IN_DOM = 55;
 type InfiniteWindowedGridProps = {
   initialProducts: AppProduct[];
   allProducts: AppProduct[];
-  onStateChange: (state: { products: AppProduct[], startIndexInAll: number, page: number, hasMore: boolean, isLoading: boolean }) => void;
 };
 
 type GridHandle = {
   loadPrevious: () => Promise<void>;
 };
 
-export const InfiniteWindowedGrid = forwardRef<GridHandle, InfiniteWindowedGridProps>(({ initialProducts, allProducts, onStateChange }, ref) => {
+export const InfiniteWindowedGrid = forwardRef<GridHandle, InfiniteWindowedGridProps>(({ initialProducts, allProducts }, ref) => {
   const [products, setProducts] = useState(initialProducts);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,10 +30,6 @@ export const InfiniteWindowedGrid = forwardRef<GridHandle, InfiniteWindowedGridP
   const gridRef = useRef<HTMLDivElement>(null);
 
   const { ref: bottomRef, inView: bottomInView } = useInView({ threshold: 0 });
-
-  useEffect(() => {
-    onStateChange({ products, startIndexInAll, page, hasMore, isLoading });
-  }, [products, startIndexInAll, page, hasMore, isLoading, onStateChange]);
 
   const loadMoreProducts = useCallback(async () => {
     if (isLoading || !hasMore) return;

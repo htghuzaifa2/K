@@ -60,7 +60,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <InfiniteWindowedGrid 
           initialProducts={initialData.products}
           allProducts={allProductsForCategory}
-          onStateChange={() => {}} 
         />
       </Suspense>
     </div>
