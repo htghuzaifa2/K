@@ -86,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${roboto.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${roboto.variable} scroll-smooth`}>
       <head>
         <meta name="theme-color" content="#F26322" />
         <link rel="manifest" href="/manifest.json" />
