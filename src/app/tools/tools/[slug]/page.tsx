@@ -1,6 +1,6 @@
 
 
-import { getToolBySlug, getTools, getDummyToolContent } from '@/lib/tool-data';
+import { getToolBySlug, getTools } from '@/lib/tool-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
@@ -41,43 +41,63 @@ export default function ToolPage({ params }: Props) {
     notFound();
   }
 
-  // Prevent implemented tools from showing placeholder
-  const implementedSlugs = ['lorem-ipsum-generator', 'text-difference-checker'];
-  if (!implementedSlugs.includes(tool.slug)) {
-    const toolContent = getDummyToolContent(tool.title);
-    return (
-        <>
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <article className="prose dark:prose-invert mx-auto max-w-4xl">
-                    <Link href="/tools" className="mb-8 inline-block text-primary no-underline hover:underline">&larr; Back to Tools</Link>
-                    <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">{tool.title}</h1>
-                    <div 
-                        dangerouslySetInnerHTML={{ __html: toolContent }} 
-                    />
-                    <div className="mt-8 p-8 border-2 border-dashed border-border rounded-xl text-center text-muted-foreground">
-                        <p>Tool implementation for &quot;{tool.title}&quot; goes here.</p>
-                    </div>
-                </article>
-            </div>
-            <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-                <Separator className="my-12" />
-                <Suspense fallback={<ProductGridSkeleton />}>
-                  <RelatedProducts currentProductId={''} />
-                </Suspense>
-            </div>
-        </>
-      );
+  const implementedSlugs = [
+      'lorem-ipsum-generator',
+      'text-difference-checker',
+      'hashtag-generator',
+      'random-string-generator',
+      'text-statistics-tool',
+      'number-to-words-converter',
+      'regex-tester',
+      'text-scrambler',
+      'base-converter',
+      'json-prettify-compress-toggle',
+  ];
+  if (implementedSlugs.includes(tool.slug)) {
+      // This is a failsafe. We should not hit this for implemented tools
+      // as they should have their own page.tsx.
+      // Redirecting or showing a specific component would be better,
+      // but for now we just prevent the placeholder from showing.
+      notFound();
   }
 
-  // This return is specifically for non-implemented tools to avoid trying to render them.
-  // The actual implemented tool pages will have their own page.tsx
-  // This is a failsafe.
-  notFound();
+  // This will now only render for tools that are NOT in the implemented list.
+  return (
+      <>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+              <article className="prose dark:prose-invert mx-auto max-w-4xl">
+                  <Link href="/tools" className="mb-8 inline-block text-primary no-underline hover:underline">&larr; Back to Tools</Link>
+                  <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">{tool.title}</h1>
+                  <p>This tool is under construction and will be available soon!</p>
+              </article>
+          </div>
+          <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+              <Separator className="my-12" />
+              <Suspense fallback={<ProductGridSkeleton />}>
+                <RelatedProducts currentProductId={''} />
+              </Suspense>
+          </div>
+      </>
+    );
 }
 
 export async function generateStaticParams() {
   const tools = getTools();
-  return tools.map((tool) => ({
+  // We only generate static params for tools that DON'T have a dedicated page.tsx
+  const unimplementedTools = tools.filter(tool => ![
+      'lorem-ipsum-generator',
+      'text-difference-checker',
+      'hashtag-generator',
+      'random-string-generator',
+      'text-statistics-tool',
+      'number-to-words-converter',
+      'regex-tester',
+      'text-scrambler',
+      'base-converter',
+      'json-prettify-compress-toggle',
+  ].includes(tool.slug));
+  
+  return unimplementedTools.map((tool) => ({
     slug: tool.slug,
   }));
 }

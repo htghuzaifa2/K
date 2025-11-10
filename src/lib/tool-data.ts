@@ -16,6 +16,46 @@ const tools: Tool[] = [
     slug: 'text-difference-checker',
     title: 'Text Difference Checker',
   },
+  {
+    id: 'hashtag-generator',
+    slug: 'hashtag-generator',
+    title: 'Hashtag Generator',
+  },
+  {
+    id: 'random-string-generator',
+    slug: 'random-string-generator',
+    title: 'Random String Generator',
+  },
+  {
+    id: 'text-statistics-tool',
+    slug: 'text-statistics-tool',
+    title: 'Text Statistics Tool',
+  },
+  {
+    id: 'number-to-words-converter',
+    slug: 'number-to-words-converter',
+    title: 'Number to Words Converter',
+  },
+  {
+    id: 'regex-tester',
+    slug: 'regex-tester',
+    title: 'Regex Tester',
+  },
+  {
+    id: 'text-scrambler',
+    slug: 'text-scrambler',
+    title: 'Text Scrambler',
+  },
+  {
+    id: 'base-converter',
+    slug: 'base-converter',
+    title: 'Base Converter',
+  },
+  {
+    id: 'json-prettify-compress-toggle',
+    slug: 'json-prettify-compress-toggle',
+    title: 'JSON Prettify & Compress Toggle',
+  },
 ];
 
 // Sort tools by reversing the array, so latest added is first.
