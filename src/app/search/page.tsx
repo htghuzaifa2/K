@@ -50,12 +50,12 @@ function SearchResults() {
   return <ProductGrid products={products} />;
 }
 
-export default function SearchPage() {
+function SearchHeading() {
     const searchParams = useSearchParams();
     const query = searchParams.get('q');
 
     return (
-        <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <>
             <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
                 Search Results
             </h1>
@@ -68,7 +68,15 @@ export default function SearchPage() {
                     Enter a term in the search bar to begin.
                 </p>
             )}
+        </>
+    )
+}
+
+export default function SearchPage() {
+    return (
+        <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
             <Suspense fallback={<ProductGridSkeleton />}>
+                <SearchHeading />
                 <SearchResults />
             </Suspense>
         </div>
