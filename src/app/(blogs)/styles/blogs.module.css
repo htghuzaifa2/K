@@ -1,6 +1,6 @@
 
 .container {
-  max-width: 1200px;
+  max-width: 80rem; /* Changed from 1200px to 80rem (1280px) */
   margin: 0 auto;
   padding: 2rem;
   font-family: sans-serif;
