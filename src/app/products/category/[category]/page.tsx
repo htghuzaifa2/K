@@ -2,11 +2,12 @@
 import { getAllCategories, getProductsByCategory } from '@/lib/products';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
+import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import { ScrollRestorer } from '@/components/scroll-restorer';
+import { fetchProducts } from '@/app/actions';
 
 
 type CategoryPageProps = {
@@ -43,7 +44,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
   
-  const initialProducts = await getProductsByCategory(decodedCategory);
+  const allProductsForCategory = await getProductsByCategory(decodedCategory);
+  const initialData = await fetchProducts({ allProducts: allProductsForCategory, page: 1, limit: 25 });
+
 
   const title = formatCategoryTitle(decodedCategory);
 
@@ -53,8 +56,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
         {title}
       </h1>
-      <Suspense fallback={<ProductGridSkeleton />}>
-          <InfiniteProductGrid initialProducts={{ products: initialProducts.slice(0, 25), hasMore: initialProducts.length > 25, total: initialProducts.length}} category={decodedCategory} />
+       <Suspense fallback={<ProductGridSkeleton />}>
+        <InfiniteWindowedGrid 
+          initialProducts={initialData.products}
+          allProducts={allProductsForCategory}
+          onStateChange={() => {}} 
+        />
       </Suspense>
     </div>
   );
