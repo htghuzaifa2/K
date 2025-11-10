@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import type { ProductImage } from '@/lib/products';
 import { BLUR_DATA_URL } from '@/lib/constants';
@@ -88,15 +88,17 @@ export function FullScreenImageViewer({ images, startIndex, open, onOpenChange }
             </div>
         </div>
         
-        <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => onOpenChange(false)}
-            className="absolute top-2 right-2 md:top-4 md:right-4 h-12 w-12 rounded-full bg-black/30 hover:bg-black/50 text-white"
-            aria-label="Close viewer"
-        >
-            <X className="h-8 w-8" />
-        </Button>
+        <DialogClose asChild>
+            <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-2 right-2 md:top-4 md:right-4 h-12 w-12 rounded-full bg-black/30 hover:bg-black/50 text-white"
+                aria-label="Close viewer"
+            >
+                <X className="h-8 w-8" />
+            </Button>
+        </DialogClose>
+
 
         {images.length > 1 && (
           <>
