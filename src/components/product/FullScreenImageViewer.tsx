@@ -1,11 +1,12 @@
+
 'use client';
 
 import Image from 'next/image';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import type { ProductImage } from '@/lib/products';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { BLUR_DATA_URL } from '@/lib/constants';
-import { Card, CardContent } from '../ui/card';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 type FullScreenImageViewerProps = {
   images: ProductImage[];
@@ -20,6 +21,9 @@ export function FullScreenImageViewer({ images, startIndex, open, onOpenChange }
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="p-0 border-0 bg-transparent w-screen h-screen max-w-none flex items-center justify-center">
+        <VisuallyHidden>
+            <DialogTitle>Full-screen Product Image Viewer</DialogTitle>
+        </VisuallyHidden>
         <Carousel
           opts={{
             startIndex: startIndex,
