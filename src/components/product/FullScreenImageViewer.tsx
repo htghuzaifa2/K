@@ -32,8 +32,8 @@ export function FullScreenImageViewer({ images, startIndex, open, onOpenChange }
         >
           <CarouselContent className="h-full">
             {images.map((img, index) => (
-              <CarouselItem key={index} className="h-full">
-                <div className="relative w-full h-full flex items-center justify-center p-4">
+              <CarouselItem key={index} className="h-full flex items-center justify-center">
+                <div className="relative w-full h-full max-h-screen p-4">
                   <Image
                     src={img.url}
                     alt={img.altText}
