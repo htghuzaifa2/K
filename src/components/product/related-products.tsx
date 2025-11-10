@@ -60,7 +60,7 @@ export function RelatedProducts({ currentProductId }: RelatedProductsProps) {
     <>
       <div>
         <h2 className="mb-6 text-center text-3xl font-bold tracking-tight font-headline">You May Also Like</h2>
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
           {relatedProductsList.map((product) => (
             <ProductCard key={product.id} product={product} onQuickView={handleQuickView} />
           ))}
