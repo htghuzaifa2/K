@@ -5,7 +5,6 @@ import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { performSearch } from '@/lib/search-utils';
 import { useDebounce } from 'use-debounce';
-import styles from '../styles/blogs.module.css';
 import type { BlogPost } from '@/lib/blog-data';
 import BlogCard from './BlogCard';
 import BlogPagination from './BlogPagination';
@@ -40,31 +39,33 @@ export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) 
   }, [page]);
   
   return (
-    <div className={styles.searchContainer}>
+    <div className="space-y-8">
       <input
-        className={styles.searchInput}
+        className="mx-auto block w-full max-w-lg rounded-lg border border-input bg-background px-4 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for posts by title..."
       />
 
-      <div className='mt-8'>
+      <div>
         {currentPosts.length > 0 ? (
             <>
-            <div className={styles.grid}>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {currentPosts.map((post) => (
                 <BlogCard key={post.slug} post={post} />
                 ))}
             </div>
             {totalPages > 1 && (
-                <BlogPagination currentPage={page} totalPages={totalPages} />
+                <div className="mt-12">
+                    <BlogPagination currentPage={page} totalPages={totalPages} />
+                </div>
             )}
             </>
         ) : (
-            <div className={styles.noResults}>
-            <h2>No posts found</h2>
-            <p>Try adjusting your search query.</p>
+            <div className="text-center py-16">
+            <h2 className="text-xl font-semibold">No posts found</h2>
+            <p className="text-muted-foreground mt-2">Try adjusting your search query.</p>
             </div>
         )}
       </div>

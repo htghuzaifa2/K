@@ -1,7 +1,6 @@
 
 import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
-import styles from './styles/blogs.module.css';
 
 export const metadata: Metadata = {
   title: `Blogs - ${APP_NAME}`,
@@ -18,7 +17,7 @@ export default function BlogsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={styles.container}>
+    <div>
         {children}
     </div>
   );
