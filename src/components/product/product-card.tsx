@@ -26,7 +26,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
       <CardContent className="flex flex-1 flex-col p-0">
         <div className="group relative">
           <Link href={`/products/${product.slug}`}>
-            <div className="relative aspect-square w-full overflow-hidden bg-white">
+            <div className="relative aspect-square w-full overflow-hidden bg-white md:aspect-[4/3]">
               <Image
                 src={product.images[0].url}
                 alt={product.images[0].altText}
@@ -52,7 +52,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             <Eye className="h-4 w-4" />
           </Button>
         </div>
-        <div className="flex flex-1 flex-col p-4">
+        <div className="flex flex-1 flex-col justify-between p-4">
           <h3 className="flex-grow text-sm font-semibold leading-tight font-headline md:text-base">
             <Link href={`/products/${product.slug}`} className="transition-colors hover:text-primary">
               {product.name}
