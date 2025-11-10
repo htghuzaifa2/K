@@ -94,24 +94,26 @@ export default function ToolPage({ params }: Props) {
     );
 }
 
-// Cannot use generateStaticParams with edge runtime
-// export async function generateStaticParams() {
-//   const tools = getTools();
-//   // We only generate static params for tools that DON'T have a dedicated page.tsx
-//   const unimplementedTools = tools.filter(tool => ![
-//       'lorem-ipsum-generator',
-//       'text-difference-checker',
-//       'hashtag-generator',
-//       'random-string-generator',
-//       'text-statistics-tool',
-//       'number-to-words-converter',
-//       'regex-tester',
-//       'text-scrambler',
-//       'base-converter',
-//       'json-prettify-compress-toggle',
-//   ].includes(tool.slug));
+// Cannot use generateStaticParams with edge runtime, so this is commented out.
+/*
+export async function generateStaticParams() {
+  const tools = getTools();
+  // We only generate static params for tools that DON'T have a dedicated page.tsx
+  const unimplementedTools = tools.filter(tool => ![
+      'lorem-ipsum-generator',
+      'text-difference-checker',
+      'hashtag-generator',
+      'random-string-generator',
+      'text-statistics-tool',
+      'number-to-words-converter',
+      'regex-tester',
+      'text-scrambler',
+      'base-converter',
+      'json-prettify-compress-toggle',
+  ].includes(tool.slug));
   
-//   return unimplementedTools.map((tool) => ({
-//     slug: tool.slug,
-//   }));
-// }
+  return unimplementedTools.map((tool) => ({
+    slug: tool.slug,
+  }));
+}
+*/
