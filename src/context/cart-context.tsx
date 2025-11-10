@@ -73,7 +73,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         description: `${product.name} is now in your cart.`,
         duration: 3000,
     });
-    setIsCartOpen(true);
   }, [toast]);
 
   const removeFromCart = useCallback((productId: string) => {
