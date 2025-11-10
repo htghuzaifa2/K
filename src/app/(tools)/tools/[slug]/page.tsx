@@ -5,7 +5,9 @@ import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
-import { RelatedTools } from '../../components/RelatedTools';
+import { RelatedProducts } from '@/components/product/related-products';
+import { Suspense } from 'react';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 type Props = {
   params: { slug: string };
@@ -56,7 +58,9 @@ export default function ToolPage({ params }: Props) {
         </div>
         <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
             <Separator className="my-12" />
-            <RelatedTools currentToolSlug={tool.slug} />
+            <Suspense fallback={<ProductGridSkeleton />}>
+              <RelatedProducts currentProductId={''} />
+            </Suspense>
         </div>
     </>
   );
