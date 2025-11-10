@@ -102,14 +102,19 @@ export function LoremIpsumGenerator() {
       
       <div className="mt-6">
         <Accordion type="single" collapsible>
-            <AccordionItem value="guide" className="border rounded-lg bg-card/50 dark:bg-card/20 backdrop-blur-sm border-border/50">
-                <AccordionTrigger className="px-4 py-3 hover:no-underline">
-                    <div className="flex items-center gap-3">
-                        <BookOpen className="h-5 w-5 text-primary" />
-                        <span className="font-semibold">Read The Guide</span>
+            <AccordionItem value="guide" className="border-none">
+                <AccordionTrigger className="p-3 rounded-lg hover:no-underline bg-card/50 dark:bg-card/20 hover:bg-card/70 dark:hover:bg-card/40 transition-colors">
+                    <div className="flex items-center gap-4 text-left">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 flex-shrink-0">
+                            <BookOpen className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                            <p className="font-semibold">Read The Guide</p>
+                            <p className="text-sm text-muted-foreground font-normal">Step-by-step instructions</p>
+                        </div>
                     </div>
                 </AccordionTrigger>
-                <AccordionContent className="px-4 prose dark:prose-invert max-w-none text-sm">
+                <AccordionContent className="mt-2 p-4 rounded-lg bg-card/50 dark:bg-card/20 prose dark:prose-invert max-w-none text-sm">
                     <p>This tool helps you quickly generate placeholder text for your projects.</p>
                     <ol>
                         <li>Enter the desired number of words in the input field.</li>
