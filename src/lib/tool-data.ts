@@ -5,7 +5,13 @@ export interface Tool {
   id: string;
 }
 
-const tools: Tool[] = [];
+const tools: Tool[] = [
+  {
+    id: 'lorem-ipsum-generator',
+    slug: 'lorem-ipsum-generator',
+    title: 'Lorem Ipsum Generator',
+  },
+];
 
 const sortedTools = tools.sort((a, b) => a.title.localeCompare(b.title));
 
