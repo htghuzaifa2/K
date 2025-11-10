@@ -18,14 +18,15 @@ const tools: Tool[] = [
   },
 ];
 
-const sortedTools = tools.sort((a, b) => a.title.localeCompare(b.title));
+// Sort tools by reversing the array, so latest added is first.
+const sortedTools = [...tools].reverse();
 
 export const getTools = (): Tool[] => {
   return sortedTools;
 };
 
 export const getToolBySlug = (slug: string): Tool | undefined => {
-  return sortedTools.find((tool) => tool.slug === slug);
+  return tools.find((tool) => tool.slug === slug);
 };
 
 export const getDummyToolContent = (title: string): string => `
