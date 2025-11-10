@@ -12,7 +12,7 @@ type RelatedProductsProps = {
   currentProductId: string;
 };
 
-const RECOMMENDATION_COUNT = 10;
+const RECOMMENDATION_COUNT = 4;
 
 export function RelatedProducts({ currentProductId }: RelatedProductsProps) {
   const [relatedProductsList, setRelatedProductsList] = useState<AppProduct[]>([]);
