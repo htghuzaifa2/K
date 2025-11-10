@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { performSearch } from '@/lib/search-utils';
 import { useDebounce } from 'use-debounce';
@@ -31,12 +31,6 @@ export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) 
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-        window.scrollTo(0, 0);
-    }
-  }, [page]);
   
   return (
     <div className="space-y-8">
@@ -72,3 +66,4 @@ export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) 
     </div>
   );
 }
+

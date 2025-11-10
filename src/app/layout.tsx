@@ -34,6 +34,12 @@ export const metadata: Metadata = {
   },
   description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
   manifest: '/manifest.json',
+  applicationName: APP_NAME,
+  appleWebApp: {
+    capable: true,
+    title: APP_NAME,
+    statusBarStyle: 'default',
+  },
   icons: {
     icon: logoUrl,
     shortcut: logoUrl,
@@ -109,3 +115,4 @@ export default function RootLayout({
     </html>
   );
 }
+

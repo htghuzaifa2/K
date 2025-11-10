@@ -10,7 +10,7 @@ export type AppProduct = {
     name: string;
     description: string;
     price: number;
-    category: string;
+    category: string | string[];
     images: ProductImage[];
     longDescription?: string;
     specifications?: Record<string, string>;
@@ -23,7 +23,7 @@ function transformProduct(product: RawProduct): AppProduct {
         name: product.name,
         description: product.description,
         price: product.price,
-        category: Array.isArray(product.category) ? product.category[0] : product.category,
+        category: product.category,
         images: product.images,
         longDescription: product.longDescription,
         specifications: product.specifications
@@ -43,7 +43,6 @@ async function getTransformedProducts(): Promise<AppProduct[]> {
 // or on a new deployment in production.
 const getCachedProducts = cache(
   async () => {
-    console.log('Reading and transforming products.json for caching.');
     return getTransformedProducts();
   },
   ['products_data']
@@ -52,11 +51,7 @@ const getCachedProducts = cache(
 // This is the primary function to get products. 
 // It uses the cached version for server components and build processes.
 export async function getProducts(): Promise<AppProduct[]> {
-  // In a client context (like a useEffect calling a server action), there's no cache.
-  // In a server context (RSC, getStaticProps), `getTransformedProducts` will be de-duped by Next.js fetch.
-  // For simplicity and to fix the build, we call the uncached version directly.
-  // The performance benefit on the server is maintained by Next.js's native fetch caching.
-  return getTransformedProducts();
+  return getCachedProducts();
 }
 
 export async function getProductBySlug(slug: string): Promise<AppProduct | null> {
