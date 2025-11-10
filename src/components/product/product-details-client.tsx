@@ -113,8 +113,8 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
   return (
     <>
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
-          <div className="md:sticky md:top-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          <div className="lg:sticky lg:top-24">
             <Button
               variant="outline"
               size="icon"
