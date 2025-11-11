@@ -43,6 +43,7 @@ import bestPcMonitorsForCoding from './blog-content/best-pc-monitors-for-coding-
 import budgetPhones2025 from './blog-content/budget-phones-pakistan-2025';
 import mechanicalKeyboardSwitchesExplained from './blog-content/mechanical-keyboard-switches-explained-pakistan';
 import macbookVsWindowsLaptops from './blog-content/macbook-air-vs-windows-laptops-pakistan-2026';
+import bestPowerBanks from './blog-content/best-power-banks-pakistan-2025';
 
 
 export interface BlogPost {
@@ -57,6 +58,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'best-power-banks-pakistan-2025': {
+    content: bestPowerBanks,
+    description: 'A guide to choosing the best power bank in Pakistan for load-shedding, focusing on capacity, pass-through charging, build quality, and local market realities.'
+  },
   'macbook-air-vs-windows-laptops-pakistan-2026': {
     content: macbookVsWindowsLaptops,
     description: 'A detailed comparison of MacBook Air and Windows laptops for developers and designers in Pakistan, considering durability, resale value, repairability, and local pricing for 2026.'
@@ -233,6 +238,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'best-power-banks-pakistan-2025',
+    slug: 'best-power-banks-to-survive-pakistani-load-shedding-2025',
+    title: 'Best Power Banks to Survive Pakistani Load-Shedding (2025)',
+  },
   {
     id: 'macbook-air-vs-windows-laptops-pakistan-2026',
     slug: 'macbook-air-vs-windows-laptops-pakistan-2026',
@@ -483,6 +493,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
