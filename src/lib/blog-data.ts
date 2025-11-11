@@ -40,6 +40,7 @@ import schoolVsBoardExams from './blog-content/school-vs-board-annual-exams-paki
 import boardExamResultAnxiety from './blog-content/board-exam-result-anxiety-pakistan';
 import perfectWirelessKeyboard from './blog-content/perfect-wireless-keyboard-for-pakistan';
 import bestPcMonitorsForCoding from './blog-content/best-pc-monitors-for-coding-pakistan';
+import budgetPhones2025 from './blog-content/budget-phones-pakistan-2025';
 
 
 export interface BlogPost {
@@ -213,6 +214,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'best-pc-monitors-for-coding-pakistan': {
     content: bestPcMonitorsForCoding,
     description: 'A guide for Pakistani developers on choosing the best PC monitor for coding, focusing on eye-strain reduction, panel types (IPS vs VA), and local market prices.'
+  },
+   'budget-phones-pakistan-2025': {
+    content: budgetPhones2025,
+    description: 'A guide for Pakistani users on choosing a smooth, lag-free smartphone in the PKR 40k-60k budget range for 2025, focusing on performance, display, and software.'
   },
 };
 
@@ -418,6 +423,11 @@ const blogPosts: BlogPost[] = [
     slug: 'best-pc-monitors-for-coding-in-pakistan',
     title: 'Best PC Monitors for Coding in Pakistan (No Eye-Strain Edition)',
   },
+  {
+    id: 'budget-phones-pakistan-2025',
+    slug: 'budget-phones-pakistan-that-dont-lag-2025',
+    title: '40k-60k Budget Phones in Pakistan That Actually Don’t Lag (2025 Edition)',
+  },
 ];
 
 const reversedBlogPosts = [...blogPosts].reverse();
@@ -453,6 +463,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
