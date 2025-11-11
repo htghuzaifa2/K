@@ -25,6 +25,7 @@ import emergingAccessoriesContent from './blog-content/emerging-tech-accessories
 import silentKeysTypingAdventure from './blog-content/silent-keys-typing-adventure-pakistan';
 import snapdragonVsMediatek from './blog-content/snapdragon-vs-mediatek-pakistan-2026';
 import bestCameraPhonesNightPhotography from './blog-content/best-camera-phones-night-photography-pakistan-2025';
+import gamingVsNormalPhones from './blog-content/gaming-vs-normal-phones-pakistan';
 
 
 export interface BlogPost {
@@ -142,6 +143,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'best-camera-phones-night-photography-pakistan-2025': {
     content: bestCameraPhonesNightPhotography,
     description: "A detailed review of the best camera phones for night photography available in Pakistan in 2025, from flagship killers to budget champions."
+  },
+  'gaming-vs-normal-phones-pakistan': {
+    content: gamingVsNormalPhones,
+    description: "A head-to-head comparison of gaming phones and normal flagship phones in Pakistan, focusing on thermals, performance, and battery life for local users."
   },
 };
 
@@ -276,6 +281,11 @@ const blogPosts: BlogPost[] = [
     id: 'best-camera-phones-night-photography-pakistan-2025',
     slug: 'best-camera-phones-for-night-photography-in-pakistan-2025-review',
     title: 'Best Camera Phones for Night Photography in Pakistan (2025 Review)',
+  },
+  {
+    id: 'gaming-vs-normal-phones-pakistan',
+    slug: 'gaming-phones-vs-normal-phones-in-pakistan',
+    title: 'Gaming Phones vs Normal Phones in Pakistan',
   },
 ];
 
