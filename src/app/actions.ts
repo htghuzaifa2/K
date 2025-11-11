@@ -4,6 +4,7 @@
 import type { AppProduct } from '@/lib/products';
 import { getProducts, getProductsByCategory } from '@/lib/products';
 import productsSummaryData from '@/lib/products-summary.json';
+import { performSearch } from '@/lib/search-utils';
 
 type ProductSummary = {
   id: string;
@@ -98,56 +99,13 @@ export async function fetchProductsSummary(currentProductId?: string, limit: num
 
 
 export async function searchProducts(query: string): Promise<AppProduct[]> {
-    const allProducts = await getProducts();
     if (!query) {
         return [];
     }
-
-    const lowerCaseQuery = query.toLowerCase();
-
-    // Rule 1: ID Search (string contains)
-    const idResults = allProducts.filter(p => p.id.toString().includes(lowerCaseQuery));
+    const allProducts = await getProducts();
+    // In `search-utils.ts` the `title` property is used for searching.
+    // We map product `name` to `title` to make it compatible.
+    const searchableProducts = allProducts.map(p => ({ ...p, title: p.name }));
     
-    // Rule 2: Title Search
-    let titleResults: AppProduct[] = [];
-
-    // Tier A: Exact word match
-    const queryWords = lowerCaseQuery.split(' ').filter(w => w);
-    const exactWordMatches = allProducts.filter(p => {
-      const titleWords = p.name.toLowerCase().split(' ');
-      return queryWords.every(qw => titleWords.includes(qw));
-    });
-    titleResults.push(...exactWordMatches);
-
-
-    // Tier B: Starts-with
-    if (titleResults.length < 10) {
-      const startsWithMatches = allProducts.filter(p => p.name.toLowerCase().startsWith(lowerCaseQuery));
-      startsWithMatches.forEach(swm => {
-        if(!titleResults.some(r => r.id === swm.id)) {
-          titleResults.push(swm);
-        }
-      });
-    }
-
-    // Tier C: Includes
-    if (titleResults.length < 10) {
-        const includesResults = allProducts.filter(p => p.name.toLowerCase().includes(lowerCaseQuery));
-        includesResults.forEach(ir => {
-            if (!titleResults.some(r => r.id === ir.id)) {
-                titleResults.push(ir);
-            }
-        });
-    }
-
-    // Combine results, giving priority to ID matches, then title matches
-    const combinedResults = [...idResults];
-    titleResults.forEach(tr => {
-        if (!combinedResults.some(r => r.id === tr.id)) {
-            combinedResults.push(tr);
-        }
-    });
-
-    return combinedResults.slice(0, 50); // Return a max of 50 results
+    return performSearch(query, searchableProducts).slice(0, 50); // Return a max of 50 results
 }
-

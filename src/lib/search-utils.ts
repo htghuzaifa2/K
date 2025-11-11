@@ -17,7 +17,7 @@ const levenshtein = (s1: string, s2: string): number => {
       if (s2[j] !== s1[i]) {
         distances[i + 1] = Math.min(
           distances[i] + 1,      // Deletion
-          distances[i + 1],      // Insertion
+          distances[i + 1] + 1,      // Insertion. Corrected from distances[i + 1]
           previousDiagonal + 1   // Substitution
         );
       }
@@ -37,7 +37,7 @@ interface SearchableItem {
 
 export const performSearch = <T extends SearchableItem>(query: string, items: T[]): T[] => {
   if (!query.trim()) {
-    return items;
+    return [];
   }
 
   const lowerCaseQuery = query.toLowerCase();
@@ -47,18 +47,23 @@ export const performSearch = <T extends SearchableItem>(query: string, items: T[
     const lowerCaseTitle = item.title.toLowerCase();
     let score = 0;
 
-    // Rule 1: Exact match bonus
+    // Rule 1: ID exact match (highest priority)
+    if (item.id.toString() === lowerCaseQuery) {
+        score += 200;
+    }
+    
+    // Rule 2: Exact title match
     if (lowerCaseTitle === lowerCaseQuery) {
       score += 100;
     }
 
-    // Rule 2: Starts-with bonus
+    // Rule 3: Starts-with bonus
     if (lowerCaseTitle.startsWith(lowerCaseQuery)) {
       score += 50;
     }
 
-    // Rule 3: Word matching bonus
-    const titleWords = lowerCaseTitle.split(' ').filter(w => w);
+    // Rule 4: Word matching bonus
+    const titleWords = lowerCaseTitle.split(' ');
     queryWords.forEach(qw => {
       if (titleWords.includes(qw)) {
         score += 20; // Full word match
@@ -70,23 +75,22 @@ export const performSearch = <T extends SearchableItem>(query: string, items: T[
       });
     });
     
-    // Rule 4: Includes bonus (for partial matches within words)
-    if(lowerCaseTitle.includes(lowerCaseQuery)) {
+    // Rule 5: Includes bonus (for partial matches within words)
+    if (lowerCaseTitle.includes(lowerCaseQuery)) {
         score += 10;
     }
 
-    // Rule 5: Levenshtein distance for fuzzy matching
-    const distance = levenshtein(lowerCaseTitle, lowerCaseQuery);
-    const maxLen = Math.max(lowerCaseTitle.length, lowerCaseQuery.length);
-    // Avoid division by zero
-    if (maxLen > 0) {
-      const similarity = (maxLen - distance) / maxLen;
-      // Only consider similarity if it's reasonably high
-      if (similarity > 0.7) {
-          score += similarity * 30;
-      }
+    // Rule 6: Levenshtein distance for fuzzy matching
+    if (score < 50) { // Only apply fuzzy search if no strong matches were found
+        const distance = levenshtein(lowerCaseTitle, lowerCaseQuery);
+        const maxLen = Math.max(lowerCaseTitle.length, lowerCaseQuery.length);
+        if (maxLen > 0) {
+            const similarity = (maxLen - distance) / maxLen;
+            if (similarity > 0.7) {
+                score += similarity * 30;
+            }
+        }
     }
-
 
     return { item, score };
   });
