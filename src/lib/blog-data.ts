@@ -47,6 +47,7 @@ import bestPowerBanks from './blog-content/best-power-banks-pakistan-2025';
 import budgetOfficeChairDeskSetup from './blog-content/budget-office-chair-desk-setup-pakistan';
 import usbCFastChargersCables from './blog-content/usb-c-fast-chargers-and-cables-pakistan';
 import bestWebcamsForOnlineClasses from './blog-content/best-webcams-for-online-classes-pakistan';
+import bluetoothEarbudsUnder10k from './blog-content/bluetooth-earbuds-under-10k-pakistan';
 
 
 export interface BlogPost {
@@ -61,6 +62,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'bluetooth-earbuds-under-10k-pakistan': {
+    content: bluetoothEarbudsUnder10k,
+    description: 'A guide to finding affordable Bluetooth earbuds in Pakistan under ₨ 10,000 that offer good sound quality, microphone clarity, and a comfortable fit for daily use.'
+  },
   'best-webcams-for-online-classes-pakistan': {
     content: bestWebcamsForOnlineClasses,
     description: 'A guide to choosing the best webcams for online classes and Zoom calls in Pakistan, focusing on clarity in low-light conditions.'
@@ -253,6 +258,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'bluetooth-earbuds-under-10k-pakistan',
+    slug: 'bluetooth-earbuds-under-10k-in-pakistan-that-dont-sound-cheap',
+    title: '🎧 Bluetooth Earbuds Under ₨ 10,000 in Pakistan That Don’t Sound Cheap',
+  },
   {
     id: 'best-webcams-for-online-classes-pakistan',
     slug: 'best-webcams-for-online-classes-in-pakistan',
@@ -523,6 +533,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
