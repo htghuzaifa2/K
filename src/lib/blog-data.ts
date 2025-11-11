@@ -24,6 +24,7 @@ import twoInOneLaptopsContent from './blog-content/top-2-in-1-laptops-pakistan-2
 import emergingAccessoriesContent from './blog-content/emerging-tech-accessories-pakistan-2026';
 import silentKeysTypingAdventure from './blog-content/silent-keys-typing-adventure-pakistan';
 import snapdragonVsMediatek from './blog-content/snapdragon-vs-mediatek-pakistan-2026';
+import bestCameraPhonesNightPhotography from './blog-content/best-camera-phones-night-photography-pakistan-2025';
 
 
 export interface BlogPost {
@@ -137,6 +138,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'snapdragon-vs-mediatek-pakistan-2026': {
     content: snapdragonVsMediatek,
     description: "A humorous and practical comparison of Snapdragon and MediaTek chipsets for Pakistani users, covering battery life, gaming, and resale value."
+  },
+  'best-camera-phones-night-photography-pakistan-2025': {
+    content: bestCameraPhonesNightPhotography,
+    description: "A detailed review of the best camera phones for night photography available in Pakistan in 2025, from flagship killers to budget champions."
   },
 };
 
@@ -266,6 +271,11 @@ const blogPosts: BlogPost[] = [
     id: 'snapdragon-vs-mediatek-pakistan-2026',
     slug: 'snapdragon-vs-mediatek-in-pakistan-2026',
     title: 'Snapdragon vs MediaTek in Pakistan (2026): Which One Survives the Desi Test?',
+  },
+  {
+    id: 'best-camera-phones-night-photography-pakistan-2025',
+    slug: 'best-camera-phones-for-night-photography-in-pakistan-2025-review',
+    title: 'Best Camera Phones for Night Photography in Pakistan (2025 Review)',
   },
 ];
 
