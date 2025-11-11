@@ -31,6 +31,7 @@ import topUltralightLaptops from './blog-content/top-ultralight-laptops-pakistan
 import externalSsdVsInternalNvme from './blog-content/external-ssd-vs-internal-nvme-pakistan';
 import howToBuildAQuietPc from './blog-content/how-to-build-a-quiet-pc-pakistan';
 import howToChooseLaptopForVideoEditing from './blog-content/how-to-choose-a-laptop-for-video-editing-pakistan';
+import bestTechAccessoriesForCarOwners from './blog-content/best-tech-accessories-for-car-owners-pakistan';
 
 
 export interface BlogPost {
@@ -168,6 +169,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'how-to-choose-a-laptop-for-video-editing-pakistan': {
     content: howToChooseLaptopForVideoEditing,
     description: "A guide for choosing a video editing laptop in Pakistan, comparing Premiere Pro vs CapCut performance, and balancing budget with features."
+  },
+  'best-tech-accessories-for-car-owners-pakistan': {
+    content: bestTechAccessoriesForCarOwners,
+    description: "A practical guide to the best tech accessories for car owners in Pakistan, from phone holders and chargers to dash-cams that can handle local road conditions."
   }
 };
 
@@ -327,6 +332,11 @@ const blogPosts: BlogPost[] = [
     id: 'how-to-choose-a-laptop-for-video-editing-pakistan',
     slug: 'how-to-choose-a-laptop-for-video-editing-in-pakistan',
     title: 'How to Choose a Laptop for Video Editing in Pakistan',
+  },
+  {
+    id: 'best-tech-accessories-for-car-owners-pakistan',
+    slug: 'best-tech-accessories-for-car-owners-in-pakistan',
+    title: 'Best Tech Accessories for Car Owners in Pakistan',
   },
 ];
 
