@@ -46,6 +46,7 @@ import macbookVsWindowsLaptops from './blog-content/macbook-air-vs-windows-lapto
 import bestPowerBanks from './blog-content/best-power-banks-pakistan-2025';
 import budgetOfficeChairDeskSetup from './blog-content/budget-office-chair-desk-setup-pakistan';
 import usbCFastChargersCables from './blog-content/usb-c-fast-chargers-and-cables-pakistan';
+import bestWebcamsForOnlineClasses from './blog-content/best-webcams-for-online-classes-pakistan';
 
 
 export interface BlogPost {
@@ -60,6 +61,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'best-webcams-for-online-classes-pakistan': {
+    content: bestWebcamsForOnlineClasses,
+    description: 'A guide to choosing the best webcams for online classes and Zoom calls in Pakistan, focusing on clarity in low-light conditions.'
+  },
   'usb-c-fast-chargers-and-cables-pakistan': {
     content: usbCFastChargersCables,
     description: 'A guide to choosing safe and reliable USB-C fast chargers and cables in Pakistan, focusing on GaN tech, wattage, and local market realities for 2025-26.'
@@ -248,6 +253,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'best-webcams-for-online-classes-pakistan',
+    slug: 'best-webcams-for-online-classes-in-pakistan',
+    title: 'Best Webcams for Online Classes & Zoom Calls in Pakistan (Clear in Low Light)',
+  },
   {
     id: 'usb-c-fast-chargers-and-cables-pakistan',
     slug: 'top-usb-c-fast-chargers-and-cables-in-pakistan',
@@ -513,6 +523,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
