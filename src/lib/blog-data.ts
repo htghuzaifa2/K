@@ -33,6 +33,7 @@ import howToBuildAQuietPc from './blog-content/how-to-build-a-quiet-pc-pakistan'
 import howToChooseLaptopForVideoEditing from './blog-content/how-to-choose-a-laptop-for-video-editing-pakistan';
 import bestTechAccessoriesForCarOwners from './blog-content/best-tech-accessories-for-car-owners-pakistan';
 import streamSelectionIntermediate from './blog-content/stream-selection-intermediate-2026';
+import howToReadResultSheet from './blog-content/how-to-read-your-board-result-sheet';
 
 
 export interface BlogPost {
@@ -178,6 +179,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'stream-selection-intermediate-2026': {
     content: streamSelectionIntermediate,
     description: "A detailed guide for Pakistani students to choose their stream (Science, Arts, Commerce) after Class 10, considering career paths, costs, and local board differences."
+  },
+  'how-to-read-your-board-result-sheet': {
+    content: howToReadResultSheet,
+    description: "A simple guide for Pakistani students on how to read and understand their board result sheet, explaining what each column means and what to do next."
   }
 };
 
@@ -347,6 +352,11 @@ const blogPosts: BlogPost[] = [
     id: 'stream-selection-intermediate-2026',
     slug: 'stream-selection-in-intermediate-2026',
     title: 'Stream Selection in Intermediate (2026): A Guide for Pakistani Students',
+  },
+  {
+    id: 'how-to-read-your-board-result-sheet',
+    slug: 'how-to-read-your-board-result-sheet-like-a-pro',
+    title: 'How to Read Your Board Result Sheet Like a Pro',
   }
 ];
 
