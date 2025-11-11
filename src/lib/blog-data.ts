@@ -32,6 +32,7 @@ import externalSsdVsInternalNvme from './blog-content/external-ssd-vs-internal-n
 import howToBuildAQuietPc from './blog-content/how-to-build-a-quiet-pc-pakistan';
 import howToChooseLaptopForVideoEditing from './blog-content/how-to-choose-a-laptop-for-video-editing-pakistan';
 import bestTechAccessoriesForCarOwners from './blog-content/best-tech-accessories-for-car-owners-pakistan';
+import streamSelectionIntermediate from './blog-content/stream-selection-intermediate-2026';
 
 
 export interface BlogPost {
@@ -173,6 +174,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'best-tech-accessories-for-car-owners-pakistan': {
     content: bestTechAccessoriesForCarOwners,
     description: "A practical guide to the best tech accessories for car owners in Pakistan, from phone holders and chargers to dash-cams that can handle local road conditions."
+  },
+  'stream-selection-intermediate-2026': {
+    content: streamSelectionIntermediate,
+    description: "A detailed guide for Pakistani students to choose their stream (Science, Arts, Commerce) after Class 10, considering career paths, costs, and local board differences."
   }
 };
 
@@ -338,6 +343,11 @@ const blogPosts: BlogPost[] = [
     slug: 'best-tech-accessories-for-car-owners-in-pakistan',
     title: 'Best Tech Accessories for Car Owners in Pakistan',
   },
+  {
+    id: 'stream-selection-intermediate-2026',
+    slug: 'stream-selection-in-intermediate-2026',
+    title: 'Stream Selection in Intermediate (2026): A Guide for Pakistani Students',
+  }
 ];
 
 const reversedBlogPosts = [...blogPosts].reverse();
