@@ -41,6 +41,7 @@ import boardExamResultAnxiety from './blog-content/board-exam-result-anxiety-pak
 import perfectWirelessKeyboard from './blog-content/perfect-wireless-keyboard-for-pakistan';
 import bestPcMonitorsForCoding from './blog-content/best-pc-monitors-for-coding-pakistan';
 import budgetPhones2025 from './blog-content/budget-phones-pakistan-2025';
+import mechanicalKeyboardSwitchesExplained from './blog-content/mechanical-keyboard-switches-explained-pakistan';
 
 
 export interface BlogPost {
@@ -55,6 +56,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'mechanical-keyboard-switches-explained-pakistan': {
+    content: mechanicalKeyboardSwitchesExplained,
+    description: 'A guide for Pakistani buyers on understanding the differences between Red, Brown, and Blue mechanical keyboard switches to choose the right one for gaming, typing, or development.'
+  },
   'pta-guide-2025': { 
       content: ptaGuideContent,
       description: 'Confused by PTA approval? Our step-by-step guide explains how to register your imported phone, calculate taxes, and avoid getting blocked.' 
@@ -223,6 +228,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'mechanical-keyboard-switches-explained-pakistan',
+    slug: 'mechanical-keyboard-switches-explained-for-pakistan-buyers',
+    title: 'Mechanical Keyboard Switches Explained for Pakistan’s Buyers Market',
+  },
   {
     id: 'pta-guide-2025',
     slug: 'the-ultimate-guide-to-pta-phone-registration-2025',
@@ -463,6 +473,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
