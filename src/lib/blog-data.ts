@@ -42,6 +42,7 @@ import perfectWirelessKeyboard from './blog-content/perfect-wireless-keyboard-fo
 import bestPcMonitorsForCoding from './blog-content/best-pc-monitors-for-coding-pakistan';
 import budgetPhones2025 from './blog-content/budget-phones-pakistan-2025';
 import mechanicalKeyboardSwitchesExplained from './blog-content/mechanical-keyboard-switches-explained-pakistan';
+import macbookVsWindowsLaptops from './blog-content/macbook-air-vs-windows-laptops-pakistan-2026';
 
 
 export interface BlogPost {
@@ -56,6 +57,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'macbook-air-vs-windows-laptops-pakistan-2026': {
+    content: macbookVsWindowsLaptops,
+    description: 'A detailed comparison of MacBook Air and Windows laptops for developers and designers in Pakistan, considering durability, resale value, repairability, and local pricing for 2026.'
+  },
   'mechanical-keyboard-switches-explained-pakistan': {
     content: mechanicalKeyboardSwitchesExplained,
     description: 'A guide for Pakistani buyers on understanding the differences between Red, Brown, and Blue mechanical keyboard switches to choose the right one for gaming, typing, or development.'
@@ -228,6 +233,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'macbook-air-vs-windows-laptops-pakistan-2026',
+    slug: 'macbook-air-vs-windows-laptops-pakistan-2026',
+    title: 'MacBook Air vs Windows Laptops in Pakistan: Which Makes More Sense in 2026?',
+  },
   {
     id: 'mechanical-keyboard-switches-explained-pakistan',
     slug: 'mechanical-keyboard-switches-explained-for-pakistan-buyers',
@@ -433,7 +443,7 @@ const blogPosts: BlogPost[] = [
     slug: 'best-pc-monitors-for-coding-in-pakistan',
     title: 'Best PC Monitors for Coding in Pakistan (No Eye-Strain Edition)',
   },
-  {
+   {
     id: 'budget-phones-pakistan-2025',
     slug: 'budget-phones-pakistan-that-dont-lag-2025',
     title: '40k-60k Budget Phones in Pakistan That Actually Don’t Lag (2025 Edition)',
@@ -473,6 +483,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
