@@ -37,6 +37,7 @@ import howToReadResultSheet from './blog-content/how-to-read-your-board-result-s
 import boardExamSyllabusChanges from './blog-content/board-exam-syllabus-changes-2026';
 import supplementaryRecheckingExams from './blog-content/supplementary-re-checking-exams-pakistan-2026';
 import schoolVsBoardExams from './blog-content/school-vs-board-annual-exams-pakistan';
+import boardExamResultAnxiety from './blog-content/board-exam-result-anxiety-pakistan';
 
 
 export interface BlogPost {
@@ -198,6 +199,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'school-vs-board-annual-exams-pakistan': {
     content: schoolVsBoardExams,
     description: "A guide for Pakistani students explaining the key differences between school and board annual exams, from paper patterns to marking criteria."
+  },
+  'board-exam-result-anxiety-pakistan': {
+    content: boardExamResultAnxiety,
+    description: "A survival guide for Pakistani students on managing board exam result anxiety, with practical tips for coping with stress and what to do after results are announced."
   }
 };
 
@@ -387,6 +392,11 @@ const blogPosts: BlogPost[] = [
     id: 'school-vs-board-annual-exams-pakistan',
     slug: 'school-vs-board-annual-exams-in-pakistan',
     title: 'School vs Board Annual Exams in Pakistan',
+  },
+  {
+    id: 'board-exam-result-anxiety-pakistan',
+    slug: 'board-exam-result-anxiety-in-pakistan-a-survival-guide',
+    title: 'Board-Exam Result Anxiety in Pakistan: A Survival Guide',
   }
 ];
 
@@ -423,5 +433,6 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
