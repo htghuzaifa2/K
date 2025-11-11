@@ -27,6 +27,7 @@ import snapdragonVsMediatek from './blog-content/snapdragon-vs-mediatek-pakistan
 import bestCameraPhonesNightPhotography from './blog-content/best-camera-phones-night-photography-pakistan-2025';
 import gamingVsNormalPhones from './blog-content/gaming-vs-normal-phones-pakistan';
 import topUltralightLaptops from './blog-content/top-ultralight-laptops-pakistan-2025';
+import externalSsdVsInternalNvme from './blog-content/external-ssd-vs-internal-nvme-pakistan';
 
 
 export interface BlogPost {
@@ -152,6 +153,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'top-ultralight-laptops-pakistan-2025': {
     content: topUltralightLaptops,
     description: "A detailed review of the best ultra-light laptops for university students in Pakistan, focusing on weight, battery life, and performance."
+  },
+  'external-ssd-vs-internal-nvme-pakistan': {
+    content: externalSsdVsInternalNvme,
+    description: "A practical guide comparing external SSDs and internal NVMe upgrades for laptops in Pakistan, focusing on speed, price, and real-world use cases."
   },
 };
 
@@ -296,6 +301,11 @@ const blogPosts: BlogPost[] = [
     id: 'top-ultralight-laptops-pakistan-2025',
     slug: 'top-ultralight-laptops-for-university-students-in-pakistan-2025-review',
     title: 'Top Ultra-Light Laptops for University Students in Pakistan (2025 Review)',
+  },
+  {
+    id: 'external-ssd-vs-internal-nvme-pakistan',
+    slug: 'external-ssd-vs-internal-nvme-upgrade-for-laptops-in-pakistan',
+    title: 'External SSD vs Internal NVMe Upgrade for Laptops in Pakistan',
   },
 ];
 
