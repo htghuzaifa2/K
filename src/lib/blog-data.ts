@@ -26,6 +26,7 @@ import silentKeysTypingAdventure from './blog-content/silent-keys-typing-adventu
 import snapdragonVsMediatek from './blog-content/snapdragon-vs-mediatek-pakistan-2026';
 import bestCameraPhonesNightPhotography from './blog-content/best-camera-phones-night-photography-pakistan-2025';
 import gamingVsNormalPhones from './blog-content/gaming-vs-normal-phones-pakistan';
+import topUltralightLaptops from './blog-content/top-ultralight-laptops-pakistan-2025';
 
 
 export interface BlogPost {
@@ -147,6 +148,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'gaming-vs-normal-phones-pakistan': {
     content: gamingVsNormalPhones,
     description: "A head-to-head comparison of gaming phones and normal flagship phones in Pakistan, focusing on thermals, performance, and battery life for local users."
+  },
+  'top-ultralight-laptops-pakistan-2025': {
+    content: topUltralightLaptops,
+    description: "A detailed review of the best ultra-light laptops for university students in Pakistan, focusing on weight, battery life, and performance."
   },
 };
 
@@ -286,6 +291,11 @@ const blogPosts: BlogPost[] = [
     id: 'gaming-vs-normal-phones-pakistan',
     slug: 'gaming-phones-vs-normal-phones-in-pakistan',
     title: 'Gaming Phones vs Normal Phones in Pakistan',
+  },
+  {
+    id: 'top-ultralight-laptops-pakistan-2025',
+    slug: 'top-ultralight-laptops-for-university-students-in-pakistan-2025-review',
+    title: 'Top Ultra-Light Laptops for University Students in Pakistan (2025 Review)',
   },
 ];
 
