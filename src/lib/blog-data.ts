@@ -34,6 +34,7 @@ import howToChooseLaptopForVideoEditing from './blog-content/how-to-choose-a-lap
 import bestTechAccessoriesForCarOwners from './blog-content/best-tech-accessories-for-car-owners-pakistan';
 import streamSelectionIntermediate from './blog-content/stream-selection-intermediate-2026';
 import howToReadResultSheet from './blog-content/how-to-read-your-board-result-sheet';
+import boardExamSyllabusChanges from './blog-content/board-exam-syllabus-changes-2026';
 
 
 export interface BlogPost {
@@ -183,6 +184,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'how-to-read-your-board-result-sheet': {
     content: howToReadResultSheet,
     description: "A simple guide for Pakistani students on how to read and understand their board result sheet, explaining what each column means and what to do next."
+  },
+  'board-exam-syllabus-changes-2026': {
+    content: boardExamSyllabusChanges,
+    description: "A complete guide to the 2026 syllabus changes for Matric and Intermediate exams in Pakistan, covering what's new, what's gone, and how students can prepare effectively."
   }
 };
 
@@ -357,6 +362,11 @@ const blogPosts: BlogPost[] = [
     id: 'how-to-read-your-board-result-sheet',
     slug: 'how-to-read-your-board-result-sheet-like-a-pro',
     title: 'How to Read Your Board Result Sheet Like a Pro',
+  },
+  {
+    id: 'board-exam-syllabus-changes-2026',
+    slug: 'board-exam-syllabus-changes-2026-for-matric-and-inter-in-pakistan',
+    title: 'Board Exam Syllabus Changes 2026 for Matric & Inter in Pakistan',
   }
 ];
 
