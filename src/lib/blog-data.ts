@@ -52,6 +52,7 @@ import ultrawideVsDualMonitors from './blog-content/ultrawide-vs-dual-monitors-p
 import techBrandsWarrantySupport from './blog-content/tech-brands-warranty-support-pakistan';
 import usedLaptopMarketGuide from './blog-content/used-laptop-market-guide-pakistan';
 import bestWirelessMechanicalKeyboards from './blog-content/best-wireless-mechanical-keyboards-for-pakistani-developers-2026';
+import localLaptopRepairShops from './blog-content/local-laptop-repair-shops-pakistan';
 
 
 export interface BlogPost {
@@ -66,6 +67,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'local-laptop-repair-shops-pakistan': {
+    content: localLaptopRepairShops,
+    description: 'An investigation into whether local laptop repair shops in Pakistan use original parts, with tips for buyers on how to check part quality and avoid scams.'
+  },
   'best-wireless-mechanical-keyboards-for-pakistani-developers-2026': {
     content: bestWirelessMechanicalKeyboards,
     description: 'A review of the best wireless mechanical keyboards for developers in Pakistan, covering latency, battery life, switch types, and local availability for 2026.'
@@ -264,7 +269,7 @@ const contentMap: Record<string, { content: string, description: string }> = {
   },
   'perfect-wireless-keyboard-for-pakistan': {
     content: perfectWirelessKeyboard,
-    description: "Discover the OMOTON KB036, the perfect wireless Bluetooth keyboard for students, developers, and professionals in Pakistan. Silent, stylish, and compatible with all your devices."
+    description: "Discover the OMOTON KB036, the perfect wireless Bluetooth keyboard for work, study, and daily use in Pakistan. Silent, stylish, and compatible with all your devices."
   },
   'best-pc-monitors-for-coding-pakistan': {
     content: bestPcMonitorsForCoding,
@@ -278,6 +283,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'local-laptop-repair-shops-pakistan',
+    slug: 'do-local-laptop-repair-shops-in-pakistan-use-original-parts',
+    title: '🔍 Do Local Laptop Repair Shops in Pakistan Actually Use Original Parts?',
+  },
   {
     id: 'best-wireless-mechanical-keyboards-for-pakistani-developers-2026',
     slug: 'best-wireless-mechanical-keyboards-for-pakistani-developers-2026',
@@ -573,6 +583,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
