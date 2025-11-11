@@ -49,6 +49,7 @@ import usbCFastChargersCables from './blog-content/usb-c-fast-chargers-and-cable
 import bestWebcamsForOnlineClasses from './blog-content/best-webcams-for-online-classes-pakistan';
 import bluetoothEarbudsUnder10k from './blog-content/bluetooth-earbuds-under-10k-pakistan';
 import ultrawideVsDualMonitors from './blog-content/ultrawide-vs-dual-monitors-pakistan';
+import techBrandsWarrantySupport from './blog-content/tech-brands-warranty-support-pakistan';
 
 
 export interface BlogPost {
@@ -63,6 +64,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'tech-brands-warranty-support-pakistan': {
+    content: techBrandsWarrantySupport,
+    description: 'A guide to tech brands in Pakistan that offer reliable warranty support, how to identify authorised distributors, and why it matters for your tech purchases.'
+  },
   'ultrawide-vs-dual-monitors-pakistan': {
     content: ultrawideVsDualMonitors,
     description: 'A practical comparison guide for Pakistani remote workers, web developers and students on choosing between a 49-inch ultrawide monitor and a dual monitor setup.'
@@ -263,6 +268,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'tech-brands-warranty-support-pakistan',
+    slug: 'top-tech-brands-with-real-warranty-support-in-pakistan',
+    title: '🔒 Top Tech Brands with Real Warranty Support in Pakistan (Not Just Claims)',
+  },
   {
     id: 'ultrawide-vs-dual-monitors-pakistan',
     slug: 'ultrawide-vs-dual-monitors-in-pakistan-which-is-better',
@@ -543,6 +553,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
