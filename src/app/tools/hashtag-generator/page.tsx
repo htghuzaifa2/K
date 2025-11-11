@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import { Suspense } from 'react';
-import { RelatedProducts } from '@/components/product/related-products';
+import { ClientOnlyRelatedProducts } from '@/components/product/client-only-related-products';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { Separator } from '@/components/ui/separator';
 import { HashtagGenerator } from '../components/HashtagGenerator';
@@ -46,7 +46,7 @@ export default function ToolPage() {
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Separator className="my-12" />
         <Suspense fallback={<ProductGridSkeleton />}>
-          <RelatedProducts currentProductId={''} />
+          <ClientOnlyRelatedProducts />
         </Suspense>
       </div>
     </>

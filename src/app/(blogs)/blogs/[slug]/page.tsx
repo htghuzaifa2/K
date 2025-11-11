@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 import { CodeBlock } from '@/components/code-block';
 import { Suspense } from 'react';
 import { Separator } from '@/components/ui/separator';
-import { RelatedProducts } from '@/components/product/related-products';
+import { ClientOnlyRelatedProducts } from '@/components/product/client-only-related-products';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 type Props = {
@@ -90,7 +90,7 @@ export default function BlogPostPage({ params }: Props) {
         <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
             <Separator className="my-12" />
             <Suspense fallback={<ProductGridSkeleton />}>
-                <RelatedProducts currentProductId={''} />
+                <ClientOnlyRelatedProducts />
             </Suspense>
         </div>
     </>
