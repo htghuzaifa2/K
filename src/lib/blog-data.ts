@@ -36,6 +36,7 @@ import streamSelectionIntermediate from './blog-content/stream-selection-interme
 import howToReadResultSheet from './blog-content/how-to-read-your-board-result-sheet';
 import boardExamSyllabusChanges from './blog-content/board-exam-syllabus-changes-2026';
 import supplementaryRecheckingExams from './blog-content/supplementary-re-checking-exams-pakistan-2026';
+import schoolVsBoardExams from './blog-content/school-vs-board-annual-exams-pakistan';
 
 
 export interface BlogPost {
@@ -193,6 +194,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'supplementary-re-checking-exams-pakistan-2026': {
     content: supplementaryRecheckingExams,
     description: "A comprehensive guide for Pakistani students on how to apply for supplementary and re-checking exams, including timelines, fees, and procedures."
+  },
+  'school-vs-board-annual-exams-pakistan': {
+    content: schoolVsBoardExams,
+    description: "A guide for Pakistani students explaining the key differences between school and board annual exams, from paper patterns to marking criteria."
   }
 };
 
@@ -377,6 +382,11 @@ const blogPosts: BlogPost[] = [
     id: 'supplementary-re-checking-exams-pakistan-2026',
     slug: 'supplementary-re-checking-exams-in-pakistan-2026',
     title: 'Supplementary / Re-checking Exams in Pakistan (2026)',
+  },
+  {
+    id: 'school-vs-board-annual-exams-pakistan',
+    slug: 'school-vs-board-annual-exams-in-pakistan',
+    title: 'School vs Board Annual Exams in Pakistan',
   }
 ];
 
@@ -393,7 +403,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     return undefined;
   }
 
-  const data = contentMap[post.id];
+  const data = contentMap[post.id as keyof typeof contentMap];
 
   if (!data) {
     return {
@@ -413,4 +423,5 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
