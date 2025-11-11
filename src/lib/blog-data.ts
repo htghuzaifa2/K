@@ -50,6 +50,7 @@ import bestWebcamsForOnlineClasses from './blog-content/best-webcams-for-online-
 import bluetoothEarbudsUnder10k from './blog-content/bluetooth-earbuds-under-10k-pakistan';
 import ultrawideVsDualMonitors from './blog-content/ultrawide-vs-dual-monitors-pakistan';
 import techBrandsWarrantySupport from './blog-content/tech-brands-warranty-support-pakistan';
+import usedLaptopMarketGuide from './blog-content/used-laptop-market-guide-pakistan';
 
 
 export interface BlogPost {
@@ -64,6 +65,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'used-laptop-market-guide-pakistan': {
+    content: usedLaptopMarketGuide,
+    description: 'A practical guide for Pakistani buyers on how to inspect a used laptop\'s condition, from battery health to screen quality, before making a purchase.'
+  },
   'tech-brands-warranty-support-pakistan': {
     content: techBrandsWarrantySupport,
     description: 'A guide to tech brands in Pakistan that offer reliable warranty support, how to identify authorised distributors, and why it matters for your tech purchases.'
@@ -268,6 +273,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'used-laptop-market-guide-pakistan',
+    slug: 'used-laptop-market-guide-how-to-inspect-before-buying-in-pakistan',
+    title: '💻 Used Laptop Market Guide: How to Inspect Laptop Condition Before Buying in Pakistan',
+  },
   {
     id: 'tech-brands-warranty-support-pakistan',
     slug: 'top-tech-brands-with-real-warranty-support-in-pakistan',
@@ -553,6 +563,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
