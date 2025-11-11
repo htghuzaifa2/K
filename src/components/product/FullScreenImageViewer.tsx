@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import type { ProductImage } from '@/lib/products';
 import { BLUR_DATA_URL } from '@/lib/constants';
@@ -45,6 +45,17 @@ export function FullScreenImageViewer({ images, startIndex, open, onOpenChange }
         <VisuallyHidden asChild>
             <DialogTitle>Full-screen Product Image Viewer</DialogTitle>
         </VisuallyHidden>
+        
+        <DialogClose asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-2 right-2 md:top-4 md:right-4 z-50 h-12 w-12 rounded-full bg-black/30 hover:bg-black/50 text-white"
+              aria-label="Close image viewer"
+            >
+              <X className="h-8 w-8" />
+            </Button>
+        </DialogClose>
 
         <div className="overflow-hidden w-full h-full" ref={emblaRef}>
             <div className="flex h-full">
