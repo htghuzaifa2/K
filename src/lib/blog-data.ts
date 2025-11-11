@@ -1,4 +1,5 @@
 
+
 import ptaGuideContent from './blog-content/pta-guide-2025';
 import freelancingSetupContent from './blog-content/freelancing-setup-pakistan-2026';
 import seoContent from './blog-content/seo-for-pakistani-developers-2026';
@@ -29,6 +30,7 @@ import gamingVsNormalPhones from './blog-content/gaming-vs-normal-phones-pakista
 import topUltralightLaptops from './blog-content/top-ultralight-laptops-pakistan-2025';
 import externalSsdVsInternalNvme from './blog-content/external-ssd-vs-internal-nvme-pakistan';
 import howToBuildAQuietPc from './blog-content/how-to-build-a-quiet-pc-pakistan';
+import howToChooseLaptopForVideoEditing from './blog-content/how-to-choose-a-laptop-for-video-editing-pakistan';
 
 
 export interface BlogPost {
@@ -163,6 +165,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
     content: howToBuildAQuietPc,
     description: "A step-by-step guide to building a silent PC in Pakistan, with local hardware recommendations and tips for minimizing noise."
   },
+  'how-to-choose-a-laptop-for-video-editing-pakistan': {
+    content: howToChooseLaptopForVideoEditing,
+    description: "A guide for choosing a video editing laptop in Pakistan, comparing Premiere Pro vs CapCut performance, and balancing budget with features."
+  }
 };
 
 
@@ -317,6 +323,11 @@ const blogPosts: BlogPost[] = [
     slug: 'how-to-build-a-quiet-pc-in-pakistan',
     title: 'How to Build a Quiet PC in Pakistan',
   },
+  {
+    id: 'how-to-choose-a-laptop-for-video-editing-pakistan',
+    slug: 'how-to-choose-a-laptop-for-video-editing-in-pakistan',
+    title: 'How to Choose a Laptop for Video Editing in Pakistan',
+  },
 ];
 
 const reversedBlogPosts = [...blogPosts].reverse();
@@ -349,4 +360,6 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
   };
 }
     
+    
+
     
