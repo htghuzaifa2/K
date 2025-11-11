@@ -44,6 +44,7 @@ import budgetPhones2025 from './blog-content/budget-phones-pakistan-2025';
 import mechanicalKeyboardSwitchesExplained from './blog-content/mechanical-keyboard-switches-explained-pakistan';
 import macbookVsWindowsLaptops from './blog-content/macbook-air-vs-windows-laptops-pakistan-2026';
 import bestPowerBanks from './blog-content/best-power-banks-pakistan-2025';
+import budgetOfficeChairDeskSetup from './blog-content/budget-office-chair-desk-setup-pakistan';
 
 
 export interface BlogPost {
@@ -58,6 +59,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'budget-office-chair-desk-setup-pakistan': {
+    content: budgetOfficeChairDeskSetup,
+    description: 'A practical comparison guide for Pakistani remote workers, web developers and students who spend long hours at their desk.'
+  },
   'best-power-banks-pakistan-2025': {
     content: bestPowerBanks,
     description: 'A guide to choosing the best power bank in Pakistan for load-shedding, focusing on capacity, pass-through charging, build quality, and local market realities.'
@@ -238,6 +243,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'budget-office-chair-desk-setup-pakistan',
+    slug: 'budget-office-chair-and-desk-setup-in-pakistan',
+    title: 'Budget Office Chair + Desk Setup in Pakistan for Long Work Hours',
+  },
   {
     id: 'best-power-banks-pakistan-2025',
     slug: 'best-power-banks-to-survive-pakistani-load-shedding-2025',
@@ -493,6 +503,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
