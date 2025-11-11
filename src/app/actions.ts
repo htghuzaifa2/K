@@ -150,3 +150,4 @@ export async function searchProducts(query: string): Promise<AppProduct[]> {
 
     return combinedResults.slice(0, 50); // Return a max of 50 results
 }
+

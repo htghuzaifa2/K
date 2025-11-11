@@ -4,22 +4,42 @@ import { type AppProduct } from '@/lib/products';
 import { ProductGrid } from './product-grid';
 import { ProductGridSkeleton } from './product-grid-skeleton';
 import { useState, useEffect } from 'react';
-import { fetchProductsSummary } from '@/app/actions';
+import productsSummaryData from '@/lib/products-summary.json';
 
 const RECOMMENDATION_COUNT = 4;
 
-// This component is specifically for use on pages that need to fetch related products on the client-side,
-// like blog posts or tool pages, where server-side rendering of this section isn't the primary focus.
-// It uses the lightweight products-summary.json for fast loading.
+function shuffle(array: any[]) {
+  let currentIndex = array.length,  randomIndex;
+  while (currentIndex > 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
 export function ClientOnlyRelatedProducts() {
   const [products, setProducts] = useState<AppProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadProducts = async () => {
+    const loadProducts = () => {
       setIsLoading(true);
       try {
-        const relatedProducts = await fetchProductsSummary(undefined, RECOMMENDATION_COUNT);
+        const shuffled = shuffle([...productsSummaryData]);
+        const summaryList = shuffled.slice(0, RECOMMENDATION_COUNT);
+
+        const relatedProducts = summaryList.map(p => ({
+            id: p.id,
+            name: p.name,
+            slug: p.slug,
+            price: p.price,
+            images: [p.image],
+            description: '',
+            category: [],
+        }));
+
         setProducts(relatedProducts);
       } catch (error) {
         console.error("Failed to fetch related products:", error);
@@ -33,7 +53,12 @@ export function ClientOnlyRelatedProducts() {
   }, []);
 
   if (isLoading) {
-    return <ProductGridSkeleton />;
+    return (
+      <div>
+        <h2 className="mb-6 text-center text-3xl font-bold tracking-tight font-headline">You May Also Like</h2>
+        <ProductGridSkeleton />
+      </div>
+    );
   }
 
   if (products.length === 0) {
