@@ -28,6 +28,7 @@ import bestCameraPhonesNightPhotography from './blog-content/best-camera-phones-
 import gamingVsNormalPhones from './blog-content/gaming-vs-normal-phones-pakistan';
 import topUltralightLaptops from './blog-content/top-ultralight-laptops-pakistan-2025';
 import externalSsdVsInternalNvme from './blog-content/external-ssd-vs-internal-nvme-pakistan';
+import howToBuildAQuietPc from './blog-content/how-to-build-a-quiet-pc-pakistan';
 
 
 export interface BlogPost {
@@ -157,6 +158,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'external-ssd-vs-internal-nvme-pakistan': {
     content: externalSsdVsInternalNvme,
     description: "A practical guide comparing external SSDs and internal NVMe upgrades for laptops in Pakistan, focusing on speed, price, and real-world use cases."
+  },
+  'how-to-build-a-quiet-pc-pakistan': {
+    content: howToBuildAQuietPc,
+    description: "A step-by-step guide to building a silent PC in Pakistan, with local hardware recommendations and tips for minimizing noise."
   },
 };
 
@@ -306,6 +311,11 @@ const blogPosts: BlogPost[] = [
     id: 'external-ssd-vs-internal-nvme-pakistan',
     slug: 'external-ssd-vs-internal-nvme-upgrade-for-laptops-in-pakistan',
     title: 'External SSD vs Internal NVMe Upgrade for Laptops in Pakistan',
+  },
+  {
+    id: 'how-to-build-a-quiet-pc-pakistan',
+    slug: 'how-to-build-a-quiet-pc-in-pakistan',
+    title: 'How to Build a Quiet PC in Pakistan',
   },
 ];
 
