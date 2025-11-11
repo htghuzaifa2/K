@@ -22,6 +22,7 @@ import smartphoneVsLaptopContent from './blog-content/smartphone-vs-laptop-pakis
 import wirelessCombosContent from './blog-content/best-wireless-keyboard-mouse-combos-pakistan';
 import twoInOneLaptopsContent from './blog-content/top-2-in-1-laptops-pakistan-2026';
 import emergingAccessoriesContent from './blog-content/emerging-tech-accessories-pakistan-2026';
+import silentKeysTypingAdventure from './blog-content/silent-keys-typing-adventure-pakistan';
 
 
 export interface BlogPost {
@@ -127,6 +128,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'emerging-tech-accessories-pakistan-2026': {
     content: emergingAccessoriesContent,
     description: 'A guide to emerging tech accessories in Pakistan for 2026, including USB-C hubs, portable monitors, and high-end mechanical keyboards.'
+  },
+  'silent-keys-typing-adventure-pakistan': {
+    content: silentKeysTypingAdventure,
+    description: "Discover the OMOTON KB036, a Bluetooth keyboard offering a smooth and silent typing experience, perfect for students and professionals in Pakistan who value peace and productivity."
   },
 };
 
@@ -246,6 +251,11 @@ const blogPosts: BlogPost[] = [
     id: 'emerging-tech-accessories-pakistan-2026',
     slug: 'emerging-tech-accessories-in-pakistan-2026-trends',
     title: 'Emerging Tech Accessories in Pakistan (2026 Trends)',
+  },
+  {
+    id: 'silent-keys-typing-adventure-pakistan',
+    slug: 'the-magic-of-silent-keys-a-typing-adventure-in-pakistan',
+    title: 'The Magic of Silent Keys: A Typing Adventure in Pakistan',
   },
 ];
 
