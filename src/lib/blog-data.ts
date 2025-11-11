@@ -53,6 +53,7 @@ import techBrandsWarrantySupport from './blog-content/tech-brands-warranty-suppo
 import usedLaptopMarketGuide from './blog-content/used-laptop-market-guide-pakistan';
 import bestWirelessMechanicalKeyboards from './blog-content/best-wireless-mechanical-keyboards-for-pakistani-developers-2026';
 import localLaptopRepairShops from './blog-content/local-laptop-repair-shops-pakistan';
+import ruggedDurablePhones from './blog-content/rugged-durable-phones-pakistan';
 
 
 export interface BlogPost {
@@ -67,6 +68,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'rugged-durable-phones-pakistan': {
+    content: ruggedDurablePhones,
+    description: 'A guide to the best rugged and durable phones for field work in Pakistan, covering construction, outdoor use, and other tough environments.'
+  },
   'local-laptop-repair-shops-pakistan': {
     content: localLaptopRepairShops,
     description: 'An investigation into whether local laptop repair shops in Pakistan use original parts, with tips for buyers on how to check part quality and avoid scams.'
@@ -283,6 +288,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'rugged-durable-phones-pakistan',
+    slug: 'top-rugged-durable-phones-for-field-work-in-pakistan',
+    title: '💪 Top Rugged / Durable Phones for Field Work in Pakistan (Construction / Outdoor Use)',
+  },
   {
     id: 'local-laptop-repair-shops-pakistan',
     slug: 'do-local-laptop-repair-shops-in-pakistan-use-original-parts',
@@ -583,6 +593,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
