@@ -142,6 +142,6 @@ export default `
       </ul>
 
       <h3>Type your heart out — silently</h3>
-      <p>When the group chats explode, open Notes and pour every fear onto the OMOTON KB036 Bluetooth Keyboard. Ten-metre wireless range keeps the laptop on the desk, you on the charpai, and Ami asleep while you draft your "How I Survived Result Week" blog at 3 a.m. — zero click, full catharsis.</p>
+      <p>When the group chats explode, open Notes and pour every fear onto the <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-metre wireless range keeps the laptop on the desk, you on the charpai, and Ami asleep while you draft your "How I Survived Result Week" blog at 3 a.m. — zero click, full catharsis.</p>
       <p><em>“May your heartbeat slow before the website loads, may your parents hug you regardless of the digits, and may your next chapter begin with peace, not panic — you are more than marks, Pakistan!”</em></p>
 `;

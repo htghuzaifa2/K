@@ -91,6 +91,13 @@ export default `
               <td class="border border-border p-2">3 min 18 s</td>
             </tr>
             <tr>
+              <td class="border border-border p-2">Asus TUF A15</td>
+              <td class="border border-border p-2">RTX 3050 / R7-7435HS</td>
+              <td class="border border-border p-2">4 m 10 s</td>
+              <td class="border border-border p-2">3 m 50 s</td>
+              <td class="border border-border p-2">Rs 215,999</td>
+            </tr>
+             <tr>
               <td class="border border-border p-2">Dell Inspiron 15 GTX 1650</td>
               <td class="border border-border p-2">85 °C</td>
               <td class="border border-border p-2">81 °C</td>
@@ -162,8 +169,6 @@ export default `
       </ul>
 
       <h3>9. Silent side-kick for late-night edits</h3>
-      <p>Once your new edit-beast is humming, draft "How I beat the algorithm" posts on the feather-silent OMOTON KB036 Bluetooth Keyboard. Ten-metre wireless range lets the laptop stay under the desk, fans at 40 dB, while you type from the charpai—no tick-tick to disturb Ami’s 3 a.m. beauty sleep.</p>
+      <p>Once your new edit-beast is humming, draft "How I beat the algorithm" posts on the feather-silent <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-metre wireless range lets the laptop stay under the desk, fans at 40 dB, while you type from the charpai—no tick-tick to disturb Ami’s 3 a.m. beauty sleep.</p>
       <p>May your renders finish before sehri, your colours stay true, and your next video trend higher than a Karachi summer—happy editing, Pakistan!</p>
 `;
-
-    

@@ -190,6 +190,6 @@ export default `
       </ul>
       
       <h3>Type the application without tick-tick drama</h3>
-      <p>Fill the online form, then draft your "Why I Deserve 5 More Marks" essay on the whisper-quiet OMOTON KB036 Bluetooth Keyboard. Ten-metre wireless range keeps the laptop on the study table, you on the charpai, and Ami asleep while you upload documents at 2 a.m. — zero click, full focus.</p>
+      <p>Fill the online form, then draft your "Why I Deserve 5 More Marks" essay on the whisper-quiet <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-metre wireless range keeps the laptop on the study table, you on the charpai, and Ami asleep while you upload documents at 2 a.m. — zero click, full focus.</p>
       <p><em>“May your recount add marks, your supplementary add confidence, and your next result sheet add only smiles — best of luck, Pakistan!”</em></p>
 `;

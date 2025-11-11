@@ -100,7 +100,7 @@ export default `
       <p>Install tip: Stick mount behind rear-view mirror to avoid “challan” glare reflection; clean windshield with alcohol swab first — summer heat else peels cheap pads off.</p>
       
       <h3>4. Cable Management – “Taar-baar nahi”</h3>
-      <p><strong>Baseus retractable 4-in-1 100 W</strong> – pull-out cords (Lightning + Type-C + micro-USB); no dangling spaghetti when you brake hard at “Motorway toll”.</p>
+      <p>Baseus retractable 4-in-1 100 W – pull-out cords (Lightning + Type-C + micro-USB); no dangling spaghetti when you brake hard at “Motorway toll”.</p>
       <p><strong>Price:</strong> Rs 2,850 — available same-day Lahore via kimi.pk.</p>
       
       <h3>5. Quick Picks Summary</h3>
@@ -111,6 +111,6 @@ export default `
       </ul>
       
       <h3>Type your travelogue without tick-tick</h3>
-      <p>After the road trip, dump footage, open CapCut, and draft the vlog on the whisper-quiet OMOTON KB036 Bluetooth Keyboard. Ten-metre wireless range keeps the laptop in the boot, you on the charpai, and Ami still asleep — no click-clack, only "vroom-vroom" memories.</p>
+      <p>After the road trip, dump footage, open CapCut, and draft the vlog on the whisper-quiet <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-metre wireless range keeps the laptop in the boot, you on the charpai, and Ami still asleep — no click-clack, only "vroom-vroom" memories.</p>
       <p>May your signal stay strong, your suction never slip, and your footage always prove who really jumped the lane — drive safe, Pakistan!</p>
 `;

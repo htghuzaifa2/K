@@ -111,6 +111,6 @@ export default `
       </ul>
       
       <h3>Type essays, not novels of pain</h3>
-      <p>Pair your new cloud-weight laptop with our feather-silent OMOTON KB036 Bluetooth Keyboard. Ten-metre wireless freedom means the charger brick stays on the wall and you stay on the charpai, typing away without a single tick-tick complaint from Ami.</p>
+      <p>Pair your new cloud-weight laptop with our feather-silent <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-metre wireless freedom means the charger brick stays on the wall and you stay on the charpai, typing away without a single tick-tick complaint from Ami.</p>
       <p><em>“May your bag stay light, your battery stay green, and your GPA stay brighter than a Karachi afternoon—happy lapping, student warrior!”</em></p>
 `;

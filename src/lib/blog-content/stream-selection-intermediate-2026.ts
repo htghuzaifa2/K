@@ -180,6 +180,6 @@ export default `
       </ul>
 
       <h3>8. Where to Buy Silent Study Gear</h3>
-      <p>Once you pick the stream, the late-night grind begins. Type those "long-answer" notes on the feather-silent OMOTON KB036 Bluetooth Keyboard — 10 m wireless freedom means the desk stays messy, you sit on the charpai, and Ami hears nothing but your "ya Allah, yeh equilibrium samajh aa jaye".</p>
+      <p>Once you pick the stream, the late-night grind begins. Type those "long-answer" notes on the feather-silent <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a> — 10 m wireless freedom means the desk stays messy, you sit on the charpai, and Ami hears nothing but your "ya Allah, yeh equilibrium samajh aa jaye".</p>
       <p><em>“May your marks climb higher than a Karachi summer, your stress fall softer than Lahore winter rain — and may the stream you choose carry your dreams, not just your degree.”</em></p>
 `;

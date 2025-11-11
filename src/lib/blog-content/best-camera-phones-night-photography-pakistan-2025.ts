@@ -88,7 +88,7 @@ export default `
       </ul>
       
       <h3>Shoot, Edit, Type—Repeat</h3>
-      <p>Once you’ve bagged that perfect night-killer phone, sit back on the charpai, pair it with our whisper-quiet OMOTON KB036 Bluetooth Keyboard and type your “Badshahi by Moonlight” blog post without waking Ami. Ten-metre wireless range means you can keep the power-bank inside and still caption shots from the rooftop.</p>
+      <p>Once you’ve bagged that perfect night-killer phone, sit back on the charpai, pair it with our whisper-quiet <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a> and type your “Badshahi by Moonlight” blog post without waking Ami. Ten-metre wireless range means you can keep the power-bank inside and still caption shots from the rooftop.</p>
       
       <p><em>“Let the city lights flirt with your lens, let the stars write poetry on your sensor—and when the story is ready, let your fingers dance on keys that never shout.”</em></p>
 `;

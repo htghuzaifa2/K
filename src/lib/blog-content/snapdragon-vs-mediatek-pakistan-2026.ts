@@ -93,6 +93,6 @@ export default `
       <li><strong>Budget kings who change phones every chand raat →</strong> MediaTek gives more “punch per rupee”.</li>
       <li><strong>Resale hawks →</strong> Snapdragon badge still fattens the wallet next year.</li>
     </ul>
-    <p>And remember, whichever side you pick, type your victory tweet on something that clicks like a dream—our feather-silent OMOTON KB036 Bluetooth Keyboard. Ten-meter wireless freedom, so you can lie on the charpai and still frag enemies (or write Frappy reviews).</p>
+    <p>And remember, whichever side you pick, type your victory tweet on something that clicks like a dream—our feather-silent <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-meter wireless freedom, so you can lie on the charpai and still frag enemies (or write Frappy reviews).</p>
     <p>May your battery stay green, your head-shots true, and your dreams load faster than a PTCL page—ameen, aur keyboard ki tick-tick sada rahe!</p>
 `;

@@ -174,6 +174,6 @@ export default `
       <p>👉 Grab yours, compare benchmarks, flex on your squad: kimi.pk.</p>
       
       <h3>Post-match chai chat</h3>
-      <p>After the last chicken-dinner, flop onto the charpai, open that “GG” blog draft on your phone and finish it in silence—pair it with the whisper-quiet OMOTON KB036 Bluetooth Keyboard. Ten-metre range, Mac-style keys, and a battery that lasts longer than your rank-push session. Type, brag, repeat—without waking Ami.</p>
+      <p>After the last chicken-dinner, flop onto the charpai, open that “GG” blog draft on your phone and finish it in silence—pair it with the whisper-quiet <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-metre range, Mac-style keys, and a battery that lasts longer than your rank-push session. Type, brag, repeat—without waking Ami.</p>
       <p>May your FPS stay high, your ping stay low, and your phone stay cooler than a Pindi boy’s one-liners.</p>
 `;

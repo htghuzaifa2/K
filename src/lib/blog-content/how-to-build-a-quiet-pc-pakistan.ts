@@ -131,6 +131,6 @@ export default `
       <p>Available turnkey at kimi.pk — just ask for "silent pack add-on".</p>
       
       <h3>Quietly type your victory post</h3>
-      <p>After the build boots "beep-less", open your "How I Beat the Heat (and Noise)" blog and draft it on the feather-silent OMOTON KB036 Bluetooth Keyboard. Ten-metre wireless freedom means the PC can stay under the desk, fans humming at 600 RPM, while you type from the charpai—not a click to disturb Ami’s afternoon nap.</p>
+      <p>After the build boots "beep-less", open your "How I Beat the Heat (and Noise)" blog and draft it on the feather-silent <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-metre wireless freedom means the PC can stay under the desk, fans humming at 600 RPM, while you type from the charpai—not a click to disturb Ami’s afternoon nap.</p>
       <p>May your temps stay low, your frames stay high, and your PC stay quieter than a library during finals week—happy building, Pakistan!</p>
 `;

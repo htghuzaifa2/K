@@ -137,6 +137,6 @@ export default `
       </ul>
       
       <h3>Type the new notes without tick-tick chaos</h3>
-      <p>When the syllabus drops and the race begins, draft your case-study answers on the whisper-quiet OMOTON KB036 Bluetooth Keyboard. Ten-metre wireless freedom keeps the laptop on the desk, you on the charpai, and Ami asleep while you finish "Green Chemistry Pros & Cons" at 2 a.m. — zero click, full focus.</p>
-      <p><em>"May your concepts stay clear, your practical files stay signed, and your best score come from the second chance — happy adapting, Pakistan!"</em></p>
+      <p>When the syllabus drops and the race begins, draft your case-study answers on the whisper-quiet <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-metre wireless freedom keeps the laptop on the desk, you on the charpai, and Ami asleep while you finish "Green Chemistry Pros & Cons" at 2 a.m. — zero click, full focus.</p>
+      <p><em>“May your concepts stay clear, your practical files stay signed, and your best score come from the second chance — happy adapting, Pakistan!”</em></p>
 `;

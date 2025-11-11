@@ -179,7 +179,6 @@ export default `
       <p>Smart strategy: Use school exams as dress-rehearsals, board exams as the real drama.</p>
 
       <h3>Type the two-track plan without ticking off the house</h3>
-      <p>Draft your "School-Exam Mock Schedule" and "Board-Exam Battle Plan" on the whisper-quiet OMOTON KB036 Bluetooth Keyboard. Ten-metre wireless range keeps the laptop on the desk, you on the charpai, and Ami asleep while you copy past-papers at 1 a.m. — zero click, full focus.</p>
+      <p>Draft your "School-Exam Mock Schedule" and "Board-Exam Battle Plan" on the whisper-quiet <a href="https://kimi.pk/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a>. Ten-metre wireless range keeps the laptop on the desk, you on the charpai, and Ami asleep while you copy past-papers at 1 a.m. — zero click, full focus.</p>
       <p><em>“May your school tests teach you timing, your board tests teach you triumph — and may both sheets end with the word you deserve: PASS!”</em></p>
 `;
-    
