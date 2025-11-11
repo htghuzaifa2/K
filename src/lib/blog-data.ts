@@ -45,6 +45,7 @@ import mechanicalKeyboardSwitchesExplained from './blog-content/mechanical-keybo
 import macbookVsWindowsLaptops from './blog-content/macbook-air-vs-windows-laptops-pakistan-2026';
 import bestPowerBanks from './blog-content/best-power-banks-pakistan-2025';
 import budgetOfficeChairDeskSetup from './blog-content/budget-office-chair-desk-setup-pakistan';
+import usbCFastChargersCables from './blog-content/usb-c-fast-chargers-and-cables-pakistan';
 
 
 export interface BlogPost {
@@ -59,6 +60,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'usb-c-fast-chargers-and-cables-pakistan': {
+    content: usbCFastChargersCables,
+    description: 'A guide to choosing safe and reliable USB-C fast chargers and cables in Pakistan, focusing on GaN tech, wattage, and local market realities for 2025-26.'
+  },
   'budget-office-chair-desk-setup-pakistan': {
     content: budgetOfficeChairDeskSetup,
     description: 'A practical comparison guide for Pakistani remote workers, web developers and students who spend long hours at their desk.'
@@ -243,6 +248,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'usb-c-fast-chargers-and-cables-pakistan',
+    slug: 'top-usb-c-fast-chargers-and-cables-in-pakistan',
+    title: 'Top USB-C Fast Chargers & Cables in Pakistan: What’s Safe, What’s Not'
+  },
   {
     id: 'budget-office-chair-desk-setup-pakistan',
     slug: 'budget-office-chair-and-desk-setup-in-pakistan',
@@ -503,6 +513,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
