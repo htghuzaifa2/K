@@ -269,14 +269,14 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
-const sortedBlogPosts = blogPosts.sort((a, b) => a.title.localeCompare(b.title));
+const reversedBlogPosts = [...blogPosts].reverse();
 
 export const getBlogPosts = (): BlogPost[] => {
-  return sortedBlogPosts;
+  return reversedBlogPosts;
 };
 
 export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined {
-  const post = sortedBlogPosts.find((p) => p.slug === slug);
+  const post = blogPosts.find((p) => p.slug === slug);
 
   if (!post) {
     return undefined;
@@ -298,4 +298,5 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     description: data.description,
   };
 }
+    
     
