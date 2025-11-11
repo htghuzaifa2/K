@@ -35,6 +35,7 @@ import bestTechAccessoriesForCarOwners from './blog-content/best-tech-accessorie
 import streamSelectionIntermediate from './blog-content/stream-selection-intermediate-2026';
 import howToReadResultSheet from './blog-content/how-to-read-your-board-result-sheet';
 import boardExamSyllabusChanges from './blog-content/board-exam-syllabus-changes-2026';
+import supplementaryRecheckingExams from './blog-content/supplementary-re-checking-exams-pakistan-2026';
 
 
 export interface BlogPost {
@@ -188,6 +189,10 @@ const contentMap: Record<string, { content: string, description: string }> = {
   'board-exam-syllabus-changes-2026': {
     content: boardExamSyllabusChanges,
     description: "A complete guide to the 2026 syllabus changes for Matric and Intermediate exams in Pakistan, covering what's new, what's gone, and how students can prepare effectively."
+  },
+  'supplementary-re-checking-exams-pakistan-2026': {
+    content: supplementaryRecheckingExams,
+    description: "A comprehensive guide for Pakistani students on how to apply for supplementary and re-checking exams, including timelines, fees, and procedures."
   }
 };
 
@@ -367,6 +372,11 @@ const blogPosts: BlogPost[] = [
     id: 'board-exam-syllabus-changes-2026',
     slug: 'board-exam-syllabus-changes-2026-for-matric-and-inter-in-pakistan',
     title: 'Board Exam Syllabus Changes 2026 for Matric & Inter in Pakistan',
+  },
+  {
+    id: 'supplementary-re-checking-exams-pakistan-2026',
+    slug: 'supplementary-re-checking-exams-in-pakistan-2026',
+    title: 'Supplementary / Re-checking Exams in Pakistan (2026)',
   }
 ];
 
@@ -403,3 +413,4 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
