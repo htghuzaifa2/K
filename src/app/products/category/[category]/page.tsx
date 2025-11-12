@@ -6,7 +6,6 @@ import { Suspense, useEffect, useState } from 'react';
 import { notFound } from 'next/navigation';
 import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import { ScrollRestorer } from '@/components/scroll-restorer';
 import { fetchProducts } from '@/app/actions';
@@ -33,14 +32,17 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const [initialData, setInitialData] = useState<{products: AppProduct[] } | null>(null);
   const [allProductsForCategory, setAllProductsForCategory] = useState<AppProduct[] | null>(null);
   const [isValidCategory, setIsValidCategory] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
+      setIsLoading(true);
       const allCats = await getAllCategories();
       const isValid = allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
       setIsValidCategory(isValid);
 
       if (!isValid) {
+        setIsLoading(false);
         return;
       }
       
@@ -48,9 +50,18 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       setAllProductsForCategory(products);
       const initial = await fetchProducts({ allProducts: products, page: 1, limit: 25 });
       setInitialData(initial);
+      setIsLoading(false);
     }
     loadData();
   }, [decodedCategory]);
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <ProductGridSkeleton />
+      </div>
+    );
+  }
 
   if (isValidCategory === false) {
     notFound();
