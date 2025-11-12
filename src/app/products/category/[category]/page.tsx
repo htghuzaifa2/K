@@ -26,7 +26,6 @@ function formatCategoryTitle(slug: string): string {
     .join(' ');
 }
 
-// This is a client-side rendered page
 export default function CategoryPage({ params }: CategoryPageProps) {
   const decodedCategory = decodeURIComponent(params.category);
   const [initialData, setInitialData] = useState<{products: AppProduct[] } | null>(null);
@@ -94,12 +93,14 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
        <Suspense fallback={<ProductGridSkeleton />}>
-          {initialData && allProductsForCategory ? (
+          {isLoading || !initialData || !allProductsForCategory ? (
+            <ProductGridSkeleton />
+          ) : (
             <InfiniteWindowedGrid 
               initialProducts={initialData.products}
               allProducts={allProductsForCategory}
             />
-          ) : <ProductGridSkeleton />}
+          )}
       </Suspense>
     </div>
   );

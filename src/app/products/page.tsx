@@ -8,17 +8,33 @@ import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton'
 import { ScrollRestorer } from '@/components/scroll-restorer';
 import { AppProduct } from '@/lib/products';
 
-// This is a client-side rendered page
 export default function AllProductsPage() {
   const [initialProducts, setInitialProducts] = useState<{ products: AppProduct[], hasMore: boolean, total: number } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch initial products on the client
-    fetchProducts({ page: 1, limit: 25 }).then(data => {
-      setInitialProducts(data);
-      setIsLoading(false);
-    });
+    let isMounted = true;
+    const loadProducts = async () => {
+      setIsLoading(true);
+      try {
+        const data = await fetchProducts({ page: 1, limit: 25 });
+        if (isMounted) {
+          setInitialProducts(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadProducts();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
