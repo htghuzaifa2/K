@@ -12,6 +12,8 @@ import { ScrollRestorer } from '@/components/scroll-restorer';
 import { fetchProducts } from '@/app/actions';
 import type { AppProduct } from '@/lib/products';
 
+export const runtime = 'edge';
+
 type CategoryPageProps = {
   params: {
     category: string;
