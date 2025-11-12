@@ -46,3 +46,4 @@ export default `
       <p>Board results are exciting and nerve-wracking. With the right method and a little tech help, Pakistani students can check their marks safely, quickly, and efficiently.</p>
       <p>“Fast fingers, smart tools, and verified info — that’s how you stay ahead of the result rush.”</p>
 `;
+    

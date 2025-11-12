@@ -42,3 +42,4 @@ export default `
       <p>Digitalisation makes result access faster and more reliable for Pakistani students. With the right preparation and tools, you can view, verify, and store your marks confidently.</p>
       <p>“Digital results are here — stay ready, stay organized, and let technology work for you.”</p>
 `;
+    

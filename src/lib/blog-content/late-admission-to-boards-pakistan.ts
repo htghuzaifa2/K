@@ -38,3 +38,4 @@ export default `
       <p>Missing a deadline is stressful, but Pakistani students can still recover by acting quickly, staying organized, and using tools that make form submission efficient.</p>
       <p>“A late form isn’t the end — timely action and smart tools keep your exams on track.”</p>
 `;
+    

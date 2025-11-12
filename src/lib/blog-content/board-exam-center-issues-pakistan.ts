@@ -44,3 +44,4 @@ export default `
       <p>Even when things go wrong at the exam center, Pakistani students have rights and avenues to seek relief. Quick reporting, proper documentation, and efficient digital tools make the process smoother and stress-free.</p>
       <p>“Mistakes happen, instruments fail — but smart action ensures your efforts still count.”</p>
 `;
+    

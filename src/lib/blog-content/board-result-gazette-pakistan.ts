@@ -44,3 +44,4 @@ export default `
       <p>The gazette is more than just a list — it’s the official record of your academic achievements. With careful downloading, correct interpretation, and efficient digital management, Pakistani students can confidently use it for scholarships, admissions, and future opportunities.</p>
       <p>“Your marks are official — handle them smartly, and let every number open doors for your future.”</p>
 `;
+    

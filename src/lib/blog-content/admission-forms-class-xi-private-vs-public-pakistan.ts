@@ -53,7 +53,7 @@ export default `
       </ul>
       
       <h3>🔹 3. Filling Forms Efficiently</h3>
-      <p>Whether private or public, students often manage multiple digital forms, documents, and attachments. Using a reliable keyboard can save time and reduce errors. The <a href="/products/omoton-kb036-wireless-bluetooth-keyboard" target="_blank" rel="noopener noreferrer">OMOTON KB036 Bluetooth Keyboard</a> is ideal:</p>
+      <p>Whether private or public, students often manage multiple digital forms, documents, and attachments. Using a reliable keyboard can save time and reduce errors. The <a href="/products/omoton-kb036-wireless-bluetooth-keyboard">OMOTON KB036 Bluetooth Keyboard</a> is ideal:</p>
       <ul class="list-disc list-inside space-y-2 pl-2">
         <li>Silent scissor-switch keys for comfortable typing</li>
         <li>Long-range Bluetooth for laptops, tablets, and mobile devices</li>
@@ -74,3 +74,4 @@ export default `
       <p>Choosing the right school for Class XI sets the foundation for your future. With careful comparison, timely applications, and smart use of technology, Pakistani students can make the transition smooth and stress-free.</p>
       <p>“Plan ahead, stay organized, and let every form you fill bring you closer to your goals.”</p>
 `;
+    
