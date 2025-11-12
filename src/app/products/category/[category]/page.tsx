@@ -1,14 +1,10 @@
 
-'use client';
-
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
+import { ProductGrid } from '@/components/product/product-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-import { useProducts } from '@/hooks/use-products';
+import { fetchProducts } from '@/app/actions';
 import { getAllCategories } from '@/lib/products';
-
-export const runtime = 'edge';
 
 type CategoryPageProps = {
   params: {
@@ -17,31 +13,27 @@ type CategoryPageProps = {
 };
 
 function formatCategoryTitle(slug: string): string {
-    return slug
+    return decodeURIComponent(slug)
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const decodedCategory = decodeURIComponent(params.category);
-  const [isValidCategory, setIsValidCategory] = useState<boolean | null>(null);
-
-  const { products, hasMore, isLoading, loadMoreProducts } = useProducts({ 
-    limit: 25, 
-    category: decodedCategory 
-  });
-  
-  useEffect(() => {
-    async function validateCategory() {
-      const allCats = await getAllCategories();
-      const isValid = allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
-      setIsValidCategory(isValid);
+async function CategoryProducts({ category }: { category: string }) {
+    const { products } = await fetchProducts({ category });
+    
+    if (!products) {
+        notFound();
     }
-    validateCategory();
-  }, [decodedCategory]);
 
-  if (isValidCategory === false) {
+    return <ProductGrid products={products} />;
+}
+
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const decodedCategory = decodeURIComponent(params.category);
+  const allCats = await getAllCategories();
+  
+  if (!allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase())) {
     notFound();
   }
 
@@ -53,16 +45,15 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
        <Suspense fallback={<ProductGridSkeleton />}>
-          {isLoading && products.length === 0 ? (
-            <ProductGridSkeleton />
-          ) : (
-            <InfiniteProductGrid
-              initialProducts={{ products, hasMore, total: 0 }}
-              loadMoreProducts={loadMoreProducts}
-              category={decodedCategory}
-            />
-          )}
+          <CategoryProducts category={decodedCategory} />
       </Suspense>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const categories = await getAllCategories();
+  return categories.map((category) => ({
+    category: encodeURIComponent(category.toLowerCase()),
+  }));
 }

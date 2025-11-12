@@ -1,15 +1,16 @@
 
-'use client';
-
 import { Suspense } from 'react';
 import Hero from '@/components/hero';
-import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
+import { ProductGrid } from '@/components/product/product-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-import { useProducts } from '@/hooks/use-products';
+import { fetchProducts } from './actions';
+
+async function FeaturedProducts() {
+  const { products } = await fetchProducts({ limit: 8, shuffle: true });
+  return <ProductGrid products={products} />;
+}
 
 export default function Home() {
-  const { products, hasMore, isLoading, loadMoreProducts } = useProducts({ limit: 25, shuffle: true });
-
   return (
     <div>
       <Hero />
@@ -18,14 +19,7 @@ export default function Home() {
           Featured Products
         </h2>
         <Suspense fallback={<ProductGridSkeleton />}>
-          {isLoading && products.length === 0 ? (
-            <ProductGridSkeleton />
-          ) : (
-            <InfiniteProductGrid 
-              initialProducts={{ products, hasMore, total: 0 }}
-              loadMoreProducts={loadMoreProducts}
-            />
-          )}
+          <FeaturedProducts />
         </Suspense>
       </div>
     </div>
