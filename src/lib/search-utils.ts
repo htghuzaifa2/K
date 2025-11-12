@@ -17,7 +17,7 @@ const levenshtein = (s1: string, s2: string): number => {
       if (s2[j] !== s1[i]) {
         distances[i + 1] = Math.min(
           distances[i] + 1,      // Deletion
-          distances[i + 1] + 1,      // Insertion. Corrected from distances[i + 1]
+          previousHorizontal + 1,      // Insertion
           previousDiagonal + 1   // Substitution
         );
       }
@@ -100,3 +100,4 @@ export const performSearch = <T extends SearchableItem>(query: string, items: T[
     .sort((a, b) => b.score - a.score)
     .map(result => result.item);
 };
+
