@@ -11,8 +11,6 @@ import { ScrollRestorer } from '@/components/scroll-restorer';
 import { fetchProducts } from '@/app/actions';
 import type { AppProduct } from '@/lib/products';
 
-export const runtime = 'edge';
-
 type CategoryPageProps = {
   params: {
     category: string;
@@ -35,24 +33,42 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     async function loadData() {
       setIsLoading(true);
-      const allCats = await getAllCategories();
-      const isValid = allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
-      setIsValidCategory(isValid);
+      try {
+        const allCats = await getAllCategories();
+        const isValid = allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
+        
+        if (!isMounted) return;
+        setIsValidCategory(isValid);
 
-      if (!isValid) {
-        setIsLoading(false);
-        return;
+        if (!isValid) {
+          setIsLoading(false);
+          return;
+        }
+        
+        const products = await getProductsByCategory(decodedCategory);
+        if (!isMounted) return;
+        setAllProductsForCategory(products);
+
+        const initial = await fetchProducts({ allProducts: products, page: 1, limit: 25 });
+        if (!isMounted) return;
+        setInitialData(initial);
+
+      } catch (error) {
+        console.error("Failed to load category data:", error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
-      
-      const products = await getProductsByCategory(decodedCategory);
-      setAllProductsForCategory(products);
-      const initial = await fetchProducts({ allProducts: products, page: 1, limit: 25 });
-      setInitialData(initial);
-      setIsLoading(false);
     }
     loadData();
+
+    return () => {
+      isMounted = false;
+    };
   }, [decodedCategory]);
 
   if (isLoading) {
@@ -76,7 +92,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
        <Suspense fallback={<ProductGridSkeleton />}>
-          {(initialData && allProductsForCategory) ? (
+          {initialData && allProductsForCategory ? (
             <InfiniteWindowedGrid 
               initialProducts={initialData.products}
               allProducts={allProductsForCategory}
@@ -86,6 +102,3 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     </div>
   );
 }
-
-// generateStaticParams and generateMetadata are server-side functions and cannot be used in a client component.
-// If you need them, this page must be refactored.

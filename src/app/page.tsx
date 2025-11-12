@@ -12,11 +12,13 @@ import { AppProduct } from '@/lib/products';
 // This is a client-side rendered page
 export default function Home() {
   const [initialProducts, setInitialProducts] = useState<{ products: AppProduct[], hasMore: boolean, total: number } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Fetch initial products on the client.
     fetchProducts({ page: 1, limit: 25, shuffle: true }).then(data => {
       setInitialProducts(data);
+      setIsLoading(false);
     });
   }, []);
 
@@ -29,10 +31,10 @@ export default function Home() {
           Featured Products
         </h2>
         <Suspense fallback={<ProductGridSkeleton />}>
-          {initialProducts ? (
-            <InfiniteProductGrid initialProducts={initialProducts} />
-          ) : (
+          {isLoading || !initialProducts ? (
             <ProductGridSkeleton />
+          ) : (
+            <InfiniteProductGrid initialProducts={initialProducts} />
           )}
         </Suspense>
       </div>
