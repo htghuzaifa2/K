@@ -63,6 +63,7 @@ import whatToDoIfRollNumberMissing from './blog-content/what-to-do-if-roll-numbe
 import whyToppersFailUniversityEntryTests from './blog-content/why-toppers-fail-university-entry-tests-pakistan';
 import lateAdmissionToBoardsContent from './blog-content/late-admission-to-boards-pakistan';
 import howToTransferBoardAffiliation from './blog-content/how-to-transfer-board-affiliation-pakistan';
+import usingSmsAndMobileAppsForBoardResults from './blog-content/using-sms-and-mobile-apps-for-board-results-pakistan';
 
 
 export interface BlogPost {
@@ -77,6 +78,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'using-sms-and-mobile-apps-for-board-results-pakistan': {
+    content: usingSmsAndMobileAppsForBoardResults,
+    description: 'A guide for Pakistani students on how to use SMS and mobile apps to check their board exam results quickly and conveniently for 2026.'
+  },
   'how-to-transfer-board-affiliation-pakistan': {
     content: howToTransferBoardAffiliation,
     description: 'A step-by-step guide for Matric and Intermediate students in Pakistan on how to transfer their board affiliation when moving to a new city or province.'
@@ -333,6 +338,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'using-sms-and-mobile-apps-for-board-results-pakistan',
+    slug: 'using-sms-and-mobile-apps-to-check-board-results-in-pakistan',
+    title: '📲 Using SMS & Mobile Apps to Check Board Results in Pakistan',
+  },
   {
     id: 'how-to-transfer-board-affiliation-pakistan',
     slug: 'how-to-transfer-your-board-affiliation-in-pakistan',
@@ -703,6 +713,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
     
+
 
 
 
