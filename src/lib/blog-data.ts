@@ -55,6 +55,7 @@ import bestWirelessMechanicalKeyboards from './blog-content/best-wireless-mechan
 import localLaptopRepairShops from './blog-content/local-laptop-repair-shops-pakistan';
 import ruggedDurablePhones from './blog-content/rugged-durable-phones-pakistan';
 import oledVsIpsDisplays from './blog-content/oled-vs-ips-displays-pakistan';
+import topTabletsForPakistaniStudents from './blog-content/top-tablets-for-pakistani-students';
 
 
 export interface BlogPost {
@@ -69,6 +70,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'top-tablets-for-pakistani-students': {
+    content: topTabletsForPakistaniStudents,
+    description: 'A guide to the best tablets for Pakistani students preparing for exams, covering key features, top models, and productivity tips.'
+  },
   'oled-vs-ips-displays-pakistan': {
     content: oledVsIpsDisplays,
     description: 'A comparison of OLED vs IPS mobile phone displays for Pakistani users, considering local factors like heat, battery life, and repairability.'
@@ -293,6 +298,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'top-tablets-for-pakistani-students',
+    slug: 'top-tablets-for-pakistani-students',
+    title: '📚 Top Tablets for Pakistani Students Preparing for Exams',
+  },
   {
     id: 'oled-vs-ips-displays-pakistan',
     slug: 'oled-vs-ips-displays-in-mobile-phones-for-pakistani-users',
@@ -603,6 +613,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
