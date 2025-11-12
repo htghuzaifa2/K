@@ -7,6 +7,8 @@ import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton'
 import { getAllCategories, getProductsByCategory } from '@/lib/products';
 import { ClientProductGrid } from '@/components/product/client-product-grid';
 
+export const runtime = 'edge';
+
 type CategoryPageProps = {
   params: {
     category: string;
