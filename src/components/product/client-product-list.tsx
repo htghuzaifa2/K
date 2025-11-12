@@ -11,9 +11,10 @@ interface ClientProductListProps {
   category?: string;
   limit?: number;
   shuffle?: boolean;
+  currentProductId?: string;
 }
 
-export function ClientProductList({ category, limit, shuffle }: ClientProductListProps) {
+export function ClientProductList({ category, limit, shuffle, currentProductId }: ClientProductListProps) {
   const [products, setProducts] = useState<AppProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,7 +23,14 @@ export function ClientProductList({ category, limit, shuffle }: ClientProductLis
       setIsLoading(true);
       try {
         const result = await fetchProducts({ category, limit, shuffle });
-        setProducts(result.products);
+        let finalProducts = result.products;
+        if (currentProductId) {
+            finalProducts = finalProducts.filter(p => p.id !== currentProductId);
+        }
+        if (limit) {
+            finalProducts = finalProducts.slice(0, limit);
+        }
+        setProducts(finalProducts);
       } catch (error) {
         console.error("Failed to fetch products:", error);
       } finally {
@@ -30,7 +38,7 @@ export function ClientProductList({ category, limit, shuffle }: ClientProductLis
       }
     }
     loadProducts();
-  }, [category, limit, shuffle]);
+  }, [category, limit, shuffle, currentProductId]);
 
   if (isLoading) {
     return <ProductGridSkeleton />;

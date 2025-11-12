@@ -1,7 +1,5 @@
-
 import type { Product as RawProduct, ProductImage } from '@/lib/types';
 import productsData from './products.json';
-import { unstable_cache as cache } from 'next/cache';
 
 // This is the shape of the product object used throughout the app.
 export type AppProduct = {
@@ -30,28 +28,11 @@ function transformProduct(product: RawProduct): AppProduct {
     };
 }
 
-// Uncached function to read and transform products.
-// This is safe to be used in server actions called from client components.
-async function getTransformedProducts(): Promise<AppProduct[]> {
+// This is the primary function to get products. 
+// It reads the local JSON file and transforms the data.
+export async function getProducts(): Promise<AppProduct[]> {
     const rawProducts = Array.isArray(productsData) ? productsData : [];
     return rawProducts.map(transformProduct);
-}
-
-
-// Cached function for server-side use ONLY.
-// This will only re-run if the underlying products.json file changes in development,
-// or on a new deployment in production.
-const getCachedProducts = cache(
-  async () => {
-    return getTransformedProducts();
-  },
-  ['products_data']
-);
-
-// This is the primary function to get products. 
-// It uses the cached version for server components and build processes.
-export async function getProducts(): Promise<AppProduct[]> {
-  return getCachedProducts();
 }
 
 export async function getProductBySlug(slug: string): Promise<AppProduct | null> {
