@@ -40,19 +40,13 @@ export async function fetchProducts({
   limit = 25, // Updated limit to 25
   category,
   shuffle: doShuffle = false,
-  allProducts: providedProducts,
 }: {
   page?: number;
   limit?: number;
   category?: string;
   shuffle?: boolean;
-  allProducts?: AppProduct[];
 }) {
-  let allProducts = providedProducts;
-
-  if (!allProducts) {
-    allProducts = category ? await getProductsByCategory(category) : await getProducts();
-  }
+  let allProducts = category ? getProductsByCategory(category) : getProducts();
 
   if (doShuffle) {
     allProducts = shuffle(allProducts);
@@ -102,7 +96,7 @@ export async function searchProducts(query: string): Promise<AppProduct[]> {
     if (!query) {
         return [];
     }
-    const allProducts = await getProducts();
+    const allProducts = getProducts();
     // In `search-utils.ts` the `title` property is used for searching.
     // We map product `name` to `title` to make it compatible.
     const searchableProducts = allProducts.map(p => ({ ...p, title: p.name }));

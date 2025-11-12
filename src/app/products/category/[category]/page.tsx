@@ -18,9 +18,9 @@ function formatCategoryTitle(slug: string): string {
     .join(' ');
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default function CategoryPage({ params }: CategoryPageProps) {
   const decodedCategory = decodeURIComponent(params.category);
-  const allCats = await getAllCategories();
+  const allCats = getAllCategories();
   
   if (!allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase())) {
     notFound();
@@ -40,8 +40,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   );
 }
 
-export async function generateStaticParams() {
-  const categories = await getAllCategories();
+export function generateStaticParams() {
+  const categories = getAllCategories();
   return categories.map((category) => ({
     category: encodeURIComponent(category.toLowerCase()),
   }));

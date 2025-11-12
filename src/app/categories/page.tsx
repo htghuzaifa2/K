@@ -25,7 +25,9 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
-    getAllCategories().then(setCategories);
+    // This now runs on the client and will correctly get categories
+    const cats = getAllCategories();
+    setCategories(cats);
   }, []);
 
   return (

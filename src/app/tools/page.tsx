@@ -1,20 +1,9 @@
 
-'use client';
-
-import { useState, Suspense } from 'react';
 import { getTools } from '@/lib/tool-data';
 import ToolSearch from './components/ToolSearch';
+import { Suspense } from 'react';
 
 const ITEMS_PER_PAGE = 20;
-
-
-function ToolsList() {
-  const [allTools] = useState(() => getTools());
-
-  return (
-    <ToolSearch allTools={allTools} itemsPerPage={ITEMS_PER_PAGE} />
-  );
-}
 
 function ToolsPageSkeleton() {
     return (
@@ -25,6 +14,7 @@ function ToolsPageSkeleton() {
 }
 
 export default function ToolsPage() {
+  const allTools = getTools();
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       <header className="text-center py-16 border-b">
@@ -33,7 +23,7 @@ export default function ToolsPage() {
       </header>
       <main className="py-8">
          <Suspense fallback={<ToolsPageSkeleton />}>
-            <ToolsList />
+            <ToolSearch allTools={allTools} itemsPerPage={ITEMS_PER_PAGE} />
          </Suspense>
       </main>
     </div>

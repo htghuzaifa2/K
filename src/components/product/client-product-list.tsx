@@ -22,8 +22,10 @@ export function ClientProductList({ category, limit, shuffle, currentProductId }
     async function loadProducts() {
       setIsLoading(true);
       try {
+        // fetchProducts is a server action, safe to call on client
         const result = await fetchProducts({ category, limit, shuffle });
         let finalProducts = result.products;
+        
         if (currentProductId) {
             finalProducts = finalProducts.filter(p => p.id !== currentProductId);
         }

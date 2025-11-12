@@ -30,18 +30,19 @@ function transformProduct(product: RawProduct): AppProduct {
 
 // This is the primary function to get products. 
 // It reads the local JSON file and transforms the data.
-export async function getProducts(): Promise<AppProduct[]> {
+// NOTE: This is a direct synchronous function to avoid build issues with static hosting.
+export function getProducts(): AppProduct[] {
     const rawProducts = Array.isArray(productsData) ? productsData : [];
     return rawProducts.map(transformProduct);
 }
 
-export async function getProductBySlug(slug: string): Promise<AppProduct | null> {
-  const products = await getProducts();
+export function getProductBySlug(slug: string): AppProduct | null {
+  const products = getProducts();
   return products.find((p) => p.slug === slug) || null;
 }
 
-export async function getProductsByCategory(category: string): Promise<AppProduct[]> {
-  const products = await getProducts();
+export function getProductsByCategory(category: string): AppProduct[] {
+  const products = getProducts();
   const lowerCaseCategory = category.toLowerCase();
   return products.filter((p) => {
       const productCategory = Array.isArray(p.category) ? p.category : [p.category];
@@ -49,14 +50,14 @@ export async function getProductsByCategory(category: string): Promise<AppProduc
   });
 }
 
-export async function getProductsByNames(names: string[]): Promise<AppProduct[]> {
-  const products = await getProducts();
+export function getProductsByNames(names: string[]): AppProduct[] {
+  const products = getProducts();
   const lowerCaseNames = names.map(name => name.toLowerCase());
   return products.filter(p => lowerCaseNames.includes(p.name.toLowerCase()));
 }
 
-export async function getAllCategories(): Promise<string[]> {
-    const products = await getProducts();
+export function getAllCategories(): string[] {
+    const products = getProducts();
     const categories = new Set(products.flatMap(p => Array.isArray(p.category) ? p.category : [p.category]));
     return Array.from(categories);
 }
