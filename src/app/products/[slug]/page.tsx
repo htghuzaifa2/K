@@ -1,4 +1,5 @@
-import { getProductBySlug } from '@/lib/products';
+
+import { getProducts, getProductBySlug } from '@/lib/products';
 import { notFound } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
 import { RelatedProducts } from '@/components/product/related-products';
@@ -6,6 +7,7 @@ import { Suspense } from 'react';
 import { ProductDetailsClient } from '@/components/product/product-details-client';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 
 type ProductPageProps = {
@@ -27,7 +29,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <ProductDetailsClient product={product} />
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Separator className="my-12" />
-        <Suspense fallback={<p>Loading related products...</p>}>
+        <Suspense fallback={<ProductGridSkeleton />}>
           <RelatedProducts currentProductId={product.id} />
         </Suspense>
       </div>

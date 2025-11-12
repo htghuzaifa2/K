@@ -6,6 +6,7 @@ import { InfiniteProductGrid } from '@/components/product/infinite-product-grid'
 import { fetchProducts } from '@/app/actions';
 import { ScrollRestorer } from '@/components/scroll-restorer';
 import type { AppProduct } from '@/lib/products';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 export default function AllProductsPage() {
   const [initialProducts, setInitialProducts] = useState<{ products: AppProduct[], hasMore: boolean, total: number } | null>(null);
@@ -33,9 +34,9 @@ export default function AllProductsPage() {
       <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
         All Products
       </h1>
-      <Suspense fallback={<p>Loading products...</p>}>
+      <Suspense fallback={<ProductGridSkeleton />}>
         {isLoading || !initialProducts ? (
-          <p>Loading products...</p>
+          <ProductGridSkeleton />
         ) : (
           <InfiniteProductGrid initialProducts={initialProducts} />
         )}

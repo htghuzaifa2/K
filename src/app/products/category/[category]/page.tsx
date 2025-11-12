@@ -8,6 +8,7 @@ import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-gri
 import { ScrollRestorer } from '@/components/scroll-restorer';
 import { fetchProducts } from '@/app/actions';
 import type { AppProduct } from '@/lib/products';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 export const runtime = 'edge';
 
@@ -66,7 +67,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
             {formatCategoryTitle(decodedCategory)}
         </h1>
-        <p>Loading products...</p>
+        <ProductGridSkeleton />
       </div>
     );
   }
@@ -83,9 +84,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
         {title}
       </h1>
-       <Suspense fallback={<p>Loading products...</p>}>
+       <Suspense fallback={<ProductGridSkeleton />}>
           {isLoading || !initialData || !allProductsForCategory ? (
-            <p>Loading products...</p>
+            <ProductGridSkeleton />
           ) : (
             <InfiniteWindowedGrid 
               initialProducts={initialData.products}
