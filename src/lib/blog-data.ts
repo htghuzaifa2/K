@@ -65,6 +65,7 @@ import lateAdmissionToBoardsContent from './blog-content/late-admission-to-board
 import howToTransferBoardAffiliation from './blog-content/how-to-transfer-board-affiliation-pakistan';
 import usingSmsAndMobileAppsForBoardResults from './blog-content/using-sms-and-mobile-apps-for-board-results-pakistan';
 import whatHappensAfterIntermediateResults from './blog-content/what-happens-after-intermediate-results-pakistan';
+import boardResultGazetteContent from './blog-content/board-result-gazette-pakistan';
 
 
 export interface BlogPost {
@@ -79,6 +80,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'board-result-gazette-pakistan': {
+    content: boardResultGazetteContent,
+    description: 'A guide for Pakistani students on how to download and interpret the official Board Result Gazette for verification, scholarships, and university admissions.'
+  },
   'what-happens-after-intermediate-results-pakistan': {
     content: whatHappensAfterIntermediateResults,
     description: 'A guide for Pakistani students on what to do after their Intermediate (HSSC) results, covering career paths, college admissions, and bridging courses.'
@@ -335,14 +340,19 @@ const contentMap: Record<string, { content: string, description: string }> = {
     content: bestPcMonitorsForCoding,
     description: 'A guide for Pakistani developers on choosing the best PC monitor for coding, focusing on eye-strain reduction, panel types (IPS vs VA), and local market prices.'
   },
-   'budget-phones-pakistan-2025': {
+  'budget-phones-pakistan-2025': {
     content: budgetPhones2025,
     description: 'A guide for Pakistani users on choosing a smooth, lag-free smartphone in the PKR 40k-60k budget range for 2025, focusing on performance, display, and software.'
-  },
+  }
 };
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'board-result-gazette-pakistan',
+    slug: 'how-to-download-and-interpret-board-result-gazette-in-pakistan',
+    title: '📰 Board Result Gazette: How to Download & Interpret It in Pakistan',
+  },
   {
     id: 'what-happens-after-intermediate-results-pakistan',
     slug: 'what-happens-after-intermediate-results-in-pakistan',
@@ -636,7 +646,7 @@ const blogPosts: BlogPost[] = [
   {
     id: 'board-exam-syllabus-changes-2026',
     slug: 'board-exam-syllabus-changes-2026-for-matric-and-inter-in-pakistan',
-    title: 'Board Exam Syllabus Changes 2026 for Matric & Inter in Pakistan',
+    title: 'Board Exam Syllabus Changes 2026 for Matric &amp; Inter in Pakistan',
   },
   {
     id: 'supplementary-re-checking-exams-pakistan-2026',
@@ -656,7 +666,7 @@ const blogPosts: BlogPost[] = [
   {
     id: 'perfect-wireless-keyboard-for-pakistan',
     slug: 'the-perfect-wireless-keyboard-for-work-study-and-daily-use-in-pakistan',
-    title: 'The Perfect Wireless Keyboard for Work, Study & Daily Use in Pakistan',
+    title: 'The Perfect Wireless Keyboard for Work, Study &amp; Daily Use in Pakistan',
   },
   {
     id: 'best-pc-monitors-for-coding-pakistan',
@@ -688,7 +698,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
   if (!data) {
     return {
       ...post,
-      content: '<p>Error: Blog content not found.</p>',
+      content: '&lt;p&gt;Error: Blog content not found.&lt;/p&gt;',
       description: 'Error: Description not found.',
     };
   }
@@ -723,6 +733,8 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
     
+
+
 
 
 
