@@ -62,6 +62,7 @@ import boardExamFeeStructure from './blog-content/board-exam-fee-structure-pakis
 import whatToDoIfRollNumberMissing from './blog-content/what-to-do-if-roll-number-missing';
 import whyToppersFailUniversityEntryTests from './blog-content/why-toppers-fail-university-entry-tests-pakistan';
 import lateAdmissionToBoardsContent from './blog-content/late-admission-to-boards-pakistan';
+import howToTransferBoardAffiliation from './blog-content/how-to-transfer-board-affiliation-pakistan';
 
 
 export interface BlogPost {
@@ -76,6 +77,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'how-to-transfer-board-affiliation-pakistan': {
+    content: howToTransferBoardAffiliation,
+    description: 'A step-by-step guide for Matric and Intermediate students in Pakistan on how to transfer their board affiliation when moving to a new city or province.'
+  },
   'late-admission-to-boards-pakistan': {
     content: lateAdmissionToBoardsContent,
     description: 'A guide for Pakistani students on what happens if you miss the board exam admission deadline, including late fees and available options.'
@@ -328,6 +333,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'how-to-transfer-board-affiliation-pakistan',
+    slug: 'how-to-transfer-your-board-affiliation-in-pakistan',
+    title: '🔄 How to Transfer Your Board Affiliation in Pakistan',
+  },
   {
     id: 'late-admission-to-boards-pakistan',
     slug: 'what-happens-if-you-miss-board-exam-deadline-in-pakistan',
@@ -693,5 +703,6 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
     
+
 
 
