@@ -61,6 +61,7 @@ import topMistakesBoardExamForms from './blog-content/top-mistakes-board-exam-fo
 import boardExamFeeStructure from './blog-content/board-exam-fee-structure-pakistan-2026';
 import whatToDoIfRollNumberMissing from './blog-content/what-to-do-if-roll-number-missing';
 import whyToppersFailUniversityEntryTests from './blog-content/why-toppers-fail-university-entry-tests-pakistan';
+import lateAdmissionToBoardsContent from './blog-content/late-admission-to-boards-pakistan';
 
 
 export interface BlogPost {
@@ -75,6 +76,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'late-admission-to-boards-pakistan': {
+    content: lateAdmissionToBoardsContent,
+    description: 'A guide for Pakistani students on what happens if you miss the board exam admission deadline, including late fees and available options.'
+  },
   'why-toppers-fail-university-entry-tests-pakistan': {
     content: whyToppersFailUniversityEntryTests,
     description: 'An analysis of why many high-achieving Pakistani students struggle with university entry tests, with tips on how to bridge the gap.'
@@ -323,6 +328,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'late-admission-to-boards-pakistan',
+    slug: 'what-happens-if-you-miss-board-exam-deadline-in-pakistan',
+    title: '⏰ Late Admission to Boards: What Happens If You Miss the Deadline in Pakistan',
+  },
   {
     id: 'why-toppers-fail-university-entry-tests-pakistan',
     slug: 'why-many-matric-inter-toppers-fail-university-entry-tests-in-pakistan',
@@ -683,4 +693,5 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
     
+
 
