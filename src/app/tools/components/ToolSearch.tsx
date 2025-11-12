@@ -1,13 +1,14 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { performSearch } from '@/lib/search-utils';
 import { useDebounce } from 'use-debounce';
 import type { Tool } from '@/lib/tool-data';
 import ToolCard from './ToolCard';
 import ToolPagination from './ToolPagination';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 interface ToolSearchProps {
   allTools: Tool[];
@@ -17,9 +18,16 @@ interface ToolSearchProps {
 export default function ToolSearch({ allTools, itemsPerPage }: ToolSearchProps) {
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebounce(query, 300);
+  const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
+
+  useEffect(() => {
+    if (allTools.length > 0) {
+      setIsLoading(false);
+    }
+  }, [allTools]);
 
   const filteredTools = useMemo(() => {
     if (!debouncedQuery) return allTools;
@@ -32,6 +40,10 @@ export default function ToolSearch({ allTools, itemsPerPage }: ToolSearchProps) 
     page * itemsPerPage
   );
   
+  if (isLoading) {
+    return <ProductGridSkeleton />;
+  }
+
   return (
     <div className="space-y-8">
       <input

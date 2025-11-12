@@ -1,8 +1,8 @@
 
 import { ProductGridSkeleton } from './product-grid-skeleton';
 import { Suspense } from 'react';
-import { ProductGrid } from './product-grid';
 import { getProducts } from '@/lib/products';
+import { ClientProductGrid } from './client-product-grid';
 
 type RelatedProductsProps = {
   currentProductId?: string;
@@ -38,7 +38,7 @@ export function RelatedProducts({ currentProductId }: RelatedProductsProps) {
     <div>
       <h2 className="mb-6 text-center text-3xl font-bold tracking-tight font-headline">You May Also Like</h2>
       <Suspense fallback={<ProductGridSkeleton />}>
-        <ProductGrid products={relatedProducts} />
+        <ClientProductGrid initialProducts={relatedProducts} />
       </Suspense>
     </div>
   );

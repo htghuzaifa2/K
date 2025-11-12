@@ -31,9 +31,15 @@ function transformProduct(product: RawProduct): AppProduct {
 
 // This is the primary function to get products. 
 // It reads the local JSON file and transforms the data.
+// This is a direct, synchronous import, which is reliable for static builds.
 export function getProducts(): AppProduct[] {
-    const rawProducts = Array.isArray(productsData) ? productsData : [];
-    return rawProducts.map(transformProduct);
+    try {
+        const rawProducts = Array.isArray(productsData) ? productsData : [];
+        return rawProducts.map(transformProduct);
+    } catch (error) {
+        console.error("Failed to load or parse products.json:", error);
+        return [];
+    }
 }
 
 export function getProductBySlug(slug: string): AppProduct | null {

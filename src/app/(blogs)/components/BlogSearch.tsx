@@ -1,13 +1,14 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { performSearch } from '@/lib/search-utils';
 import { useDebounce } from 'use-debounce';
 import type { BlogPost } from '@/lib/blog-data';
 import BlogCard from './BlogCard';
 import BlogPagination from './BlogPagination';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 interface BlogSearchProps {
   allPosts: BlogPost[];
@@ -17,9 +18,16 @@ interface BlogSearchProps {
 export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) {
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebounce(query, 300);
+  const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1', 10);
+
+  useEffect(() => {
+    if (allPosts.length > 0) {
+      setIsLoading(false);
+    }
+  }, [allPosts]);
 
   const filteredPosts = useMemo(() => {
     if (!debouncedQuery) return allPosts;
@@ -31,6 +39,10 @@ export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) 
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
+
+  if (isLoading) {
+    return <ProductGridSkeleton />;
+  }
   
   return (
     <div className="space-y-8">

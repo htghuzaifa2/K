@@ -1,11 +1,11 @@
 
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
-import { ProductGrid } from './product-grid';
+import { Suspense } from 'react';
 import { ProductGridSkeleton } from './product-grid-skeleton';
 import { getProducts } from '@/lib/products';
 import { AppProduct } from '@/lib/products';
+import { ClientProductGrid } from './client-product-grid';
 
 // Fisher-Yates shuffle algorithm
 function shuffle(array: any[]) {
@@ -24,26 +24,17 @@ function shuffle(array: any[]) {
   return array;
 }
 
-
 const RECOMMENDATION_COUNT = 4;
 
 export function ClientOnlyRelatedProducts() {
-  const [relatedProducts, setRelatedProducts] = useState<AppProduct[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const allProducts = getProducts();
-    const shuffled = shuffle(allProducts);
-    setRelatedProducts(shuffled.slice(0, RECOMMENDATION_COUNT));
-    setIsLoading(false);
-  }, []);
-
+  const allProducts = getProducts();
+  const relatedProducts = shuffle(allProducts).slice(0, RECOMMENDATION_COUNT);
 
   return (
     <div>
       <h2 className="mb-6 text-center text-3xl font-bold tracking-tight font-headline">You May Also Like</h2>
       <Suspense fallback={<ProductGridSkeleton />}>
-        {isLoading ? <ProductGridSkeleton /> : <ProductGrid products={relatedProducts} />}
+        <ClientProductGrid initialProducts={relatedProducts} />
       </Suspense>
     </div>
   );

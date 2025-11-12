@@ -1,8 +1,10 @@
 
+'use client';
+
 import { Suspense } from 'react';
-import { ProductGrid } from '@/components/product/product-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { getProducts } from '@/lib/products';
+import { ClientProductGrid } from '@/components/product/client-product-grid';
 
 export default function AllProductsPage() {
   const products = getProducts();
@@ -13,7 +15,7 @@ export default function AllProductsPage() {
         All Products
       </h1>
       <Suspense fallback={<ProductGridSkeleton />}>
-        <ProductGrid products={products} />
+        <ClientProductGrid initialProducts={products} />
       </Suspense>
     </div>
   );
