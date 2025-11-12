@@ -1,3 +1,4 @@
+
 import { getBlogPosts } from '@/lib/blog-data';
 import BlogSearch from '../components/BlogSearch';
 import { Suspense } from 'react';

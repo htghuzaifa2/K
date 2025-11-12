@@ -66,4 +66,3 @@ export default function BlogSearch({ allPosts, itemsPerPage }: BlogSearchProps) 
     </div>
   );
 }
-
