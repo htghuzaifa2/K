@@ -57,6 +57,7 @@ import ruggedDurablePhones from './blog-content/rugged-durable-phones-pakistan';
 import oledVsIpsDisplays from './blog-content/oled-vs-ips-displays-pakistan';
 import topTabletsForPakistaniStudents from './blog-content/top-tablets-for-pakistani-students';
 import howToCheckBoardResults from './blog-content/how-to-check-board-results-online-pakistan';
+import topMistakesBoardExamForms from './blog-content/top-mistakes-board-exam-forms-pakistan';
 
 
 export interface BlogPost {
@@ -71,6 +72,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'top-mistakes-board-exam-forms-pakistan': {
+    content: topMistakesBoardExamForms,
+    description: 'A guide to the common mistakes Pakistani students make when filling out Matric and Inter board exam admission forms, and how to avoid them.'
+  },
   'how-to-check-board-results-online-pakistan': {
     content: howToCheckBoardResults,
     description: 'A complete guide for students in Pakistan on how to check Matric and Intermediate board results online for 2026, including official websites, SMS codes, and mobile apps.'
@@ -303,6 +308,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'top-mistakes-board-exam-forms-pakistan',
+    slug: 'top-mistakes-students-make-during-board-exam-admission-forms-in-pakistan',
+    title: '📝 Top Mistakes Students Make During Board Exam Admission Forms in Pakistan',
+  },
   {
     id: 'how-to-check-board-results-online-pakistan',
     slug: 'how-to-check-your-matric-inter-board-results-online-in-pakistan-2026',
@@ -623,6 +633,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     
 
     
+
 
 
 
