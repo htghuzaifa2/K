@@ -8,6 +8,8 @@ import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-gri
 import { fetchProducts } from '@/app/actions';
 import type { AppProduct } from '@/lib/products';
 
+export const runtime = 'edge';
+
 type CategoryPageProps = {
   params: {
     category: string;
