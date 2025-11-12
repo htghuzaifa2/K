@@ -60,6 +60,7 @@ import howToCheckBoardResults from './blog-content/how-to-check-board-results-on
 import topMistakesBoardExamForms from './blog-content/top-mistakes-board-exam-forms-pakistan';
 import boardExamFeeStructure from './blog-content/board-exam-fee-structure-pakistan-2026';
 import whatToDoIfRollNumberMissing from './blog-content/what-to-do-if-roll-number-missing';
+import whyToppersFailUniversityEntryTests from './blog-content/why-toppers-fail-university-entry-tests-pakistan';
 
 
 export interface BlogPost {
@@ -74,6 +75,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'why-toppers-fail-university-entry-tests-pakistan': {
+    content: whyToppersFailUniversityEntryTests,
+    description: 'An analysis of why many high-achieving Pakistani students struggle with university entry tests, with tips on how to bridge the gap.'
+  },
   'what-to-do-if-roll-number-missing': {
     content: whatToDoIfRollNumberMissing,
     description: 'A step-by-step guide for Pakistani students on what to do if their Matric exam roll number slip or admit card is missing.'
@@ -318,6 +323,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'why-toppers-fail-university-entry-tests-pakistan',
+    slug: 'why-many-matric-inter-toppers-fail-university-entry-tests-in-pakistan',
+    title: '📉 Why Many Matric/Inter Toppers Fail University Entry Tests in Pakistan',
+  },
   {
     id: 'what-to-do-if-roll-number-missing',
     slug: 'what-to-do-if-your-roll-number-or-admit-card-is-missing-before-matric-exams',
@@ -673,3 +683,4 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
     
+
