@@ -64,6 +64,7 @@ import whyToppersFailUniversityEntryTests from './blog-content/why-toppers-fail-
 import lateAdmissionToBoardsContent from './blog-content/late-admission-to-boards-pakistan';
 import howToTransferBoardAffiliation from './blog-content/how-to-transfer-board-affiliation-pakistan';
 import usingSmsAndMobileAppsForBoardResults from './blog-content/using-sms-and-mobile-apps-for-board-results-pakistan';
+import whatHappensAfterIntermediateResults from './blog-content/what-happens-after-intermediate-results-pakistan';
 
 
 export interface BlogPost {
@@ -78,6 +79,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'what-happens-after-intermediate-results-pakistan': {
+    content: whatHappensAfterIntermediateResults,
+    description: 'A guide for Pakistani students on what to do after their Intermediate (HSSC) results, covering career paths, college admissions, and bridging courses.'
+  },
   'using-sms-and-mobile-apps-for-board-results-pakistan': {
     content: usingSmsAndMobileAppsForBoardResults,
     description: 'A guide for Pakistani students on how to use SMS and mobile apps to check their board exam results quickly and conveniently for 2026.'
@@ -338,6 +343,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'what-happens-after-intermediate-results-pakistan',
+    slug: 'what-happens-after-intermediate-results-in-pakistan',
+    title: '🎓 What Happens After Intermediate Results: Careers, Colleges & Admission Pathways in Pakistan',
+  },
   {
     id: 'using-sms-and-mobile-apps-for-board-results-pakistan',
     slug: 'using-sms-and-mobile-apps-to-check-board-results-in-pakistan',
@@ -713,6 +723,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
     
+
 
 
 
