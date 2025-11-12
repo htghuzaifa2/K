@@ -5,12 +5,8 @@ import { getAllCategories, getProductsByCategory } from '@/lib/products';
 import { Suspense, useEffect, useState } from 'react';
 import { notFound } from 'next/navigation';
 import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-grid';
-import { ScrollRestorer } from '@/components/scroll-restorer';
 import { fetchProducts } from '@/app/actions';
 import type { AppProduct } from '@/lib/products';
-import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-
-export const runtime = 'edge';
 
 type CategoryPageProps = {
   params: {
@@ -67,7 +63,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
             {formatCategoryTitle(decodedCategory)}
         </h1>
-        <ProductGridSkeleton />
+        <p>Loading...</p>
       </div>
     );
   }
@@ -80,13 +76,12 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-      <ScrollRestorer sessionKey={`category_${decodedCategory}_scroll`} />
       <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
         {title}
       </h1>
-       <Suspense fallback={<ProductGridSkeleton />}>
+       <Suspense fallback={<p>Loading...</p>}>
           {isLoading || !initialData || !allProductsForCategory ? (
-            <ProductGridSkeleton />
+            <p>Loading...</p>
           ) : (
             <InfiniteWindowedGrid 
               initialProducts={initialData.products}

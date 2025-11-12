@@ -6,7 +6,6 @@ import { useSearchParams } from 'next/navigation';
 import { searchProducts } from '@/app/actions';
 import { ProductGrid } from '@/components/product/product-grid';
 import type { AppProduct } from '@/lib/products';
-import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -36,7 +35,7 @@ function SearchResults() {
   }, [query]);
 
   if (loading) {
-    return <ProductGridSkeleton />;
+    return <p>Loading...</p>;
   }
   
   if (!query) {
@@ -71,7 +70,7 @@ function SearchHeading() {
 export default function SearchPage() {
     return (
         <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-            <Suspense fallback={<ProductGridSkeleton />}>
+            <Suspense fallback={<p>Loading...</p>}>
                 <SearchHeading />
                 <SearchResults />
             </Suspense>

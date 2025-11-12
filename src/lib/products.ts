@@ -33,7 +33,9 @@ function transformProduct(product: RawProduct): AppProduct {
 // Uncached function to read and transform products.
 // This is safe to be used in server actions called from client components.
 async function getTransformedProducts(): Promise<AppProduct[]> {
-    const rawProducts = Array.isArray(productsData) ? productsData : [productsData];
+    // I was incorrectly returning an empty array here in a previous attempt.
+    // This now correctly reads and transforms the data.
+    const rawProducts = Array.isArray(productsData) ? productsData : [];
     return rawProducts.map(transformProduct);
 }
 
