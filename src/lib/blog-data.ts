@@ -68,6 +68,7 @@ import boardResultGazetteContent from './blog-content/board-result-gazette-pakis
 import boardExamCenterIssues from './blog-content/board-exam-center-issues-pakistan';
 import boardPositionHoldersSecrets from './blog-content/board-position-holders-secrets-pakistan';
 import digitalisationOfBoardResults from './blog-content/digitalisation-of-board-results-pakistan';
+import admissionFormsClassXIPrivateVsPublic from './blog-content/admission-forms-class-xi-private-vs-public-pakistan';
 
 
 export interface BlogPost {
@@ -82,6 +83,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'admission-forms-class-xi-private-vs-public-pakistan': {
+    content: admissionFormsClassXIPrivateVsPublic,
+    description: 'A guide for Pakistani students on choosing between private and public schools for Class XI, covering costs, criteria, and application tips for 2026.'
+  },
   'digitalisation-of-board-results-pakistan': {
     content: digitalisationOfBoardResults,
     description: 'A guide for Pakistani students on what to expect from the digitalisation of board exam results in 2026, and how to prepare for online portals, QR codes, and mobile apps.'
@@ -354,15 +359,20 @@ const contentMap: Record<string, { content: string, description: string }> = {
     content: bestPcMonitorsForCoding,
     description: 'A guide for Pakistani developers on choosing the best PC monitor for coding, focusing on eye-strain reduction, panel types (IPS vs VA), and local market prices.'
   },
-  'budget-phones-pakistan-2025': {
-    id: 'budget-phones-pakistan-2025',
+   'budget-phones-pakistan-2025': {
     content: budgetPhones2025,
-    description: 'A guide for Pakistani users on choosing a smooth, lag-free smartphone in the PKR 40k-60k budget range for 2025, focusing on performance, display, and software.'
+    description: 'A guide for Pakistani users on choosing a smooth, lag-free smartphone in the PKR 40k-60k budget range for 2025, focusing on performance, display, and software.',
+    id: 'budget-phones-pakistan-2025'
   }
 };
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'admission-forms-class-xi-private-vs-public-pakistan',
+    slug: 'admission-forms-for-class-xi-private-vs-public-school-in-pakistan',
+    title: '🏫 Admission Forms for Class XI: Private School vs Public School in Pakistan – Cost, Criteria & Tips',
+  },
   {
     id: 'digitalisation-of-board-results-pakistan',
     slug: 'digitalisation-of-board-results-in-pakistan-what-students-should-know',
@@ -763,6 +773,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
     
+
 
 
 
