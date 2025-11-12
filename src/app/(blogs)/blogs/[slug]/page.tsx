@@ -3,10 +3,6 @@ import { getBlogPostBySlug, getBlogPosts } from '@/lib/blog-data';
 import { notFound } from 'next/navigation';
 import { APP_NAME } from '@/lib/constants';
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
-import { Separator } from '@/components/ui/separator';
-import { ClientOnlyRelatedProducts } from '@/components/product/client-only-related-products';
-import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { BlogPostClientPage } from './client-page';
 
 type Props = {
@@ -23,12 +19,6 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <>
       <BlogPostClientPage post={post} />
-      <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <Separator className="my-12" />
-        <Suspense fallback={<ProductGridSkeleton />}>
-          <ClientOnlyRelatedProducts />
-        </Suspense>
-      </div>
     </>
   );
 }

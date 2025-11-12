@@ -1,3 +1,4 @@
+
 import type { Product as RawProduct, ProductImage } from '@/lib/types';
 import productsData from './products.json';
 
@@ -30,7 +31,6 @@ function transformProduct(product: RawProduct): AppProduct {
 
 // This is the primary function to get products. 
 // It reads the local JSON file and transforms the data.
-// NOTE: This is a direct synchronous function to avoid build issues with static hosting.
 export function getProducts(): AppProduct[] {
     const rawProducts = Array.isArray(productsData) ? productsData : [];
     return rawProducts.map(transformProduct);

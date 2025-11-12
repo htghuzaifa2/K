@@ -40,7 +40,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   );
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   const categories = getAllCategories();
   return categories.map((category) => ({
     category: encodeURIComponent(category.toLowerCase()),

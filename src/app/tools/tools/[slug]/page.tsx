@@ -84,12 +84,6 @@ export default function ToolPage({ params }: Props) {
                   <p>This tool is under construction and will be available soon!</p>
               </article>
           </div>
-          <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-              <Separator className="my-12" />
-              <Suspense fallback={<ProductGridSkeleton />}>
-                <ClientOnlyRelatedProducts />
-              </Suspense>
-          </div>
       </>
     );
 }

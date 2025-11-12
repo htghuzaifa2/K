@@ -10,7 +10,7 @@ export default function AllProductsPage() {
         All Products
       </h1>
       <Suspense fallback={<ProductGridSkeleton />}>
-        <ClientProductList limit={50} />
+        <ClientProductList limit={25} />
       </Suspense>
     </div>
   );
