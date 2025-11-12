@@ -1,8 +1,10 @@
+'use client';
 
 import { getAllCategories } from '@/lib/products';
 import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const categoryImages: Record<string, { src: string; hint: string }> = {
   'keyboards': { src: 'https://i.postimg.cc/KzNsv0Ws/Wireless-keyboard-KB036-for-laptop-and-mobile-smooth-silent-keys-available-in-Pakistan.png', hint: 'wireless keyboard' },
@@ -19,8 +21,12 @@ function getCategoryImage(category: string) {
   return categoryImages[normalizedCategory] || { src: `https://picsum.photos/seed/${normalizedCategory}/600/400`, hint: 'fashion style' };
 }
 
-export default async function CategoriesPage() {
-  const categories = await getAllCategories();
+export default function CategoriesPage() {
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    getAllCategories().then(setCategories);
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">

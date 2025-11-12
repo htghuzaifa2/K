@@ -1,12 +1,20 @@
+'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
 import { fetchProducts } from '@/app/actions';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { ScrollRestorer } from '@/components/scroll-restorer';
+import { AppProduct } from '@/lib/products';
 
-export default async function AllProductsPage() {
-  const initialProducts = await fetchProducts({ page: 1, limit: 25 });
+export default function AllProductsPage() {
+  const [initialProducts, setInitialProducts] = useState<{ products: AppProduct[], hasMore: boolean, total: number } | null>(null);
+
+  useEffect(() => {
+    fetchProducts({ page: 1, limit: 25 }).then(data => {
+      setInitialProducts(data);
+    });
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
@@ -15,7 +23,11 @@ export default async function AllProductsPage() {
         All Products
       </h1>
       <Suspense fallback={<ProductGridSkeleton />}>
-        <InfiniteProductGrid initialProducts={initialProducts} />
+        {initialProducts ? (
+          <InfiniteProductGrid initialProducts={initialProducts} />
+        ) : (
+          <ProductGridSkeleton />
+        )}
       </Suspense>
     </div>
   );

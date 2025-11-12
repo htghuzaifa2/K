@@ -1,14 +1,14 @@
-
+'use client';
 import { getAllCategories, getProductsByCategory } from '@/lib/products';
-import { Suspense } from 'react';
-import { notFound } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
+import { notFound, useParams } from 'next/navigation';
 import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import { ScrollRestorer } from '@/components/scroll-restorer';
 import { fetchProducts } from '@/app/actions';
-
+import { AppProduct } from '@/lib/products';
 
 type CategoryPageProps = {
   params: {
@@ -24,29 +24,28 @@ function formatCategoryTitle(slug: string): string {
 }
 
 
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+export default function CategoryPage({ params }: CategoryPageProps) {
   const decodedCategory = decodeURIComponent(params.category);
-  const title = formatCategoryTitle(decodedCategory);
+  const [initialData, setInitialData] = useState<{products: AppProduct[], hasMore: boolean, total: number} | null>(null);
+  const [allProductsForCategory, setAllProductsForCategory] = useState<AppProduct[] | null>(null);
   
-  return {
-    title: title,
-    description: `Shop for ${title} on ${APP_NAME}. Best prices in Pakistan.`,
-  };
-}
+  useEffect(() => {
+    async function loadCategoryData() {
+      const allCategories = await getAllCategories();
+      const isValidCategory = allCategories.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const decodedCategory = decodeURIComponent(params.category);
-  
-  const allCategories = await getAllCategories();
-  const isValidCategory = allCategories.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
+      if (!isValidCategory) {
+        notFound();
+      }
+      
+      const productsForCategory = await getProductsByCategory(decodedCategory);
+      setAllProductsForCategory(productsForCategory);
 
-  if (!isValidCategory) {
-    notFound();
-  }
-  
-  const allProductsForCategory = await getProductsByCategory(decodedCategory);
-  const initialData = await fetchProducts({ allProducts: allProductsForCategory, page: 1, limit: 25 });
-
+      const initial = await fetchProducts({ allProducts: productsForCategory, page: 1, limit: 25 });
+      setInitialData(initial);
+    }
+    loadCategoryData();
+  }, [decodedCategory]);
 
   const title = formatCategoryTitle(decodedCategory);
 
@@ -57,10 +56,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
        <Suspense fallback={<ProductGridSkeleton />}>
-        <InfiniteWindowedGrid 
-          initialProducts={initialData.products}
-          allProducts={allProductsForCategory}
-        />
+        {(initialData && allProductsForCategory) ? (
+          <InfiniteWindowedGrid 
+            initialProducts={initialData.products}
+            allProducts={allProductsForCategory}
+          />
+        ) : <ProductGridSkeleton />}
       </Suspense>
     </div>
   );
@@ -71,4 +72,14 @@ export async function generateStaticParams() {
     return categories.map((category) => ({
         category: encodeURIComponent(category),
     }));
+}
+
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const decodedCategory = decodeURIComponent(params.category);
+  const title = formatCategoryTitle(decodedCategory);
+  
+  return {
+    title: title,
+    description: `Shop for ${title} on ${APP_NAME}. Best prices in Pakistan.`,
+  };
 }
