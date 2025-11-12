@@ -58,6 +58,7 @@ import oledVsIpsDisplays from './blog-content/oled-vs-ips-displays-pakistan';
 import topTabletsForPakistaniStudents from './blog-content/top-tablets-for-pakistani-students';
 import howToCheckBoardResults from './blog-content/how-to-check-board-results-online-pakistan';
 import topMistakesBoardExamForms from './blog-content/top-mistakes-board-exam-forms-pakistan';
+import boardExamFeeStructure from './blog-content/board-exam-fee-structure-pakistan-2026';
 
 
 export interface BlogPost {
@@ -72,6 +73,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'board-exam-fee-structure-pakistan-2026': {
+    content: boardExamFeeStructure,
+    description: 'A clear breakdown of board exam fees for Matric and Inter in Pakistan for 2026, with tips on how to save money and avoid late charges.'
+  },
   'top-mistakes-board-exam-forms-pakistan': {
     content: topMistakesBoardExamForms,
     description: 'A guide to the common mistakes Pakistani students make when filling out Matric and Inter board exam admission forms, and how to avoid them.'
@@ -308,6 +313,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'board-exam-fee-structure-pakistan-2026',
+    slug: 'board-exam-fee-structure-pakistan-2026',
+    title: '💰 Board Exam Fee Structure 2026: How Much Do Pakistani Students Pay & How to Save',
+  },
   {
     id: 'top-mistakes-board-exam-forms-pakistan',
     slug: 'top-mistakes-students-make-during-board-exam-admission-forms-in-pakistan',
@@ -652,7 +662,4 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
 
-
-
-
-
+    
