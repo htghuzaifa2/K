@@ -33,7 +33,7 @@ function transformProduct(product: RawProduct): AppProduct {
 // Uncached function to read and transform products.
 // This is safe to be used in server actions called from client components.
 async function getTransformedProducts(): Promise<AppProduct[]> {
-    const rawProducts = productsData as RawProduct[];
+    const rawProducts = Array.isArray(productsData) ? productsData : [productsData];
     return rawProducts.map(transformProduct);
 }
 
@@ -76,6 +76,6 @@ export async function getProductsByNames(names: string[]): Promise<AppProduct[]>
 
 export async function getAllCategories(): Promise<string[]> {
     const products = await getProducts();
-    const categories = new Set(products.flatMap(p => p.category));
+    const categories = new Set(products.flatMap(p => Array.isArray(p.category) ? p.category : [p.category]));
     return Array.from(categories);
 }
