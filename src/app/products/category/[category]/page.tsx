@@ -1,12 +1,16 @@
+
+'use client';
+
 import { getAllCategories, getProductsByCategory } from '@/lib/products';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { notFound } from 'next/navigation';
 import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import { ScrollRestorer } from '@/components/scroll-restorer';
 import { fetchProducts } from '@/app/actions';
+import type { AppProduct } from '@/lib/products';
 
 type CategoryPageProps = {
   params: {
@@ -21,19 +25,34 @@ function formatCategoryTitle(slug: string): string {
     .join(' ');
 }
 
-// This is an async Server Component
-export default async function CategoryPage({ params }: CategoryPageProps) {
+// This is a client-side rendered page
+export default function CategoryPage({ params }: CategoryPageProps) {
   const decodedCategory = decodeURIComponent(params.category);
-  
-  const allCategories = await getAllCategories();
-  const isValidCategory = allCategories.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
+  const [initialData, setInitialData] = useState<{products: AppProduct[] } | null>(null);
+  const [allProductsForCategory, setAllProductsForCategory] = useState<AppProduct[] | null>(null);
+  const [isValidCategory, setIsValidCategory] = useState<boolean | null>(null);
 
-  if (!isValidCategory) {
+  useEffect(() => {
+    async function loadData() {
+      const allCats = await getAllCategories();
+      const isValid = allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
+      setIsValidCategory(isValid);
+
+      if (!isValid) {
+        return;
+      }
+      
+      const products = await getProductsByCategory(decodedCategory);
+      setAllProductsForCategory(products);
+      const initial = await fetchProducts({ allProducts: products, page: 1, limit: 25 });
+      setInitialData(initial);
+    }
+    loadData();
+  }, [decodedCategory]);
+
+  if (isValidCategory === false) {
     notFound();
   }
-  
-  const allProductsForCategory = await getProductsByCategory(decodedCategory);
-  const initialData = await fetchProducts({ allProducts: allProductsForCategory, page: 1, limit: 25 });
 
   const title = formatCategoryTitle(decodedCategory);
 
@@ -44,28 +63,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
        <Suspense fallback={<ProductGridSkeleton />}>
-          <InfiniteWindowedGrid 
-            initialProducts={initialData.products}
-            allProducts={allProductsForCategory}
-          />
+          {(initialData && allProductsForCategory) ? (
+            <InfiniteWindowedGrid 
+              initialProducts={initialData.products}
+              allProducts={allProductsForCategory}
+            />
+          ) : <ProductGridSkeleton />}
       </Suspense>
     </div>
   );
 }
 
-export async function generateStaticParams() {
-    const categories = await getAllCategories();
-    return categories.map((category) => ({
-        category: encodeURIComponent(category),
-    }));
-}
-
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const decodedCategory = decodeURIComponent(params.category);
-  const title = formatCategoryTitle(decodedCategory);
-  
-  return {
-    title: title,
-    description: `Shop for ${title} on ${APP_NAME}. Best prices in Pakistan.`,
-  };
-}
+// generateStaticParams and generateMetadata are server-side functions and cannot be used in a client component.
+// If you need them, this page must be refactored.
