@@ -1,9 +1,8 @@
 
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { ProductGrid } from '@/components/product/product-grid';
+import { ClientProductList } from '@/components/product/client-product-list';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-import { fetchProducts } from '@/app/actions';
 import { getAllCategories } from '@/lib/products';
 
 type CategoryPageProps = {
@@ -17,16 +16,6 @@ function formatCategoryTitle(slug: string): string {
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
-}
-
-async function CategoryProducts({ category }: { category: string }) {
-    const { products } = await fetchProducts({ category });
-    
-    if (!products) {
-        notFound();
-    }
-
-    return <ProductGrid products={products} />;
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -45,7 +34,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
        <Suspense fallback={<ProductGridSkeleton />}>
-          <CategoryProducts category={decodedCategory} />
+          <ClientProductList category={decodedCategory} />
       </Suspense>
     </div>
   );

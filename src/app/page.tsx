@@ -1,14 +1,8 @@
 
 import { Suspense } from 'react';
 import Hero from '@/components/hero';
-import { ProductGrid } from '@/components/product/product-grid';
+import { ClientProductList } from '@/components/product/client-product-list';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-import { fetchProducts } from './actions';
-
-async function FeaturedProducts() {
-  const { products } = await fetchProducts({ limit: 8, shuffle: true });
-  return <ProductGrid products={products} />;
-}
 
 export default function Home() {
   return (
@@ -19,7 +13,7 @@ export default function Home() {
           Featured Products
         </h2>
         <Suspense fallback={<ProductGridSkeleton />}>
-          <FeaturedProducts />
+          <ClientProductList limit={8} shuffle={true} />
         </Suspense>
       </div>
     </div>
