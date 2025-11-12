@@ -67,6 +67,7 @@ import whatHappensAfterIntermediateResults from './blog-content/what-happens-aft
 import boardResultGazetteContent from './blog-content/board-result-gazette-pakistan';
 import boardExamCenterIssues from './blog-content/board-exam-center-issues-pakistan';
 import boardPositionHoldersSecrets from './blog-content/board-position-holders-secrets-pakistan';
+import digitalisationOfBoardResults from './blog-content/digitalisation-of-board-results-pakistan';
 
 
 export interface BlogPost {
@@ -81,6 +82,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'digitalisation-of-board-results-pakistan': {
+    content: digitalisationOfBoardResults,
+    description: 'A guide for Pakistani students on what to expect from the digitalisation of board exam results in 2026, and how to prepare for online portals, QR codes, and mobile apps.'
+  },
   'board-position-holders-secrets-pakistan': {
     content: boardPositionHoldersSecrets,
     description: 'Discover the study habits, planning techniques, and mindset that help Pakistani students consistently top Matric and Intermediate board exams.'
@@ -358,6 +363,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'digitalisation-of-board-results-pakistan',
+    slug: 'digitalisation-of-board-results-in-pakistan-what-students-should-know',
+    title: '💻 Digitalisation of Board Results in Pakistan: What Students Should Know & Prepare For',
+  },
   {
     id: 'board-position-holders-secrets-pakistan',
     slug: 'board-position-holders-secrets-how-pakistani-students-top-exams',
@@ -753,6 +763,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
     
+
 
 
 
