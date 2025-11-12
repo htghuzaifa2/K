@@ -100,4 +100,3 @@ export const performSearch = <T extends SearchableItem>(query: string, items: T[
     .sort((a, b) => b.score - a.score)
     .map(result => result.item);
 };
-
