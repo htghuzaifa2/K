@@ -1,5 +1,4 @@
 
-
 import ptaGuideContent from './blog-content/pta-guide-2025';
 import freelancingSetupContent from './blog-content/freelancing-setup-pakistan-2026';
 import seoContent from './blog-content/seo-for-pakistani-developers-2026';
@@ -66,6 +65,7 @@ import howToTransferBoardAffiliation from './blog-content/how-to-transfer-board-
 import usingSmsAndMobileAppsForBoardResults from './blog-content/using-sms-and-mobile-apps-for-board-results-pakistan';
 import whatHappensAfterIntermediateResults from './blog-content/what-happens-after-intermediate-results-pakistan';
 import boardResultGazetteContent from './blog-content/board-result-gazette-pakistan';
+import boardExamCenterIssues from './blog-content/board-exam-center-issues-pakistan';
 
 
 export interface BlogPost {
@@ -80,6 +80,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'board-exam-center-issues-pakistan': {
+    content: boardExamCenterIssues,
+    description: 'A guide for Pakistani students on their rights and remedies if they face issues like illness or instrument failure at a board exam center.'
+  },
   'board-result-gazette-pakistan': {
     content: boardResultGazetteContent,
     description: 'A guide for Pakistani students on how to download and interpret the official Board Result Gazette for verification, scholarships, and university admissions.'
@@ -341,6 +345,7 @@ const contentMap: Record<string, { content: string, description: string }> = {
     description: 'A guide for Pakistani developers on choosing the best PC monitor for coding, focusing on eye-strain reduction, panel types (IPS vs VA), and local market prices.'
   },
   'budget-phones-pakistan-2025': {
+    id: 'budget-phones-pakistan-2025',
     content: budgetPhones2025,
     description: 'A guide for Pakistani users on choosing a smooth, lag-free smartphone in the PKR 40k-60k budget range for 2025, focusing on performance, display, and software.'
   }
@@ -348,6 +353,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'board-exam-center-issues-pakistan',
+    slug: 'board-exam-center-issues-what-to-do',
+    title: '⚠️ Board Exam Center Issues: What to Do If You Were Absent or Instrument Failed in Pakistan',
+  },
   {
     id: 'board-result-gazette-pakistan',
     slug: 'how-to-download-and-interpret-board-result-gazette-in-pakistan',
@@ -733,6 +743,7 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
 
 
     
+
 
 
 
