@@ -1,14 +1,12 @@
-'use client';
 import { getAllCategories, getProductsByCategory } from '@/lib/products';
-import { Suspense, useEffect, useState } from 'react';
-import { notFound, useParams } from 'next/navigation';
+import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
 import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import { ScrollRestorer } from '@/components/scroll-restorer';
 import { fetchProducts } from '@/app/actions';
-import { AppProduct } from '@/lib/products';
 
 type CategoryPageProps = {
   params: {
@@ -23,29 +21,19 @@ function formatCategoryTitle(slug: string): string {
     .join(' ');
 }
 
-
-export default function CategoryPage({ params }: CategoryPageProps) {
+// This is an async Server Component
+export default async function CategoryPage({ params }: CategoryPageProps) {
   const decodedCategory = decodeURIComponent(params.category);
-  const [initialData, setInitialData] = useState<{products: AppProduct[], hasMore: boolean, total: number} | null>(null);
-  const [allProductsForCategory, setAllProductsForCategory] = useState<AppProduct[] | null>(null);
   
-  useEffect(() => {
-    async function loadCategoryData() {
-      const allCategories = await getAllCategories();
-      const isValidCategory = allCategories.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
+  const allCategories = await getAllCategories();
+  const isValidCategory = allCategories.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
 
-      if (!isValidCategory) {
-        notFound();
-      }
-      
-      const productsForCategory = await getProductsByCategory(decodedCategory);
-      setAllProductsForCategory(productsForCategory);
-
-      const initial = await fetchProducts({ allProducts: productsForCategory, page: 1, limit: 25 });
-      setInitialData(initial);
-    }
-    loadCategoryData();
-  }, [decodedCategory]);
+  if (!isValidCategory) {
+    notFound();
+  }
+  
+  const allProductsForCategory = await getProductsByCategory(decodedCategory);
+  const initialData = await fetchProducts({ allProducts: allProductsForCategory, page: 1, limit: 25 });
 
   const title = formatCategoryTitle(decodedCategory);
 
@@ -56,12 +44,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
        <Suspense fallback={<ProductGridSkeleton />}>
-        {(initialData && allProductsForCategory) ? (
           <InfiniteWindowedGrid 
             initialProducts={initialData.products}
             allProducts={allProductsForCategory}
           />
-        ) : <ProductGridSkeleton />}
       </Suspense>
     </div>
   );

@@ -1,12 +1,14 @@
-'use client';
 import { getProductBySlug, getProducts } from '@/lib/products';
 import { notFound } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
 import { RelatedProducts } from '@/components/product/related-products';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { ProductDetailsClient } from '@/components/product/product-details-client';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { AppProduct } from '@/lib/products';
+import { Metadata } from 'next';
+import { APP_NAME } from '@/lib/constants';
+
 
 type ProductPageProps = {
   params: {
@@ -14,42 +16,12 @@ type ProductPageProps = {
   };
 };
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = params;
-  const [product, setProduct] = useState<AppProduct | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadProduct() {
-      setLoading(true);
-      try {
-        const p = await getProductBySlug(slug);
-        if (!p) {
-          notFound();
-        } else {
-          setProduct(p);
-        }
-      } catch (error) {
-        console.error("Failed to load product", error);
-        notFound();
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadProduct();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <ProductGridSkeleton />
-      </div>
-    );
-  }
+  const product = await getProductBySlug(slug);
 
   if (!product) {
-    // This case should be handled by notFound(), but as a fallback:
-    return null;
+    notFound();
   }
 
   return (
@@ -63,4 +35,52 @@ export default function ProductPage({ params }: ProductPageProps) {
       </div>
     </>
   );
+}
+
+export async function generateStaticParams() {
+    const products = await getProducts();
+    return products.map((product) => ({
+        slug: product.slug,
+    }));
+}
+
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+  const product = await getProductBySlug(params.slug);
+
+  if (!product) {
+    return {
+      title: 'Not Found',
+      description: `This product could not be found on ${APP_NAME}.`,
+    };
+  }
+
+  const url = `https://www.${APP_NAME}/products/${product.slug}`;
+
+  return {
+    title: product.name,
+    description: product.description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      url: url,
+      type: 'article',
+      images: [
+        {
+          url: product.images[0].url,
+          width: 800,
+          height: 600,
+          alt: product.images[0].altText,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: product.name,
+      description: product.description,
+      images: [product.images[0].url],
+    },
+  };
 }
