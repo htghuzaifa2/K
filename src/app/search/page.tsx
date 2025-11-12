@@ -3,19 +3,28 @@
 
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { searchProducts } from '@/app/actions';
 import { ProductGrid } from '@/components/product/product-grid';
 import type { AppProduct } from '@/lib/products';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
+import { getProducts } from '@/lib/products';
+import { performSearch } from '@/lib/search-utils';
 
 function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q');
   const [products, setProducts] = useState<AppProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const [allProducts, setAllProducts] = useState<AppProduct[]>([]);
 
   useEffect(() => {
-    async function performSearch() {
+    // In a real app, you might fetch this once and cache it.
+    const products = getProducts();
+    const searchableProducts = products.map(p => ({ ...p, title: p.name }));
+    setAllProducts(searchableProducts);
+  }, []);
+
+  useEffect(() => {
+    async function doSearch() {
       if (!query) {
         setProducts([]);
         setLoading(false);
@@ -23,7 +32,7 @@ function SearchResults() {
       }
       setLoading(true);
       try {
-        const results = await searchProducts(query);
+        const results = performSearch(query, allProducts).slice(0, 50);
         setProducts(results);
       } catch (error) {
         console.error("Failed to search products", error);
@@ -32,8 +41,10 @@ function SearchResults() {
         setLoading(false);
       }
     }
-    performSearch();
-  }, [query]);
+    if (allProducts.length > 0) {
+        doSearch();
+    }
+  }, [query, allProducts]);
 
   if (loading) {
     return <ProductGridSkeleton />;

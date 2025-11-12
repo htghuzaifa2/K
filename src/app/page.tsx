@@ -1,10 +1,31 @@
 
 import { Suspense } from 'react';
 import Hero from '@/components/hero';
-import { ClientProductList } from '@/components/product/client-product-list';
+import { ProductGrid } from '@/components/product/product-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
+import { getProducts } from '@/lib/products';
+
+// Fisher-Yates shuffle algorithm
+function shuffle(array: any[]) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex > 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
 
 export default function Home() {
+  const allProducts = getProducts();
+  const featuredProducts = shuffle(allProducts).slice(0, 8);
+
   return (
     <div>
       <Hero />
@@ -13,7 +34,7 @@ export default function Home() {
           Featured Products
         </h2>
         <Suspense fallback={<ProductGridSkeleton />}>
-          <ClientProductList limit={8} shuffle={true} />
+          <ProductGrid products={featuredProducts} />
         </Suspense>
       </div>
     </div>

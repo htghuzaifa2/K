@@ -2,16 +2,9 @@
 import { getBlogPosts } from '@/lib/blog-data';
 import BlogSearch from '../components/BlogSearch';
 import { Suspense } from 'react';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 const ITEMS_PER_PAGE = 20;
-
-function BlogPageSkeleton() {
-  return (
-    <div className="space-y-8">
-        <p>Loading...</p>
-    </div>
-  )
-}
 
 export default function BlogsPage() {
   const allPosts = getBlogPosts();
@@ -23,7 +16,7 @@ export default function BlogsPage() {
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">Your source for tech trends, expert tutorials, and design inspiration.</p>
       </header>
       <main className="py-8">
-        <Suspense fallback={<BlogPageSkeleton />}>
+        <Suspense fallback={<ProductGridSkeleton />}>
           <BlogSearch allPosts={allPosts} itemsPerPage={ITEMS_PER_PAGE} />
         </Suspense>
       </main>

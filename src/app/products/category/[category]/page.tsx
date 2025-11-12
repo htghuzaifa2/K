@@ -1,9 +1,9 @@
 
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { ClientProductList } from '@/components/product/client-product-list';
+import { ProductGrid } from '@/components/product/product-grid';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-import { getAllCategories } from '@/lib/products';
+import { getAllCategories, getProductsByCategory } from '@/lib/products';
 
 type CategoryPageProps = {
   params: {
@@ -27,6 +27,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   }
 
   const title = formatCategoryTitle(decodedCategory);
+  const products = getProductsByCategory(decodedCategory);
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
@@ -34,7 +35,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         {title}
       </h1>
        <Suspense fallback={<ProductGridSkeleton />}>
-          <ClientProductList category={decodedCategory} />
+          <ProductGrid products={products} />
       </Suspense>
     </div>
   );
