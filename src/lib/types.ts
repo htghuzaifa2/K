@@ -4,7 +4,7 @@ export type ProductImage = {
 };
 
 export type Product = {
-  id: number;
+  id: string;
   slug: string;
   name: string;
   description: string;
