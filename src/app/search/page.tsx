@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Suspense, useEffect, useState } from 'react';
@@ -39,11 +40,11 @@ function SearchResults() {
   }
   
   if (!query) {
-    return <div className="text-center">Please enter a search term in the header to find products.</div>;
+    return <div className="text-center py-16">Please enter a search term to find products.</div>;
   }
 
   if (products.length === 0) {
-    return <div className="text-center">No products found matching your search for <span className="font-semibold">&quot;{query}&quot;</span>.</div>;
+    return <div className="text-center py-16">No products found matching your search for <span className="font-semibold">&quot;{query}&quot;</span>.</div>;
   }
 
   return <ProductGrid products={products} />;
@@ -62,11 +63,7 @@ function SearchHeading() {
                 <p className="mb-8 text-center text-muted-foreground">
                     Showing results for: <span className="font-semibold text-foreground">&quot;{query}&quot;</span>
                 </p>
-            ) : (
-                 <p className="mb-8 text-center text-muted-foreground">
-                    Enter a term in the search bar to begin.
-                </p>
-            )}
+            ) : null}
         </>
     )
 }

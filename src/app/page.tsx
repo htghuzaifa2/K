@@ -14,27 +14,18 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
     const loadProducts = async () => {
       setIsLoading(true);
       try {
         const data = await fetchProducts({ page: 1, limit: 25, shuffle: true });
-        if (isMounted) {
-          setInitialProducts(data);
-        }
+        setInitialProducts(data);
       } catch (error) {
         console.error("Failed to fetch initial products:", error);
       } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
+        setIsLoading(false);
       }
     };
     loadProducts();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   return (
