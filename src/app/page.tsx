@@ -5,9 +5,8 @@ import { Suspense, useEffect, useState } from 'react';
 import Hero from '@/components/hero';
 import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
 import { fetchProducts } from './actions';
-import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
+import type { AppProduct } from '@/lib/products';
 import { ScrollRestorer } from '@/components/scroll-restorer';
-import { AppProduct } from '@/lib/products';
 
 export default function Home() {
   const [initialProducts, setInitialProducts] = useState<{ products: AppProduct[], hasMore: boolean, total: number } | null>(null);
@@ -36,9 +35,9 @@ export default function Home() {
         <h2 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
           Featured Products
         </h2>
-        <Suspense fallback={<ProductGridSkeleton />}>
+        <Suspense fallback={<p>Loading products...</p>}>
           {isLoading || !initialProducts ? (
-            <ProductGridSkeleton />
+            <p>Loading products...</p>
           ) : (
             <InfiniteProductGrid initialProducts={initialProducts} />
           )}

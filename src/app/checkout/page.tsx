@@ -19,7 +19,6 @@ import { pakistanProvinces, citiesByProvince } from '@/lib/pakistan-locations';
 import { useState, useEffect } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
-import { Skeleton } from '@/components/ui/skeleton';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -36,60 +35,7 @@ const formSchema = z.object({
 function CheckoutSkeleton() {
   return (
      <div className="container mx-auto px-4 py-12">
-        <header className="text-center mb-12">
-            <Skeleton className="h-12 w-1/2 mx-auto" />
-            <Skeleton className="h-6 w-3/4 mx-auto mt-4" />
-        </header>
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-            <div className="lg:col-span-3">
-                <Card>
-                    <CardHeader>
-                        <Skeleton className="h-8 w-1/3" />
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                        <Skeleton className="h-10 w-full" />
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <Skeleton className="h-10 w-full" />
-                            <Skeleton className="h-10 w-full" />
-                        </div>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <Skeleton className="h-10 w-full" />
-                            <Skeleton className="h-10 w-full" />
-                        </div>
-                        <Skeleton className="h-20 w-full" />
-                        <Skeleton className="h-12 w-full" />
-                    </CardContent>
-                </Card>
-            </div>
-            <div className="lg:col-span-2">
-                <Card className="sticky top-20">
-                    <CardHeader>
-                        <Skeleton className="h-8 w-1/2" />
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        {Array.from({ length: 2 }).map((_, i) => (
-                             <div key={i} className="flex items-center gap-4">
-                                <Skeleton className="h-16 w-16" />
-                                <div className="flex-grow space-y-2">
-                                    <Skeleton className="h-4 w-full" />
-                                    <Skeleton className="h-4 w-1/4" />
-                                </div>
-                                <Skeleton className="h-4 w-1/4" />
-                            </div>
-                        ))}
-                    </CardContent>
-                    <CardFooter className="flex-col items-stretch space-y-4">
-                        <Skeleton className="h-px w-full" />
-                        <div className="space-y-2">
-                            <div className="flex justify-between"><Skeleton className="h-5 w-1/4" /><Skeleton className="h-5 w-1/3" /></div>
-                            <div className="flex justify-between"><Skeleton className="h-5 w-1/4" /><Skeleton className="h-5 w-1/3" /></div>
-                        </div>
-                        <Skeleton className="h-px w-full" />
-                        <div className="flex justify-between"><Skeleton className="h-6 w-1/4" /><Skeleton className="h-6 w-1/3" /></div>
-                    </CardFooter>
-                </Card>
-            </div>
-        </div>
+        <p>Loading checkout...</p>
      </div>
   )
 }

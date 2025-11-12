@@ -2,7 +2,6 @@
 
 import { type AppProduct } from '@/lib/products';
 import { ProductGrid } from './product-grid';
-import { ProductGridSkeleton } from './product-grid-skeleton';
 import { useState, useEffect } from 'react';
 import productsSummaryData from '@/lib/products-summary.json';
 
@@ -56,7 +55,7 @@ export function ClientOnlyRelatedProducts() {
     return (
       <div>
         <h2 className="mb-6 text-center text-3xl font-bold tracking-tight font-headline">You May Also Like</h2>
-        <ProductGridSkeleton />
+        <p>Loading...</p>
       </div>
     );
   }

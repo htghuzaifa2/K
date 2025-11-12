@@ -4,7 +4,6 @@
 import { useState, Suspense } from 'react';
 import { getTools } from '@/lib/tool-data';
 import ToolSearch from './components/ToolSearch';
-import { Skeleton } from '@/components/ui/skeleton';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -20,12 +19,7 @@ function ToolsList() {
 function ToolsPageSkeleton() {
     return (
         <div className="space-y-8">
-            <Skeleton className="h-10 w-full max-w-lg mx-auto" />
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-                {Array.from({ length: 8 }).map((_, i) => (
-                    <Skeleton key={i} className="aspect-video w-full rounded-xl" />
-                ))}
-            </div>
+            <p>Loading...</p>
         </div>
     );
 }

@@ -1,22 +1,13 @@
 import { getBlogPosts } from '@/lib/blog-data';
 import BlogSearch from '../components/BlogSearch';
 import { Suspense } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 
 const ITEMS_PER_PAGE = 20;
 
 function BlogPageSkeleton() {
   return (
     <div className="space-y-8">
-        <Skeleton className="h-10 w-full max-w-lg mx-auto" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="flex flex-col space-y-3">
-                <Skeleton className="aspect-video w-full rounded-xl" />
-                <Skeleton className="h-6 w-full rounded-md" />
-              </div>
-            ))}
-        </div>
+        <p>Loading...</p>
     </div>
   )
 }

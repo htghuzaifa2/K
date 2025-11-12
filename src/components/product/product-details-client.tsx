@@ -16,6 +16,8 @@ import { useCart } from '@/hooks/use-cart';
 import { useRouter } from 'next/navigation';
 import { BLUR_DATA_URL } from '@/lib/constants';
 import { FullScreenImageViewer } from './FullScreenImageViewer';
+import { RelatedProducts } from './related-products';
+import { Suspense } from 'react';
 
 type ProductDetailsClientProps = {
   product: AppProduct;
@@ -223,5 +225,3 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
     </>
   );
 }
-
-    
