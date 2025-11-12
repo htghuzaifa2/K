@@ -1,30 +1,14 @@
 
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import Hero from '@/components/hero';
 import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
-import { fetchProducts } from './actions';
-import type { AppProduct } from '@/lib/products';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
+import { useProducts } from '@/hooks/use-products';
 
 export default function Home() {
-  const [initialProducts, setInitialProducts] = useState<{ products: AppProduct[], hasMore: boolean, total: number } | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const loadProducts = async () => {
-      setIsLoading(true);
-      try {
-        const data = await fetchProducts({ page: 1, limit: 25, shuffle: true });
-        setInitialProducts(data);
-      } catch (error) {
-        console.error("Failed to fetch initial products:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    loadProducts();
-  }, []);
+  const { products, hasMore, isLoading, loadMoreProducts } = useProducts({ limit: 25, shuffle: true });
 
   return (
     <div>
@@ -33,11 +17,14 @@ export default function Home() {
         <h2 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
           Featured Products
         </h2>
-        <Suspense fallback={<p>Loading...</p>}>
-          {isLoading || !initialProducts ? (
-            <p>Loading...</p>
+        <Suspense fallback={<ProductGridSkeleton />}>
+          {isLoading && products.length === 0 ? (
+            <ProductGridSkeleton />
           ) : (
-            <InfiniteProductGrid initialProducts={initialProducts} />
+            <InfiniteProductGrid 
+              initialProducts={{ products, hasMore, total: 0 }}
+              loadMoreProducts={loadMoreProducts}
+            />
           )}
         </Suspense>
       </div>

@@ -1,5 +1,7 @@
+
 import { fetchProducts } from '@/app/actions';
 import { ProductGrid } from './product-grid';
+import { ProductGridSkeleton } from './product-grid-skeleton';
 
 type RelatedProductsProps = {
   currentProductId?: string;
@@ -17,7 +19,12 @@ export async function RelatedProducts({ currentProductId }: RelatedProductsProps
     .slice(0, RECOMMENDATION_COUNT);
 
   if (relatedProducts.length === 0) {
-    return null; // Don't render the section if there are no products
+    return (
+      <div>
+        <h2 className="mb-6 text-center text-3xl font-bold tracking-tight font-headline">You May Also Like</h2>
+        <ProductGridSkeleton />
+      </div>
+    );
   }
 
   return (

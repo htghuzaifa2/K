@@ -1,12 +1,12 @@
 
 'use client';
 
-import { getAllCategories, getProductsByCategory } from '@/lib/products';
 import { Suspense, useEffect, useState } from 'react';
 import { notFound } from 'next/navigation';
-import { InfiniteWindowedGrid } from '@/components/product/infinite-windowed-grid';
-import { fetchProducts } from '@/app/actions';
-import type { AppProduct } from '@/lib/products';
+import { InfiniteProductGrid } from '@/components/product/infinite-product-grid';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
+import { useProducts } from '@/hooks/use-products';
+import { getAllCategories } from '@/lib/products';
 
 export const runtime = 'edge';
 
@@ -25,50 +25,21 @@ function formatCategoryTitle(slug: string): string {
 
 export default function CategoryPage({ params }: CategoryPageProps) {
   const decodedCategory = decodeURIComponent(params.category);
-  const [initialData, setInitialData] = useState<{products: AppProduct[] } | null>(null);
-  const [allProductsForCategory, setAllProductsForCategory] = useState<AppProduct[] | null>(null);
   const [isValidCategory, setIsValidCategory] = useState<boolean | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
+  const { products, hasMore, isLoading, loadMoreProducts } = useProducts({ 
+    limit: 25, 
+    category: decodedCategory 
+  });
+  
   useEffect(() => {
-    async function loadData() {
-      setIsLoading(true);
-      try {
-        const allCats = await getAllCategories();
-        const isValid = allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
-        
-        setIsValidCategory(isValid);
-
-        if (!isValid) {
-          setIsLoading(false);
-          return;
-        }
-        
-        const products = await getProductsByCategory(decodedCategory);
-        setAllProductsForCategory(products);
-
-        const initial = await fetchProducts({ allProducts: products, page: 1, limit: 25 });
-        setInitialData(initial);
-
-      } catch (error) {
-        console.error("Failed to load category data:", error);
-      } finally {
-        setIsLoading(false);
-      }
+    async function validateCategory() {
+      const allCats = await getAllCategories();
+      const isValid = allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
+      setIsValidCategory(isValid);
     }
-    loadData();
+    validateCategory();
   }, [decodedCategory]);
-
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
-            {formatCategoryTitle(decodedCategory)}
-        </h1>
-        <p>Loading...</p>
-      </div>
-    );
-  }
 
   if (isValidCategory === false) {
     notFound();
@@ -81,13 +52,14 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
         {title}
       </h1>
-       <Suspense fallback={<p>Loading...</p>}>
-          {isLoading || !initialData || !allProductsForCategory ? (
-            <p>Loading...</p>
+       <Suspense fallback={<ProductGridSkeleton />}>
+          {isLoading && products.length === 0 ? (
+            <ProductGridSkeleton />
           ) : (
-            <InfiniteWindowedGrid 
-              initialProducts={initialData.products}
-              allProducts={allProductsForCategory}
+            <InfiniteProductGrid
+              initialProducts={{ products, hasMore, total: 0 }}
+              loadMoreProducts={loadMoreProducts}
+              category={decodedCategory}
             />
           )}
       </Suspense>
