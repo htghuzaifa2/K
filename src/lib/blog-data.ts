@@ -59,6 +59,7 @@ import topTabletsForPakistaniStudents from './blog-content/top-tablets-for-pakis
 import howToCheckBoardResults from './blog-content/how-to-check-board-results-online-pakistan';
 import topMistakesBoardExamForms from './blog-content/top-mistakes-board-exam-forms-pakistan';
 import boardExamFeeStructure from './blog-content/board-exam-fee-structure-pakistan-2026';
+import whatToDoIfRollNumberMissing from './blog-content/what-to-do-if-roll-number-missing';
 
 
 export interface BlogPost {
@@ -73,6 +74,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'what-to-do-if-roll-number-missing': {
+    content: whatToDoIfRollNumberMissing,
+    description: 'A step-by-step guide for Pakistani students on what to do if their Matric exam roll number slip or admit card is missing.'
+  },
   'board-exam-fee-structure-pakistan-2026': {
     content: boardExamFeeStructure,
     description: 'A clear breakdown of board exam fees for Matric and Inter in Pakistan for 2026, with tips on how to save money and avoid late charges.'
@@ -313,6 +318,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'what-to-do-if-roll-number-missing',
+    slug: 'what-to-do-if-your-roll-number-or-admit-card-is-missing-before-matric-exams',
+    title: '📝 What to Do if Your Roll Number or Admit Card Is Missing Before Matric Exams',
+  },
   {
     id: 'board-exam-fee-structure-pakistan-2026',
     slug: 'board-exam-fee-structure-pakistan-2026',
