@@ -4,6 +4,10 @@ import { notFound } from 'next/navigation';
 import { APP_NAME } from '@/lib/constants';
 import type { Metadata } from 'next';
 import { BlogPostClientPage } from './client-page';
+import { Separator } from '@/components/ui/separator';
+import { Suspense } from 'react';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
+import { ClientOnlyRelatedProducts } from '@/components/product/client-only-related-products';
 
 type Props = {
   params: { slug: string };
@@ -19,6 +23,12 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <>
       <BlogPostClientPage post={post} />
+      <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <Separator className="my-12" />
+        <Suspense fallback={<ProductGridSkeleton />}>
+          <ClientOnlyRelatedProducts />
+        </Suspense>
+      </div>
     </>
   );
 }
