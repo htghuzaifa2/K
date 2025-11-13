@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${tool.title} - ${APP_NAME}`,
-    description: `Use the ${tool.title} tool to generate placeholder text for your projects.`,
+    description: 'Use our free Lorem Ipsum Generator to quickly create placeholder text with a specific word count for your design mockups and web projects.',
     openGraph: {
         title: tool.title,
         description: `Use the ${tool.title} tool.`,

@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${tool.title} - ${APP_NAME}`,
-    description: `Use the ${tool.title} tool to convert numbers between binary, octal, decimal, and hexadecimal.`,
+    description: 'A free online base converter tool. Instantly convert numbers between binary, octal, decimal, and hexadecimal systems.',
     openGraph: {
         title: tool.title,
         description: `Use the ${tool.title} tool.`,

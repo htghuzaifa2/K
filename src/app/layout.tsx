@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     default: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
     template: `%s | ${APP_NAME}`,
   },
-  description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
+  description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover curated electronics, expert blogs, and free online tools.',
   manifest: '/manifest.json',
   applicationName: APP_NAME,
   appleWebApp: {
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
       default: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
       template: `%s | ${APP_NAME}`,
     },
-    description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
+    description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover curated electronics, expert blogs, and free online tools.',
     url: `https://www.${APP_NAME}`,
     siteName: APP_NAME,
     images: [
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
       default: `${APP_NAME} - Pakistan's Tech & Gadgets Store`,
       template: `%s | ${APP_NAME}`,
     },
-    description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover a curated collection of high-quality electronics with seamless online shopping, expert blogs, and free tools.',
+    description: 'Shop the latest tech, gadgets, and accessories in Pakistan at kimi.pk. Discover curated electronics, expert blogs, and free online tools.',
     images: [logoUrl],
   },
   robots: {

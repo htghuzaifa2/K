@@ -252,11 +252,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
   },
   'renewable-energy-data-centres-pakistan': {
     content: renewableEnergyDataCentresPakistan,
-    description: 'Explore how Pakistan’s solar surge and renewable push are transforming hosting and data-centre infrastructure — what it means for web developers, green computing, and future-ready architectures.'
+    description: 'Explore how Pakistan’s solar surge and renewable push are transforming hosting and data-centre infrastructure for web developers and green computing.'
   },
   'monetise-tech-blog-pakistan': {
     content: monetiseTechBlogPakistan,
-    description: 'Learn how Pakistani tech bloggers and creators can earn real income from their websites — through AdSense, affiliate programs, SEO, and smart content strategies tailored for the local market.'
+    description: 'Learn how Pakistani tech bloggers can earn real income from their websites through AdSense, affiliate programs, SEO, and smart content strategies.'
   },
   'localising-digital-products-pakistan': {
     content: localisingDigitalProductsPakistan,
@@ -272,7 +272,7 @@ const contentMap: Record<string, { content: string, description: string }> = {
   },
   'mechanical-keyboards-pakistan-2025': {
     content: mechanicalKeyboardsPakistan2025,
-    description: 'A friendly, practical roundup for web devs and remote workers in Pakistan — comparing switches, build quality, backlighting, and which keyboards give the best value across budget and premium tiers.'
+    description: 'A practical roundup for web devs and remote workers in Pakistan comparing mechanical keyboard switches, build quality, and value across different tiers.'
   },
   'smartphone-vs-laptop-pakistan-students': {
     content: smartphoneVsLaptopPakistanStudents,
@@ -642,7 +642,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 'gaming-vs-normal-phones-pakistan',
-    slug: 'gaming-phones-vs-normal-phones-in-pakistan',
+    slug: 'gaming-vs-normal-phones-in-pakistan',
     title: 'Gaming Phones vs Normal Phones in Pakistan',
   },
   {

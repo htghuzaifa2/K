@@ -4,7 +4,7 @@ import { APP_NAME } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Developer Tools',
-  description: `A collection of handy online developer tools for formatting, testing, and generation, provided by ${APP_NAME}.`,
+  description: `Handy online tools for formatting, testing, and generation, provided by ${APP_NAME}. Speed up your creative and development workflow.`,
   openGraph: {
     title: `Developer Tools | ${APP_NAME}`,
     description: `A collection of handy online tools for developers and designers, provided by ${APP_NAME}.`,

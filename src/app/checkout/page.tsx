@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useCart } from '@/hooks/use-cart';
@@ -362,5 +363,3 @@ export default function CheckoutPage() {
     </div>
   );
 }
-
-    

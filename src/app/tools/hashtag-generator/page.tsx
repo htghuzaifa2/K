@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${tool.title} - ${APP_NAME}`,
-    description: `Use the ${tool.title} tool to generate viral hashtags for social media.`,
+    description: 'Use our free AI Hashtag Generator to create viral hashtags for Instagram, X (Twitter), and Facebook in any language.',
     openGraph: {
         title: tool.title,
         description: `Use the ${tool.title} tool.`,

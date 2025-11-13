@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${tool.title} - ${APP_NAME}`,
-    description: `Use the ${tool.title} tool to test and debug regular expressions live.`,
+    description: 'A free online regex tester. Instantly test and debug your regular expressions with live highlighting and error checking.',
     openGraph: {
         title: tool.title,
         description: `Use the ${tool.title} tool.`,

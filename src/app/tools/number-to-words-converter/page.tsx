@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${tool.title} - ${APP_NAME}`,
-    description: `Use the ${tool.title} tool to convert numeric figures into words, perfect for writing checks or formal documents.`,
+    description: 'A free online tool to convert numbers into English words instantly. Perfect for writing checks, formal documents, or educational purposes.',
     openGraph: {
         title: tool.title,
         description: `Use the ${tool.title} tool.`,

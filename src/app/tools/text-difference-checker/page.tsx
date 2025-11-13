@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${tool.title} - ${APP_NAME}`,
-    description: `Use the ${tool.title} tool to compare two blocks of text and highlight the differences.`,
+    description: 'Use our free Text Difference Checker to compare two blocks of text and highlight any additions or removals character by character.',
     openGraph: {
         title: tool.title,
         description: `Use the ${tool.title} tool.`,

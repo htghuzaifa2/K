@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${tool.title} - ${APP_NAME}`,
-    description: `Use the ${tool.title} tool to scramble text in various ways for fun or testing.`,
+    description: 'A free online Text Scrambler tool. Shuffle letters, reverse words, or shuffle words in a block of text for fun or testing purposes.',
     openGraph: {
         title: tool.title,
         description: `Use the ${tool.title} tool.`,

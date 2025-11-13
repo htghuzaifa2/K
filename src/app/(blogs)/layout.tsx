@@ -4,10 +4,10 @@ import { APP_NAME } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Blogs',
-  description: `Explore articles, tutorials, and insights on the latest in tech, web development, and gadgets in Pakistan from the ${APP_NAME} team.`,
+  description: `Explore tech articles, tutorials, and insights from the ${APP_NAME} team. Your source for the latest in web development, gadgets, and design in Pakistan.`,
   openGraph: {
     title: `Blogs - ${APP_NAME}`,
-    description: `Explore articles, tutorials, and insights on the latest in tech from ${APP_NAME}.`,
+    description: `Explore tech articles, tutorials, and insights from the ${APP_NAME} team.`,
     url: `https://www.${APP_NAME}/blogs`,
   },
 };

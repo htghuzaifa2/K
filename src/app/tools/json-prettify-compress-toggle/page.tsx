@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${tool.title} - ${APP_NAME}`,
-    description: `Use the ${tool.title} tool to format, validate, and compress JSON data.`,
+    description: 'A free online JSON formatter. Validate, prettify, or compress your JSON data instantly for better readability and smaller size.',
     openGraph: {
         title: tool.title,
         description: `Use the ${tool.title} tool.`,
