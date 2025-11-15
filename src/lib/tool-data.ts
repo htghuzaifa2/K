@@ -75,6 +75,11 @@ const tools: Tool[] = [
     id: 'voice-search-query-predictor',
     slug: 'voice-search-query-predictor',
     title: 'Voice Search Query Predictor',
+  },
+  {
+    id: 'content-summarizer',
+    slug: 'content-summarizer',
+    title: 'AI Content Summarizer (Urdu + English)',
   }
 ];
 
