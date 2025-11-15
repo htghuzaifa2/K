@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -6,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
-import { Loader2, LocateFixed, Clock } from 'lucide-react';
+import { Loader2, LocateFixed } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { getPrayerTimes } from '@/ai/flows/prayer-times-tool';
 
@@ -29,7 +28,7 @@ const prayerLabels: Record<keyof PrayerTimesData, string> = {
     isha: 'Isha',
 }
 
-export function PrayerTimesWidget() {
+export function PrayerTimesTool() {
   const [prayerTimes, setPrayerTimes] = useState<PrayerTimesData | null>(null);
   const [location, setLocation] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -124,8 +123,8 @@ export function PrayerTimesWidget() {
                 <AccordionContent className="mt-2 p-6 rounded-lg bg-card/50 dark:bg-card/20 prose dark:prose-invert max-w-none text-sm">
                     <p>This tool shows you the daily Islamic prayer (Namaz) times for your current location.</p>
                     <ol>
-                        <li>When you first open this page, your browser will ask for location permission. Please allow it for the widget to work.</li>
-                        <li>The widget will automatically fetch and display today's prayer times for Fajr, Dhuhr, Asr, Maghrib, and Isha.</li>
+                        <li>When you first open this page, your browser will ask for location permission. Please allow it for the tool to work.</li>
+                        <li>The tool will automatically fetch and display today's prayer times for Fajr, Dhuhr, Asr, Maghrib, and Isha.</li>
                         <li>If it fails, you can click the "Try Again" button to re-fetch your location and the prayer times.</li>
                     </ol>
                     <p>It's a convenient tool for residents and travelers in Pakistan to stay updated with their daily prayer schedule. The times are calculated based on the Islamic Society of North America (ISNA) method.</p>

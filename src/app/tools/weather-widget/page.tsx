@@ -7,10 +7,10 @@ import { Suspense } from 'react';
 import { ClientOnlyRelatedProducts } from '@/components/product/client-only-related-products';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { Separator } from '@/components/ui/separator';
-import { WeatherWidget } from '../components/WeatherWidget';
+import { WeatherTool } from '../components/WeatherWidget';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const tool = getToolBySlug('weather-widget');
+  const tool = getToolBySlug('local-weather');
 
   if (!tool) {
     return {
@@ -19,8 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
-    description: 'Get live local weather updates for your city in Pakistan. Check temperature, conditions, and more with this free online weather widget.',
+    title: `${tool.title} | ${APP_NAME}`,
+    description: 'Get live local weather updates for your city in Pakistan. Check temperature, conditions, and more with this free online weather tool.',
     openGraph: {
         title: `${tool.title} | ${APP_NAME}`,
         description: `Use the ${tool.title} tool.`,
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function ToolPage() {
-  const tool = getToolBySlug('weather-widget');
+  const tool = getToolBySlug('local-weather');
 
   if (!tool) {
     notFound();
@@ -40,7 +40,7 @@ export default function ToolPage() {
     <>
       <div className="flex flex-col items-center justify-center py-12 px-4">
           <div className="w-full max-w-md">
-              <WeatherWidget />
+              <WeatherTool />
           </div>
       </div>
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

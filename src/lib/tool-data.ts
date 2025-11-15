@@ -1,4 +1,3 @@
-
 export interface Tool {
   slug: string;
   title: string;
@@ -87,14 +86,14 @@ const tools: Tool[] = [
     title: 'URL QR Code Generator',
   },
   {
-    id: 'weather-widget',
-    slug: 'weather-widget',
-    title: 'Local Weather Widget',
+    id: 'local-weather',
+    slug: 'local-weather',
+    title: 'Local Weather',
   },
   {
-    id: 'prayer-times-widget',
-    slug: 'prayer-times-widget',
-    title: 'Prayer Times Widget',
+    id: 'prayer-times',
+    slug: 'prayer-times',
+    title: 'Prayer Times',
   }
 ];
 

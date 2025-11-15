@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -55,7 +54,7 @@ const weatherDescriptions: { [key: number]: string } = {
     65: 'Heavy Rain',
     80: 'Slight Showers',
     81: 'Showers',
-82: 'Heavy Showers',
+    82: 'Heavy Showers',
     71: 'Light Snow',
     73: 'Snow',
     75: 'Heavy Snow',
@@ -65,7 +64,7 @@ const weatherDescriptions: { [key: number]: string } = {
 };
 
 
-export function WeatherWidget() {
+export function WeatherTool() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [location, setLocation] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
