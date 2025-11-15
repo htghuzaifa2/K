@@ -66,6 +66,11 @@ const tools: Tool[] = [
     slug: 'voice-to-text',
     title: 'Voice-to-Text (Urdu + English)',
   },
+  {
+    id: 'local-seo-keyword-generator',
+    slug: 'local-seo-keyword-generator',
+    title: 'Local SEO Keyword Idea Generator',
+  }
 ];
 
 // Sort tools by reversing the array, so latest added is first.

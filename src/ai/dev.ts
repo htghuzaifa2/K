@@ -1,6 +1,8 @@
+
 import { config } from 'dotenv';
 config();
 
 import '@/ai/flows/related-product-recommendations.ts';
 import '@/ai/flows/hashtag-generator.ts';
 import '@/ai/flows/urdu-translator.ts';
+import '@/ai/flows/seo-keyword-generator.ts';
