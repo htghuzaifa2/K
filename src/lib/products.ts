@@ -13,6 +13,7 @@ export type AppProduct = {
     images: ProductImage[];
     longDescription?: string;
     specifications?: Record<string, string>;
+    stock: number;
 };
 
 function transformProduct(product: RawProduct): AppProduct {
@@ -25,7 +26,8 @@ function transformProduct(product: RawProduct): AppProduct {
         category: product.category,
         images: product.images,
         longDescription: product.longDescription,
-        specifications: product.specifications
+        specifications: product.specifications,
+        stock: product.stock,
     };
 }
 

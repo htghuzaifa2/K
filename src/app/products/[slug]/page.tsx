@@ -8,6 +8,7 @@ import { ProductDetailsClient } from '@/components/product/product-details-clien
 import { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
+import Script from 'next/script';
 
 type ProductPageProps = {
   params: {
@@ -23,8 +24,32 @@ export default function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
 
+  const isOutOfStock = product.stock !== undefined && product.stock <= 0;
+  const availability = isOutOfStock ? "https://schema.org/OutOfStock" : "https://schema.org/InStock";
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: product.images[0].url,
+    sku: product.id.toString(),
+    offers: {
+      '@type': 'Offer',
+      url: `https://www.${APP_NAME}/products/${product.slug}`,
+      priceCurrency: 'PKR',
+      price: product.price.toFixed(2),
+      availability: availability,
+    },
+  };
+
   return (
     <>
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <ProductDetailsClient product={product} />
       <div className="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Separator className="my-12" />
