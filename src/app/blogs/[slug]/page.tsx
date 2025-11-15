@@ -10,6 +10,8 @@ import { ClientOnlyRelatedProducts } from '@/components/product/client-only-rela
 import type { BlogPostWithContent } from '@/lib/blog-data';
 import Loading from './loading';
 
+export const runtime = 'edge';
+
 export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;

@@ -12,6 +12,8 @@ import { APP_NAME } from '@/lib/constants';
 import type { AppProduct } from '@/lib/products';
 import Loading from './loading';
 
+export const runtime = 'edge';
+
 export default function ProductPage() {
   const params = useParams();
   const slug = params.slug as string;

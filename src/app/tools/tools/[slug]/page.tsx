@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import type { Tool } from '@/lib/tool-data';
 import Loading from './loading';
 
+export const runtime = 'edge';
+
 export default function ToolPage() {
   const params = useParams();
   const slug = params.slug as string;

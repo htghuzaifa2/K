@@ -1,6 +1,8 @@
 
+'use client';
+
 import { getBlogPosts } from '@/lib/blog-data';
-import BlogSearch from '../components/BlogSearch';
+import BlogSearch from './components/BlogSearch';
 import { Suspense } from 'react';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 

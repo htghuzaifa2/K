@@ -1,6 +1,8 @@
 import { getProducts } from '@/lib/products';
 import { APP_NAME } from '@/lib/constants';
 
+export const runtime = 'edge';
+
 export async function GET() {
   const products = getProducts();
   const siteUrl = `https://www.${APP_NAME}`;
