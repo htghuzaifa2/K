@@ -1,54 +1,35 @@
+'use client';
 
-import { getToolBySlug, getTools } from '@/lib/tool-data';
-import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
+import { getToolBySlug } from '@/lib/tool-data';
+import { notFound, useParams }from 'next/navigation';
 import { APP_NAME } from '@/lib/constants';
 import Link from 'next/link';
-import { Separator } from '@/components/ui/separator';
-import { ClientOnlyRelatedProducts } from '@/components/product/client-only-related-products';
-import { Suspense } from 'react';
-import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
+import { useEffect, useState } from 'react';
+import type { Tool } from '@/lib/tool-data';
+import Loading from './loading';
 
-export const runtime = 'edge';
+export default function ToolPage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const [tool, setTool] = useState<Tool | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-type Props = {
-  params: { slug: string };
-};
+  useEffect(() => {
+    if (slug) {
+      const foundTool = getToolBySlug(slug);
+      if (foundTool) {
+        setTool(foundTool);
+         document.title = `${foundTool.title} | ${APP_NAME}`;
+      } else {
+        notFound();
+      }
+      setIsLoading(false);
+    }
+  }, [slug]);
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const tool = getToolBySlug(params.slug);
-
-  if (!tool) {
-    return {
-      title: 'Tool Not Found',
-    };
+  if (isLoading) {
+      return <Loading />;
   }
-
-  const url = `https://www.${APP_NAME}/tools/${tool.slug}`;
-  const description = `A free online developer utility: ${tool.title}, provided by ${APP_NAME}.`;
-
-  return {
-    title: tool.title,
-    description: description,
-     alternates: {
-      canonical: url,
-    },
-    openGraph: {
-        title: `${tool.title} | ${APP_NAME} Tools`,
-        description: description,
-        url: url,
-        type: 'website',
-    },
-    twitter: {
-      card: 'summary',
-      title: `${tool.title} | ${APP_NAME} Tools`,
-      description: description,
-    },
-  };
-}
-
-export default function ToolPage({ params }: Props) {
-  const tool = getToolBySlug(params.slug);
 
   if (!tool) {
     notFound();
@@ -66,15 +47,13 @@ export default function ToolPage({ params }: Props) {
       'base-converter',
       'json-prettify-compress-toggle',
   ];
+  
   if (implementedSlugs.includes(tool.slug)) {
       // This is a failsafe. We should not hit this for implemented tools
       // as they should have their own page.tsx.
-      // Redirecting or showing a specific component would be better,
-      // but for now we just prevent the placeholder from showing.
       notFound();
   }
 
-  // This will now only render for tools that are NOT in the implemented list.
   return (
       <>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -87,27 +66,3 @@ export default function ToolPage({ params }: Props) {
       </>
     );
 }
-
-// Cannot use generateStaticParams with edge runtime, so this is commented out.
-/*
-export async function generateStaticParams() {
-  const tools = getTools();
-  // We only generate static params for tools that DON'T have a dedicated page.tsx
-  const unimplementedTools = tools.filter(tool => ![
-      'lorem-ipsum-generator',
-      'text-difference-checker',
-      'hashtag-generator',
-      'random-string-generator',
-      'text-statistics-tool',
-      'number-to-words-converter',
-      'regex-tester',
-      'text-scrambler',
-      'base-converter',
-      'json-prettify-compress-toggle',
-  ].includes(tool.slug));
-  
-  return unimplementedTools.map((tool) => ({
-    slug: tool.slug,
-  }));
-}
-*/

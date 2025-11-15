@@ -1,17 +1,10 @@
+'use client';
 
-import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { getAllCategories } from '@/lib/products';
 import { CategoryClientPage } from './client-page';
-
-export const runtime = 'edge';
-
-type CategoryPageProps = {
-  params: {
-    category: string;
-  };
-};
+import { useEffect } from 'react';
 
 function formatCategoryTitle(slug: string): string {
     return decodeURIComponent(slug)
@@ -20,22 +13,22 @@ function formatCategoryTitle(slug: string): string {
     .join(' ');
 }
 
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const categoryName = formatCategoryTitle(params.category);
-  const description = `Shop for the best ${categoryName} online in Pakistan at ${APP_NAME}. Find great deals and quality products.`;
-
-  return {
-    title: `${categoryName} | ${APP_NAME}`,
-    description: description.slice(0, 150),
-  };
-}
-
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const decodedCategory = decodeURIComponent(params.category);
+export default function CategoryPage() {
+  const params = useParams();
+  const category = params.category as string;
+  const decodedCategory = decodeURIComponent(category);
   const allCats = getAllCategories();
+
+  useEffect(() => {
+    if (!allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase())) {
+        notFound();
+    }
+    document.title = `${formatCategoryTitle(decodedCategory)} | ${APP_NAME}`;
+  }, [allCats, decodedCategory]);
     
   if (!allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase())) {
-    notFound();
+    // This will be caught by useEffect, but it's good practice for the initial render
+    return null; 
   }
 
   const title = formatCategoryTitle(decodedCategory);
@@ -49,13 +42,3 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     </div>
   );
 }
-
-// This function can be uncommented if you are not using the edge runtime.
-// Cloudflare Pages requires edge runtime for dynamic routes, and generateStaticParams
-// is not fully compatible with it in all Next.js versions.
-// export async function generateStaticParams() {
-//   const categories = getAllCategories();
-//   return categories.map((category) => ({
-//     category: encodeURIComponent(category),
-//   }));
-// }

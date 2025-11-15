@@ -1,23 +1,40 @@
+'use client';
 
-import { getBlogPostBySlug, getBlogPosts } from '@/lib/blog-data';
-import { notFound } from 'next/navigation';
-import { APP_NAME } from '@/lib/constants';
-import type { Metadata } from 'next';
+import { getBlogPostBySlug } from '@/lib/blog-data';
+import { notFound, useParams } from 'next/navigation';
 import { BlogPostClientPage } from './client-page';
 import { Separator } from '@/components/ui/separator';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { ClientOnlyRelatedProducts } from '@/components/product/client-only-related-products';
+import type { BlogPostWithContent } from '@/lib/blog-data';
+import Loading from './loading';
 
-type Props = {
-  params: { slug: string };
-};
+export default function BlogPostPage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const [post, setPost] = useState<BlogPostWithContent | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-export default async function BlogPostPage({ params }: Props) {
-  const post = getBlogPostBySlug(params.slug);
+  useEffect(() => {
+    if (slug) {
+      const foundPost = getBlogPostBySlug(slug);
+      if (foundPost) {
+        setPost(foundPost);
+        document.title = foundPost.title;
+      } else {
+        notFound();
+      }
+      setIsLoading(false);
+    }
+  }, [slug]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   if (!post) {
-    notFound();
+    return notFound();
   }
 
   return (
@@ -31,43 +48,4 @@ export default async function BlogPostPage({ params }: Props) {
       </div>
     </>
   );
-}
-
-export async function generateStaticParams() {
-  const posts = getBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getBlogPostBySlug(params.slug);
-
-  if (!post) {
-    return {
-      title: 'Not Found',
-      description: `This page could not be found on ${APP_NAME}.`,
-    };
-  }
-
-  const url = `https://www.${APP_NAME}/blogs/${post.slug}`;
-
-  return {
-    title: post.title,
-    description: post.description,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      url: url,
-      type: 'article',
-    },
-    twitter: {
-      card: 'summary',
-      title: post.title,
-      description: post.description,
-    },
-  };
 }

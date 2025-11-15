@@ -1,27 +1,42 @@
+'use client';
 
-import { getProductBySlug, getProducts } from '@/lib/products';
-import { notFound } from 'next/navigation';
+import { getProductBySlug } from '@/lib/products';
+import { notFound, useParams } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
 import { RelatedProducts } from '@/components/product/related-products';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { ProductDetailsClient } from '@/components/product/product-details-client';
-import { Metadata } from 'next';
-import { APP_NAME } from '@/lib/constants';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import Script from 'next/script';
+import { APP_NAME } from '@/lib/constants';
+import type { AppProduct } from '@/lib/products';
+import Loading from './loading';
 
-type ProductPageProps = {
-  params: {
-    slug: string;
-  };
-};
+export default function ProductPage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const [product, setProduct] = useState<AppProduct | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const { slug } = params;
-  const product = getProductBySlug(slug);
+  useEffect(() => {
+    if (slug) {
+      const foundProduct = getProductBySlug(slug);
+      if (foundProduct) {
+        setProduct(foundProduct);
+        document.title = `${foundProduct.name} | ${APP_NAME}`;
+      } else {
+        notFound();
+      }
+      setIsLoading(false);
+    }
+  }, [slug]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   if (!product) {
-    notFound();
+    return notFound();
   }
 
   const isOutOfStock = product.stock !== undefined && product.stock <= 0;
@@ -59,52 +74,4 @@ export default function ProductPage({ params }: ProductPageProps) {
       </div>
     </>
   );
-}
-
-export function generateStaticParams() {
-    const products = getProducts();
-    return products.map((product) => ({
-        slug: product.slug,
-    }));
-}
-
-export function generateMetadata({ params }: ProductPageProps): Metadata {
-  const product = getProductBySlug(params.slug);
-
-  if (!product) {
-    return {
-      title: 'Not Found',
-      description: `This product could not be found on ${APP_NAME}.`,
-    };
-  }
-
-  const url = `https://www.${APP_NAME}/products/${product.slug}`;
-
-  return {
-    title: product.name,
-    description: product.description,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      title: product.name,
-      description: product.description,
-      url: url,
-      type: 'article',
-      images: [
-        {
-          url: product.images[0].url,
-          width: 800,
-          height: 600,
-          alt: product.images[0].altText,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: product.name,
-      description: product.description,
-      images: [product.images[0].url],
-    },
-  };
 }
