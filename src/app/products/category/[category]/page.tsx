@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Suspense, useEffect, useState } from 'react';
@@ -5,6 +6,8 @@ import { notFound } from 'next/navigation';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { getAllCategories, getProductsByCategory } from '@/lib/products';
 import { ClientProductGrid } from '@/components/product/client-product-grid';
+import type { Metadata } from 'next';
+import { APP_NAME } from '@/lib/constants';
 
 export const runtime = 'edge';
 
@@ -21,6 +24,16 @@ function formatCategoryTitle(slug: string): string {
     .join(' ');
 }
 
+export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
+  const categoryName = formatCategoryTitle(params.category);
+  const description = `Shop for the best ${categoryName} online in Pakistan at ${APP_NAME}. Find great deals and quality products.`;
+
+  return {
+    title: `${categoryName} | ${APP_NAME}`,
+    description: description.slice(0, 150),
+  };
+}
+
 export default function CategoryPage({ params }: CategoryPageProps) {
   const [title, setTitle] = useState('');
   const [products, setProducts] = useState<Awaited<ReturnType<typeof getProductsByCategory>>>([]);
@@ -34,7 +47,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       notFound();
     }
 
-    setTitle(formatCategoryTitle(decodedCategory));
+    const formattedTitle = formatCategoryTitle(decodedCategory);
+    setTitle(formattedTitle);
+    document.title = `${formattedTitle} | ${APP_NAME}`;
+
     const categoryProducts = getProductsByCategory(decodedCategory);
     setProducts(categoryProducts);
     setIsLoading(false);
