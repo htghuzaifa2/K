@@ -1,13 +1,9 @@
 
-'use client';
-
-import { Suspense, useEffect, useState } from 'react';
-import { notFound } from 'next/navigation';
-import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
-import { getAllCategories, getProductsByCategory } from '@/lib/products';
-import { ClientProductGrid } from '@/components/product/client-product-grid';
 import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
+import { notFound } from 'next/navigation';
+import { getAllCategories } from '@/lib/products';
+import { CategoryClientPage } from './client-page';
 
 export const runtime = 'edge';
 
@@ -24,7 +20,7 @@ function formatCategoryTitle(slug: string): string {
     .join(' ');
 }
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const categoryName = formatCategoryTitle(params.category);
   const description = `Shop for the best ${categoryName} online in Pakistan at ${APP_NAME}. Find great deals and quality products.`;
 
@@ -35,36 +31,31 @@ export async function generateMetadata({ params }: { params: { category: string 
 }
 
 export default function CategoryPage({ params }: CategoryPageProps) {
-  const [title, setTitle] = useState('');
-  const [products, setProducts] = useState<Awaited<ReturnType<typeof getProductsByCategory>>>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const decodedCategory = decodeURIComponent(params.category);
-    const allCats = getAllCategories();
+  const decodedCategory = decodeURIComponent(params.category);
+  const allCats = getAllCategories();
     
-    if (!allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase())) {
-      notFound();
-    }
+  if (!allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase())) {
+    notFound();
+  }
 
-    const formattedTitle = formatCategoryTitle(decodedCategory);
-    setTitle(formattedTitle);
-    document.title = `${formattedTitle} | ${APP_NAME}`;
-
-    const categoryProducts = getProductsByCategory(decodedCategory);
-    setProducts(categoryProducts);
-    setIsLoading(false);
-  }, [params.category]);
-
+  const title = formatCategoryTitle(decodedCategory);
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
         {title}
       </h1>
-       <Suspense fallback={<ProductGridSkeleton />}>
-          {isLoading ? <ProductGridSkeleton /> : <ClientProductGrid initialProducts={products} />}
-      </Suspense>
+      <CategoryClientPage category={decodedCategory} />
     </div>
   );
 }
+
+// This function can be uncommented if you are not using the edge runtime.
+// Cloudflare Pages requires edge runtime for dynamic routes, and generateStaticParams
+// is not fully compatible with it in all Next.js versions.
+// export async function generateStaticParams() {
+//   const categories = getAllCategories();
+//   return categories.map((category) => ({
+//     category: encodeURIComponent(category),
+//   }));
+// }
