@@ -66,6 +66,11 @@ const tools: Tool[] = [
     slug: 'voice-to-text',
     title: 'Voice-to-Text (Urdu + English)',
   },
+  {
+    id: 'pkr-currency-converter',
+    slug: 'pkr-currency-converter',
+    title: 'PKR Currency Converter',
+  },
 ];
 
 // Sort tools by reversing the array, so latest added is first.
