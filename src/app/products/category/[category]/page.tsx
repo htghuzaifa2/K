@@ -1,10 +1,12 @@
+
 'use client';
 
 import { APP_NAME } from '@/lib/constants';
-import { notFound, useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { getAllCategories } from '@/lib/products';
 import { CategoryClientPage } from './client-page';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 
 export const runtime = 'edge';
 
@@ -18,36 +20,50 @@ function formatCategoryTitle(slug: string): string {
 export default function CategoryPage() {
   const params = useParams();
   const category = params.category as string;
-  const decodedCategory = decodeURIComponent(category);
-  const [allCats, setAllCats] = useState<string[]>([]);
+  const [isValidCategory, setIsValidCategory] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [title, setTitle] = useState('');
 
   useEffect(() => {
-    const categories = getAllCategories();
-    setAllCats(categories);
-    if (!categories.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase())) {
-        notFound();
+    if (category) {
+      const decodedCategory = decodeURIComponent(category);
+      const allCategories = getAllCategories();
+      const categoryExists = allCategories.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase());
+      
+      setIsValidCategory(categoryExists);
+
+      if (categoryExists) {
+        const formattedTitle = formatCategoryTitle(decodedCategory);
+        setTitle(formattedTitle);
+        document.title = `${formattedTitle} | ${APP_NAME}`;
+      }
+      setIsLoading(false);
     }
-    document.title = `${formatCategoryTitle(decodedCategory)} | ${APP_NAME}`;
-    setIsLoading(false);
-  }, [decodedCategory]);
+  }, [category]);
     
   if (isLoading) {
-    return null; // Or a loading spinner
+    return (
+      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <ProductGridSkeleton />
+      </div>
+    );
   }
 
-  if (!allCats.map(c => c.toLowerCase()).includes(decodedCategory.toLowerCase())) {
-    return null; 
+  if (!isValidCategory) {
+    return (
+      <div className="container mx-auto px-4 py-16 text-center">
+        <h1 className="text-2xl font-bold">Category Not Found</h1>
+        <p className="text-muted-foreground mt-2">The category you are looking for does not exist.</p>
+      </div>
+    );
   }
-
-  const title = formatCategoryTitle(decodedCategory);
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="mb-6 text-center text-3xl font-bold tracking-tight text-foreground font-headline sm:text-4xl">
         {title}
       </h1>
-      <CategoryClientPage category={decodedCategory} />
+      <CategoryClientPage category={decodeURIComponent(category)} />
     </div>
   );
 }
