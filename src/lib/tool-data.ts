@@ -1,3 +1,4 @@
+
 export interface Tool {
   slug: string;
   title: string;
@@ -94,6 +95,11 @@ const tools: Tool[] = [
     id: 'prayer-times',
     slug: 'prayer-times',
     title: 'Prayer Times',
+  },
+  {
+    id: 'pakistan-trend-tracker',
+    slug: 'pakistan-trend-tracker',
+    title: 'Pakistan Trend Tracker',
   }
 ];
 
