@@ -8,3 +8,6 @@ import '@/ai/flows/urdu-translator.ts';
 import '@/ai/flows/seo-keyword-generator.ts';
 import '@/ai/flows/voice-query-predictor.ts';
 import '@/ai/flows/content-summarizer.ts';
+import '@/ai/flows/weather-tool.ts';
+import '@/ai/flows/prayer-times-tool.ts';
+
