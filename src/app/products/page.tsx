@@ -1,6 +1,4 @@
 
-'use client';
-
 import { Suspense } from 'react';
 import { ProductGridSkeleton } from '@/components/product/product-grid-skeleton';
 import { getProducts } from '@/lib/products';
