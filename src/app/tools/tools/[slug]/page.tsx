@@ -1,3 +1,4 @@
+
 'use client';
 
 import { getToolBySlug } from '@/lib/tool-data';
@@ -50,6 +51,10 @@ export default function ToolPage() {
       'json-prettify-compress-toggle',
       'urdu-translator',
       'voice-to-text',
+      'local-seo-keyword-generator',
+      'voice-search-query-predictor',
+      'content-summarizer',
+      'url-qr-code-generator',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {

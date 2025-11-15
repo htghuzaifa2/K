@@ -80,6 +80,11 @@ const tools: Tool[] = [
     id: 'content-summarizer',
     slug: 'content-summarizer',
     title: 'AI Content Summarizer (Urdu + English)',
+  },
+  {
+    id: 'url-qr-code-generator',
+    slug: 'url-qr-code-generator',
+    title: 'URL QR Code Generator',
   }
 ];
 
