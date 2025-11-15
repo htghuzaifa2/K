@@ -100,6 +100,11 @@ const tools: Tool[] = [
     id: 'pakistan-trend-tracker',
     slug: 'pakistan-trend-tracker',
     title: 'Pakistan Trend Tracker',
+  },
+  {
+    id: 'youtube-seo-generator',
+    slug: 'youtube-seo-generator',
+    title: 'YouTube SEO Generator',
   }
 ];
 
