@@ -3,3 +3,4 @@ config();
 
 import '@/ai/flows/related-product-recommendations.ts';
 import '@/ai/flows/hashtag-generator.ts';
+import '@/ai/flows/urdu-translator.ts';

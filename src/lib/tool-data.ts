@@ -56,6 +56,11 @@ const tools: Tool[] = [
     slug: 'json-prettify-compress-toggle',
     title: 'JSON Prettify & Compress Toggle',
   },
+  {
+    id: 'urdu-translator',
+    slug: 'urdu-translator',
+    title: 'Urdu / Roman-Urdu Translator',
+  },
 ];
 
 // Sort tools by reversing the array, so latest added is first.
