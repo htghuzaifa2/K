@@ -70,6 +70,11 @@ const tools: Tool[] = [
     id: 'local-seo-keyword-generator',
     slug: 'local-seo-keyword-generator',
     title: 'Local SEO Keyword Idea Generator',
+  },
+  {
+    id: 'voice-search-query-predictor',
+    slug: 'voice-search-query-predictor',
+    title: 'Voice Search Query Predictor',
   }
 ];
 
