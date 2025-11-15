@@ -48,6 +48,8 @@ export default function ToolPage() {
       'text-scrambler',
       'base-converter',
       'json-prettify-compress-toggle',
+      'urdu-translator',
+      'voice-to-text',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {

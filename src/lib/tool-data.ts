@@ -61,6 +61,11 @@ const tools: Tool[] = [
     slug: 'urdu-translator',
     title: 'Urdu / Roman-Urdu Translator',
   },
+  {
+    id: 'voice-to-text',
+    slug: 'voice-to-text',
+    title: 'Voice-to-Text (Urdu + English)',
+  },
 ];
 
 // Sort tools by reversing the array, so latest added is first.
