@@ -96,6 +96,8 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#F26322" />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="preconnect" href="https://i.postimg.cc" />
+        <link rel="dns-prefetch" href="https://i.postimg.cc" />
       </head>
       <body className="font-body antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
