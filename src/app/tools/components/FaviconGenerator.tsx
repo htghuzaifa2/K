@@ -26,9 +26,8 @@ const generateFavicons = (imageSrc: string): Promise<GeneratedFavicon[]> => {
     const img = new window.Image();
     img.src = imageSrc;
     img.onload = () => {
-      const favicons: GeneratedFavicon[] = [];
       const promises = FAVICON_SIZES.map(size => {
-        return new Promise<GeneratedFavicon>((resolveCanvas) => {
+        return new Promise<GeneratedFavicon | null>((resolveCanvas) => {
           const canvas = document.createElement('canvas');
           canvas.width = size;
           canvas.height = size;
@@ -36,18 +35,22 @@ const generateFavicons = (imageSrc: string): Promise<GeneratedFavicon[]> => {
           if (ctx) {
             ctx.drawImage(img, 0, 0, size, size);
             canvas.toBlob(blob => {
-                if (blob) {
-                    const dataUrl = canvas.toDataURL('image/png');
-                    favicons.push({ size, dataUrl, blob });
-                }
-                resolveCanvas({} as GeneratedFavicon); // Resolve promise even if blob fails
+              if (blob) {
+                const dataUrl = canvas.toDataURL('image/png');
+                resolveCanvas({ size, dataUrl, blob });
+              } else {
+                 resolveCanvas(null);
+              }
             }, 'image/png');
           } else {
-            resolveCanvas({} as GeneratedFavicon);
+            resolveCanvas(null);
           }
         });
       });
-      Promise.all(promises).then(() => resolve(favicons));
+      Promise.all(promises).then((results) => {
+          const validFavicons = results.filter(r => r !== null) as GeneratedFavicon[];
+          resolve(validFavicons);
+      });
     };
     img.onerror = () => reject(new Error('Image could not be loaded.'));
   });
@@ -70,6 +73,7 @@ const generateHtmlSnippet = () => {
 <link rel="manifest" href="/site.webmanifest">
   `.trim();
 };
+
 
 export function FaviconGenerator() {
   const [originalImage, setOriginalImage] = useState<{ src: string; name: string } | null>(null);
@@ -221,7 +225,7 @@ export function FaviconGenerator() {
                         <li>Upload your logo or any square image by clicking the upload area or by dragging and dropping a file.</li>
                         <li>The tool will automatically generate favicons in multiple standard sizes (16x16, 32x32, 192x192, etc.).</li>
                         <li>Click "Download All (.zip)" to get a zip file containing all the generated PNG icons.</li>
-                        <li>Copy the provided HTML code and paste it into the `<head>` section of your website's HTML files.</li>
+                        <li>Copy the provided HTML code and paste it into the `&lt;head&gt;` section of your website's HTML files.</li>
                         <li>Upload the downloaded favicon files to the root directory of your website.</li>
                     </ol>
                     <p>It's an essential utility for web developers and site owners who want to ensure their website looks professional on all browsers and devices.</p>
