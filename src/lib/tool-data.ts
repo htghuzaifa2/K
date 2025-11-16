@@ -140,6 +140,11 @@ const tools: Tool[] = [
     id: 'slang-typing-test',
     slug: 'slang-typing-test',
     title: 'Pakistani Slang Typing Challenge',
+  },
+  {
+    id: 'svg-converter',
+    slug: 'svg-converter',
+    title: 'SVG Converter',
   }
 ];
 

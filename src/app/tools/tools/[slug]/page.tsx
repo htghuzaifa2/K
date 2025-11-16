@@ -64,7 +64,7 @@ export default function ToolPage() {
       'pakistan-trend-tracker',
       'weather-widget',
       'prayer-times-widget',
-      'ai-image-creator',
+      'svg-converter',
       'roman-urdu-typing-test',
       'urdu-typing-test',
       'slang-typing-test',
