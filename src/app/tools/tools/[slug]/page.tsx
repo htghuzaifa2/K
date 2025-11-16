@@ -55,6 +55,7 @@ export default function ToolPage() {
       'voice-search-query-predictor',
       'content-summarizer',
       'url-qr-code-generator',
+      'image-optimizer',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {

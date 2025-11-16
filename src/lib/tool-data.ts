@@ -115,7 +115,12 @@ const tools: Tool[] = [
     id: 'text-to-speech',
     slug: 'text-to-speech',
     title: 'AI Text-to-Speech',
-  }
+  },
+  {
+    id: 'image-optimizer',
+    slug: 'image-optimizer',
+    title: 'Image Optimizer',
+  },
 ];
 
 // Sort tools by reversing the array, so latest added is first.
