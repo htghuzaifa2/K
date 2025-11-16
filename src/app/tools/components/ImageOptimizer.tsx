@@ -39,11 +39,6 @@ export function ImageOptimizer() {
         if (!e.target?.result) return reject(new Error("Couldn't read file"));
         
         const originalSrc = e.target.result as string;
-        const imageFile: ImageFile = {
-          id: `${file.name}-${file.lastModified}-${Math.random()}`,
-          original: { src: originalSrc, name: file.name, size: file.size },
-          optimized: null,
-        };
         
         const img = new window.Image();
         img.src = originalSrc;
@@ -64,7 +59,13 @@ export function ImageOptimizer() {
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], { type: 'image/jpeg' });
             
-            resolve({ ...imageFile, optimized: { src: dataUrl, size: blob.size } });
+            const optimizedImageFile: ImageFile = {
+              id: `${file.name}-${file.lastModified}-${Math.random()}`,
+              original: { src: originalSrc, name: file.name, size: file.size },
+              optimized: { src: dataUrl, size: blob.size }
+            };
+            resolve(optimizedImageFile);
+
           } else {
             reject(new Error('Canvas context not available'));
           }
@@ -81,34 +82,10 @@ export function ImageOptimizer() {
     setIsLoading(true);
     toast({ title: `Optimizing ${files.length} image(s)...` });
 
-    const newImages: ImageFile[] = [];
-    setImages(currentImages => {
-      for (const file of Array.from(files)) {
-        newImages.push({
-          id: `${file.name}-${file.lastModified}-${Math.random()}`,
-          original: { src: URL.createObjectURL(file), name: file.name, size: file.size },
-          optimized: null,
-        });
-      }
-      return [...currentImages, ...newImages];
-    });
-
     try {
       const optimizationPromises = Array.from(files).map(file => optimizeImage(file));
       const optimizedResults = await Promise.all(optimizationPromises);
-
-      setImages(currentImages => {
-          const imageMap = new Map(currentImages.map(img => [img.id, img]));
-          optimizedResults.forEach(res => {
-              // Find the placeholder and replace it with the full result
-              const matchingPlaceholder = newImages.find(p => p.original.name === res.original.name && p.original.size === res.original.size);
-              if (matchingPlaceholder) {
-                imageMap.set(matchingPlaceholder.id, res);
-              }
-          });
-          return Array.from(imageMap.values());
-      });
-
+      setImages(prevImages => [...prevImages, ...optimizedResults]);
       toast({ title: 'Optimization complete!' });
     } catch (error) {
       toast({ variant: 'destructive', title: 'An error occurred during optimization.' });
@@ -189,7 +166,7 @@ export function ImageOptimizer() {
               </label>
           </div>
           
-          {isLoading && images.some(img => !img.optimized) && (
+          {isLoading && (
             <div className="flex justify-center items-center py-4">
               <Loader2 className="mr-2 h-6 w-6 animate-spin" />
               <span>Optimizing images...</span>

@@ -39,11 +39,6 @@ export function WebpConverter() {
         if (!e.target?.result) return reject(new Error("Couldn't read file"));
         
         const originalSrc = e.target.result as string;
-        const imageFile: ImageFile = {
-          id: `${file.name}-${file.lastModified}-${Math.random()}`,
-          original: { src: originalSrc, name: file.name, size: file.size },
-          converted: null,
-        };
         
         const img = new window.Image();
         img.src = originalSrc;
@@ -64,7 +59,13 @@ export function WebpConverter() {
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], { type: 'image/webp' });
             
-            resolve({ ...imageFile, converted: { src: dataUrl, size: blob.size } });
+            const convertedImageFile: ImageFile = {
+              id: `${file.name}-${file.lastModified}-${Math.random()}`,
+              original: { src: originalSrc, name: file.name, size: file.size },
+              converted: { src: dataUrl, size: blob.size },
+            };
+            resolve(convertedImageFile);
+
           } else {
             reject(new Error('Canvas context not available'));
           }
@@ -81,33 +82,10 @@ export function WebpConverter() {
     setIsLoading(true);
     toast({ title: `Converting ${files.length} image(s) to WEBP...` });
 
-    const newImages: ImageFile[] = [];
-    setImages(currentImages => {
-      for (const file of Array.from(files)) {
-        newImages.push({
-          id: `${file.name}-${file.lastModified}-${Math.random()}`,
-          original: { src: URL.createObjectURL(file), name: file.name, size: file.size },
-          converted: null,
-        });
-      }
-      return [...currentImages, ...newImages];
-    });
-
     try {
       const conversionPromises = Array.from(files).map(file => convertImage(file));
       const convertedResults = await Promise.all(conversionPromises);
-
-       setImages(currentImages => {
-          const imageMap = new Map(currentImages.map(img => [img.id, img]));
-          convertedResults.forEach(res => {
-              const matchingPlaceholder = newImages.find(p => p.original.name === res.original.name && p.original.size === res.original.size);
-              if (matchingPlaceholder) {
-                imageMap.set(matchingPlaceholder.id, res);
-              }
-          });
-          return Array.from(imageMap.values());
-      });
-
+      setImages(prevImages => [...prevImages, ...convertedResults]);
       toast({ title: 'Conversion complete!' });
     } catch (error) {
       toast({ variant: 'destructive', title: 'An error occurred during conversion.' });
@@ -188,7 +166,7 @@ export function WebpConverter() {
               </label>
           </div>
           
-          {isLoading && images.some(img => !img.converted) && (
+          {isLoading && (
             <div className="flex justify-center items-center py-4">
               <Loader2 className="mr-2 h-6 w-6 animate-spin" />
               <span>Converting images...</span>

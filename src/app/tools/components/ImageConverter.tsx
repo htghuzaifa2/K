@@ -283,5 +283,3 @@ export function ImageConverter() {
     </div>
   );
 }
-
-    
