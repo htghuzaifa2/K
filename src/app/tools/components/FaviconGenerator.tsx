@@ -47,8 +47,9 @@ const generateFavicons = (imageSrc: string): Promise<GeneratedFavicon[]> => {
           }
         });
       });
+      
       Promise.all(promises).then((results) => {
-          const validFavicons = results.filter(r => r !== null) as GeneratedFavicon[];
+          const validFavicons = results.filter((r): r is GeneratedFavicon => r !== null);
           resolve(validFavicons);
       });
     };
@@ -71,7 +72,7 @@ const generateHtmlSnippet = () => {
 
 <!-- Web App Manifest -->
 <link rel="manifest" href="/site.webmanifest">
-  `.trim();
+`.trim();
 };
 
 
