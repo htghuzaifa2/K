@@ -1,12 +1,12 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
-import { Download, ImageUp, Sparkles, Trash2, Loader2, Archive, ArrowRight, Settings } from 'lucide-react';
+import { Download, ImageUp, Sparkles, Trash2, Loader2, Archive, Settings } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import JSZip from 'jszip';
@@ -56,23 +56,20 @@ export function ImageConverter() {
         })
       )
     );
-    setImages(prev => [...prev, ...newImages]);
+    setImages(prev => [...prev.filter(img => img.converted), ...newImages]);
   };
   
   const handleConversion = async () => {
-    if (images.length === 0) {
-      toast({ variant: 'destructive', title: 'No images to convert.' });
+    const imagesToConvert = images.filter(img => !img.converted || img.converted.format !== targetFormat);
+    if (imagesToConvert.length === 0) {
+      toast({ title: 'All images are already in the selected format.' });
       return;
     }
 
     setIsProcessing(true);
-    toast({ title: `Converting ${images.length} image(s) to ${targetFormat.toUpperCase()}...` });
+    toast({ title: `Converting ${imagesToConvert.length} image(s) to ${targetFormat.toUpperCase()}...` });
 
-    const conversionPromises = images.map(async (imageFile) => {
-      if (imageFile.converted && imageFile.converted.format === targetFormat) {
-        return imageFile; // Already converted to the target format
-      }
-
+    const conversionPromises = imagesToConvert.map(async (imageFile) => {
       return new Promise<ImageFile>((resolve, reject) => {
         const img = new window.Image();
         img.src = imageFile.original.src;
@@ -104,7 +101,11 @@ export function ImageConverter() {
 
     try {
       const convertedImages = await Promise.all(conversionPromises);
-      setImages(convertedImages);
+      setImages(currentImages => {
+        const imageMap = new Map(currentImages.map(img => [img.id, img]));
+        convertedImages.forEach(img => imageMap.set(img.id, img));
+        return Array.from(imageMap.values());
+      });
       toast({ title: 'Conversion complete!' });
     } catch (error) {
       toast({ variant: 'destructive', title: 'An error occurred during conversion.' });
@@ -124,13 +125,14 @@ export function ImageConverter() {
   };
 
   const handleDownloadAllZip = async () => {
-    if (images.every(img => !img.converted)) {
+    const convertedImages = images.filter(img => img.converted);
+    if (convertedImages.length === 0) {
       toast({ variant: 'destructive', title: 'No converted images to download. Please convert them first.' });
       return;
     }
 
     const zip = new JSZip();
-    images.forEach((image) => {
+    convertedImages.forEach((image) => {
       if (image.converted) {
         const base64Data = image.converted.src.split(',')[1];
         const originalName = image.original.name.split('.').slice(0, -1).join('.') || `image-${image.id}`;
@@ -142,7 +144,7 @@ export function ImageConverter() {
       const content = await zip.generateAsync({ type: "blob" });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(content);
-      link.download = `converted-images-${targetFormat}.zip`;
+      link.download = `converted-images.zip`;
       link.click();
       URL.revokeObjectURL(link.href);
     } catch (e) {
@@ -210,7 +212,7 @@ export function ImageConverter() {
 
               <div className="space-y-4">
                   <div className="flex justify-center gap-4">
-                      <Button onClick={handleDownloadAllZip} disabled={images.every(img => !img.converted)}>
+                      <Button onClick={handleDownloadAllZip} disabled={images.some(img => !img.converted)}>
                           <Archive className="mr-2 h-4 w-4" /> Download All (.zip)
                       </Button>
                       <Button onClick={handleClear} variant="destructive">
@@ -281,3 +283,5 @@ export function ImageConverter() {
     </div>
   );
 }
+
+    

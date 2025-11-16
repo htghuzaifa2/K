@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
-import { Download, ImageUp, Sparkles, Trash2, Loader2, Archive, FileImage } from 'lucide-react';
+import { Download, ImageUp, Trash2, Loader2, Archive, FileImage } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import JSZip from 'jszip';
@@ -32,21 +32,19 @@ export function WebpConverter() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const convertImage = useCallback((file: File) => {
-    return new Promise<ImageFile>((resolve, reject) => {
+  const convertImage = useCallback((file: File): Promise<ImageFile> => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         if (!e.target?.result) return reject(new Error("Couldn't read file"));
         
         const originalSrc = e.target.result as string;
         const imageFile: ImageFile = {
-          id: `${file.name}-${file.lastModified}`,
+          id: `${file.name}-${file.lastModified}-${Math.random()}`,
           original: { src: originalSrc, name: file.name, size: file.size },
           converted: null,
         };
         
-        setImages(prev => [...prev, imageFile]);
-
         const img = new window.Image();
         img.src = originalSrc;
         img.onload = () => {
@@ -56,7 +54,7 @@ export function WebpConverter() {
           const ctx = canvas.getContext('2d');
           if (ctx) {
             ctx.drawImage(img, 0, 0);
-            const dataUrl = canvas.toDataURL('image/webp', 1.0); // Convert to WEBP with high quality
+            const dataUrl = canvas.toDataURL('image/webp', 1.0); // Convert to WEBP with 100% quality
             const base64Data = dataUrl.split(',')[1];
             const byteCharacters = atob(base64Data);
             const byteNumbers = new Array(byteCharacters.length);
@@ -66,9 +64,10 @@ export function WebpConverter() {
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], { type: 'image/webp' });
             
-            setImages(prev => prev.map(im => im.id === imageFile.id ? { ...im, converted: { src: dataUrl, size: blob.size } } : im));
+            resolve({ ...imageFile, converted: { src: dataUrl, size: blob.size } });
+          } else {
+            reject(new Error('Canvas context not available'));
           }
-          resolve(imageFile);
         };
         img.onerror = () => reject(new Error('Image load error'));
       };
@@ -82,8 +81,33 @@ export function WebpConverter() {
     setIsLoading(true);
     toast({ title: `Converting ${files.length} image(s) to WEBP...` });
 
+    const newImages: ImageFile[] = [];
+    setImages(currentImages => {
+      for (const file of Array.from(files)) {
+        newImages.push({
+          id: `${file.name}-${file.lastModified}-${Math.random()}`,
+          original: { src: URL.createObjectURL(file), name: file.name, size: file.size },
+          converted: null,
+        });
+      }
+      return [...currentImages, ...newImages];
+    });
+
     try {
-      await Promise.all(Array.from(files).map(file => convertImage(file)));
+      const conversionPromises = Array.from(files).map(file => convertImage(file));
+      const convertedResults = await Promise.all(conversionPromises);
+
+       setImages(currentImages => {
+          const imageMap = new Map(currentImages.map(img => [img.id, img]));
+          convertedResults.forEach(res => {
+              const matchingPlaceholder = newImages.find(p => p.original.name === res.original.name && p.original.size === res.original.size);
+              if (matchingPlaceholder) {
+                imageMap.set(matchingPlaceholder.id, res);
+              }
+          });
+          return Array.from(imageMap.values());
+      });
+
       toast({ title: 'Conversion complete!' });
     } catch (error) {
       toast({ variant: 'destructive', title: 'An error occurred during conversion.' });
@@ -109,10 +133,10 @@ export function WebpConverter() {
     }
     
     const zip = new JSZip();
-    images.forEach((image, index) => {
+    images.forEach((image) => {
         if(image.converted) {
             const base64Data = image.converted.src.split(',')[1];
-            const originalName = image.original.name.split('.').slice(0, -1).join('.') || `image-${index}`;
+            const originalName = image.original.name.split('.').slice(0, -1).join('.') || `image-${image.id}`;
             zip.file(`${originalName}.webp`, base64Data, { base64: true });
         }
     });
@@ -164,7 +188,7 @@ export function WebpConverter() {
               </label>
           </div>
           
-          {isLoading && (
+          {isLoading && images.some(img => !img.converted) && (
             <div className="flex justify-center items-center py-4">
               <Loader2 className="mr-2 h-6 w-6 animate-spin" />
               <span>Converting images...</span>
@@ -174,7 +198,7 @@ export function WebpConverter() {
           {images.length > 0 && (
             <div className="space-y-4">
                 <div className="flex justify-center gap-4">
-                    <Button onClick={handleDownloadAllZip}>
+                    <Button onClick={handleDownloadAllZip} disabled={images.some(img => !img.converted)}>
                         <Archive className="mr-2 h-4 w-4" /> Download All (.zip)
                     </Button>
                     <Button onClick={handleClear} variant="destructive">
@@ -183,7 +207,7 @@ export function WebpConverter() {
                 </div>
                 <ScrollArea className="h-96 w-full pr-4">
                     <div className="space-y-4">
-                    {images.map((image, index) => (
+                    {images.map((image) => (
                          <Card key={image.id} className="p-4">
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                                 <div className="relative w-full h-32">
@@ -242,3 +266,5 @@ export function WebpConverter() {
     </div>
   );
 }
+
+    

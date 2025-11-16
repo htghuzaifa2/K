@@ -32,21 +32,19 @@ export function ImageOptimizer() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const optimizeImage = useCallback((file: File) => {
-    return new Promise<ImageFile>((resolve, reject) => {
+  const optimizeImage = useCallback((file: File): Promise<ImageFile> => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         if (!e.target?.result) return reject(new Error("Couldn't read file"));
         
         const originalSrc = e.target.result as string;
         const imageFile: ImageFile = {
-          id: `${file.name}-${file.lastModified}`,
+          id: `${file.name}-${file.lastModified}-${Math.random()}`,
           original: { src: originalSrc, name: file.name, size: file.size },
           optimized: null,
         };
         
-        setImages(prev => [...prev, imageFile]);
-
         const img = new window.Image();
         img.src = originalSrc;
         img.onload = () => {
@@ -66,9 +64,10 @@ export function ImageOptimizer() {
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], { type: 'image/jpeg' });
             
-            setImages(prev => prev.map(im => im.id === imageFile.id ? { ...im, optimized: { src: dataUrl, size: blob.size } } : im));
+            resolve({ ...imageFile, optimized: { src: dataUrl, size: blob.size } });
+          } else {
+            reject(new Error('Canvas context not available'));
           }
-          resolve(imageFile);
         };
         img.onerror = () => reject(new Error('Image load error'));
       };
@@ -82,8 +81,34 @@ export function ImageOptimizer() {
     setIsLoading(true);
     toast({ title: `Optimizing ${files.length} image(s)...` });
 
+    const newImages: ImageFile[] = [];
+    setImages(currentImages => {
+      for (const file of Array.from(files)) {
+        newImages.push({
+          id: `${file.name}-${file.lastModified}-${Math.random()}`,
+          original: { src: URL.createObjectURL(file), name: file.name, size: file.size },
+          optimized: null,
+        });
+      }
+      return [...currentImages, ...newImages];
+    });
+
     try {
-      await Promise.all(Array.from(files).map(file => optimizeImage(file)));
+      const optimizationPromises = Array.from(files).map(file => optimizeImage(file));
+      const optimizedResults = await Promise.all(optimizationPromises);
+
+      setImages(currentImages => {
+          const imageMap = new Map(currentImages.map(img => [img.id, img]));
+          optimizedResults.forEach(res => {
+              // Find the placeholder and replace it with the full result
+              const matchingPlaceholder = newImages.find(p => p.original.name === res.original.name && p.original.size === res.original.size);
+              if (matchingPlaceholder) {
+                imageMap.set(matchingPlaceholder.id, res);
+              }
+          });
+          return Array.from(imageMap.values());
+      });
+
       toast({ title: 'Optimization complete!' });
     } catch (error) {
       toast({ variant: 'destructive', title: 'An error occurred during optimization.' });
@@ -109,10 +134,10 @@ export function ImageOptimizer() {
     }
     
     const zip = new JSZip();
-    images.forEach((image, index) => {
+    images.forEach((image) => {
         if(image.optimized) {
             const base64Data = image.optimized.src.split(',')[1];
-            const originalName = image.original.name.split('.').slice(0, -1).join('.') || `image-${index}`;
+            const originalName = image.original.name.split('.').slice(0, -1).join('.') || `image-${image.id}`;
             zip.file(`${originalName}.jpg`, base64Data, { base64: true });
         }
     });
@@ -164,7 +189,7 @@ export function ImageOptimizer() {
               </label>
           </div>
           
-          {isLoading && (
+          {isLoading && images.some(img => !img.optimized) && (
             <div className="flex justify-center items-center py-4">
               <Loader2 className="mr-2 h-6 w-6 animate-spin" />
               <span>Optimizing images...</span>
@@ -174,7 +199,7 @@ export function ImageOptimizer() {
           {images.length > 0 && (
             <div className="space-y-4">
                 <div className="flex justify-center gap-4">
-                    <Button onClick={handleDownloadAllZip}>
+                    <Button onClick={handleDownloadAllZip} disabled={images.some(img => !img.optimized)}>
                         <Archive className="mr-2 h-4 w-4" /> Download All (.zip)
                     </Button>
                     <Button onClick={handleClear} variant="destructive">
@@ -183,7 +208,7 @@ export function ImageOptimizer() {
                 </div>
                 <ScrollArea className="h-96 w-full pr-4">
                     <div className="space-y-4">
-                    {images.map((image, index) => (
+                    {images.map((image) => (
                          <Card key={image.id} className="p-4">
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                                 <div className="relative w-full h-32">
@@ -242,3 +267,5 @@ export function ImageOptimizer() {
     </div>
   );
 }
+
+    
