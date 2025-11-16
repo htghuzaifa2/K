@@ -12,5 +12,7 @@ import '@/ai/flows/weather-tool.ts';
 import '@/ai/flows/prayer-times-tool.ts';
 import '@/ai/flows/trend-tracker.ts';
 import '@/ai/flows/youtube-seo-generator.ts';
+import '@/ai/flows/image-generator.ts';
+
 
 
