@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
-import { Download, ImageUp, Trash2, Loader2, Link as LinkIcon, Copy } from 'lucide-react';
+import { Download, ImageUp, Trash2, Loader2, Link as LinkIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import JSZip from 'jszip';
@@ -53,7 +53,7 @@ const generateFavicons = (imageSrc: string): Promise<GeneratedFavicon[]> => {
   });
 };
 
-const generateHtmlSnippet = (sizes: number[]) => {
+const generateHtmlSnippet = () => {
   return `
 <!-- Basic Favicon -->
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -69,7 +69,7 @@ const generateHtmlSnippet = (sizes: number[]) => {
 <!-- Web App Manifest -->
 <link rel="manifest" href="/site.webmanifest">
   `.trim();
-}
+};
 
 export function FaviconGenerator() {
   const [originalImage, setOriginalImage] = useState<{ src: string; name: string } | null>(null);
@@ -129,12 +129,12 @@ export function FaviconGenerator() {
       console.error(e);
       toast({ variant: 'destructive', title: 'Failed to create ZIP file.' });
     }
-  }
+  };
 
   const handleClear = () => {
     setOriginalImage(null);
     setFavicons([]);
-  }
+  };
 
   return (
     <div className="w-full">
@@ -202,7 +202,7 @@ export function FaviconGenerator() {
                 <div>
                   <h3 className="text-lg font-semibold text-center mb-4">How to Use</h3>
                   <p className="text-sm text-muted-foreground text-center mb-2">Copy this code into the `<head>` section of your HTML.</p>
-                  <CodeBlock code={generateHtmlSnippet(FAVICON_SIZES)} language="html" />
+                  <CodeBlock code={generateHtmlSnippet()} language="html" />
                 </div>
             </div>
           )}
