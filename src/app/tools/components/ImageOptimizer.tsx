@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
-import { Download, ImageUp, Sparkles, Trash2, Image as ImageIcon } from 'lucide-react';
+import { Download, ImageUp, Sparkles, Trash2, Loader2, FileZip } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
 import Image from 'next/image';
+import JSZip from 'jszip';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const formatBytes = (bytes: number, decimals = 2) => {
   if (bytes === 0) return '0 Bytes';
@@ -21,79 +21,116 @@ const formatBytes = (bytes: number, decimals = 2) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 };
 
+interface ImageFile {
+  original: { src: string; name: string; size: number };
+  optimized: { src: string; size: number } | null;
+  id: string;
+}
+
 export function ImageOptimizer() {
-  const [originalImage, setOriginalImage] = useState<{ src: string; name: string; size: number } | null>(null);
-  const [optimizedImage, setOptimizedImage] = useState<{ src: string; size: number } | null>(null);
-  const [quality, setQuality] = useState(80);
+  const [images, setImages] = useState<ImageFile[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleImageUpload = (file: File) => {
-    if (!file.type.startsWith('image/')) {
-      toast({ variant: 'destructive', title: 'Invalid file type', description: 'Please upload an image.' });
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      if (e.target?.result) {
-        setOriginalImage({ src: e.target.result as string, name: file.name, size: file.size });
-        optimizeImage(e.target.result as string, quality / 100);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const optimizeImage = useCallback((imageSrc: string, qualityValue: number) => {
-    setIsLoading(true);
-    const img = new window.Image();
-    img.src = imageSrc;
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.drawImage(img, 0, 0);
-        const dataUrl = canvas.toDataURL('image/jpeg', qualityValue);
-        const base64Data = dataUrl.split(',')[1];
-        const byteCharacters = atob(base64Data);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], { type: 'image/jpeg' });
+  const optimizeImage = useCallback((file: File) => {
+    return new Promise<ImageFile>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (!e.target?.result) return reject(new Error("Couldn't read file"));
         
-        setOptimizedImage({ src: dataUrl, size: blob.size });
-      }
-      setIsLoading(false);
-    };
-    img.onerror = () => {
-        setIsLoading(false);
-        toast({variant: 'destructive', title: 'Error loading image'});
-    }
-  }, [toast]);
-  
-  const handleQualityChange = (value: number[]) => {
-      setQuality(value[0]);
-      if(originalImage) {
-          optimizeImage(originalImage.src, value[0] / 100);
-      }
-  }
+        const originalSrc = e.target.result as string;
+        const imageFile: ImageFile = {
+          id: `${file.name}-${file.lastModified}`,
+          original: { src: originalSrc, name: file.name, size: file.size },
+          optimized: null,
+        };
+        
+        setImages(prev => [...prev, imageFile]);
 
-  const handleDownload = () => {
-    if (optimizedImage) {
+        const img = new window.Image();
+        img.src = originalSrc;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0);
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+            const base64Data = dataUrl.split(',')[1];
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'image/jpeg' });
+            
+            setImages(prev => prev.map(im => im.id === imageFile.id ? { ...im, optimized: { src: dataUrl, size: blob.size } } : im));
+          }
+          resolve(imageFile);
+        };
+        img.onerror = () => reject(new Error('Image load error'));
+      };
+      reader.onerror = () => reject(new Error('File read error'));
+      reader.readAsDataURL(file);
+    });
+  }, []);
+
+  const handleImageUpload = async (files: FileList) => {
+    if (files.length === 0) return;
+    setIsLoading(true);
+    toast({ title: `Optimizing ${files.length} image(s)...` });
+
+    try {
+      await Promise.all(Array.from(files).map(file => optimizeImage(file)));
+      toast({ title: 'Optimization complete!' });
+    } catch (error) {
+      toast({ variant: 'destructive', title: 'An error occurred during optimization.' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  const handleDownload = (image: ImageFile) => {
+    if (image.optimized) {
       const link = document.createElement('a');
-      link.href = optimizedImage.src;
-      const originalName = originalImage?.name.split('.').slice(0, -1).join('.') || 'optimized-image';
+      link.href = image.optimized.src;
+      const originalName = image.original.name.split('.').slice(0, -1).join('.') || 'optimized-image';
       link.download = `${originalName}.jpg`;
       link.click();
     }
   };
 
+  const handleDownloadAllZip = async () => {
+    if(images.every(img => !img.optimized)) {
+        toast({variant: 'destructive', title: 'No images to download.'});
+        return;
+    }
+    
+    const zip = new JSZip();
+    images.forEach((image, index) => {
+        if(image.optimized) {
+            const base64Data = image.optimized.src.split(',')[1];
+            const originalName = image.original.name.split('.').slice(0, -1).join('.') || `image-${index}`;
+            zip.file(`${originalName}.jpg`, base64Data, { base64: true });
+        }
+    });
+
+    try {
+      const content = await zip.generateAsync({ type: "blob" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(content);
+      link.download = "optimized-images.zip";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    } catch(e) {
+      toast({variant: 'destructive', title: 'Failed to create ZIP file.'});
+    }
+  }
+
   const handleClear = () => {
-      setOriginalImage(null);
-      setOptimizedImage(null);
+      setImages([]);
   }
 
   return (
@@ -104,63 +141,78 @@ export function ImageOptimizer() {
                 <Sparkles className="h-6 w-6 text-primary-foreground" />
             </div>
             <CardTitle className="text-3xl font-bold font-headline">Image Optimizer</CardTitle>
-            <p className="text-muted-foreground">Compress and convert images to JPG without losing quality.</p>
+            <p className="text-muted-foreground">Compress and convert images to high-quality JPGs.</p>
         </CardHeader>
         <CardContent className="space-y-6">
-          {!originalImage ? (
-            <div 
-                className="flex items-center justify-center w-full"
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => {
-                    e.preventDefault();
-                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                        handleImageUpload(e.dataTransfer.files[0]);
-                    }
-                }}
-            >
-                <label htmlFor="file-upload" className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-background/50 hover:bg-background">
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <ImageUp className="w-10 h-10 mb-3 text-muted-foreground" />
-                        <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                        <p className="text-xs text-muted-foreground">PNG, JPG, GIF, WEBP, etc.</p>
-                    </div>
-                    <input id="file-upload" type="file" className="hidden" accept="image/*" onChange={(e) => e.target.files && handleImageUpload(e.target.files[0])} />
-                </label>
-            </div> 
-          ) : (
-            <div className="space-y-6">
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2 text-center">
-                        <h3 className="font-semibold">Original</h3>
-                        <Image src={originalImage.src} alt="Original" width={300} height={300} className="rounded-md object-contain mx-auto border bg-white" />
-                        <p className="text-sm font-mono text-muted-foreground">{formatBytes(originalImage.size)}</p>
-                    </div>
-                    <div className="space-y-2 text-center">
-                        <h3 className="font-semibold">Optimized (JPG)</h3>
-                         {isLoading ? (
-                            <div className="w-[300px] h-[300px] flex items-center justify-center"><Sparkles className="w-10 h-10 animate-pulse text-primary" /></div>
-                         ) : optimizedImage && (
-                            <>
-                                <Image src={optimizedImage.src} alt="Optimized" width={300} height={300} className="rounded-md object-contain mx-auto border bg-white" />
-                                <p className="text-sm font-mono text-muted-foreground">{formatBytes(optimizedImage.size)}</p>
-                            </>
-                         )}
-                    </div>
-                 </div>
+          <div 
+              className="flex items-center justify-center w-full"
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                  e.preventDefault();
+                  if (e.dataTransfer.files) {
+                      handleImageUpload(e.dataTransfer.files);
+                  }
+              }}
+          >
+              <label htmlFor="file-upload" className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-background/50 hover:bg-background">
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <ImageUp className="w-10 h-10 mb-3 text-muted-foreground" />
+                      <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                      <p className="text-xs text-muted-foreground">Upload multiple PNG, JPG, GIF, WEBP files</p>
+                  </div>
+                  <input id="file-upload" type="file" className="hidden" accept="image/*" multiple onChange={(e) => e.target.files && handleImageUpload(e.target.files)} />
+              </label>
+          </div>
+          
+          {isLoading && (
+            <div className="flex justify-center items-center py-4">
+              <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+              <span>Optimizing images...</span>
+            </div>
+          )}
 
-                 <div className="space-y-4">
-                    <Label htmlFor="quality-slider">Quality: {quality}%</Label>
-                    <Slider id="quality-slider" min={1} max={100} step={1} value={[quality]} onValueChange={handleQualityChange} />
-                 </div>
-
-                 <div className="flex flex-wrap justify-center gap-4">
-                     <Button onClick={handleDownload} disabled={!optimizedImage || isLoading}>
-                        <Download className="mr-2 h-4 w-4" /> Download Optimized Image
+          {images.length > 0 && (
+            <div className="space-y-4">
+                <div className="flex justify-center gap-4">
+                    <Button onClick={handleDownloadAllZip}>
+                        <FileZip className="mr-2 h-4 w-4" /> Download All (.zip)
                     </Button>
                     <Button onClick={handleClear} variant="destructive">
-                        <Trash2 className="mr-2 h-4 w-4" /> Clear
+                        <Trash2 className="mr-2 h-4 w-4" /> Clear All
                     </Button>
-                 </div>
+                </div>
+                <ScrollArea className="h-96 w-full pr-4">
+                    <div className="space-y-4">
+                    {images.map((image, index) => (
+                         <Card key={image.id} className="p-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                                <div className="relative w-full h-32">
+                                     <Image src={image.original.src} alt={image.original.name} fill className="object-contain" sizes="150px" />
+                                </div>
+                                <div className="sm:col-span-2 space-y-2">
+                                    <p className="font-semibold truncate text-sm" title={image.original.name}>{image.original.name}</p>
+                                    <div className="flex items-center gap-4 text-xs">
+                                        <p>Original: <span className="font-mono">{formatBytes(image.original.size)}</span></p>
+                                        {image.optimized ? (
+                                             <p>Optimized: <span className="font-mono">{formatBytes(image.optimized.size)}</span></p>
+                                        ) : <Loader2 className="h-3 w-3 animate-spin" />}
+                                    </div>
+                                    {image.optimized && (
+                                        <div className="flex items-center gap-4">
+                                            <p className="text-sm font-bold text-green-600">
+                                                - {Math.round(100 - (image.optimized.size / image.original.size) * 100)}%
+                                            </p>
+                                            <Button size="sm" variant="outline" onClick={() => handleDownload(image)}>
+                                                <Download className="mr-2 h-3 w-3" /> Download
+                                            </Button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                         </Card>
+                    ))}
+                    </div>
+                </ScrollArea>
             </div>
           )}
         </CardContent>
@@ -175,13 +227,13 @@ export function ImageOptimizer() {
                 <AccordionContent className="mt-2 p-6 rounded-lg bg-card/50 dark:bg-card/20 prose dark:prose-invert max-w-none text-sm">
                     <p>This tool helps you compress and convert your images to JPG format directly in your browser, making them smaller for web use without a significant loss in quality.</p>
                     <ol>
-                        <li>Upload an image by clicking the upload area or by dragging and dropping a file onto it.</li>
-                        <li>Once uploaded, you will see the original image and a preview of the optimized JPG version.</li>
-                        <li>Use the "Quality" slider to adjust the compression level. A lower quality percentage results in a smaller file size.</li>
-                        <li>The preview and file size will update in real-time as you adjust the quality.</li>
-                        <li>When you are satisfied with the result, click the "Download Optimized Image" button.</li>
+                        <li>Upload one or more images by clicking the upload area or by dragging and dropping files onto it.</li>
+                        <li>Each image is automatically compressed to 90% JPG quality. You will see a list of your images with their original and new sizes.</li>
+                        <li>Download individual images by clicking the "Download" button next to each one.</li>
+                        <li>To download all optimized images at once, click the "Download All (.zip)" button.</li>
+                        <li>Click "Clear All" to remove all images and start over.</li>
                     </ol>
-                    <p>It's perfect for web developers, bloggers, and content creators who need to quickly optimize images for faster website loading times.</p>
+                    <p>It's perfect for web developers, bloggers, and content creators who need to quickly optimize multiple images for faster website loading times.</p>
                 </AccordionContent>
             </AccordionItem>
         </Accordion>
@@ -190,4 +242,3 @@ export function ImageOptimizer() {
     </div>
   );
 }
-
