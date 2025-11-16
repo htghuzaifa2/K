@@ -64,6 +64,7 @@ export default function ToolPage() {
       'pakistan-trend-tracker',
       'weather-widget',
       'prayer-times-widget',
+      'ai-image-creator',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {
