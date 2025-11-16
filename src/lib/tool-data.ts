@@ -87,11 +87,6 @@ const tools: Tool[] = [
     title: 'URL QR Code Generator',
   },
   {
-    id: 'local-weather',
-    slug: 'weather-widget',
-    title: 'Local Weather',
-  },
-  {
     id: 'prayer-times',
     slug: 'prayer-times-widget',
     title: 'Prayer Times',
