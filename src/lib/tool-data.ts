@@ -121,6 +121,11 @@ const tools: Tool[] = [
     slug: 'image-optimizer',
     title: 'Image Optimizer',
   },
+  {
+    id: 'webp-converter',
+    slug: 'webp-converter',
+    title: 'WEBP Converter',
+  },
 ];
 
 // Sort tools by reversing the array, so latest added is first.
