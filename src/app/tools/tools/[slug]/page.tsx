@@ -65,6 +65,8 @@ export default function ToolPage() {
       'weather-widget',
       'prayer-times-widget',
       'ai-image-creator',
+      'roman-urdu-typing-test',
+      'urdu-typing-test',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {
