@@ -133,6 +133,8 @@ export function WebpConverter() {
   const handleClear = () => {
       setImages([]);
   }
+  
+  const hasConvertedImages = images.some(img => img.converted);
 
   return (
     <div className="w-full">
@@ -175,7 +177,7 @@ export function WebpConverter() {
           {images.length > 0 && (
             <div className="space-y-4">
                 <div className="flex justify-center gap-4">
-                    <Button onClick={handleDownloadAllZip} disabled={images.some(img => !img.converted)}>
+                    <Button onClick={handleDownloadAllZip} disabled={!hasConvertedImages}>
                         <Archive className="mr-2 h-4 w-4" /> Download All (.zip)
                     </Button>
                     <Button onClick={handleClear} variant="destructive">
@@ -243,5 +245,7 @@ export function WebpConverter() {
     </div>
   );
 }
+
+    
 
     

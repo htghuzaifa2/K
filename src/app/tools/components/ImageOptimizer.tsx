@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -36,7 +36,7 @@ export function ImageOptimizer() {
     if (!files || files.length === 0) return;
     
     setIsProcessing(true);
-    toast({ title: `Optimizing ${files.length} image(s)...` });
+    toast({ title: `Optimizing ${files.length} image(s) to high-quality JPG...` });
 
     const newImagesPromises = Array.from(files).map(file => 
       new Promise<ImageFile>((resolve, reject) => {
@@ -135,6 +135,8 @@ export function ImageOptimizer() {
       setImages([]);
   }
 
+  const hasOptimizedImages = images.some(img => img.optimized);
+
   return (
     <div className="w-full">
       <Card className="bg-card/50 dark:bg-card/20 backdrop-blur-sm border-border/50">
@@ -176,7 +178,7 @@ export function ImageOptimizer() {
           {images.length > 0 && (
             <div className="space-y-4">
                 <div className="flex justify-center gap-4">
-                    <Button onClick={handleDownloadAllZip} disabled={images.some(img => !img.optimized)}>
+                    <Button onClick={handleDownloadAllZip} disabled={!hasOptimizedImages}>
                         <Archive className="mr-2 h-4 w-4" /> Download All (.zip)
                     </Button>
                     <Button onClick={handleClear} variant="destructive">
@@ -244,5 +246,7 @@ export function ImageOptimizer() {
     </div>
   );
 }
+
+    
 
     

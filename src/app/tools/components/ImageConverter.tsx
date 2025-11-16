@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -100,11 +100,13 @@ export function ImageConverter() {
     });
 
     try {
-      const convertedImages = await Promise.all(conversionPromises);
+      const convertedResults = await Promise.all(conversionPromises);
       setImages(currentImages => {
-        const imageMap = new Map(currentImages.map(img => [img.id, img]));
-        convertedImages.forEach(img => imageMap.set(img.id, img));
-        return Array.from(imageMap.values());
+        const updatedImages = currentImages.map(img => {
+            const convertedVersion = convertedResults.find(cImg => cImg.id === img.id);
+            return convertedVersion ? convertedVersion : img;
+        });
+        return updatedImages;
       });
       toast({ title: 'Conversion complete!' });
     } catch (error) {
@@ -157,6 +159,8 @@ export function ImageConverter() {
   const handleClear = () => {
     setImages([]);
   }
+  
+  const hasConvertedImages = images.some(img => img.converted);
 
   return (
     <div className="w-full">
@@ -214,7 +218,7 @@ export function ImageConverter() {
 
               <div className="space-y-4">
                   <div className="flex justify-center gap-4">
-                      <Button onClick={handleDownloadAllZip} disabled={images.some(img => !img.converted)}>
+                      <Button onClick={handleDownloadAllZip} disabled={!hasConvertedImages}>
                           <Archive className="mr-2 h-4 w-4" /> Download All (.zip)
                       </Button>
                       <Button onClick={handleClear} variant="destructive">
@@ -233,7 +237,7 @@ export function ImageConverter() {
                                       <p className="font-semibold truncate text-sm" title={image.original.name}>{image.original.name}</p>
                                       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
                                           <p>Original: <span className="font-mono">{formatBytes(image.original.size)}</span></p>
-                                          {isProcessing && !images.find(i => i.id === image.id)?.converted && <Loader2 className="h-3 w-3 animate-spin" />}
+                                          {isProcessing && images.find(i => i.id === image.id) && !images.find(i => i.id === image.id)?.converted && <Loader2 className="h-3 w-3 animate-spin" />}
                                           {image.converted ? (
                                                <p>Converted: <span className="font-mono">{formatBytes(image.converted.size)} ({image.converted.format.toUpperCase()})</span></p>
                                           ) : null }
@@ -285,5 +289,7 @@ export function ImageConverter() {
     </div>
   );
 }
+
+    
 
     

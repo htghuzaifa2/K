@@ -61,7 +61,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
             </Carousel>
           </div>
           <div className="flex flex-col p-6 border-t md:border-t-0 md:border-l bg-secondary/50">
-            <DialogHeader className="mb-4">
+            <DialogHeader className="mb-4 text-left">
               <DialogTitle className="text-2xl font-headline">{product.name}</DialogTitle>
             </DialogHeader>
             <ScrollArea className="flex-grow pr-4 -mr-4 mb-4">
@@ -84,3 +84,5 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
     </Dialog>
   );
 }
+
+    
