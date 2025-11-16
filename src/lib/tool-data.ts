@@ -150,6 +150,11 @@ const tools: Tool[] = [
     id: 'english-typing-test',
     slug: 'english-typing-test',
     title: 'English Typing Speed Test',
+  },
+  {
+    id: 'favicon-generator',
+    slug: 'favicon-generator',
+    title: 'Favicon Generator',
   }
 ];
 
