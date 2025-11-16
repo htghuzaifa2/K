@@ -102,11 +102,6 @@ const tools: Tool[] = [
     title: 'YouTube SEO Generator',
   },
   {
-    id: 'ai-image-creator',
-    slug: 'ai-image-creator',
-    title: 'AI Image Creator',
-  },
-  {
     id: 'text-to-speech',
     slug: 'text-to-speech',
     title: 'AI Text-to-Speech',
