@@ -135,6 +135,11 @@ const tools: Tool[] = [
     id: 'image-quality-compressor',
     slug: 'image-quality-compressor',
     title: 'Image Compressor & Quality Preview',
+  },
+  {
+    id: 'roman-urdu-typing-test',
+    slug: 'roman-urdu-typing-test',
+    title: 'Roman-Urdu Typing Test',
   }
 ];
 
