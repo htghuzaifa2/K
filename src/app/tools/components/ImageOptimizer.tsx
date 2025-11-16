@@ -22,75 +22,74 @@ const formatBytes = (bytes: number, decimals = 2) => {
 };
 
 interface ImageFile {
-  original: { src: string; name: string; size: number };
+  original: { file: File; src: string; name: string; size: number };
   optimized: { src: string; size: number } | null;
   id: string;
 }
 
 export function ImageOptimizer() {
   const [images, setImages] = useState<ImageFile[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
 
-  const optimizeImage = useCallback((file: File): Promise<ImageFile> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (!e.target?.result) return reject(new Error("Couldn't read file"));
-        
-        const originalSrc = e.target.result as string;
-        
-        const img = new window.Image();
-        img.src = originalSrc;
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
-          const ctx = canvas.getContext('2d');
-          if (ctx) {
-            ctx.drawImage(img, 0, 0);
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-            const base64Data = dataUrl.split(',')[1];
-            const byteCharacters = atob(base64Data);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-              byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], { type: 'image/jpeg' });
-            
-            const optimizedImageFile: ImageFile = {
-              id: `${file.name}-${file.lastModified}-${Math.random()}`,
-              original: { src: originalSrc, name: file.name, size: file.size },
-              optimized: { src: dataUrl, size: blob.size }
-            };
-            resolve(optimizedImageFile);
-
-          } else {
-            reject(new Error('Canvas context not available'));
-          }
-        };
-        img.onerror = () => reject(new Error('Image load error'));
-      };
-      reader.onerror = () => reject(new Error('File read error'));
-      reader.readAsDataURL(file);
-    });
-  }, []);
-
-  const handleImageUpload = async (files: FileList) => {
-    if (files.length === 0) return;
-    setIsLoading(true);
+  const handleImageUpload = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    
+    setIsProcessing(true);
     toast({ title: `Optimizing ${files.length} image(s)...` });
 
+    const newImagesPromises = Array.from(files).map(file => 
+      new Promise<ImageFile>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = e => {
+              if (!e.target?.result) return reject(new Error("Couldn't read file"));
+              
+              const originalSrc = e.target.result as string;
+              const img = new window.Image();
+              img.src = originalSrc;
+              
+              img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                if (ctx) {
+                  ctx.drawImage(img, 0, 0);
+                  const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                  const base64Data = dataUrl.split(',')[1];
+                  const byteCharacters = atob(base64Data);
+                  const byteNumbers = new Array(byteCharacters.length);
+                  for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                  }
+                  const byteArray = new Uint8Array(byteNumbers);
+                  const blob = new Blob([byteArray], { type: 'image/jpeg' });
+                  
+                  resolve({
+                    id: `${file.name}-${file.lastModified}-${Math.random()}`,
+                    original: { file, src: originalSrc, name: file.name, size: file.size },
+                    optimized: { src: dataUrl, size: blob.size }
+                  });
+                } else {
+                  reject(new Error('Canvas context not available'));
+                }
+              };
+              img.onerror = () => reject(new Error('Image load error'));
+          };
+          reader.onerror = () => reject(new Error('File read error'));
+          reader.readAsDataURL(file);
+      })
+    );
+    
     try {
-      const optimizationPromises = Array.from(files).map(file => optimizeImage(file));
-      const optimizedResults = await Promise.all(optimizationPromises);
-      setImages(prevImages => [...prevImages, ...optimizedResults]);
-      toast({ title: 'Optimization complete!' });
+        const optimizedResults = await Promise.all(newImagesPromises);
+        setImages(prev => [...prev, ...optimizedResults]);
+        toast({ title: 'Optimization complete!' });
     } catch (error) {
-      toast({ variant: 'destructive', title: 'An error occurred during optimization.' });
+        console.error(error);
+        toast({ variant: 'destructive', title: 'An error occurred during optimization.' });
     } finally {
-      setIsLoading(false);
+        setIsProcessing(false);
     }
   };
   
@@ -105,13 +104,14 @@ export function ImageOptimizer() {
   };
 
   const handleDownloadAllZip = async () => {
-    if(images.every(img => !img.optimized)) {
-        toast({variant: 'destructive', title: 'No images to download.'});
+    const optimizedImages = images.filter(img => img.optimized);
+    if (optimizedImages.length === 0) {
+        toast({variant: 'destructive', title: 'No optimized images to download.'});
         return;
     }
     
     const zip = new JSZip();
-    images.forEach((image) => {
+    optimizedImages.forEach((image) => {
         if(image.optimized) {
             const base64Data = image.optimized.src.split(',')[1];
             const originalName = image.original.name.split('.').slice(0, -1).join('.') || `image-${image.id}`;
@@ -162,11 +162,11 @@ export function ImageOptimizer() {
                       <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                       <p className="text-xs text-muted-foreground">Upload multiple PNG, JPG, GIF, WEBP files</p>
                   </div>
-                  <input id="file-upload" type="file" className="hidden" accept="image/*" multiple onChange={(e) => e.target.files && handleImageUpload(e.target.files)} />
+                  <input id="file-upload" type="file" className="hidden" accept="image/*" multiple onChange={(e) => handleImageUpload(e.target.files)} />
               </label>
           </div>
           
-          {isLoading && (
+          {isProcessing && (
             <div className="flex justify-center items-center py-4">
               <Loader2 className="mr-2 h-6 w-6 animate-spin" />
               <span>Optimizing images...</span>
@@ -193,7 +193,7 @@ export function ImageOptimizer() {
                                 </div>
                                 <div className="sm:col-span-2 space-y-2">
                                     <p className="font-semibold truncate text-sm" title={image.original.name}>{image.original.name}</p>
-                                    <div className="flex items-center gap-4 text-xs">
+                                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
                                         <p>Original: <span className="font-mono">{formatBytes(image.original.size)}</span></p>
                                         {image.optimized ? (
                                              <p>Optimized: <span className="font-mono">{formatBytes(image.optimized.size)}</span></p>

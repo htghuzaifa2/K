@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -37,8 +37,8 @@ export function ImageConverter() {
   const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
 
-  const handleImageUpload = async (files: FileList) => {
-    if (files.length === 0) return;
+  const handleImageUpload = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
     const newImages: ImageFile[] = await Promise.all(
       Array.from(files).map(file => 
         new Promise<ImageFile>((resolve, reject) => {
@@ -56,13 +56,13 @@ export function ImageConverter() {
         })
       )
     );
-    setImages(prev => [...prev.filter(img => img.converted), ...newImages]);
+    setImages(prev => [...prev, ...newImages]);
   };
   
   const handleConversion = async () => {
     const imagesToConvert = images.filter(img => !img.converted || img.converted.format !== targetFormat);
     if (imagesToConvert.length === 0) {
-      toast({ title: 'All images are already in the selected format.' });
+      toast({ title: 'All images are already in the selected format or not uploaded.' });
       return;
     }
 
@@ -108,6 +108,7 @@ export function ImageConverter() {
       });
       toast({ title: 'Conversion complete!' });
     } catch (error) {
+      console.error(error);
       toast({ variant: 'destructive', title: 'An error occurred during conversion.' });
     } finally {
       setIsProcessing(false);
@@ -148,6 +149,7 @@ export function ImageConverter() {
       link.click();
       URL.revokeObjectURL(link.href);
     } catch (e) {
+      console.error(e);
       toast({ variant: 'destructive', title: 'Failed to create ZIP file.' });
     }
   }
@@ -183,7 +185,7 @@ export function ImageConverter() {
                       <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                       <p className="text-xs text-muted-foreground">Upload multiple image files</p>
                   </div>
-                  <input id="file-upload" type="file" className="hidden" accept="image/*" multiple onChange={(e) => e.target.files && handleImageUpload(e.target.files)} />
+                  <input id="file-upload" type="file" className="hidden" accept="image/*" multiple onChange={(e) => handleImageUpload(e.target.files)} />
               </label>
           </div>
 
@@ -193,7 +195,7 @@ export function ImageConverter() {
                 <div className="space-y-2">
                     <Label htmlFor="format-select">Convert to:</Label>
                     <Select value={targetFormat} onValueChange={(value: ImageFormat) => setTargetFormat(value)}>
-                        <SelectTrigger id="format-select" className="w-[180px]">
+                        <SelectTrigger id="format-select" className="w-full sm:w-[180px]">
                             <SelectValue placeholder="Select Format" />
                         </SelectTrigger>
                         <SelectContent>
