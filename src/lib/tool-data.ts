@@ -144,7 +144,12 @@ const tools: Tool[] = [
   {
     id: 'svg-converter',
     slug: 'svg-converter',
-    title: 'SVG Converter',
+    title: 'AI Image to SVG Converter',
+  },
+  {
+    id: 'favicon-generator',
+    slug: 'favicon-generator',
+    title: 'Image to Favicon Converter',
   }
 ];
 
