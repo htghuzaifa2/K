@@ -67,6 +67,7 @@ export default function ToolPage() {
       'ai-image-creator',
       'roman-urdu-typing-test',
       'urdu-typing-test',
+      'slang-typing-test',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {

@@ -145,6 +145,11 @@ const tools: Tool[] = [
     id: 'urdu-typing-test',
     slug: 'urdu-typing-test',
     title: 'Urdu Script Typing Test',
+  },
+  {
+    id: 'slang-typing-test',
+    slug: 'slang-typing-test',
+    title: 'Pakistani Slang Typing Challenge',
   }
 ];
 
