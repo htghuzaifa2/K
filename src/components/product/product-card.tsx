@@ -43,15 +43,6 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             ID: {product.id}
           </div>
           <div className="absolute right-2 top-2 hidden opacity-0 transition-opacity group-hover:opacity-100 md:flex md:gap-2">
-            <Button
-                size="icon"
-                variant="secondary"
-                className="h-8 w-8 rounded-full"
-                aria-label="Product preview"
-                onClick={handleQuickViewClick}
-            >
-                <Eye className="h-4 w-4" />
-            </Button>
             <AddToCartButton 
                 product={product} 
                 variant="secondary"
@@ -67,8 +58,14 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           </h3>
           <div className="mt-4 flex items-center justify-between">
             <p className="text-lg font-bold text-primary md:text-xl">PKR {product.price}</p>
-            <Button variant="outline" size="sm" onClick={handleQuickViewClick}>
-                Quick View
+            <Button
+                size="icon"
+                variant="outline"
+                className="h-9 w-9 rounded-full"
+                aria-label="Product preview"
+                onClick={handleQuickViewClick}
+            >
+                <Eye className="h-4 w-4" />
             </Button>
           </div>
         </div>
