@@ -82,7 +82,7 @@ export function UrduTranslator() {
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary mb-4">
                 <Languages className="h-6 w-6 text-primary-foreground" />
             </div>
-            <CardTitle className="text-3xl font-bold font-headline">Urdu/Roman-Urdu Translator &amp; Typing Trainer</CardTitle>
+            <CardTitle className="text-3xl font-bold font-headline">Urdu/Roman-Urdu Translator</CardTitle>
             <p className="text-muted-foreground">Translate between English, Urdu, and Roman-Urdu instantly.</p>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -184,3 +184,5 @@ export function UrduTranslator() {
     </div>
   );
 }
+
+    

@@ -123,7 +123,7 @@ export function RomanUrduTypingTest() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
                 <StatCard label="WPM" value={wpm} />
                 <StatCard label="Accuracy" value={`${accuracy}%`} />
-                <StatCard label="Time" value={startTime ? `${Math.round((Date.now() - startTime) / 1000)}s` : '0s'} />
+                <StatCard label="Time" value={startTime && isFinished ? `${Math.round((Date.now() - startTime) / 1000)}s` : '0s'} />
             </div>
           )}
 
@@ -168,3 +168,5 @@ function StatCard({ label, value }: { label: string; value: string | number }) {
         </div>
     )
 }
+
+    

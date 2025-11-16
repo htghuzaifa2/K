@@ -148,14 +148,14 @@ export function ImageQualityCompressor() {
                     <div className="space-y-2">
                         <Label>Original ({formatBytes(image.original.size)})</Label>
                         <div className="relative w-full aspect-video bg-muted rounded-md overflow-hidden">
-                             <Image src={image.original.src} alt="Original" fill className="object-contain" />
+                             <Image src={image.original.src} alt="Original" fill className="object-contain" sizes="(max-width: 768px) 50vw, 33vw" />
                         </div>
                     </div>
                      <div className="space-y-2">
                         <Label>Optimized ({formatBytes(image.optimized?.size ?? 0)}) - <span className="text-green-600 font-bold">-{reductionPercentage}%</span></Label>
                          <div className="relative w-full aspect-video bg-muted rounded-md overflow-hidden">
                              {isProcessing ? <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-8 w-8 animate-spin" /> :
-                                (image.optimized && <Image src={image.optimized.src} alt="Optimized" fill className="object-contain" />)
+                                (image.optimized && <Image src={image.optimized.src} alt="Optimized" fill className="object-contain" sizes="(max-width: 768px) 50vw, 33vw" />)
                              }
                         </div>
                     </div>
@@ -210,3 +210,5 @@ export function ImageQualityCompressor() {
     </div>
   );
 }
+
+    

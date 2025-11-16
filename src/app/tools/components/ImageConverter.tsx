@@ -233,7 +233,7 @@ export function ImageConverter() {
                                       <p className="font-semibold truncate text-sm" title={image.original.name}>{image.original.name}</p>
                                       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
                                           <p>Original: <span className="font-mono">{formatBytes(image.original.size)}</span></p>
-                                          {isProcessing && !image.converted && <Loader2 className="h-3 w-3 animate-spin" />}
+                                          {isProcessing && !images.find(i => i.id === image.id)?.converted && <Loader2 className="h-3 w-3 animate-spin" />}
                                           {image.converted ? (
                                                <p>Converted: <span className="font-mono">{formatBytes(image.converted.size)} ({image.converted.format.toUpperCase()})</span></p>
                                           ) : null }
@@ -285,3 +285,5 @@ export function ImageConverter() {
     </div>
   );
 }
+
+    

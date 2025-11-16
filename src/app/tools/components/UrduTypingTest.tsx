@@ -88,7 +88,7 @@ export function UrduTypingTest() {
             <Keyboard className="h-6 w-6 text-primary-foreground" />
           </div>
           <CardTitle className="text-3xl font-bold font-headline">Urdu Script Typing Test</CardTitle>
-          <p className="text-muted-foreground">Check your WPM and accuracy with Urdu script sentences.</p>
+          <p className="text-muted-foreground">Check your WPM and accuracy with fun Urdu jokes.</p>
         </CardHeader>
         <CardContent className="space-y-6">
           <div 
@@ -120,7 +120,7 @@ export function UrduTypingTest() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
                 <StatCard label="WPM" value={wpm} />
                 <StatCard label="Accuracy" value={`${accuracy}%`} />
-                <StatCard label="Time" value={startTime ? `${Math.round((Date.now() - startTime) / 1000)}s` : '0s'} />
+                <StatCard label="Time" value={startTime && isFinished ? `${Math.round((Date.now() - startTime) / 1000)}s` : '0s'} />
             </div>
           )}
 
@@ -140,13 +140,13 @@ export function UrduTypingTest() {
                     <FancyAccordionButton />
                 </AccordionTrigger>
                 <AccordionContent className="mt-2 p-6 rounded-lg bg-card/50 dark:bg-card/20 prose dark:prose-invert max-w-none text-sm">
-                    <p>This tool helps you measure your typing speed and accuracy using Urdu script sentences.</p>
+                    <p>This tool helps you measure your typing speed and accuracy using fun Urdu script jokes.</p>
                     <ol>
                         <li>Click on the text box or start typing to begin the test. A timer will start automatically.</li>
-                        <li>Type the displayed sentence in Urdu script as accurately and quickly as you can.</li>
+                        <li>Type the displayed joke in Urdu script as accurately and quickly as you can.</li>
                         <li>Correct characters will be highlighted in green, and incorrect ones will be red.</li>
                         <li>Once you finish typing the sentence, your Words Per Minute (WPM) and accuracy will be displayed.</li>
-                        <li>Click "Restart Test" to try a new sentence and improve your speed.</li>
+                        <li>Click "Restart Test" to try a new joke and improve your speed.</li>
                     </ol>
                     <p>This tool is perfect for anyone looking to improve their Urdu typing skills for professional or personal use.</p>
                 </AccordionContent>
@@ -165,3 +165,5 @@ function StatCard({ label, value }: { label: string; value: string | number }) {
         </div>
     )
 }
+
+    
