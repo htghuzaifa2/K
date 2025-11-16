@@ -60,7 +60,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
               )}
             </Carousel>
           </div>
-          <div className="flex flex-col p-6 border-t md:border-t-0 md:border-l">
+          <div className="flex flex-col p-6 border-t md:border-t-0 md:border-l bg-secondary/50">
             <DialogHeader className="mb-4">
               <DialogTitle className="text-2xl font-headline">{product.name}</DialogTitle>
             </DialogHeader>
@@ -71,7 +71,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
               </div>
             </ScrollArea>
             <div className="mt-auto pt-4 flex flex-col gap-3">
-              <AddToCartButton product={product} size="lg" className="w-full">
+               <AddToCartButton product={product} size="lg" className="w-full">
                   Add to Cart
                 </AddToCartButton>
               <Button asChild variant="outline" className="w-full" onClick={() => onOpenChange(false)}>

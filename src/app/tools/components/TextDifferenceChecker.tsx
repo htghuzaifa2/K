@@ -15,7 +15,6 @@ export function TextDifferenceChecker() {
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
   const [diff, setDiff] = useState<diff.Change[]>([]);
-  const [viewType, setViewType] = useState('split');
 
   const handleCompare = () => {
     const differences = diffChars(text1, text2);
@@ -56,7 +55,7 @@ export function TextDifferenceChecker() {
     });
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 border rounded-md bg-background overflow-hidden font-mono">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 border rounded-md bg-background overflow-hidden font-mono text-sm">
              <ScrollArea className="h-96">
                 <div className="p-4">{leftContent}</div>
              </ScrollArea>
