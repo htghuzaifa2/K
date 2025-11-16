@@ -1,4 +1,3 @@
-
 export interface Tool {
   slug: string;
   title: string;
@@ -145,11 +144,6 @@ const tools: Tool[] = [
     id: 'svg-converter',
     slug: 'svg-converter',
     title: 'AI Image to SVG Converter',
-  },
-  {
-    id: 'favicon-generator',
-    slug: 'favicon-generator',
-    title: 'Image to Favicon Converter',
   }
 ];
 
