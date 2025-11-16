@@ -54,7 +54,7 @@ export function WebpConverter() {
           const ctx = canvas.getContext('2d');
           if (ctx) {
             ctx.drawImage(img, 0, 0);
-            const dataUrl = canvas.toDataURL('image/webp', 1.0); // Convert to WEBP with 100% quality
+            const dataUrl = canvas.toDataURL('image/webp', 0.9); // Convert to WEBP with 90% quality
             const base64Data = dataUrl.split(',')[1];
             const byteCharacters = atob(base64Data);
             const byteNumbers = new Array(byteCharacters.length);
@@ -266,5 +266,3 @@ export function WebpConverter() {
     </div>
   );
 }
-
-    
