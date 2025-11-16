@@ -10,7 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import { PrayerTimesTool } from '../components/PrayerTimesWidget';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const tool = getToolBySlug('prayer-times');
+  const tool = getToolBySlug('prayer-times-widget');
 
   if (!tool) {
     return {
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function ToolPage() {
-  const tool = getToolBySlug('prayer-times');
+  const tool = getToolBySlug('prayer-times-widget');
 
   if (!tool) {
     notFound();

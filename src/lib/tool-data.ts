@@ -88,12 +88,12 @@ const tools: Tool[] = [
   },
   {
     id: 'local-weather',
-    slug: 'local-weather',
+    slug: 'weather-widget',
     title: 'Local Weather',
   },
   {
     id: 'prayer-times',
-    slug: 'prayer-times',
+    slug: 'prayer-times-widget',
     title: 'Prayer Times',
   },
   {

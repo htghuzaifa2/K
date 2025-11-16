@@ -59,6 +59,11 @@ export default function ToolPage() {
       'webp-converter',
       'image-converter',
       'image-quality-compressor',
+      'youtube-seo-generator',
+      'text-to-speech',
+      'pakistan-trend-tracker',
+      'weather-widget',
+      'prayer-times-widget',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {
