@@ -34,10 +34,9 @@ const imageGeneratorFlow = ai.defineFlow(
   },
   async ({ prompt }) => {
     const { media } = await ai.generate({
-        model: 'googleai/gemini-2.5-flash-image-preview',
+        model: 'googleai/imagen-4.0-fast-generate-001',
         prompt: `Generate a high-quality, brand-safe image based on the following creative prompt: ${prompt}`,
         config: {
-            responseModalities: ['IMAGE'],
             safetySettings: [
                 { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
                 { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
