@@ -64,10 +64,10 @@ export default function ToolPage() {
       'pakistan-trend-tracker',
       'prayer-times-widget',
       'svg-converter',
-      'favicon-generator',
       'roman-urdu-typing-test',
       'urdu-typing-test',
       'slang-typing-test',
+      'english-typing-test',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {
@@ -88,3 +88,5 @@ export default function ToolPage() {
       </>
     );
 }
+
+    

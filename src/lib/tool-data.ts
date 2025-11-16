@@ -1,3 +1,4 @@
+
 export interface Tool {
   slug: string;
   title: string;
@@ -144,6 +145,11 @@ const tools: Tool[] = [
     id: 'svg-converter',
     slug: 'svg-converter',
     title: 'AI Image to SVG Converter',
+  },
+  {
+    id: 'english-typing-test',
+    slug: 'english-typing-test',
+    title: 'English Typing Speed Test',
   }
 ];
 
@@ -162,3 +168,5 @@ export const getDummyToolContent = (title: string): string => `
   <p>The online tool "${title}" is not yet implemented.</p>
   <p>Please check back later or explore our other available tools.</p>
 `;
+
+    
