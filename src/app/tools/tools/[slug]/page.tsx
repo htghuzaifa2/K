@@ -56,6 +56,8 @@ export default function ToolPage() {
       'content-summarizer',
       'url-qr-code-generator',
       'image-optimizer',
+      'webp-converter',
+      'image-converter',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
-import { Download, ImageUp, Sparkles, Trash2, Loader2, FileZip, FileImage } from 'lucide-react';
+import { Download, ImageUp, Sparkles, Trash2, Loader2, Archive, FileImage } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import JSZip from 'jszip';
@@ -175,7 +175,7 @@ export function WebpConverter() {
             <div className="space-y-4">
                 <div className="flex justify-center gap-4">
                     <Button onClick={handleDownloadAllZip}>
-                        <FileZip className="mr-2 h-4 w-4" /> Download All (.zip)
+                        <Archive className="mr-2 h-4 w-4" /> Download All (.zip)
                     </Button>
                     <Button onClick={handleClear} variant="destructive">
                         <Trash2 className="mr-2 h-4 w-4" /> Clear All
