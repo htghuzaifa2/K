@@ -140,6 +140,11 @@ const tools: Tool[] = [
     id: 'roman-urdu-typing-test',
     slug: 'roman-urdu-typing-test',
     title: 'Roman-Urdu Typing Test',
+  },
+  {
+    id: 'urdu-typing-test',
+    slug: 'urdu-typing-test',
+    title: 'Urdu Script Typing Test',
   }
 ];
 
