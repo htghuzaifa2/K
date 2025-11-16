@@ -19,10 +19,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${tool.title} | ${APP_NAME}`,
-    description: 'A free AI tool to convert any image (PNG, JPG) into a clean, scalable SVG vector file. Perfect for web developers and designers.',
+    description: 'A free tool to convert any image (PNG, JPG) into a clean, scalable SVG file. Perfect for web developers and designers.',
     openGraph: {
         title: `${tool.title} | ${APP_NAME}`,
-        description: 'Use the AI SVG Converter tool to vectorize your images.',
+        description: 'Use the SVG Converter tool to vectorize your images.',
         type: 'website',
     }
   };

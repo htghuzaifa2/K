@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -5,16 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
-import { Download, ImageUp, Sparkles, Trash2, Loader2, Copy, Image as ImageIcon } from 'lucide-react';
+import { Download, ImageUp, Trash2, Copy, Image as ImageIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
-import { convertToSvg } from '@/ai/flows/svg-converter';
 import { Textarea } from '@/components/ui/textarea';
 
 export function SvgConverter() {
-  const [originalImage, setOriginalImage] = useState<{ src: string, name: string } | null>(null);
+  const [originalImage, setOriginalImage] = useState<{ src: string; name: string, type: string } | null>(null);
   const [svgCode, setSvgCode] = useState<string>('');
-  const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
 
   const handleImageUpload = (file: File | null) => {
@@ -28,32 +27,21 @@ export function SvgConverter() {
     const reader = new FileReader();
     reader.onload = e => {
       if (e.target?.result) {
-        setOriginalImage({ src: e.target.result as string, name: file.name });
-        setSvgCode(''); // Clear previous results
+        const imageSrc = e.target.result as string;
+        setOriginalImage({ src: imageSrc, name: file.name, type: file.type });
+        
+        const img = new window.Image();
+        img.onload = () => {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${img.width}" height="${img.height}" viewBox="0 0 ${img.width} ${img.height}">
+  <image href="${imageSrc}" width="${img.width}" height="${img.height}" />
+</svg>`;
+            setSvgCode(svg);
+            toast({ title: 'SVG generated successfully!' });
+        };
+        img.src = imageSrc;
       }
     };
     reader.readAsDataURL(file);
-  };
-
-  const handleConversion = async () => {
-    if (!originalImage) {
-      toast({ variant: 'destructive', title: 'No image selected', description: 'Please upload an image to convert.' });
-      return;
-    }
-
-    setIsProcessing(true);
-    toast({ title: 'AI is converting your image to SVG... This may take a moment.' });
-    
-    try {
-      const result = await convertToSvg({ imageUrl: originalImage.src });
-      setSvgCode(result.svgCode);
-      toast({ title: 'SVG conversion successful!' });
-    } catch (error) {
-      console.error(error);
-      toast({ variant: 'destructive', title: 'An error occurred', description: 'Failed to convert image to SVG. Please try again.' });
-    } finally {
-      setIsProcessing(false);
-    }
   };
 
   const handleDownload = () => {
@@ -88,8 +76,8 @@ export function SvgConverter() {
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary mb-4">
                 <ImageIcon className="h-6 w-6 text-primary-foreground" />
             </div>
-            <CardTitle className="text-3xl font-bold font-headline">AI Image to SVG Converter</CardTitle>
-            <p className="text-muted-foreground">Convert any image (PNG, JPG) to a vector SVG file.</p>
+            <CardTitle className="text-3xl font-bold font-headline">Image to SVG Converter</CardTitle>
+            <p className="text-muted-foreground">Convert any image (PNG, JPG) to an SVG file.</p>
         </CardHeader>
         <CardContent className="space-y-6">
           {!originalImage ? (
@@ -124,19 +112,12 @@ export function SvgConverter() {
                      <div className="space-y-2">
                         <h3 className="font-semibold text-center">Generated SVG</h3>
                          <div className="relative w-full aspect-video bg-muted rounded-md overflow-hidden border">
-                             {isProcessing ? <Loader2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-8 w-8 animate-spin" /> :
-                                (svgCode && <div className="w-full h-full p-2" dangerouslySetInnerHTML={{ __html: svgCode }} />)
-                             }
+                            {svgCode && <div className="w-full h-full p-2" dangerouslySetInnerHTML={{ __html: svgCode }} />}
                         </div>
                     </div>
                 </div>
 
-                <Button onClick={handleConversion} disabled={isProcessing} className="w-full" size="lg">
-                    {isProcessing ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Sparkles className="mr-2 h-5 w-5" />}
-                    {isProcessing ? 'Converting...' : 'Convert to SVG'}
-                </Button>
-
-                {svgCode && !isProcessing && (
+                {svgCode && (
                     <div className="space-y-4">
                         <Textarea value={svgCode} readOnly rows={6} className="font-mono text-xs" />
                         <div className="flex justify-center gap-4">
@@ -166,14 +147,13 @@ export function SvgConverter() {
                     <FancyAccordionButton />
                 </AccordionTrigger>
                 <AccordionContent className="mt-2 p-6 rounded-lg bg-card/50 dark:bg-card/20 prose dark:prose-invert max-w-none text-sm">
-                    <p>This AI-powered tool converts raster images like PNGs and JPGs into scalable SVG vector graphics.</p>
+                    <p>This tool converts raster images like PNGs and JPGs into an SVG file by embedding the image data directly.</p>
                     <ol>
                         <li>Upload your image by clicking the upload area or dragging and dropping a file.</li>
-                        <li>Click the "Convert to SVG" button and let the AI analyze and trace your image. This can take a few moments.</li>
-                        <li>A preview of the generated SVG will appear side-by-side with your original image.</li>
+                        <li>The tool will instantly generate the SVG code and show a preview.</li>
                         <li>You can then download the result as an `.svg` file or copy the raw SVG code to your clipboard for use in your web projects.</li>
                     </ol>
-                    <p>It's perfect for web developers and designers who need to convert logos, icons, or simple illustrations into a clean, scalable vector format.</p>
+                    <p>It's perfect for web developers and designers who need to wrap an image in an SVG format for use in modern web layouts.</p>
                 </AccordionContent>
             </AccordionItem>
         </Accordion>
