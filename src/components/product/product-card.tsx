@@ -67,7 +67,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           </h3>
           <div className="mt-4 flex items-center justify-between">
             <p className="text-lg font-bold text-primary md:text-xl">PKR {product.price}</p>
-            <Button variant="outline" size="sm" className="md:hidden" onClick={handleQuickViewClick}>
+            <Button variant="outline" size="sm" onClick={handleQuickViewClick}>
                 Quick View
             </Button>
           </div>
