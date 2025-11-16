@@ -131,6 +131,11 @@ const tools: Tool[] = [
     slug: 'image-converter',
     title: 'Image Converter',
   },
+  {
+    id: 'image-quality-compressor',
+    slug: 'image-quality-compressor',
+    title: 'Image Compressor & Quality Preview',
+  }
 ];
 
 // Sort tools by reversing the array, so latest added is first.

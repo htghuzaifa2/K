@@ -58,6 +58,7 @@ export default function ToolPage() {
       'image-optimizer',
       'webp-converter',
       'image-converter',
+      'image-quality-compressor',
   ];
   
   if (implementedSlugs.includes(tool.slug)) {
