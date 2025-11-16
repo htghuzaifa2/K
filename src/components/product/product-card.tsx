@@ -6,7 +6,7 @@ import Link from 'next/link';
 import type { AppProduct } from '@/lib/products';
 import { Card, CardContent } from '@/components/ui/card';
 import { AddToCartButton } from './add-to-cart-button';
-import { Eye, ShoppingCart } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BLUR_DATA_URL } from '@/lib/constants';
 
