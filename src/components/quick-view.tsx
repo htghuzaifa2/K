@@ -10,6 +10,7 @@ import { AddToCartButton } from './product/add-to-cart-button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
 import { ScrollArea } from './ui/scroll-area';
 import { BLUR_DATA_URL } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 
 function CarouselImage({ img, index }: { img: ProductImage, index: number }) {
   return (
@@ -41,9 +42,11 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl p-0 h-full max-h-[90vh] sm:h-auto sm:max-h-[600px] flex flex-col">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 h-full">
-          <div className="p-6 flex items-center justify-center">
+       <DialogContent className={cn(
+        "p-0 w-[90vw] max-w-4xl h-auto max-h-[90vh] flex flex-col",
+        "sm:grid sm:grid-cols-2 sm:h-auto sm:max-h-[600px] sm:gap-0"
+      )}>
+        <div className="p-6 flex items-center justify-center h-1/2 sm:h-full">
             <Carousel className="w-full">
               <CarouselContent>
                 {product.images.map((img, index) => (
@@ -60,7 +63,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
               )}
             </Carousel>
           </div>
-          <div className="flex flex-col p-6 border-t md:border-t-0 md:border-l bg-secondary/50">
+          <div className="flex flex-col p-6 border-t sm:border-t-0 sm:border-l bg-secondary/50 h-1/2 sm:h-full">
             <DialogHeader className="mb-4 text-left">
               <DialogTitle className="text-2xl font-headline">{product.name}</DialogTitle>
             </DialogHeader>
@@ -79,10 +82,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
               </Button>
             </div>
           </div>
-        </div>
       </DialogContent>
     </Dialog>
   );
 }
-
-    
