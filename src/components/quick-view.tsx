@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -10,7 +9,6 @@ import { AddToCartButton } from './product/add-to-cart-button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
 import { ScrollArea } from './ui/scroll-area';
 import { BLUR_DATA_URL } from '@/lib/constants';
-import { cn } from '@/lib/utils';
 
 function CarouselImage({ img, index }: { img: ProductImage, index: number }) {
   return (
