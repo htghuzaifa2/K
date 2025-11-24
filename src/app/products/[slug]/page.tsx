@@ -41,7 +41,7 @@ export default function ProductPage() {
     return notFound();
   }
 
-  const isOutOfStock = product.stock !== undefined && product.stock <= 0;
+  const isOutOfStock = !product.inStock;
   const availability = isOutOfStock ? "https://schema.org/OutOfStock" : "https://schema.org/InStock";
 
   const structuredData = {

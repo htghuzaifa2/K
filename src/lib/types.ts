@@ -11,7 +11,7 @@ export type Product = {
   price: number;
   category: string[];
   images: ProductImage[];
-  stock: number;
+  inStock: boolean;
   longDescription?: string;
   specifications?: Record<string, string>;
 };
