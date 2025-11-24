@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: `All Products | ${APP_NAME}`,
+  title: 'All Products',
   description: `Explore the full range of tech gadgets, accessories, and more available at ${APP_NAME}. Shop for the latest products with nationwide delivery.`,
 };
 

@@ -15,12 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'Use our free Lorem Ipsum Generator to quickly create placeholder text with a specific word count for your design mockups and web projects.',
     openGraph: {
         title: tool.title,

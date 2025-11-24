@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} | ${APP_NAME}`,
+    title: tool.title,
     description: 'Test your typing speed (WPM) and accuracy with our free Roman-Urdu typing test. Improve your skills for social media, content creation, and professional work.',
     openGraph: {
         title: `${tool.title} | ${APP_NAME}`,

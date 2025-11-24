@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'A free AI tool to predict how users in Pakistan will ask for your content using voice search in English and Urdu. Optimize your SEO for voice assistants.',
     openGraph: {
         title: tool.title,

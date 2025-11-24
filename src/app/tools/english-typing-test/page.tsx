@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} | ${APP_NAME}`,
+    title: tool.title,
     description: 'Test and improve your English typing speed (WPM) and accuracy with our free online typing test. Choose from different difficulty levels.',
     openGraph: {
         title: `${tool.title} | ${APP_NAME}`,
@@ -52,5 +52,3 @@ export default function ToolPage() {
     </>
   );
 }
-
-    

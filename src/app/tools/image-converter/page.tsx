@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} | ${APP_NAME}`,
+    title: tool.title,
     description: 'A free online tool to convert images to JPG, PNG, WEBP, or GIF format. Batch convert multiple images and download them as a ZIP file.',
     openGraph: {
         title: `${tool.title} | ${APP_NAME}`,

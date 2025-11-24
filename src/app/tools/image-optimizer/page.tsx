@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'A free online tool to compress and convert images to JPG format. Reduce file size without significant quality loss, right in your browser.',
     openGraph: {
         title: tool.title,

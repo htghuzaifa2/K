@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'Use our free AI Hashtag Generator to create viral hashtags for Instagram, X (Twitter), and Facebook in any language.',
     openGraph: {
         title: tool.title,

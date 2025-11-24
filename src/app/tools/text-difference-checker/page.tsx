@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'Use our free Text Difference Checker to compare two blocks of text and highlight any additions or removals character by character.',
     openGraph: {
         title: tool.title,

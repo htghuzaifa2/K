@@ -1,3 +1,4 @@
+
 import { getToolBySlug } from '@/lib/tool-data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
@@ -13,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} | ${APP_NAME}`,
+    title: tool.title,
     description: 'A free tool to convert any image (PNG, JPG) into a clean, scalable SVG file. Perfect for web developers and designers.',
     openGraph: {
         title: `${tool.title} | ${APP_NAME}`,

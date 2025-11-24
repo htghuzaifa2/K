@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { APP_NAME } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Developer Tools | ' + APP_NAME,
+  title: 'Developer Tools',
   description: `A collection of handy online tools for developers and designers, provided by ${APP_NAME}, to speed up your creative and development workflow.`,
   openGraph: {
     title: `Developer Tools | ${APP_NAME}`,

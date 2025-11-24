@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'A free online tool to create a QR code for any website link instantly. Perfect for sharing URLs on posters, business cards, and social media.',
     openGraph: {
         title: tool.title,

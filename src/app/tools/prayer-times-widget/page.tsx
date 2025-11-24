@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} | ${APP_NAME}`,
+    title: tool.title,
     description: 'Get accurate Islamic prayer (Namaz) times for your city in Pakistan. View daily Fajr, Dhuhr, Asr, Maghrib, and Isha times with this free online tool.',
     openGraph: {
         title: `${tool.title} | ${APP_NAME}`,

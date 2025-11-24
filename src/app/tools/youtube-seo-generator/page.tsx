@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'A free AI tool to generate optimized YouTube video titles, descriptions, and tags to improve search ranking for Pakistani content creators.',
     openGraph: {
         title: tool.title,

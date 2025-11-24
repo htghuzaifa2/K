@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'A free AI tool to summarize long articles and text in both English and Urdu. Perfect for students, researchers, and professionals in Pakistan.',
     openGraph: {
         title: tool.title,

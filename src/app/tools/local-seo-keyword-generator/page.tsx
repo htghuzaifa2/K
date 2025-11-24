@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'A free AI tool to generate local SEO keyword ideas optimized for the Pakistani market, including long-tail, Roman-Urdu, and Urdu keywords.',
     openGraph: {
         title: tool.title,

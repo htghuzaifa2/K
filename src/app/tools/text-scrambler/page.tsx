@@ -14,12 +14,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!tool) {
     return {
-      title: `Not Found - ${APP_NAME}`,
+      title: `Not Found`,
     };
   }
 
   return {
-    title: `${tool.title} - ${APP_NAME}`,
+    title: tool.title,
     description: 'A free online Text Scrambler tool. Shuffle letters, reverse words, or shuffle words in a block of text for fun or testing purposes.',
     openGraph: {
         title: tool.title,
