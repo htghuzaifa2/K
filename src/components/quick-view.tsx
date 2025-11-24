@@ -42,11 +42,8 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-       <DialogContent className={cn(
-        "p-0 w-[90vw] max-w-4xl h-auto max-h-[90vh] flex flex-col",
-        "sm:grid sm:grid-cols-2 sm:h-auto sm:max-h-[600px] sm:gap-0"
-      )}>
-        <div className="p-6 flex items-center justify-center h-1/2 sm:h-full">
+       <DialogContent className="max-w-4xl p-0 h-[90vh] flex flex-col sm:grid sm:grid-cols-2 sm:h-[600px] sm:max-h-[90vh] sm:gap-0">
+          <div className="p-6 flex items-center justify-center">
             <Carousel className="w-full">
               <CarouselContent>
                 {product.images.map((img, index) => (
@@ -63,8 +60,8 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
               )}
             </Carousel>
           </div>
-          <div className="flex flex-col p-6 border-t sm:border-t-0 sm:border-l bg-secondary/50 h-1/2 sm:h-full">
-            <DialogHeader className="mb-4 text-left">
+          <div className="flex flex-col p-6 border-t sm:border-t-0 sm:border-l bg-secondary/50 overflow-hidden">
+            <DialogHeader className="mb-4 text-left flex-shrink-0">
               <DialogTitle className="text-2xl font-headline">{product.name}</DialogTitle>
             </DialogHeader>
             <ScrollArea className="flex-grow pr-4 -mr-4 mb-4">
@@ -73,7 +70,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
                 <p className="text-muted-foreground text-sm">{product.description}</p>
               </div>
             </ScrollArea>
-            <div className="mt-auto pt-4 flex flex-col gap-3">
+            <div className="mt-auto pt-4 flex flex-col gap-3 flex-shrink-0">
                <AddToCartButton product={product} size="lg" className="w-full">
                   Add to Cart
                 </AddToCartButton>
