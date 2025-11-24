@@ -42,12 +42,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           <div className="absolute left-2 top-2 hidden rounded-full bg-black/50 px-2 py-1 text-xs font-bold text-white opacity-0 transition-opacity group-hover:opacity-100 md:block">
             ID: {product.id}
           </div>
-          <div className="absolute right-2 top-2 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-            <AddToCartButton 
-                product={product} 
-                variant="secondary"
-                className="h-8 w-8 rounded-full"
-            />
+           <div className="absolute right-2 top-2 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
             <Button
                 size="icon"
                 variant="secondary"
@@ -67,12 +62,11 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           </h3>
           <div className="mt-4 flex items-center justify-between">
             <p className="text-lg font-bold text-primary md:text-xl">PKR {product.price}</p>
-             <div className="flex items-center gap-2">
-                <AddToCartButton 
-                    product={product}
-                    className="md:hidden"
-                />
-             </div>
+             <AddToCartButton 
+                product={product} 
+                variant="secondary"
+                className="h-8 w-8 rounded-full"
+            />
           </div>
         </div>
       </CardContent>
