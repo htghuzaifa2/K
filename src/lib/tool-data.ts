@@ -84,7 +84,7 @@ const tools: Tool[] = [
   {
     id: 'url-qr-code-generator',
     slug: 'url-qr-code-generator',
-    title: 'URL QR Code Generator',
+    title: 'URL to QR Code Generator',
   },
   {
     id: 'prayer-times',
@@ -151,11 +151,6 @@ const tools: Tool[] = [
     slug: 'english-typing-test',
     title: 'English Typing Speed Test',
   },
-  {
-    id: 'favicon-generator',
-    slug: 'favicon-generator',
-    title: 'Favicon Generator',
-  }
 ];
 
 // Sort tools by reversing the array, so latest added is first.
