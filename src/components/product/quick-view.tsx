@@ -41,32 +41,36 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl p-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-          <div className="p-4">
-            <Carousel className="w-full">
-              <CarouselContent>
+      <DialogContent className="max-w-4xl p-0 h-[90vh] flex flex-col sm:h-auto sm:max-h-[600px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 h-full overflow-hidden">
+          <div className="p-6 flex items-center justify-center h-1/2 md:h-full">
+            <Carousel className="w-full h-full">
+              <CarouselContent className="h-full">
                 {product.images.map((img, index) => (
-                  <CarouselItem key={index}>
+                  <CarouselItem key={index} className="h-full">
                     <CarouselImage img={img} index={index} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-2" />
-              <CarouselNext className="right-2" />
+              {product.images.length > 1 && (
+                <>
+                  <CarouselPrevious className="left-2" />
+                  <CarouselNext className="right-2" />
+                </>
+              )}
             </Carousel>
           </div>
-          <div className="flex flex-col p-6">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-headline mb-2">{product.name}</DialogTitle>
+          <div className="flex flex-col p-6 border-t md:border-t-0 md:border-l bg-secondary/50 h-1/2 md:h-full">
+            <DialogHeader className="mb-4 text-left">
+              <DialogTitle className="text-2xl font-headline">{product.name}</DialogTitle>
             </DialogHeader>
-            <ScrollArea className="flex-grow pr-4 -mr-4">
+            <ScrollArea className="flex-grow pr-4 -mr-4 mb-4">
               <div className="space-y-4">
-                <p className="text-2xl font-bold text-primary">{`PKR ${product.price}`}</p>
-                <p className="text-muted-foreground">{product.description}</p>
+                <p className="text-3xl font-bold text-primary">{`PKR ${product.price}`}</p>
+                <p className="text-muted-foreground text-sm">{product.description}</p>
               </div>
             </ScrollArea>
-            <div className="mt-6 flex flex-col gap-2">
+            <div className="mt-auto pt-4 flex flex-col gap-3">
                <AddToCartButton product={product} size="lg" className="w-full">
                   Add to Cart
                 </AddToCartButton>

@@ -4,7 +4,7 @@
 import type { AppProduct } from '@/lib/products';
 import { ProductCard } from './product-card';
 import { useState } from 'react';
-import { QuickView } from './quick-view';
+import { QuickView } from '@/components/quick-view';
 
 type ProductGridProps = {
   products: AppProduct[];
