@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: tool.title,
     description: 'Test your typing speed (WPM) and accuracy with our free Roman-Urdu typing test. Improve your skills for social media, content creation, and professional work.',
     openGraph: {
-        title: `${tool.title} | ${APP_NAME}`,
+        title: tool.title,
         description: 'Practice and improve your Roman-Urdu typing speed.',
         type: 'website',
     }

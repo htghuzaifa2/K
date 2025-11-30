@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: tool.title,
     description: 'Test your typing speed with fun Pakistani slang! A WPM challenge for the youth. How fast can you type "scene on hai"?',
     openGraph: {
-        title: `${tool.title} | ${APP_NAME}`,
+        title: tool.title,
         description: 'Practice and improve your typing speed with Pakistani slang.',
         type: 'website',
     }

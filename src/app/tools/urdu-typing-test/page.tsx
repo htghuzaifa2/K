@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: tool.title,
     description: 'Test your typing speed (WPM) and accuracy with our free Urdu script typing test. Improve your skills for professional and personal use.',
     openGraph: {
-        title: `${tool.title} | ${APP_NAME}`,
+        title: tool.title,
         description: 'Practice and improve your Urdu script typing speed.',
         type: 'website',
     }

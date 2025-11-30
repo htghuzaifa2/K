@@ -51,11 +51,6 @@ const tools: Tool[] = [
     title: 'JSON Prettify & Compress Toggle',
   },
   {
-    id: 'voice-to-text',
-    slug: 'voice-to-text',
-    title: 'Voice-to-Text (Urdu + English)',
-  },
-  {
     id: 'url-qr-code-generator',
     slug: 'url-qr-code-generator',
     title: 'URL to QR Code Generator',
@@ -86,6 +81,11 @@ const tools: Tool[] = [
     title: 'Image Compressor & Quality Preview',
   },
   {
+    id: 'svg-converter',
+    slug: 'svg-converter',
+    title: 'Image to SVG Converter',
+  },
+  {
     id: 'roman-urdu-typing-test',
     slug: 'roman-urdu-typing-test',
     title: 'Roman-Urdu Typing Test',
@@ -99,11 +99,6 @@ const tools: Tool[] = [
     id: 'slang-typing-test',
     slug: 'slang-typing-test',
     title: 'Pakistani Slang Typing Challenge',
-  },
-  {
-    id: 'svg-converter',
-    slug: 'svg-converter',
-    title: 'Image to SVG Converter',
   },
   {
     id: 'english-typing-test',
