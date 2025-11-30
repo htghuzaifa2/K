@@ -23,9 +23,9 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
   <channel>
-    <title>${APP_NAME} Product Feed</title>
+    <title>${APP_NAME} Product Feed for Google</title>
     <link>${siteUrl}</link>
-    <description>Product feed for ${APP_NAME}</description>
+    <description>Product feed for ${APP_NAME} for Google Merchant Center</description>
     ${products
       .map(
         (p) => `
