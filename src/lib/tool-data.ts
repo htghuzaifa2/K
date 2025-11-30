@@ -1,4 +1,3 @@
-
 export interface Tool {
   slug: string;
   title: string;
@@ -15,11 +14,6 @@ const tools: Tool[] = [
     id: 'text-difference-checker',
     slug: 'text-difference-checker',
     title: 'Text Difference Checker',
-  },
-  {
-    id: 'hashtag-generator',
-    slug: 'hashtag-generator',
-    title: 'Hashtag Generator',
   },
   {
     id: 'random-string-generator',
@@ -57,29 +51,9 @@ const tools: Tool[] = [
     title: 'JSON Prettify & Compress Toggle',
   },
   {
-    id: 'urdu-translator',
-    slug: 'urdu-translator',
-    title: 'Urdu / Roman-Urdu Translator',
-  },
-  {
     id: 'voice-to-text',
     slug: 'voice-to-text',
     title: 'Voice-to-Text (Urdu + English)',
-  },
-  {
-    id: 'local-seo-keyword-generator',
-    slug: 'local-seo-keyword-generator',
-    title: 'Local SEO Keyword Idea Generator',
-  },
-  {
-    id: 'voice-search-query-predictor',
-    slug: 'voice-search-query-predictor',
-    title: 'Voice Search Query Predictor',
-  },
-  {
-    id: 'content-summarizer',
-    slug: 'content-summarizer',
-    title: 'AI Content Summarizer (Urdu + English)',
   },
   {
     id: 'url-qr-code-generator',
@@ -90,21 +64,6 @@ const tools: Tool[] = [
     id: 'prayer-times',
     slug: 'prayer-times-widget',
     title: 'Prayer Times',
-  },
-  {
-    id: 'pakistan-trend-tracker',
-    slug: 'pakistan-trend-tracker',
-    title: 'Pakistan Trend Tracker',
-  },
-  {
-    id: 'youtube-seo-generator',
-    slug: 'youtube-seo-generator',
-    title: 'YouTube SEO Generator',
-  },
-  {
-    id: 'text-to-speech',
-    slug: 'text-to-speech',
-    title: 'AI Text-to-Speech',
   },
   {
     id: 'image-optimizer',
