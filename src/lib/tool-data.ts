@@ -56,11 +56,6 @@ const tools: Tool[] = [
     title: 'URL to QR Code Generator',
   },
   {
-    id: 'prayer-times',
-    slug: 'prayer-times-widget',
-    title: 'Prayer Times',
-  },
-  {
     id: 'image-optimizer',
     slug: 'image-optimizer',
     title: 'Image Optimizer',
