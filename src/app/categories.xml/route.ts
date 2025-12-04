@@ -2,6 +2,8 @@
 import { getAllCategories } from '@/lib/products';
 import { APP_NAME } from '@/lib/constants';
 
+export const runtime = 'edge';
+
 export async function GET() {
   const baseUrl = `https://www.${APP_NAME}`;
   const categories = getAllCategories();

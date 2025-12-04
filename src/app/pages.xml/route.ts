@@ -1,6 +1,8 @@
 
 import { APP_NAME } from '@/lib/constants';
 
+export const runtime = 'edge';
+
 export async function GET() {
   const baseUrl = `https://www.${APP_NAME}`;
   const today = new Date().toISOString().split('T')[0];

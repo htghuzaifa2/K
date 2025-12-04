@@ -2,6 +2,8 @@
 import { getBlogPosts } from '@/lib/blog-data';
 import { APP_NAME } from '@/lib/constants';
 
+export const runtime = 'edge';
+
 export async function GET() {
   const baseUrl = `https://www.${APP_NAME}`;
   const posts = getBlogPosts();

@@ -2,6 +2,8 @@
 import { getTools } from '@/lib/tool-data';
 import { APP_NAME } from '@/lib/constants';
 
+export const runtime = 'edge';
+
 export async function GET() {
   const baseUrl = `https://www.${APP_NAME}`;
   const tools = getTools();

@@ -2,6 +2,8 @@
 import { getProducts } from '@/lib/products';
 import { APP_NAME } from '@/lib/constants';
 
+export const runtime = 'edge';
+
 // Function to escape XML special characters
 function escapeXml(unsafe: string): string {
     return unsafe.replace(/[<>&'"]/g, (c) => {
