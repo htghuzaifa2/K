@@ -27,7 +27,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { HeaderSearch } from '../search/header-search';
 import Image from 'next/image';
 
-const logoUrl = 'https://i.postimg.cc/9QNw5Hmd/kimi-pk.png';
+const logoUrl = '/favicon.ico';
 
 
 const mainNavItems = [

@@ -24,7 +24,7 @@ const roboto = Roboto({
   display: 'swap',
 });
 
-const logoUrl = 'https://i.postimg.cc/9QNw5Hmd/kimi-pk.png';
+const logoUrl = '/favicon.ico';
 
 export const metadata: Metadata = {
   metadataBase: new URL(`https://www.${APP_NAME}`),
