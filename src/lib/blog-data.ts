@@ -74,6 +74,7 @@ import budgetPhones2025 from './blog-content/budget-phones-pakistan-2025';
 import marvelLeakWave2025 from './blog-content/marvel-leak-wave-2025';
 import avengersDoomsdayLeaks from './blog-content/avengers-doomsday-teaser-leaks-thor-doctor-doom-details';
 import realOrFakeMarvelLeaks from './blog-content/real-or-fake-marvel-leaks-authentic';
+import avengersDoomsdayTrailerSchedule from './blog-content/avengers-doomsday-trailer-release-schedule';
 
 export interface BlogPost {
   slug: string;
@@ -87,6 +88,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'avengers-doomsday-trailer-release-schedule': {
+    content: avengersDoomsdayTrailerSchedule,
+    description: 'A breakdown of the reported teaser release schedule for Avengers: Doomsday, based on insider information and leaks.'
+  },
   'real-or-fake-marvel-leaks-authentic': {
     content: realOrFakeMarvelLeaks,
     description: 'A detailed analysis of the evidence proving the recent Marvel leaks for Avengers: Doomsday and Spider-Man: Brand New Day are authentic.'
@@ -390,6 +395,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'avengers-doomsday-trailer-release-schedule',
+    slug: 'avengers-doomsday-trailer-release-schedule',
+    title: 'The Avengers: Doomsday Trailer Release Schedule',
+  },
   {
     id: 'real-or-fake-marvel-leaks-authentic',
     slug: 'real-or-fake-marvel-leaks-authentic',
