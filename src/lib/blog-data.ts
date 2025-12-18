@@ -1,5 +1,6 @@
 
 import marvelInCrisis from './blog-content/marvel-in-crisis-spiderman-avengers-leaks-explored';
+import sadieSinkVillainRole from './blog-content/sadie-sink-villain-role-spiderman-brand-new-day-leak';
 import admissionFormsClassXi from './blog-content/admission-forms-class-xi-private-vs-public-pakistan';
 import digitalisationOfBoardResults from './blog-content/digitalisation-of-board-results-pakistan';
 import boardPositionHoldersSecrets from './blog-content/board-position-holders-secrets-pakistan';
@@ -84,6 +85,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'sadie-sink-villain-role-spiderman-brand-new-day-leak': {
+    content: sadieSinkVillainRole,
+    description: 'An in-depth analysis of the leaked trailer for Spider-Man: Brand New Day, focusing on clues about Sadie Sink\'s potentially villainous role.'
+  },
   'marvel-in-crisis-spiderman-avengers-leaks-explored': {
     content: marvelInCrisis,
     description: 'An exploration of the recent Marvel Studios leaks for "Avengers: Doomsday" and "Spider-Man: Brand New Day," and the implications for the MCU.'
@@ -375,6 +380,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'sadie-sink-villain-role-spiderman-brand-new-day-leak',
+    slug: 'sadie-sink-villain-role-spiderman-brand-new-day-leak',
+    title: "Sadie Sink's Villainous Role in Spider-Man: Brand New Day – Unpacking the Leaked Trailer Clues",
+  },
   {
     id: 'marvel-in-crisis-spiderman-avengers-leaks-explored',
     slug: 'marvel-in-crisis-spiderman-avengers-leaks-explored',
