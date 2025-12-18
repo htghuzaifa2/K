@@ -78,6 +78,7 @@ import avengersDoomsdayTrailerSchedule from './blog-content/avengers-doomsday-tr
 import sadieSinkBreaksSilence from './blog-content/sadie-sink-breaks-silence-spiderman-4-role-theories';
 import fanBacklashMarvelLeaks from './blog-content/fan-backlash-marvel-leaks-doomsday-hype';
 import spiderManBrandNewDayReleaseDate from './blog-content/spiderman-brand-new-day-release-date';
+import doctorDoomAccentAndSpeech from './blog-content/doctor-doom-accent-speech-patterns-mcu';
 
 export interface BlogPost {
   slug: string;
@@ -91,6 +92,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'doctor-doom-accent-speech-patterns-mcu': {
+    content: doctorDoomAccentAndSpeech,
+    description: "A deep dive into Doctor Doom's iconic speech patterns from the comics and what they might reveal about his upcoming MCU portrayal."
+  },
   'spiderman-brand-new-day-release-date': {
     content: spiderManBrandNewDayReleaseDate,
     description: 'A summary of all confirmed details for the upcoming film Spider-Man: Brand New Day, including release date, cast, and story context.'
@@ -410,6 +415,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'doctor-doom-accent-speech-patterns-mcu',
+    slug: 'doctor-doom-accent-and-speech-patterns-in-the-mcu',
+    title: "Analyzing Doctor Doom's Accent and Speech Patterns in the MCU"
+  },
   {
     id: 'spiderman-brand-new-day-release-date',
     slug: 'spiderman-brand-new-day-release-date-and-everything-we-know',
