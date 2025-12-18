@@ -77,6 +77,7 @@ import realOrFakeMarvelLeaks from './blog-content/real-or-fake-marvel-leaks-auth
 import avengersDoomsdayTrailerSchedule from './blog-content/avengers-doomsday-trailer-release-schedule';
 import sadieSinkBreaksSilence from './blog-content/sadie-sink-breaks-silence-spiderman-4-role-theories';
 import fanBacklashMarvelLeaks from './blog-content/fan-backlash-marvel-leaks-doomsday-hype';
+import spiderManBrandNewDayReleaseDate from './blog-content/spiderman-brand-new-day-release-date';
 
 export interface BlogPost {
   slug: string;
@@ -90,6 +91,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'spiderman-brand-new-day-release-date': {
+    content: spiderManBrandNewDayReleaseDate,
+    description: 'A summary of all confirmed details for the upcoming film Spider-Man: Brand New Day, including release date, cast, and story context.'
+  },
   'fan-backlash-marvel-leaks-doomsday-hype': {
     content: fanBacklashMarvelLeaks,
     description: 'An analysis of the fan backlash surrounding the Avengers: Doomsday leaks and whether it is hurting or helping the movie\'s hype.'
@@ -405,6 +410,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'spiderman-brand-new-day-release-date',
+    slug: 'spiderman-brand-new-day-release-date-and-everything-we-know',
+    title: 'Spider-Man: Brand New Day – Release Date & Everything We Know'
+  },
   {
     id: 'fan-backlash-marvel-leaks-doomsday-hype',
     slug: 'fan-backlash-marvel-leaks-doomsday-hype',
