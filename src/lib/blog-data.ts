@@ -69,6 +69,7 @@ import boardExamResultAnxietyPakistan from './blog-content/board-exam-result-anx
 import perfectWirelessKeyboardForPakistan from './blog-content/perfect-wireless-keyboard-for-pakistan';
 import bestPcMonitorsForCodingPakistan from './blog-content/best-pc-monitors-for-coding-pakistan';
 import budgetPhones2025 from './blog-content/budget-phones-pakistan-2025';
+import marvelLeakWave2025 from './blog-content/marvel-leak-wave-2025';
 
 export interface BlogPost {
   slug: string;
@@ -82,6 +83,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'marvel-leak-wave-2025': {
+    content: marvelLeakWave2025,
+    description: 'A summary of recent major leaks for Marvel\'s upcoming films, including "Avengers: Doomsday" and the next Spider-Man movie, and what they might mean for the MCU.'
+  },
   'admission-forms-class-xi-private-vs-public-pakistan': {
     content: admissionFormsClassXi,
     description: 'A guide for Pakistani students on choosing between private and public schools for Class XI, covering costs, criteria, and application tips for 2026.'
@@ -365,6 +370,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'marvel-leak-wave-2025',
+    slug: 'marvel-leak-wave-2025-avengers-spiderman-rumors',
+    title: 'The Great Marvel Leak Wave of 2025: Unpacking the Avengers: Doomsday and Spider-Man Rumors',
+  },
   {
     id: 'admission-forms-class-xi-private-vs-public-pakistan',
     slug: 'admission-forms-for-class-xi-private-vs-public-school-in-pakistan',
