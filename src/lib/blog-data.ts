@@ -1,4 +1,5 @@
 
+import marvelInCrisis from './blog-content/marvel-in-crisis-spiderman-avengers-leaks-explored';
 import admissionFormsClassXi from './blog-content/admission-forms-class-xi-private-vs-public-pakistan';
 import digitalisationOfBoardResults from './blog-content/digitalisation-of-board-results-pakistan';
 import boardPositionHoldersSecrets from './blog-content/board-position-holders-secrets-pakistan';
@@ -83,6 +84,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'marvel-in-crisis-spiderman-avengers-leaks-explored': {
+    content: marvelInCrisis,
+    description: 'An exploration of the recent Marvel Studios leaks for "Avengers: Doomsday" and "Spider-Man: Brand New Day," and the implications for the MCU.'
+  },
   'marvel-leak-wave-2025': {
     content: marvelLeakWave2025,
     description: 'A summary of recent major leaks for Marvel\'s upcoming films, including "Avengers: Doomsday" and the next Spider-Man movie, and what they might mean for the MCU.'
@@ -370,6 +375,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'marvel-in-crisis-spiderman-avengers-leaks-explored',
+    slug: 'marvel-in-crisis-spiderman-avengers-leaks-explored',
+    title: 'Marvel in Crisis: Spider-Man & Avengers Leaks Explored',
+  },
   {
     id: 'marvel-leak-wave-2025',
     slug: 'marvel-leak-wave-2025-avengers-spiderman-rumors',
