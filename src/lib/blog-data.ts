@@ -73,6 +73,7 @@ import bestPcMonitorsForCodingPakistan from './blog-content/best-pc-monitors-for
 import budgetPhones2025 from './blog-content/budget-phones-pakistan-2025';
 import marvelLeakWave2025 from './blog-content/marvel-leak-wave-2025';
 import avengersDoomsdayLeaks from './blog-content/avengers-doomsday-teaser-leaks-thor-doctor-doom-details';
+import realOrFakeMarvelLeaks from './blog-content/real-or-fake-marvel-leaks-authentic';
 
 export interface BlogPost {
   slug: string;
@@ -86,6 +87,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'real-or-fake-marvel-leaks-authentic': {
+    content: realOrFakeMarvelLeaks,
+    description: 'A detailed analysis of the evidence proving the recent Marvel leaks for Avengers: Doomsday and Spider-Man: Brand New Day are authentic.'
+  },
   'avengers-doomsday-teaser-leaks-thor-doctor-doom-details': {
     content: avengersDoomsdayLeaks,
     description: 'A breakdown of the leaked teasers for Avengers: Doomsday, focusing on new details about Thor\'s mission and Doctor Doom\'s official reveal.'
@@ -385,6 +390,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'real-or-fake-marvel-leaks-authentic',
+    slug: 'real-or-fake-marvel-leaks-authentic',
+    title: 'Real or Fake? The Evidence Proving the Marvel Leaks Are Authentic',
+  },
   {
     id: 'avengers-doomsday-teaser-leaks-thor-doctor-doom-details',
     slug: 'avengers-doomsday-teaser-leaks-thor-doctor-doom-details',
