@@ -76,6 +76,7 @@ import avengersDoomsdayLeaks from './blog-content/avengers-doomsday-teaser-leaks
 import realOrFakeMarvelLeaks from './blog-content/real-or-fake-marvel-leaks-authentic';
 import avengersDoomsdayTrailerSchedule from './blog-content/avengers-doomsday-trailer-release-schedule';
 import sadieSinkBreaksSilence from './blog-content/sadie-sink-breaks-silence-spiderman-4-role-theories';
+import fanBacklashMarvelLeaks from './blog-content/fan-backlash-marvel-leaks-doomsday-hype';
 
 export interface BlogPost {
   slug: string;
@@ -89,6 +90,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'fan-backlash-marvel-leaks-doomsday-hype': {
+    content: fanBacklashMarvelLeaks,
+    description: 'An analysis of the fan backlash surrounding the Avengers: Doomsday leaks and whether it is hurting or helping the movie\'s hype.'
+  },
   'sadie-sink-breaks-silence-spiderman-4-role-theories': {
     content: sadieSinkBreaksSilence,
     description: 'Sadie Sink addresses fan theories about her role in Spider-Man: Brand New Day, including the Jean Grey rumor.'
@@ -400,6 +405,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'fan-backlash-marvel-leaks-doomsday-hype',
+    slug: 'fan-backlash-marvel-leaks-doomsday-hype',
+    title: 'Fan Backlash: Are Marvel\'s Leaks Hurting Hype for Doomsday?',
+  },
   {
     id: 'sadie-sink-breaks-silence-spiderman-4-role-theories',
     slug: 'sadie-sink-breaks-silence-spiderman-4-role-theories',
