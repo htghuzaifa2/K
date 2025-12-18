@@ -72,6 +72,7 @@ import perfectWirelessKeyboardForPakistan from './blog-content/perfect-wireless-
 import bestPcMonitorsForCodingPakistan from './blog-content/best-pc-monitors-for-coding-pakistan';
 import budgetPhones2025 from './blog-content/budget-phones-pakistan-2025';
 import marvelLeakWave2025 from './blog-content/marvel-leak-wave-2025';
+import avengersDoomsdayLeaks from './blog-content/avengers-doomsday-teaser-leaks-thor-doctor-doom-details';
 
 export interface BlogPost {
   slug: string;
@@ -85,6 +86,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'avengers-doomsday-teaser-leaks-thor-doctor-doom-details': {
+    content: avengersDoomsdayLeaks,
+    description: 'A breakdown of the leaked teasers for Avengers: Doomsday, focusing on new details about Thor\'s mission and Doctor Doom\'s official reveal.'
+  },
   'sadie-sink-villain-role-spiderman-brand-new-day-leak': {
     content: sadieSinkVillainRole,
     description: 'An in-depth analysis of the leaked trailer for Spider-Man: Brand New Day, focusing on clues about Sadie Sink\'s potentially villainous role.'
@@ -380,6 +385,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'avengers-doomsday-teaser-leaks-thor-doctor-doom-details',
+    slug: 'avengers-doomsday-teaser-leaks-thor-doctor-doom-details',
+    title: "Avengers: Doomsday Teaser Leaks: Thor & Doctor Doom Details",
+  },
   {
     id: 'sadie-sink-villain-role-spiderman-brand-new-day-leak',
     slug: 'sadie-sink-villain-role-spiderman-brand-new-day-leak',
