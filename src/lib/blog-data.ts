@@ -75,6 +75,7 @@ import marvelLeakWave2025 from './blog-content/marvel-leak-wave-2025';
 import avengersDoomsdayLeaks from './blog-content/avengers-doomsday-teaser-leaks-thor-doctor-doom-details';
 import realOrFakeMarvelLeaks from './blog-content/real-or-fake-marvel-leaks-authentic';
 import avengersDoomsdayTrailerSchedule from './blog-content/avengers-doomsday-trailer-release-schedule';
+import sadieSinkBreaksSilence from './blog-content/sadie-sink-breaks-silence-spiderman-4-role-theories';
 
 export interface BlogPost {
   slug: string;
@@ -88,6 +89,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'sadie-sink-breaks-silence-spiderman-4-role-theories': {
+    content: sadieSinkBreaksSilence,
+    description: 'Sadie Sink addresses fan theories about her role in Spider-Man: Brand New Day, including the Jean Grey rumor.'
+  },
   'avengers-doomsday-trailer-release-schedule': {
     content: avengersDoomsdayTrailerSchedule,
     description: 'A breakdown of the reported teaser release schedule for Avengers: Doomsday, based on insider information and leaks.'
@@ -395,6 +400,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'sadie-sink-breaks-silence-spiderman-4-role-theories',
+    slug: 'sadie-sink-breaks-silence-spiderman-4-role-theories',
+    title: 'Sadie Sink Breaks Her Silence on Spider-Man 4 Role & Theories',
+  },
   {
     id: 'avengers-doomsday-trailer-release-schedule',
     slug: 'avengers-doomsday-trailer-release-schedule',
