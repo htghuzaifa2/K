@@ -94,6 +94,13 @@ import beyondTheHype from './blog-content/beyond-the-hype-marvel-titles';
 import howToSafelyFindLeaks from './blog-content/how-to-safely-find-leaks';
 import top5MarvelLeaks from './blog-content/top-5-marvel-leaks';
 import leakLingo101 from './blog-content/leak-lingo-101';
+import sharonRogersTheory from './blog-content/the-sharon-rogers-theory';
+import sadieSinksVillainRevealed from './blog-content/sadie-sinks-villain-revealed';
+import fromIronManToIronTyrantDecoding from './blog-content/from-iron-man-to-iron-tyrant-decoding-rdj-as-doom';
+import fromIronManToIronTyrantStrategic from './blog-content/from-iron-man-to-iron-tyrant-strategic-casting-rdj';
+import atlasFoundationRumors from './blog-content/the-atlas-foundation-shang-chi-2-rumors';
+import doomsdayLocationShots from './blog-content/doomsday-location-shots-scale';
+import fourTrailerStrategy from './blog-content/four-trailer-strategy-marvel-avengers';
 
 
 export interface BlogPost {
@@ -108,6 +115,34 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'the-sharon-rogers-theory': {
+    content: sharonRogersTheory,
+    description: "An analysis of the theory that the baby in the Avengers: Doomsday teaser is Sharon Rogers, and the implications for the future of Captain America in the MCU."
+  },
+  'sadie-sinks-villain-revealed': {
+    content: sadieSinksVillainRevealed,
+    description: "An analysis of why Sadie Sink's character is likely Shathra, a perfect psychological villain for Spider-Man in the MCU's 'Brand New Day.'"
+  },
+  'from-iron-man-to-iron-tyrant-decoding-rdj-as-doom': {
+    content: fromIronManToIronTyrantDecoding,
+    description: "A deep dive into the meta-narrative and strategic genius of casting Robert Downey Jr. as Doctor Doom in the MCU."
+  },
+  'from-iron-man-to-iron-tyrant-strategic-casting-rdj': {
+    content: fromIronManToIronTyrantStrategic,
+    description: "A strategic look at why casting Robert Downey Jr. as Doctor Doom is a meta-narrative masterstroke for the MCU's future."
+  },
+  'the-atlas-foundation-shang-chi-2-rumors': {
+    content: atlasFoundationRumors,
+    description: "An exploration of the rumored plot for Shang-Chi 2, focusing on the Atlas Foundation and its potential to introduce a new Eastern-mythology corner of the MCU."
+  },
+  'doomsday-location-shots-scale': {
+    content: doomsdayLocationShots,
+    description: "An analysis of what the practical location shots for Avengers: Doomsday reveal about the film's massive scale, from Latveria to the Void."
+  },
+  'four-trailer-strategy-marvel-avengers': {
+    content: fourTrailerStrategy,
+    description: "An inside look at Marvel's rumored four-trailer strategy for Avengers: Doomsday, using Avatar screenings to build hype and combat leaks."
+  },
   'leak-lingo-101': {
     content: leakLingo101,
     description: "A pocket glossary for the underground world of trailer leaks, explaining terms like '4Chan Grail,' 'chirp,' and 'shadow-drop' for fans.",
@@ -491,6 +526,41 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'the-sharon-rogers-theory',
+    slug: 'the-sharon-rogers-theory',
+    title: 'The “Sharon Rogers” Theory: Decoding the Baby in Steve’s Doomsday Teaser'
+  },
+  {
+    id: 'sadie-sinks-villain-revealed',
+    slug: 'sadie-sinks-villain-revealed',
+    title: 'Sadie Sink’s Villain Revealed: Why Shathra is the Perfect Spider-Man Foe'
+  },
+  {
+    id: 'from-iron-man-to-iron-tyrant-decoding-rdj-as-doom',
+    slug: 'from-iron-man-to-iron-tyrant-decoding-rdj-as-doom',
+    title: 'From Iron Man to Iron Tyrant: Decoding the Meta-Genius of Robert Downey Jr. as Doctor Doom'
+  },
+  {
+    id: 'from-iron-man-to-iron-tyrant-strategic-casting-rdj',
+    slug: 'from-iron-man-to-iron-tyrant-strategic-casting-rdj',
+    title: 'From Iron Man to Iron Tyrant: The Strategic Casting of Robert Downey Jr. as Doctor Doom'
+  },
+  {
+    id: 'the-atlas-foundation-shang-chi-2-rumors',
+    slug: 'the-atlas-foundation-shang-chi-2-rumors',
+    title: 'The Atlas Foundation: Shang-Chi 2’s Rumored Plot & Its Massive MCU Implications'
+  },
+  {
+    id: 'doomsday-location-shots-scale',
+    slug: 'doomsday-location-shots-scale',
+    title: 'Practical vs. Digital: What Doomsday’s Location Shots Tell Us About Its Scale'
+  },
+  {
+    id: 'four-trailer-strategy-marvel-avengers',
+    slug: 'four-trailer-strategy-marvel-avengers',
+    title: 'The Four-Trailer Strategy: How Marvel is Using Avatar to Rebuild Avengers Hype'
+  },
   {
     id: 'leak-lingo-101',
     slug: 'leak-lingo-101',
@@ -961,6 +1031,11 @@ const blogPosts: BlogPost[] = [
     slug: 'budget-phones-pakistan-that-dont-lag-2025',
     title: '40k-60k Budget Phones in Pakistan That Actually Don’t Lag (2025 Edition)',
   },
+  {
+    id: 'marvel-leak-wave-2025',
+    slug: 'marvel-leak-wave-2025',
+    title: 'The Great Marvel Leak Wave of 2025: Unpacking the Avengers: Doomsday and Spider-Man Rumors',
+  },
 ];
 
 const reversedBlogPosts = [...blogPosts].reverse();
@@ -992,3 +1067,5 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     description: data.description,
   };
 }
+
+    
