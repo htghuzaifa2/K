@@ -101,6 +101,11 @@ import fromIronManToIronTyrantStrategic from './blog-content/from-iron-man-to-ir
 import atlasFoundationRumors from './blog-content/the-atlas-foundation-shang-chi-2-rumors';
 import doomsdayLocationShots from './blog-content/doomsday-location-shots-scale';
 import fourTrailerStrategy from './blog-content/four-trailer-strategy-marvel-avengers';
+import fanBacklashAnalysis from './blog-content/fan-backlash-analysis-marvels-nostalgia-play';
+import avatarSequelTitlesDecoded from './blog-content/avatar-sequel-titles-decoded';
+import avatarSequelTitlesDebunked from './blog-content/avatar-sequel-titles-debunked';
+import russoBrosVTeaseDecoded from './blog-content/russo-bros-v-tease-decoded';
+import doomsdayHickmanIncursionXmen from './blog-content/doomsday-hickman-incursion-xmen';
 
 
 export interface BlogPost {
@@ -115,6 +120,26 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+    'fan-backlash-analysis-marvels-nostalgia-play': {
+    content: fanBacklashAnalysis,
+    description: "An analysis of the fan backlash against Marvel's nostalgia play in Avengers: Doomsday and how it impacts new heroes like Sam Wilson's Captain America."
+  },
+  'avatar-sequel-titles-decoded': {
+    content: avatarSequelTitlesDecoded,
+    description: "A deep dive into the leaked working titles for the Avatar sequels—The Seed Bearer, The Tulkun Rider, and The Quest for Eywa—and what they reveal about the saga's future."
+  },
+  'avatar-sequel-titles-debunked': {
+    content: avatarSequelTitlesDebunked,
+    description: "An explanation of why Avatar producer Jon Landau is downplaying the leaked sequel titles, and what it means for the franchise's future."
+  },
+  'russo-bros-v-tease-decoded': {
+    content: russoBrosVTeaseDecoded,
+    description: "A breakdown of the theories behind the Russo Brothers' cryptic 'V' tease, exploring possibilities like Vision, Yggdrasil, Doctor Doom, or a simple countdown."
+  },
+  'doomsday-hickman-incursion-xmen': {
+    content: doomsdayHickmanIncursionXmen,
+    description: "An analysis of how Avengers: Doomsday appears to be adapting Jonathan Hickman's incursion storyline, positioning the Fox-X-Men as central to the multiversal conflict."
+  },
   'the-sharon-rogers-theory': {
     content: sharonRogersTheory,
     description: "An analysis of the theory that the baby in the Avengers: Doomsday teaser is Sharon Rogers, and the implications for the future of Captain America in the MCU."
@@ -519,13 +544,34 @@ const contentMap: Record<string, { content: string, description: string }> = {
     content: budgetPhones2025,
     description: 'A 2025 guide to the best budget phones in Pakistan (PKR 40k-60k) that deliver smooth performance without lag, focusing on specs that matter for local users.'
   },
-  'marvel-leak-wave-2025': {
-    content: marvelLeakWave2025,
-    description: 'A summary of recent major leaks for Marvel\'s upcoming films, including "Avengers: Doomsday" and the next Spider-Man movie, and what they might mean for the MCU.'
-  },
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'fan-backlash-analysis-marvels-nostalgia-play',
+    slug: 'fan-backlash-analysis-marvels-nostalgia-play',
+    title: 'Fan Backlash Analysis: Is Marvel’s Nostalgia Play for Doomsday Hurting Its New Heroes?'
+  },
+  {
+    id: 'avatar-sequel-titles-decoded',
+    slug: 'avatar-sequel-titles-decoded',
+    title: 'Avatar’s Future: Decoding the Leaked Titles from The Seed Bearer to The Quest for Eywa'
+  },
+  {
+    id: 'avatar-sequel-titles-debunked',
+    slug: 'avatar-sequel-titles-debunked',
+    title: 'Why Avatar’s Producer Is Pumping the Brakes on the Leaked Sequel Names'
+  },
+  {
+    id: 'russo-bros-v-tease-decoded',
+    slug: 'russo-bros-v-tease-decoded',
+    title: 'Decoding the Russo Bros’ “V” Tease – Vision, Yggdrasil, or Simply a Countdown?'
+  },
+  {
+    id: 'doomsday-hickman-incursion-xmen',
+    slug: 'doomsday-hickman-incursion-xmen',
+    title: 'Connecting the Multiversal Dots – Doomsday’s Hickman-Style Incursion & the Fox-X-Men Gambit'
+  },
   {
     id: 'the-sharon-rogers-theory',
     slug: 'the-sharon-rogers-theory',
