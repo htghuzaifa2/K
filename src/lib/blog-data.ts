@@ -1,5 +1,4 @@
 
-
 import marvelInCrisis from './blog-content/marvel-in-crisis-spiderman-avengers-leaks-explored';
 import sadieSinkVillainRole from './blog-content/sadie-sink-villain-role-spiderman-brand-new-day-leak';
 import admissionFormsClassXi from './blog-content/admission-forms-class-xi-private-vs-public-pakistan';
@@ -116,7 +115,16 @@ import fracturedTimelineMap from './blog-content/fractured-timeline-map-doomsday
 import mjolnirVsThunderstrike from './blog-content/mjolnir-vs-thunderstrike-doomsday';
 import latverianEmbassy from './blog-content/latverian-embassy-doomsday';
 import echoGlow from './blog-content/echo-glow-ancestral-force';
-
+import aPrayerNotABattleCry from './blog-content/a-prayer-not-a-battle-cry';
+import theUnworthySonsPlea from './blog-content/the-unworthy-sons-plea';
+import fatherhoodAsPower from './blog-content/fatherhood-as-power';
+import theAnimatedVariantThorRecast from './blog-content/the-animated-variant-thor-recast';
+import marketingANewThor from './blog-content/marketing-a-new-thor';
+import theIncursionBabyTheory from './blog-content/the-incursion-baby-theory';
+import aHiddenSuperSoldierHeir from './blog-content/a-hidden-super-soldier-heir';
+import legacyAndThematicMirroring from './blog-content/legacy-and-thematic-mirroring';
+import debateDoesStevesReturnUndoEndgame from './blog-content/debate-does-steves-return-undo-endgame';
+import theWildCardAYoungKangVariant from './blog-content/the-wild-card-a-young-kang-variant';
 
 export interface BlogPost {
   slug: string;
@@ -130,6 +138,46 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'a-prayer-not-a-battle-cry': {
+    content: aPrayerNotABattleCry,
+    description: 'A deep dive into the leaked audio of Thor\'s prayer in Avengers: Doomsday, analyzing the tone, character arc, and what it signals for the movie.'
+  },
+  'the-unworthy-sons-plea': {
+    content: theUnworthySonsPlea,
+    description: 'A line-by-line deconstruction of Thor\'s leaked prayer from Avengers: Doomsday, exploring its themes of worthiness, sacrifice, and fatherhood.'
+  },
+  'fatherhood-as-power': {
+    content: fatherhoodAsPower,
+    description: 'An analysis of how Thor\'s relationship with his daughter, Love, acts as a cosmic power source and central motivation in Avengers: Doomsday.'
+  },
+  'the-animated-variant-thor-recast': {
+    content: theAnimatedVariantThorRecast,
+    description: 'An explanation of why Chris Hemsworth was recast for the Marvel Zombies series and what it reveals about the MCU\'s multiverse rules.'
+  },
+  'marketing-a-new-thor': {
+    content: marketingANewThor,
+    description: 'A breakdown of Marvel\'s strategy to use a solo Thor teaser to rebuild his character\'s gravitas and generate hype for Avengers: Doomsday.'
+  },
+  'the-incursion-baby-theory': {
+    content: theIncursionBabyTheory,
+    description: 'Exploring the theory that the baby in the Doomsday teaser is Sharon Rogers, and how her existence could trigger a multiversal incursion.'
+  },
+  'a-hidden-super-soldier-heir': {
+    content: aHiddenSuperSoldierHeir,
+    description: 'A theory about a hidden male heir to Captain America, exploring the comic book origins of Ian Rogers and how he could fit into the MCU.'
+  },
+  'legacy-and-thematic-mirroring': {
+    content: legacyAndThematicMirroring,
+    description: 'An analysis of how parenthood and legacy thematically unite Steve Rogers, Thor, and Doctor Doom in Avengers: Doomsday.'
+  },
+  'debate-does-steves-return-undo-endgame': {
+    content: debateDoesStevesReturnUndoEndgame,
+    description: 'A debate on whether Steve Rogers\' return in Avengers: Doomsday undoes his perfect Endgame finale or enhances the MCU\'s narrative.'
+  },
+  'the-wild-card-a-young-kang-variant': {
+    content: theWildCardAYoungKangVariant,
+    description: 'An outlandish but data-anchored theory that the baby in the Doomsday teaser is a young Kang variant, turning the film into a custody battle for time itself.'
+  },
     'baby-in-steves-arms-doomsday-teaser': {
     content: babyInStevesArms,
     description: 'A breakdown of the theories about the baby in Steve Rogers\' arms in the Avengers: Doomsday teaser, exploring possibilities like Sharon Rogers, a reincarnated Peggy Carter, or a Kang variant.'
@@ -584,7 +632,7 @@ const contentMap: Record<string, { content: string, description: string }> = {
   },
   'perfect-wireless-keyboard-for-pakistan': {
     content: perfectWirelessKeyboardForPakistan,
-    description: 'An overview of the OMOTON KB036, the perfect wireless keyboard for students, developers, and office users in Pakistan looking for a silent, smooth, and versatile typing experience.'
+    description: 'An overview of the OMOTON KB036, the perfect silent wireless keyboard for students, developers, and office users in Pakistan looking for a smooth and versatile typing experience.'
   },
   'best-pc-monitors-for-coding-pakistan': {
     content: bestPcMonitorsForCodingPakistan,
@@ -594,13 +642,59 @@ const contentMap: Record<string, { content: string, description: string }> = {
     content: budgetPhones2025,
     description: 'A 2025 guide to the best budget phones in Pakistan (PKR 40k-60k) that deliver smooth performance without lag, focusing on specs that matter for local users.'
   },
-  'marvel-leak-wave-2025': {
-    content: marvelLeakWave2025,
-    description: 'A summary of recent major leaks for Marvel\'s upcoming films, including "Avengers: Doomsday" and the next Spider-Man movie, and what they might mean for the MCU.'
-  },
 };
 
 const blogPosts: BlogPost[] = [
+    {
+    id: 'a-prayer-not-a-battle-cry',
+    slug: 'a-prayer-not-a-battle-cry',
+    title: 'A Prayer, Not a Battle Cry',
+  },
+  {
+    id: 'the-unworthy-sons-plea',
+    slug: 'the-unworthy-sons-plea',
+    title: '"The Unworthy Son\'s Plea" – Line-by-Line Deconstruction',
+  },
+  {
+    id: 'fatherhood-as-power',
+    slug: 'fatherhood-as-power',
+    title: 'Fatherhood as Power',
+  },
+  {
+    id: 'the-animated-variant-thor-recast',
+    slug: 'the-animated-variant-thor-recast',
+    title: 'The Animated Variant – Why Thor Was Recast for Marvel Zombies & What It Tells Us About Multiverse "Rules"',
+  },
+  {
+    id: 'marketing-a-new-thor',
+    slug: 'marketing-a-new-thor',
+    title: 'Marketing a New Thor – Why the God of Thunder Gets His Own Doomsday Spotlight',
+  },
+  {
+    id: 'the-incursion-baby-theory',
+    slug: 'the-incursion-baby-theory',
+    title: 'The "Incursion Baby" Theory – How One Crib Could Crack the Multiverse',
+  },
+  {
+    id: 'a-hidden-super-soldier-heir',
+    slug: 'a-hidden-super-soldier-heir',
+    title: 'A Hidden Super-Soldier Heir',
+  },
+  {
+    id: 'legacy-and-thematic-mirroring',
+    slug: 'legacy-and-thematic-mirroring',
+    title: 'Legacy & Thematic Mirroring – How One Crib Unites Three old Avengers',
+  },
+  {
+    id: 'debate-does-steves-return-undo-endgame',
+    slug: 'debate-does-steves-return-undo-endgame',
+    title: 'Debate: Does Steve’s Return + Baby Undo Endgame?',
+  },
+  {
+    id: 'the-wild-card-a-young-kang-variant',
+    slug: 'the-wild-card-a-young-kang-variant',
+    title: 'THE WILD CARD: A Young Kang Variant',
+  },
   {
     id: 'baby-in-steves-arms-doomsday-teaser',
     slug: 'baby-in-steves-arms-doomsday-teaser',
@@ -1181,11 +1275,6 @@ const blogPosts: BlogPost[] = [
     slug: 'budget-phones-pakistan-that-dont-lag-2025',
     title: '40k-60k Budget Phones in Pakistan That Actually Don’t Lag (2025 Edition)',
   },
-  {
-    id: 'marvel-leak-wave-2025',
-    slug: 'marvel-leak-wave-2025',
-    title: 'The Great Marvel Leak Wave of 2025: Unpacking the Avengers: Doomsday and Spider-Man Rumors',
-  },
 ];
 
 const reversedBlogPosts = [...blogPosts].reverse();
@@ -1217,5 +1306,3 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     description: data.description,
   };
 }
-
-    
