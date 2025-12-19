@@ -111,9 +111,9 @@ export default function RootLayout({
             </div>
             <Toaster />
             <ScrollToTop />
-            <ExternalPrefetch />
           </CartProvider>
         </ThemeProvider>
+        <ExternalPrefetch />
       </body>
     </html>
   );
