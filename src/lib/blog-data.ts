@@ -85,6 +85,16 @@ import thorSuicideMissionSpeech from './blog-content/thor-suicide-mission-speech
 import sadieSinkVillainArchetype from './blog-content/sadie-sink-villain-archetype';
 import leakEconomy from './blog-content/the-leak-economy-inside-the-marvel-trailer-pipeline';
 import damageControlPlaybook from './blog-content/damage-control-playbook-marvel-vs-sony';
+import theSoundOfDoomsday from './blog-content/the-sound-of-doomsday';
+import fanEditVsStudioLeak from './blog-content/fan-edit-vs-studio-leak';
+import theDominoEffect from './blog-content/the-domino-effect';
+import castingAgainstTypeSadieSink from './blog-content/casting-against-type-sadie-sink';
+import leakAftermath from './blog-content/leak-aftermath-marvel-avatar-trailers';
+import beyondTheHype from './blog-content/beyond-the-hype-marvel-titles';
+import howToSafelyFindLeaks from './blog-content/how-to-safely-find-leaks';
+import top5MarvelLeaks from './blog-content/top-5-marvel-leaks';
+import leakLingo101 from './blog-content/leak-lingo-101';
+
 
 export interface BlogPost {
   slug: string;
@@ -98,6 +108,42 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'leak-lingo-101': {
+    content: leakLingo101,
+    description: "A pocket glossary for the underground world of trailer leaks, explaining terms like '4Chan Grail,' 'chirp,' and 'shadow-drop' for fans.",
+  },
+  'top-5-marvel-leaks': {
+    content: top5MarvelLeaks,
+    description: "A rundown of the top 5 most impactful Marvel leaks of all time and the ripple effects they had on the finished films, from Endgame to Ultron.",
+  },
+  'how-to-safely-find-leaks': {
+    content: howToSafelyFindLeaks,
+    description: "A practical, step-by-step playbook for safely finding and discussing major movie leaks online without getting banned, covering everything from browser hygiene to platform risk.",
+  },
+  'beyond-the-hype-marvel-titles': {
+    content: beyondTheHype,
+    description: "An analysis of what the titles 'Doomsday' and 'Brand New Day' literally tell us about the MCU’s next decade, from reboots to resets.",
+  },
+  'leak-aftermath-marvel-avatar-trailers': {
+    content: leakAftermath,
+    description: "An analysis of whether Marvel will accelerate its Avatar-tied trailer releases for Avengers: Doomsday following recent leaks, and the studio's likely contingency plans.",
+  },
+  'casting-against-type-sadie-sink': {
+    content: castingAgainstTypeSadieSink,
+    description: "An analysis of the strategic genius and risk behind casting Sadie Sink as a villain in the MCU, leveraging her established persona for a major narrative twist.",
+  },
+  'the-domino-effect': {
+    content: theDominoEffect,
+    description: "An exploration of how the Avengers: Doomsday leaks could force Marvel to reshuffle, rewrite, or even shelve half of its planned Phase 7 slate.",
+  },
+  'fan-edit-vs-studio-leak': {
+    content: fanEditVsStudioLeak,
+    description: "A forensic checklist to help fans distinguish between a fan-made edit and a genuine studio leak, covering CGI, audio mixing, and metadata analysis.",
+  },
+  'the-sound-of-doomsday': {
+    content: theSoundOfDoomsday,
+    description: "A forensic audio breakdown of the 74-second bootleg teaser for the next Avengers, revealing what the sound design tells us about the film's tone and plot.",
+  },
   'damage-control-playbook-marvel-vs-sony': {
     content: damageControlPlaybook,
     description: "An inside look at the different PR playbooks Marvel and Sony use to react to major trailer and plot leaks, from DMCA takedowns to narrative control."
@@ -445,6 +491,51 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'leak-lingo-101',
+    slug: 'leak-lingo-101',
+    title: 'Leak Lingo 101 – Your Pocket Glossary for the Underground',
+  },
+  {
+    id: 'top-5-marvel-leaks',
+    slug: 'top-5-marvel-leaks',
+    title: 'The Top 5 Most Impactful Marvel Leaks of All Time',
+  },
+  {
+    id: 'how-to-safely-find-leaks',
+    slug: 'how-to-safely-find-leaks',
+    title: 'How to Safely Find & Discuss Major Leaks Without Getting Banned',
+  },
+  {
+    id: 'beyond-the-hype-marvel-titles',
+    slug: 'beyond-the-hype-marvel-titles',
+    title: 'Beyond the Hype: What the Titles “Doomsday” and “Brand New Day” Literally Tell Us About the MCU’s Next Decade',
+  },
+  {
+    id: 'leak-aftermath-marvel-avatar-trailers',
+    slug: 'leak-aftermath-marvel-avatar-trailers',
+    title: 'Leak After-math: Will Marvel Accelerate Its Avatar-Tied Trailers?',
+  },
+  {
+    id: 'casting-against-type-sadie-sink',
+    slug: 'casting-against-type-sadie-sink',
+    title: 'Casting Against Type: The Strategic Genius (and Risk) of Marvel Turning Sadie Sink into a Villain',
+  },
+  {
+    id: 'the-domino-effect',
+    slug: 'the-domino-effect',
+    title: 'THE DOMINO EFFECT: How the Avengers: Doomsday leaks could force Marvel to reshuffle, rewrite, or even shelve half of Phase 7.',
+  },
+  {
+    id: 'fan-edit-vs-studio-leak',
+    slug: 'fan-edit-vs-studio-leak',
+    title: 'Fan-Edit vs. Studio Leak – A Forensic Checklist You Can Run in 5 Minutes (No Software Required)',
+  },
+  {
+    id: 'the-sound-of-doomsday',
+    slug: 'the-sound-of-doomsday',
+    title: 'The Sound of Doomsday – What 74 Seconds of Bootleg Audio Reveal About the Next Avengers',
+  },
   {
     id: 'damage-control-playbook-marvel-vs-sony',
     slug: 'damage-control-playbook-marvel-vs-sony',
