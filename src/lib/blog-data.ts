@@ -84,6 +84,7 @@ import spiderManBrandNewDaySuitEvolution from './blog-content/spiderman-brand-ne
 import thorSuicideMissionSpeech from './blog-content/thor-suicide-mission-speech-breakdown';
 import sadieSinkVillainArchetype from './blog-content/sadie-sink-villain-archetype';
 import leakEconomy from './blog-content/the-leak-economy-inside-the-marvel-trailer-pipeline';
+import damageControlPlaybook from './blog-content/damage-control-playbook-marvel-vs-sony';
 
 export interface BlogPost {
   slug: string;
@@ -97,11 +98,15 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'damage-control-playbook-marvel-vs-sony': {
+    content: damageControlPlaybook,
+    description: "An inside look at the different PR playbooks Marvel and Sony use to react to major trailer and plot leaks, from DMCA takedowns to narrative control."
+  },
   'the-leak-economy-inside-the-marvel-trailer-pipeline': {
     content: leakEconomy,
     description: "An inside look at the technical pipeline and economy behind how Marvel movie trailers get leaked online, from watermarks to private chat groups."
   },
-  'sadie-sink-villain-archetype': {
+  'sadie-sink-villain-archetype-tragic-manipulative-or-genre-breaking-new': {
     content: sadieSinkVillainArchetype,
     description: "An analysis of Sadie Sink's leaked dialogue and set photos to determine her villain archetype in Spider-Man: Brand New Day—is she a tragic figure, a manipulative mastermind, or something entirely new to the MCU?"
   },
@@ -113,11 +118,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
     content: spiderManBrandNewDaySuitEvolution,
     description: 'A deep dive into the evolution of Spider-Man\'s new suit for "Brand New Day," from concept art to final design, and what it means for the character.'
   },
-  'doctor-doom-accent-speech-patterns-mcu': {
+  'doctor-doom-accent-and-speech-patterns-in-the-mcu': {
     content: doctorDoomAccentAndSpeech,
     description: "A deep dive into Doctor Doom's iconic speech patterns from the comics and what they might reveal about his upcoming MCU portrayal."
   },
-  'spiderman-brand-new-day-release-date': {
+  'spiderman-brand-new-day-release-date-and-everything-we-know': {
     content: spiderManBrandNewDayReleaseDate,
     description: 'A summary of all confirmed details for the upcoming film Spider-Man: Brand New Day, including release date, cast, and story context.'
   },
@@ -339,23 +344,23 @@ const contentMap: Record<string, { content: string, description: string }> = {
   },
   'best-smartphones-under-150k-pakistan': {
     content: bestSmartphonesUnder150kPakistan,
-    description: 'A Pakistan-focused guide to the best smartphones under PKR 150,000 in 2025, with a look ahead to what to expect in 2026.'
+    description: 'A practical guide comparing top phones under PKR 150,000 in Pakistan for 2025, with an outlook for 2026, focusing on specs and local value.'
   },
   'mechanical-keyboards-pakistan-2025': {
     content: mechanicalKeyboardsPakistan2025,
-    description: 'A practical roundup for web devs and remote workers in Pakistan comparing mechanical keyboard switches, build quality, and value across different tiers.'
+    description: 'A practical roundup of the best mechanical keyboards for web developers and remote workers in Pakistan, comparing switches, build quality, and value for 2025.'
   },
   'smartphone-vs-laptop-pakistan-students': {
     content: smartphoneVsLaptopPakistanStudents,
-    description: 'A detailed comparison to help Pakistani students decide between a smartphone and a laptop, considering budget, use-cases like online classes and coding, and long-term value.'
+    description: 'A detailed comparison to help Pakistani students decide between a smartphone and a laptop for their studies, considering budget, use-cases, and long-term value for 2026.'
   },
   'best-wireless-keyboard-mouse-combos-pakistan': {
     content: bestWirelessKeyboardMouseCombosPakistan,
-    description: 'A guide to the best wireless keyboard and mouse combos in Pakistan for home office setups in 2025, focusing on productivity, ergonomics, and value.'
+    description: 'A guide to the best wireless keyboard and mouse combos for home office setups in Pakistan for 2025, focusing on productivity, ergonomics, and value.'
   },
   'top-2-in-1-laptops-pakistan-2026': {
     content: top2In1LaptopsPakistan2026,
-    description: 'A review of the top 5 convertible 2-in-1 laptops for Pakistani developers and designers, with a forecast for 2026 trends.'
+    description: 'A review of the top 5 2-in-1 convertible laptops for Pakistani developers and designers, with a forecast for 2026 trends.'
   },
   'emerging-tech-accessories-pakistan-2026': {
     content: emergingTechAccessoriesPakistan2026,
@@ -363,133 +368,142 @@ const contentMap: Record<string, { content: string, description: string }> = {
   },
   'silent-keys-typing-adventure-pakistan': {
     content: silentKeysTypingAdventurePakistan,
-    description: "Discover the OMOTON KB036, a Bluetooth keyboard offering a smooth and silent typing experience, perfect for students and professionals in Pakistan who value peace and productivity."
+    description: 'Discover the OMOTON KB036, the perfect silent wireless keyboard for students, developers, and office workers in Pakistan, available at kimi.pk.'
   },
   'snapdragon-vs-mediatek-pakistan-2026': {
     content: snapdragonVsMediatekPakistan2026,
-    description: "A humorous and practical comparison of Snapdragon and MediaTek chipsets for Pakistani users, covering battery life, gaming, and resale value."
+    description: 'A desi-style showdown between Snapdragon and MediaTek chipsets in Pakistan for 2026, comparing battery life, heating, gaming performance, and resale value.'
   },
   'best-camera-phones-night-photography-pakistan-2025': {
     content: bestCameraPhonesNightPhotographyPakistan2025,
-    description: "A detailed review of the best camera phones for night photography available in Pakistan in 2025, from flagship killers to budget champions."
+    description: 'A 2025 review of the best camera phones for night photography in Pakistan, comparing models based on sensor size, noise levels, and local pricing.'
   },
   'gaming-vs-normal-phones-pakistan': {
     content: gamingVsNormalPhonesPakistan,
-    description: "A head-to-head comparison of gaming phones and normal flagship phones in Pakistan, focusing on thermals, performance, and battery life for local users."
+    description: 'A showdown between gaming phones and normal flagships in Pakistan, comparing thermals, performance, battery life, and value for local users.'
   },
   'top-ultralight-laptops-pakistan-2025': {
     content: topUltralightLaptopsPakistan2025,
-    description: "A detailed review of the best ultra-light laptops for university students in Pakistan, focusing on weight, battery life, and performance."
+    description: 'A review of the top 5 ultra-light laptops for university students in Pakistan for 2025, focusing on weight, battery life, and local availability.'
   },
   'external-ssd-vs-internal-nvme-pakistan': {
     content: externalSsdVsInternalNvmePakistan,
-    description: "A practical guide comparing external SSDs and internal NVMe upgrades for laptops in Pakistan, focusing on speed, price, and real-world use cases."
+    description: 'A comparison of external SSDs vs. internal NVMe upgrades for laptops in Pakistan, analyzing speed, price, installation, and thermals for local users.'
   },
   'how-to-build-a-quiet-pc-pakistan': {
     content: howToBuildAQuietPcPakistan,
-    description: "A step-by-step guide to building a silent PC in Pakistan, with local hardware recommendations and tips for minimizing noise."
+    description: 'A guide on how to build a silent PC in Pakistan, with tips on choosing quiet cases, fans, CPU coolers, and PSUs available locally.'
   },
   'how-to-choose-a-laptop-for-video-editing-pakistan': {
     content: howToChooseALaptopForVideoEditingPakistan,
-    description: "A guide for choosing a video editing laptop in Pakistan, comparing Premiere Pro vs CapCut performance, and balancing budget with features."
+    description: 'A guide for choosing a video editing laptop in Pakistan, comparing CPU, GPU, RAM, and storage for software like Premiere Pro and CapCut.'
   },
   'best-tech-accessories-for-car-owners-pakistan': {
     content: bestTechAccessoriesForCarOwnersPakistan,
-    description: "A practical guide to the best tech accessories for car owners in Pakistan, from phone holders and chargers to dash-cams that can handle local road conditions."
+    description: 'A guide to the best tech accessories for car owners in Pakistan, including rugged phone holders, stable car chargers, and reliable dash-cams.'
   },
   'stream-selection-intermediate-2026': {
     content: streamSelectionIntermediate2026,
-    description: "A detailed guide for Pakistani students to choose their stream (Science, Arts, Commerce) after Class 10, considering career paths, costs, and local board differences."
+    description: 'A guide for Pakistani students on choosing between Science, Arts, and Commerce streams in Intermediate for 2026, covering subjects, costs, and career paths.'
   },
   'how-to-read-your-board-result-sheet': {
     content: howToReadYourBoardResultSheet,
-    description: "A simple guide for Pakistani students on how to read and understand their board result sheet, explaining what each column means and what to do next."
+    description: 'A guide for Pakistani students on how to read and understand their Matric and Inter board result sheets, including marks, grades, and what to do next.'
   },
   'board-exam-syllabus-changes-2026': {
     content: boardExamSyllabusChanges2026,
-    description: "A complete guide to the 2026 syllabus changes for Matric and Intermediate exams in Pakistan, covering what's new, what's gone, and how students can prepare effectively."
+    description: 'An overview of the upcoming 2026 syllabus changes for Matric and Inter board exams in Pakistan, covering new question patterns, subject tweaks, and practical marks.'
   },
   'supplementary-re-checking-exams-pakistan-2026': {
     content: supplementaryReCheckingExamsPakistan2026,
-    description: "A comprehensive guide for Pakistani students on how to apply for supplementary and re-checking exams, including timelines, fees, and procedures."
+    description: 'A complete guide for Pakistani students on how to apply for supplementary and re-checking exams in 2026, including eligibility, timelines, and fees.'
   },
   'school-vs-board-annual-exams-pakistan': {
     content: schoolVsBoardAnnualExamsPakistan,
-    description: "A guide for Pakistani students explaining the key differences between school and board annual exams, from paper patterns to marking criteria."
+    description: 'A comparison of school annual exams versus board annual exams in Pakistan, detailing differences in paper patterns, marking, and preparation strategies.'
   },
   'board-exam-result-anxiety-pakistan': {
     content: boardExamResultAnxietyPakistan,
-    description: "A survival guide for Pakistani students on managing board exam result anxiety, with practical tips for coping with stress and what to do after results are announced."
+    description: 'A survival guide for Pakistani students dealing with board exam result anxiety, offering tips, mental health resources, and a practical action plan.'
   },
   'perfect-wireless-keyboard-for-pakistan': {
     content: perfectWirelessKeyboardForPakistan,
-    description: "Discover the OMOTON KB036, the perfect wireless Bluetooth keyboard for work, study, and daily use in Pakistan. Silent, stylish, and compatible with all your devices."
+    description: 'An overview of the OMOTON KB036, the perfect wireless keyboard for students, developers, and office users in Pakistan looking for a silent, smooth, and versatile typing experience.'
   },
   'best-pc-monitors-for-coding-pakistan': {
     content: bestPcMonitorsForCodingPakistan,
-    description: 'A guide for Pakistani developers on choosing the best PC monitor for coding, focusing on eye-strain reduction, panel types (IPS vs VA), and local market prices.'
+    description: 'A guide for developers in Pakistan on choosing the best PC monitor for coding, focusing on eye-strain reduction, panel types (IPS vs. VA), and budget-friendly options.'
   },
   'budget-phones-pakistan-2025': {
     content: budgetPhones2025,
-    description: 'A guide for Pakistani users on choosing a smooth, lag-free smartphone in the PKR 40k-60k budget range for 2025, focusing on performance, display, and software.'
-  }
+    description: 'A 2025 guide to the best budget phones in Pakistan (PKR 40k-60k) that deliver smooth performance without lag, focusing on specs that matter for local users.'
+  },
+  'marvel-leak-wave-2025': {
+    content: marvelLeakWave2025,
+    description: 'A summary of recent major leaks for Marvel\'s upcoming films, including "Avengers: Doomsday" and the next Spider-Man movie, and what they might mean for the MCU.'
+  },
 };
 
 const blogPosts: BlogPost[] = [
   {
-    id: 'the-leak-economy-inside-the-marvel-trailer-pipeline',
-    slug: 'the-leak-economy-inside-the-marvel-trailer-pipeline',
-    title: 'The Leak Economy – Inside the Pipeline That Puts Every Marvel Trailer on the Wrong Side of the Internet'
+    id: 'damage-control-playbook-marvel-vs-sony',
+    slug: 'damage-control-playbook-marvel-vs-sony',
+    title: 'Damage-Control Playbook: Marvel vs. Sony'
   },
   {
-    id: 'sadie-sink-villain-archetype',
+    id: 'the-leak-economy-inside-the-marvel-trailer-pipeline',
+    slug: 'the-leak-economy-inside-the-marvel-trailer-pipeline',
+    title: 'The Leak Economy: Inside the Marvel Trailer Pipeline'
+  },
+  {
+    id: 'sadie-sink-villain-archetype-tragic-manipulative-or-genre-breaking-new',
     slug: 'sadie-sink-villain-archetype-tragic-manipulative-or-genre-breaking-new',
     title: 'Sadie Sink’s Villain Archetype: Tragic, Manipulative, or Genre-Breaking New?'
   },
   {
     id: 'thor-suicide-mission-speech-breakdown',
     slug: 'thor-suicide-mission-speech-breakdown',
-    title: "The 'Suicide Mission' Speech: A Frame-by-Frame Breakdown of Thor's Teaser"
+    title: 'The "Suicide Mission" Speech: A Frame-by-Frame Breakdown of Thor\'s Teaser'
   },
   {
     id: 'spiderman-brand-new-day-suit-evolution',
     slug: 'spiderman-brand-new-day-suit-evolution',
-    title: "From Concept Art to Screen: The Evolution of Spider-Man's Brand New Day Suit"
+    title: 'From Concept Art to Screen: The Evolution of Spider-Man\'s "Brand New Day" Suit'
   },
   {
-    id: 'doctor-doom-accent-speech-patterns-mcu',
+    id: 'doctor-doom-accent-and-speech-patterns-in-the-mcu',
     slug: 'doctor-doom-accent-and-speech-patterns-in-the-mcu',
-    title: "Analyzing Doctor Doom's Accent and Speech Patterns in the MCU"
+    title: 'Analyzing Doctor Doom\'s Accent and Speech Patterns in the MCU'
   },
   {
-    id: 'spiderman-brand-new-day-release-date',
+    id: 'spiderman-brand-new-day-release-date-and-everything-we-know',
     slug: 'spiderman-brand-new-day-release-date-and-everything-we-know',
     title: 'Spider-Man: Brand New Day – Release Date & Everything We Know'
   },
   {
     id: 'fan-backlash-marvel-leaks-doomsday-hype',
     slug: 'fan-backlash-marvel-leaks-doomsday-hype',
-    title: 'Fan Backlash: Are Marvel\'s Leaks Hurting Hype for Doomsday?',
+    title: "Fan Backlash: Are Marvel's Leaks Hurting Hype for Doomsday?"
   },
   {
     id: 'sadie-sink-breaks-silence-spiderman-4-role-theories',
     slug: 'sadie-sink-breaks-silence-spiderman-4-role-theories',
-    title: 'Sadie Sink Breaks Her Silence on Spider-Man 4 Role & Theories',
+    title: 'Sadie Sink Breaks Her Silence on Spider-Man 4 Role & Theories'
   },
   {
     id: 'avengers-doomsday-trailer-release-schedule',
     slug: 'avengers-doomsday-trailer-release-schedule',
-    title: 'The Avengers: Doomsday Trailer Release Schedule',
+    title: 'The Avengers: Doomsday Trailer Release Schedule'
   },
   {
     id: 'real-or-fake-marvel-leaks-authentic',
     slug: 'real-or-fake-marvel-leaks-authentic',
-    title: 'Real or Fake? The Evidence Proving the Marvel Leaks Are Authentic',
+    title: 'Real or Fake? The Evidence Proving the Marvel Leaks Are Authentic'
   },
   {
     id: 'avengers-doomsday-teaser-leaks-thor-doctor-doom-details',
     slug: 'avengers-doomsday-teaser-leaks-thor-doctor-doom-details',
-    title: "Avengers: Doomsday Teaser Leaks: Thor & Doctor Doom Details",
+    title: 'Avengers: Doomsday Teaser Leaks: Thor & Doctor Doom Details'
   },
   {
     id: 'sadie-sink-villain-role-spiderman-brand-new-day-leak',
@@ -503,142 +517,142 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 'marvel-leak-wave-2025',
-    slug: 'marvel-leak-wave-2025-avengers-spiderman-rumors',
+    slug: 'marvel-leak-wave-2025',
     title: 'The Great Marvel Leak Wave of 2025: Unpacking the Avengers: Doomsday and Spider-Man Rumors',
   },
   {
     id: 'admission-forms-class-xi-private-vs-public-pakistan',
-    slug: 'admission-forms-for-class-xi-private-vs-public-school-in-pakistan',
-    title: '🏫 Admission Forms for Class XI: Private School vs Public School in Pakistan – Cost, Criteria & Tips',
+    slug: 'admission-forms-class-xi-private-vs-public-pakistan',
+    title: 'Admission Forms for Class XI: Private School vs Public School in Pakistan',
   },
   {
     id: 'digitalisation-of-board-results-pakistan',
-    slug: 'digitalisation-of-board-results-in-pakistan-what-students-should-know',
-    title: '💻 Digitalisation of Board Results in Pakistan: What Students Should Know & Prepare For',
+    slug: 'digitalisation-of-board-results-pakistan',
+    title: 'Digitalisation of Board Results in Pakistan: What Students Should Know',
   },
   {
     id: 'board-position-holders-secrets-pakistan',
-    slug: 'board-position-holders-secrets-how-pakistani-students-top-exams',
-    title: '🏆 Board Position Holders’ Secrets: How Pakistani Students Consistently Top Matric & Inter',
+    slug: 'board-position-holders-secrets-pakistan',
+    title: 'Board Position Holders’ Secrets: How Pakistani Students Consistently Top Matric & Inter',
   },
   {
     id: 'board-exam-center-issues-pakistan',
-    slug: 'board-exam-center-issues-what-to-do',
-    title: '⚠️ Board Exam Center Issues: What to Do If You Were Absent or Instrument Failed in Pakistan',
+    slug: 'board-exam-center-issues-pakistan',
+    title: 'Board Exam Center Issues: What to Do If You Were Absent or Instrument Failed',
   },
   {
     id: 'board-result-gazette-pakistan',
-    slug: 'how-to-download-and-interpret-board-result-gazette-in-pakistan',
-    title: '📰 Board Result Gazette: How to Download & Interpret It in Pakistan',
+    slug: 'board-result-gazette-pakistan',
+    title: 'Board Result Gazette: How to Download & Interpret It in Pakistan',
   },
   {
     id: 'what-happens-after-intermediate-results-pakistan',
-    slug: 'what-happens-after-intermediate-results-in-pakistan',
-    title: '🎓 What Happens After Intermediate Results: Careers, Colleges & Admission Pathways in Pakistan',
+    slug: 'what-happens-after-intermediate-results-pakistan',
+    title: 'What Happens After Intermediate Results: Careers, Colleges & Admission Pathways in Pakistan',
   },
   {
     id: 'using-sms-and-mobile-apps-for-board-results-pakistan',
-    slug: 'using-sms-and-mobile-apps-to-check-board-results-in-pakistan',
-    title: '📲 Using SMS & Mobile Apps to Check Board Results in Pakistan',
+    slug: 'using-sms-and-mobile-apps-for-board-results-pakistan',
+    title: 'Using SMS & Mobile Apps to Check Board Results in Pakistan',
   },
   {
     id: 'how-to-transfer-board-affiliation-pakistan',
-    slug: 'how-to-transfer-your-board-affiliation-in-pakistan',
-    title: '🔄 How to Transfer Your Board Affiliation in Pakistan',
+    slug: 'how-to-transfer-board-affiliation-pakistan',
+    title: 'How to Transfer Your Board Affiliation in Pakistan',
   },
   {
     id: 'late-admission-to-boards-pakistan',
-    slug: 'what-happens-if-you-miss-board-exam-deadline-in-pakistan',
-    title: '⏰ Late Admission to Boards: What Happens If You Miss the Deadline in Pakistan',
+    slug: 'late-admission-to-boards-pakistan',
+    title: 'Late Admission to Boards: What Happens If You Miss the Deadline in Pakistan',
   },
   {
     id: 'why-toppers-fail-university-entry-tests-pakistan',
-    slug: 'why-many-matric-inter-toppers-fail-university-entry-tests-in-pakistan',
-    title: '📉 Why Many Matric/Inter Toppers Fail University Entry Tests in Pakistan',
+    slug: 'why-toppers-fail-university-entry-tests-pakistan',
+    title: 'Why Many Matric/Inter Toppers Fail University Entry Tests in Pakistan',
   },
   {
     id: 'what-to-do-if-roll-number-missing',
-    slug: 'what-to-do-if-your-roll-number-or-admit-card-is-missing-before-matric-exams',
-    title: '📝 What to Do if Your Roll Number or Admit Card Is Missing Before Matric Exams',
+    slug: 'what-to-do-if-roll-number-missing',
+    title: 'What to Do if Your Roll Number or Admit Card Is Missing Before Matric Exams',
   },
   {
     id: 'board-exam-fee-structure-pakistan-2026',
     slug: 'board-exam-fee-structure-pakistan-2026',
-    title: '💰 Board Exam Fee Structure 2026: How Much Do Pakistani Students Pay & How to Save',
+    title: 'Board Exam Fee Structure 2026: How Much Do Pakistani Students Pay & How to Save',
   },
   {
     id: 'top-mistakes-board-exam-forms-pakistan',
-    slug: 'top-mistakes-students-make-during-board-exam-admission-forms-in-pakistan',
-    title: '📝 Top Mistakes Students Make During Board Exam Admission Forms in Pakistan',
+    slug: 'top-mistakes-board-exam-forms-pakistan',
+    title: 'Top Mistakes Students Make During Board Exam Admission Forms in Pakistan',
   },
   {
     id: 'how-to-check-board-results-online-pakistan',
-    slug: 'how-to-check-your-matric-inter-board-results-online-in-pakistan-2026',
-    title: '📝 How to Check Your Matric / Inter Board Results Online in Pakistan (2026 Update)',
+    slug: 'how-to-check-board-results-online-pakistan',
+    title: 'How to Check Your Matric / Inter Board Results Online in Pakistan (2026 Update)',
   },
   {
     id: 'top-tablets-for-pakistani-students',
     slug: 'top-tablets-for-pakistani-students',
-    title: '📚 Top Tablets for Pakistani Students Preparing for Exams',
+    title: 'Top Tablets for Pakistani Students Preparing for Exams',
   },
   {
     id: 'oled-vs-ips-displays-pakistan',
-    slug: 'oled-vs-ips-displays-in-mobile-phones-for-pakistani-users',
-    title: '📱 OLED vs IPS Displays in Mobile Phones: Which Is Better for Pakistani Users?',
+    slug: 'oled-vs-ips-displays-pakistan',
+    title: 'OLED vs IPS Displays in Mobile Phones: Which Is Better for Pakistani Users?',
   },
   {
     id: 'rugged-durable-phones-pakistan',
-    slug: 'top-rugged-durable-phones-for-field-work-in-pakistan',
-    title: '💪 Top Rugged / Durable Phones for Field Work in Pakistan (Construction / Outdoor Use)',
+    slug: 'rugged-durable-phones-pakistan',
+    title: 'Top Rugged / Durable Phones for Field Work in Pakistan',
   },
   {
     id: 'local-laptop-repair-shops-pakistan',
-    slug: 'do-local-laptop-repair-shops-in-pakistan-use-original-parts',
-    title: '🔍 Do Local Laptop Repair Shops in Pakistan Actually Use Original Parts?',
+    slug: 'local-laptop-repair-shops-pakistan',
+    title: 'Do Local Laptop Repair Shops in Pakistan Actually Use Original Parts?',
   },
   {
     id: 'best-wireless-mechanical-keyboards-for-pakistani-developers-2026',
     slug: 'best-wireless-mechanical-keyboards-for-pakistani-developers-2026',
-    title: '🎛️ Best Wireless Mechanical Keyboards for Pakistani Developers (2026 Edition)',
+    title: 'Best Wireless Mechanical Keyboards for Pakistani Developers (2026 Edition)',
   },
   {
     id: 'used-laptop-market-guide-pakistan',
-    slug: 'used-laptop-market-guide-how-to-inspect-before-buying-in-pakistan',
-    title: '💻 Used Laptop Market Guide: How to Inspect Laptop Condition Before Buying in Pakistan',
+    slug: 'used-laptop-market-guide-pakistan',
+    title: 'Used Laptop Market Guide: How to Inspect Laptop Condition Before Buying in Pakistan',
   },
   {
     id: 'tech-brands-warranty-support-pakistan',
-    slug: 'top-tech-brands-with-real-warranty-support-in-pakistan',
-    title: '🔒 Top Tech Brands with Real Warranty Support in Pakistan (Not Just Claims)',
+    slug: 'tech-brands-warranty-support-pakistan',
+    title: 'Top Tech Brands with Real Warranty Support in Pakistan (Not Just Claims)',
   },
   {
     id: 'ultrawide-vs-dual-monitors-pakistan',
-    slug: 'ultrawide-vs-dual-monitors-in-pakistan-which-is-better',
-    title: '🖥️ 49‑Inch UltraWide Monitor vs Dual Monitor Setup in Pakistan: Which Is Better?',
+    slug: 'ultrawide-vs-dual-monitors-pakistan',
+    title: '49-Inch UltraWide Monitor vs Dual Monitor Setup in Pakistan: Which Is Better?',
   },
   {
     id: 'bluetooth-earbuds-under-10k-pakistan',
-    slug: 'bluetooth-earbuds-under-10k-in-pakistan-that-dont-sound-cheap',
-    title: '🎧 Bluetooth Earbuds Under ₨ 10,000 in Pakistan That Don’t Sound Cheap',
+    slug: 'bluetooth-earbuds-under-10k-pakistan',
+    title: 'Bluetooth Earbuds Under ₨ 10,000 in Pakistan That Don’t Sound Cheap',
   },
   {
     id: 'best-webcams-for-online-classes-pakistan',
-    slug: 'best-webcams-for-online-classes-in-pakistan',
+    slug: 'best-webcams-for-online-classes-pakistan',
     title: 'Best Webcams for Online Classes & Zoom Calls in Pakistan (Clear in Low Light)',
   },
   {
     id: 'usb-c-fast-chargers-and-cables-pakistan',
-    slug: 'top-usb-c-fast-chargers-and-cables-in-pakistan',
-    title: 'Top USB-C Fast Chargers & Cables in Pakistan: What’s Safe, What’s Not'
+    slug: 'usb-c-fast-chargers-and-cables-pakistan',
+    title: 'Top USB-C Fast Chargers & Cables in Pakistan: What’s Safe, What’s Not',
   },
   {
     id: 'budget-office-chair-desk-setup-pakistan',
-    slug: 'budget-office-chair-and-desk-setup-in-pakistan',
+    slug: 'budget-office-chair-desk-setup-pakistan',
     title: 'Budget Office Chair + Desk Setup in Pakistan for Long Work Hours',
   },
   {
     id: 'best-power-banks-pakistan-2025',
-    slug: 'best-power-banks-to-survive-pakistani-load-shedding-2025',
+    slug: 'best-power-banks-pakistan-2025',
     title: 'Best Power Banks to Survive Pakistani Load-Shedding (2025)',
   },
   {
@@ -648,92 +662,92 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 'mechanical-keyboard-switches-explained-pakistan',
-    slug: 'mechanical-keyboard-switches-explained-for-pakistan-buyers',
+    slug: 'mechanical-keyboard-switches-explained-pakistan',
     title: 'Mechanical Keyboard Switches Explained for Pakistan’s Buyers Market',
   },
   {
     id: 'pta-guide-2025',
-    slug: 'the-ultimate-guide-to-pta-phone-registration-2025',
-    title: 'The Ultimate Guide to PTA Phone Registration (2025)',
+    slug: 'pta-guide-2025',
+    title: 'The Ultimate Guide to PTA Mobile Registration in Pakistan (2025)',
   },
   {
     id: 'freelancing-setup-pakistan-2026',
-    slug: 'how-to-build-a-freelancing-web-developer-setup-in-pakistan-2026-edition',
-    title: 'How to Build a Freelancing Web Developer Setup in Pakistan (2026 Edition)',
+    slug: 'freelancing-setup-pakistan-2026',
+    title: 'The Ultimate Guide to Setting Up Your Freelance Workstation in Pakistan (2026)',
   },
   {
     id: 'seo-for-pakistani-developers-2026',
-    slug: 'seo-for-pakistani-web-developers-local-strategies-that-work-in-2026',
-    title: 'SEO for Pakistani Web Developers: Local Strategies that Work in 2026',
+    slug: 'seo-for-pakistani-developers-2026',
+    title: 'The Desi SEO Guide for Pakistani Web Developers (2026)',
   },
   {
     id: 'web-security-for-pakistani-businesses-2026',
-    slug: 'web-security-essentials-for-small-pakistani-businesses-a-developers-guide',
-    title: 'Web Security Essentials for Small Pakistani Businesses: A Developer’s Guide',
+    slug: 'web-security-for-pakistani-businesses-2026',
+    title: 'Web Security for Pakistani Businesses: A 2026 Guide',
   },
   {
     id: 'cloud-rising-over-pakistan',
-    slug: 'a-cloud-rising-over-pakistans-tech-horizon',
-    title: 'A Cloud Rising Over Pakistan’s Tech Horizon',
+    slug: 'cloud-rising-over-pakistan',
+    title: 'Cloud Rising Over Pakistan: How Startups Are Building the Future on Cloud & Edge',
   },
   {
     id: 'mobile-first-era-pakistan',
-    slug: 'welcome-to-pakistans-mobile-first-era',
-    title: 'Welcome to Pakistan’s Mobile-First Era',
+    slug: 'mobile-first-era-pakistan',
+    title: 'The Mobile-First Era: Why Your Website Needs to Speak Fluent Pakistani',
   },
   {
     id: 'pwa-guide-pakistan-2026',
-    slug: 'the-web-that-feels-like-an-app-a-guide-to-pwas-in-pakistan',
-    title: 'The Web That Feels Like an App: A Guide to PWAs in Pakistan',
+    slug: 'pwa-guide-pakistan-2026',
+    title: 'The PWA Revolution: A Web Developer’s Guide to Building App-Like Experiences in Pakistan (2026)',
   },
   {
     id: 'pakistan-crypto-trends-2026',
-    slug: 'pakistan-crypto-trends-2026-for-web-developers',
-    title: 'Pakistan Crypto Trends 2026: A Guide for Web Developers',
+    slug: 'pakistan-crypto-trends-2026',
+    title: 'Pakistan Crypto Council & Crypto Trends in Pakistan (2026 Edition)',
   },
   {
     id: 'iot-projects-pakistan-budget',
-    slug: 'iot-projects-you-can-build-in-pakistan-on-a-budget',
-    title: 'IoT Projects You Can Build in Pakistan on a Budget',
+    slug: 'iot-projects-pakistan-budget',
+    title: 'Internet of Things (IoT) Projects You Can Build in Pakistan on a Budget',
   },
   {
     id: '5g-and-beyond-pakistan',
-    slug: '5g-and-beyond-what-it-means-for-pakistani-web-developers',
-    title: '5G & Beyond: What It Means for Pakistani Web Developers',
+    slug: '5g-and-beyond-pakistan',
+    title: '5G & Beyond: What It Means for Web Developers in Pakistan',
   },
   {
     id: 'accessibility-inclusive-design-pakistan',
-    slug: 'accessibility-and-inclusive-web-design-for-pakistani-users',
+    slug: 'accessibility-inclusive-design-pakistan',
     title: 'Accessibility & Inclusive Web Design for Pakistani Users',
   },
   {
     id: 'freelance-marketplaces-pakistan-2026',
-    slug: 'freelance-marketplaces-for-pakistani-web-developers-2026',
-    title: 'Freelance Marketplaces for Pakistani Web Developers in 2026',
+    slug: 'freelance-marketplaces-pakistan-2026',
+    title: 'Freelance Marketplaces for Pakistani Web Developers: How to Get Clients in 2026',
   },
   {
     id: 'website-speed-optimization-pakistan',
-    slug: 'how-to-optimize-website-speed-for-pakistani-mobile-users',
-    title: 'How to Optimize Website Speed for Pakistani Mobile Users',
+    slug: 'website-speed-optimization-pakistan',
+    title: 'How to Optimize Your Website’s Speed for Pakistani Mobile Users',
   },
   {
     id: 'renewable-energy-data-centres-pakistan',
-    slug: 'renewable-energy-and-solar-tech-for-data-centres-in-pakistan',
+    slug: 'renewable-energy-data-centres-pakistan',
     title: 'The Growing Role of Renewable Energy & Solar Tech for Data Centres in Pakistan',
   },
   {
     id: 'monetise-tech-blog-pakistan',
-    slug: 'how-to-monetise-your-tech-blog-in-pakistan',
+    slug: 'monetise-tech-blog-pakistan',
     title: 'How to Monetise Your Tech Blog in Pakistan: From Ads to Affiliate Marketing',
   },
   {
     id: 'localising-digital-products-pakistan',
-    slug: 'localising-digital-products-for-pakistan-ui-to-payment-gateways',
+    slug: 'localising-digital-products-pakistan',
     title: 'Localising Digital Products for Pakistan: From UI to Payment Gateways',
   },
   {
     id: 'low-code-no-code-pakistan',
-    slug: 'how-pakistani-smes-can-use-low-code-and-no-code-tools',
+    slug: 'low-code-no-code-pakistan',
     title: 'How Pakistani SMEs Can Use Low-Code & No-Code Tools for Web Presence',
   },
   {
