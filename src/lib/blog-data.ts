@@ -82,7 +82,7 @@ import spiderManBrandNewDayReleaseDate from './blog-content/spiderman-brand-new-
 import doctorDoomAccentAndSpeech from './blog-content/doctor-doom-accent-speech-patterns-mcu';
 import spiderManBrandNewDaySuitEvolution from './blog-content/spiderman-brand-new-day-suit-evolution';
 import thorSuicideMissionSpeech from './blog-content/thor-suicide-mission-speech-breakdown';
-import sadieSinkVillainArchetype from './blog-content/sadie-sink-villain-archetype';
+import sadieSinkVillainArchetype from './blog-content/sadie-sink-villain-archetype-tragic-manipulative-or-genre-breaking-new';
 import leakEconomy from './blog-content/the-leak-economy-inside-the-marvel-trailer-pipeline';
 import damageControlPlaybook from './blog-content/damage-control-playbook-marvel-vs-sony';
 import theSoundOfDoomsday from './blog-content/the-sound-of-doomsday';
@@ -106,6 +106,16 @@ import avatarSequelTitlesDecoded from './blog-content/avatar-sequel-titles-decod
 import avatarSequelTitlesDebunked from './blog-content/avatar-sequel-titles-debunked';
 import russoBrosVTeaseDecoded from './blog-content/russo-bros-v-tease-decoded';
 import doomsdayHickmanIncursionXmen from './blog-content/doomsday-hickman-incursion-xmen';
+import babyInStevesArms from './blog-content/baby-in-steves-arms-doomsday-teaser';
+import brokenShield from './blog-content/broken-shield-captain-america-doomsday';
+import secretHospitalScene from './blog-content/secret-hospital-scene-doomsday';
+import decodingRussoBrosVTease from './blog-content/decoding-russo-bros-v-tease';
+import costumeDeepDiveSadieSink from './blog-content/costume-deep-dive-sadie-sink';
+import ankhTattoo from './blog-content/ankh-tattoo-doomsday-character';
+import fracturedTimelineMap from './blog-content/fractured-timeline-map-doomsday';
+import mjolnirVsThunderstrike from './blog-content/mjolnir-vs-thunderstrike-doomsday';
+import latverianEmbassy from './blog-content/latverian-embassy-doomsday';
+import echoGlow from './blog-content/echo-glow-ancestral-force';
 
 
 export interface BlogPost {
@@ -120,7 +130,47 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
-    'fan-backlash-analysis-marvels-nostalgia-play': {
+    'baby-in-steves-arms-doomsday-teaser': {
+    content: babyInStevesArms,
+    description: 'A breakdown of the theories about the baby in Steve Rogers\' arms in the Avengers: Doomsday teaser, exploring possibilities like Sharon Rogers, a reincarnated Peggy Carter, or a Kang variant.'
+  },
+  'broken-shield-captain-america-doomsday': {
+    content: brokenShield,
+    description: 'An analysis of the theories behind Captain America\'s shattered shield in Avengers: Doomsday, exploring whether it was Doctor Doom, an incursion, or friendly fire.'
+  },
+  'secret-hospital-scene-doomsday': {
+    content: secretHospitalScene,
+    description: 'A deep dive into the leaked hospital scene from Avengers: Doomsday, speculating which hero is recovering and what it means for the film\'s plot.'
+  },
+  'decoding-russo-bros-v-tease': {
+    content: decodingRussoBrosVTease,
+    description: 'An analysis of the Russo Brothers\' cryptic "V" tease, exploring theories about Vision, Valeria Richards, and the Void.'
+  },
+  'costume-deep-dive-sadie-sink': {
+    content: costumeDeepDiveSadieSink,
+    description: 'A detailed breakdown of Sadie Sink\'s on-set wardrobe for Spider-Man: Brand New Day and what it reveals about her villainous character, likely Shathra.'
+  },
+  'ankh-tattoo-doomsday-character': {
+    content: ankhTattoo,
+    description: 'An analysis of the mysterious ankh tattoo spotted on a character in an Avengers: Doomsday set photo, exploring its potential connection to Doctor Doom or a new hero.'
+  },
+  'fractured-timeline-map-doomsday': {
+    content: fracturedTimelineMap,
+    description: 'A deep dive into the leaked "Fractured Timeline Map" from the Avengers: Doomsday set, revealing how different realities like the Fox-X-Men universe are set to collide.'
+  },
+  'mjolnir-vs-thunderstrike-doomsday': {
+    content: mjolnirVsThunderstrike,
+    description: 'An analysis of the weapon Thor is holding in the Avengers: Doomsday teaser, arguing that it is a returned Mjolnir, not Thunderstrike.'
+  },
+  'latverian-embassy-doomsday': {
+    content: latverianEmbassy,
+    description: 'A breakdown of the significance of the Latverian Embassy appearing in a leaked shot from Avengers: Doomsday, signaling Doctor Doom\'s diplomatic and strategic moves.'
+  },
+  'echo-glow-ancestral-force': {
+    content: echoGlow,
+    description: 'An analysis of the glowing energy around Maya Lopez\'s fist in leaked "Echo" footage, explaining why it represents her ancestral power, not the Phoenix Force.'
+  },
+  'fan-backlash-analysis-marvels-nostalgia-play': {
     content: fanBacklashAnalysis,
     description: "An analysis of the fan backlash against Marvel's nostalgia play in Avengers: Doomsday and how it impacts new heroes like Sam Wilson's Captain America."
   },
@@ -182,7 +232,7 @@ const contentMap: Record<string, { content: string, description: string }> = {
   },
   'beyond-the-hype-marvel-titles': {
     content: beyondTheHype,
-    description: "An analysis of what the titles 'Doomsday' and 'Brand New Day' literally tell us about the MCU’s next decade, from reboots to resets.",
+    description: "An analysis of what the titles “Doomsday” and “Brand New Day” literally tell us about the MCU’s next decade, from reboots to resets.",
   },
   'leak-aftermath-marvel-avatar-trailers': {
     content: leakAftermath,
@@ -544,9 +594,63 @@ const contentMap: Record<string, { content: string, description: string }> = {
     content: budgetPhones2025,
     description: 'A 2025 guide to the best budget phones in Pakistan (PKR 40k-60k) that deliver smooth performance without lag, focusing on specs that matter for local users.'
   },
+  'marvel-leak-wave-2025': {
+    content: marvelLeakWave2025,
+    description: 'A summary of recent major leaks for Marvel\'s upcoming films, including "Avengers: Doomsday" and the next Spider-Man movie, and what they might mean for the MCU.'
+  },
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'baby-in-steves-arms-doomsday-teaser',
+    slug: 'baby-in-steves-arms-doomsday-teaser',
+    title: 'The Baby in Steve’s Arms: Whose Child Is It in the Doomsday Teaser?'
+  },
+  {
+    id: 'broken-shield-captain-america-doomsday',
+    slug: 'broken-shield-captain-america-doomsday',
+    title: 'The Broken Shield: What Shattered Captain America’s Iconic Weapon?'
+  },
+  {
+    id: 'secret-hospital-scene-doomsday',
+    slug: 'secret-hospital-scene-doomsday',
+    title: 'Secret Hospital Scene: Which Hero Is Recovering in Doomsday\'s Leaked Set Photo?'
+  },
+  {
+    id: 'decoding-russo-bros-v-tease',
+    slug: 'decoding-russo-bros-v-tease',
+    title: 'Decoding the Russo Bros’ Cryptic “V” – Vision, Valeria, or the Void?'
+  },
+  {
+    id: 'costume-deep-dive-sadie-sink',
+    slug: 'costume-deep-dive-sadie-sink',
+    title: 'Costume Deep-Dive: What Sadie Sink’s Brand New Day Wardrobe Reveals About Her Villain'
+  },
+  {
+    id: 'ankh-tattoo-doomsday-character',
+    slug: 'ankh-tattoo-doomsday-character',
+    title: 'The Ankh Tattoo: What the Egyptian Symbol on a Doomsday Character Really Means'
+  },
+  {
+    id: 'fractured-timeline-map-doomsday',
+    slug: 'fractured-timeline-map-doomsday',
+    title: 'Fractured Timeline Map: What the Doomsday Set Prop Reveals About Incursion Zones'
+  },
+  {
+    id: 'mjolnir-vs-thunderstrike-doomsday',
+    slug: 'mjolnir-vs-thunderstrike-doomsday',
+    title: 'Mjolnir or Thunderstrike? What Thor Is Really Holding in the Doomsday Teaser'
+  },
+  {
+    id: 'latverian-embassy-doomsday',
+    slug: 'latverian-embassy-doomsday',
+    title: 'The Latverian Embassy: A Blink-and-Miss Shot That Signals Doomsday’s Diplomatic Chessboard'
+  },
+  {
+    id: 'echo-glow-ancestral-force',
+    slug: 'echo-glow-ancestral-force',
+    title: 'Echo’s Glow: What the Energy Around Maya Lopez’s Fist Really Means'
+  },
   {
     id: 'fan-backlash-analysis-marvels-nostalgia-play',
     slug: 'fan-backlash-analysis-marvels-nostalgia-play',
