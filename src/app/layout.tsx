@@ -8,7 +8,7 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { APP_NAME } from '@/lib/constants';
 import { ScrollToTop } from '@/components/scroll-to-top';
-import { PrefetchController } from '@/components/prefetch-controller';
+import ExternalPrefetch from "@/components/ExternalPrefetch";
 import { Inter, Roboto } from 'next/font/google';
 
 const inter = Inter({
@@ -111,7 +111,7 @@ export default function RootLayout({
             </div>
             <Toaster />
             <ScrollToTop />
-            <PrefetchController />
+            <ExternalPrefetch />
           </CartProvider>
         </ThemeProvider>
       </body>

@@ -1,0 +1,11 @@
+# Cache the prefetch script aggressively (1 year)
+/prefetch.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache static assets (Next.js build output)
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Standard caching for HTML (1 hour)
+/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
