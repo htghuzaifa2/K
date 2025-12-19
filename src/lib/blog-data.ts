@@ -79,6 +79,7 @@ import sadieSinkBreaksSilence from './blog-content/sadie-sink-breaks-silence-spi
 import fanBacklashMarvelLeaks from './blog-content/fan-backlash-marvel-leaks-doomsday-hype';
 import spiderManBrandNewDayReleaseDate from './blog-content/spiderman-brand-new-day-release-date';
 import doctorDoomAccentAndSpeech from './blog-content/doctor-doom-accent-speech-patterns-mcu';
+import spiderManBrandNewDaySuitEvolution from './blog-content/spiderman-brand-new-day-suit-evolution';
 
 export interface BlogPost {
   slug: string;
@@ -92,6 +93,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'spiderman-brand-new-day-suit-evolution': {
+    content: spiderManBrandNewDaySuitEvolution,
+    description: 'A deep dive into the evolution of Spider-Man\'s new suit for "Brand New Day," from concept art to final design, and what it means for the character.'
+  },
   'doctor-doom-accent-speech-patterns-mcu': {
     content: doctorDoomAccentAndSpeech,
     description: "A deep dive into Doctor Doom's iconic speech patterns from the comics and what they might reveal about his upcoming MCU portrayal."
@@ -415,6 +420,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'spiderman-brand-new-day-suit-evolution',
+    slug: 'spiderman-brand-new-day-suit-evolution',
+    title: "From Concept Art to Screen: The Evolution of Spider-Man's Brand New Day Suit"
+  },
   {
     id: 'doctor-doom-accent-speech-patterns-mcu',
     slug: 'doctor-doom-accent-and-speech-patterns-in-the-mcu',
