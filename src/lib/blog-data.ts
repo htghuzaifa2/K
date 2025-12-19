@@ -82,6 +82,7 @@ import spiderManBrandNewDayReleaseDate from './blog-content/spiderman-brand-new-
 import doctorDoomAccentAndSpeech from './blog-content/doctor-doom-accent-speech-patterns-mcu';
 import spiderManBrandNewDaySuitEvolution from './blog-content/spiderman-brand-new-day-suit-evolution';
 import thorSuicideMissionSpeech from './blog-content/thor-suicide-mission-speech-breakdown';
+import sadieSinkVillainArchetype from './blog-content/sadie-sink-villain-archetype';
 
 export interface BlogPost {
   slug: string;
@@ -95,6 +96,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'sadie-sink-villain-archetype': {
+    content: sadieSinkVillainArchetype,
+    description: "An analysis of Sadie Sink's leaked dialogue and set photos to determine her villain archetype in Spider-Man: Brand New Day—is she a tragic figure, a manipulative mastermind, or something entirely new to the MCU?"
+  },
   'thor-suicide-mission-speech-breakdown': {
     content: thorSuicideMissionSpeech,
     description: "A frame-by-frame breakdown of Thor's 'Suicide Mission' teaser speech, analyzing every detail from armor damage to hidden Easter eggs."
@@ -426,6 +431,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'sadie-sink-villain-archetype',
+    slug: 'sadie-sink-villain-archetype-tragic-manipulative-or-genre-breaking-new',
+    title: 'Sadie Sink’s Villain Archetype: Tragic, Manipulative, or Genre-Breaking New?'
+  },
   {
     id: 'thor-suicide-mission-speech-breakdown',
     slug: 'thor-suicide-mission-speech-breakdown',
@@ -867,4 +877,3 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     description: data.description,
   };
 }
-
