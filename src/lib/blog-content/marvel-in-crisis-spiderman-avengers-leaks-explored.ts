@@ -1,6 +1,5 @@
 
-export default `
-      <h2>Marvel in Crisis: Spider-Man & Avengers Leaks Explored</h2>
+export default `<h2>Marvel in Crisis: Spider-Man & Avengers Leaks Explored</h2>
       <p>In an unprecedented week for Marvel Studios, the carefully laid marketing plans for two of its most anticipated films have been upended. Leaked promotional materials for both Avengers: Doomsday and Spider-Man: Brand New Day have spread rapidly online, forcing the studio into a defensive position and sparking a complex wave of fan reactions. The incidents have ignited debates about nostalgia, legacy characters, and the immense pressure on Marvel's cinematic future.</p>
       
       <h3>The Avengers: Doomsday Leaks: A Nostalgia Play Unveiled</h3>

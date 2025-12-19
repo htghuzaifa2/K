@@ -83,6 +83,7 @@ import doctorDoomAccentAndSpeech from './blog-content/doctor-doom-accent-speech-
 import spiderManBrandNewDaySuitEvolution from './blog-content/spiderman-brand-new-day-suit-evolution';
 import thorSuicideMissionSpeech from './blog-content/thor-suicide-mission-speech-breakdown';
 import sadieSinkVillainArchetype from './blog-content/sadie-sink-villain-archetype';
+import leakEconomy from './blog-content/the-leak-economy-inside-the-marvel-trailer-pipeline';
 
 export interface BlogPost {
   slug: string;
@@ -96,6 +97,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'the-leak-economy-inside-the-marvel-trailer-pipeline': {
+    content: leakEconomy,
+    description: "An inside look at the technical pipeline and economy behind how Marvel movie trailers get leaked online, from watermarks to private chat groups."
+  },
   'sadie-sink-villain-archetype': {
     content: sadieSinkVillainArchetype,
     description: "An analysis of Sadie Sink's leaked dialogue and set photos to determine her villain archetype in Spider-Man: Brand New Day—is she a tragic figure, a manipulative mastermind, or something entirely new to the MCU?"
@@ -431,6 +436,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'the-leak-economy-inside-the-marvel-trailer-pipeline',
+    slug: 'the-leak-economy-inside-the-marvel-trailer-pipeline',
+    title: 'The Leak Economy – Inside the Pipeline That Puts Every Marvel Trailer on the Wrong Side of the Internet'
+  },
   {
     id: 'sadie-sink-villain-archetype',
     slug: 'sadie-sink-villain-archetype-tragic-manipulative-or-genre-breaking-new',
