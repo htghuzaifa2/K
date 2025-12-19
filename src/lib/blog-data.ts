@@ -1,4 +1,5 @@
 
+
 import marvelInCrisis from './blog-content/marvel-in-crisis-spiderman-avengers-leaks-explored';
 import sadieSinkVillainRole from './blog-content/sadie-sink-villain-role-spiderman-brand-new-day-leak';
 import admissionFormsClassXi from './blog-content/admission-forms-class-xi-private-vs-public-pakistan';
@@ -80,6 +81,7 @@ import fanBacklashMarvelLeaks from './blog-content/fan-backlash-marvel-leaks-doo
 import spiderManBrandNewDayReleaseDate from './blog-content/spiderman-brand-new-day-release-date';
 import doctorDoomAccentAndSpeech from './blog-content/doctor-doom-accent-speech-patterns-mcu';
 import spiderManBrandNewDaySuitEvolution from './blog-content/spiderman-brand-new-day-suit-evolution';
+import thorSuicideMissionSpeech from './blog-content/thor-suicide-mission-speech-breakdown';
 
 export interface BlogPost {
   slug: string;
@@ -93,6 +95,10 @@ export interface BlogPostWithContent extends BlogPost {
 }
 
 const contentMap: Record<string, { content: string, description: string }> = {
+  'thor-suicide-mission-speech-breakdown': {
+    content: thorSuicideMissionSpeech,
+    description: "A frame-by-frame breakdown of Thor's 'Suicide Mission' teaser speech, analyzing every detail from armor damage to hidden Easter eggs."
+  },
   'spiderman-brand-new-day-suit-evolution': {
     content: spiderManBrandNewDaySuitEvolution,
     description: 'A deep dive into the evolution of Spider-Man\'s new suit for "Brand New Day," from concept art to final design, and what it means for the character.'
@@ -420,6 +426,11 @@ const contentMap: Record<string, { content: string, description: string }> = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'thor-suicide-mission-speech-breakdown',
+    slug: 'thor-suicide-mission-speech-breakdown',
+    title: "The 'Suicide Mission' Speech: A Frame-by-Frame Breakdown of Thor's Teaser"
+  },
   {
     id: 'spiderman-brand-new-day-suit-evolution',
     slug: 'spiderman-brand-new-day-suit-evolution',
@@ -856,3 +867,4 @@ export function getBlogPostBySlug(slug: string): BlogPostWithContent | undefined
     description: data.description,
   };
 }
+
