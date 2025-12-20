@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
@@ -224,7 +225,7 @@ export function OgTagPreviewer() {
                 <li>Fill in the <strong>Title</strong>, <strong>Description</strong>, and <strong>URL</strong> for your webpage.</li>
                 <li>Provide an <strong>Image URL</strong> or upload an image from your computer to see how it will appear in social shares.</li>
                 <li>Switch between the <strong>Google</strong>, <strong>Facebook</strong>, and <strong>Twitter</strong> tabs to see a live preview for each platform.</li>
-                <li>The tool will automatically generate the necessary <strong>meta tags</strong> for you. Copy and paste them into the ` + "`<head>`" + ` section of your website’s HTML.</li>
+                <li>The tool will automatically generate the necessary <strong>meta tags</strong> for you. Copy and paste them into the `<head>` section of your website’s HTML.</li>
               </ol>
               <p>It’s perfect for digital marketers, SEO specialists, and developers who want to ensure their content looks professional and clickable everywhere it’s shared.</p>
             </AccordionContent>
