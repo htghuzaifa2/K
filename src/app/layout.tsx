@@ -8,7 +8,6 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { APP_NAME } from '@/lib/constants';
 import { ScrollToTop } from '@/components/scroll-to-top';
-import ExternalPrefetch from "@/components/ExternalPrefetch";
 import { Inter, Roboto } from 'next/font/google';
 
 const inter = Inter({
@@ -96,10 +95,6 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#F26322" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="preconnect" href="https://i.postimg.cc" />
-        <link rel="dns-prefetch" href="https://i.postimg.cc" />
-         <link rel="preconnect" href="https://static.cloudflareinsights.com" />
-        <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
       </head>
       <body className="font-body antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -113,7 +108,6 @@ export default function RootLayout({
             <ScrollToTop />
           </CartProvider>
         </ThemeProvider>
-        <ExternalPrefetch />
       </body>
     </html>
   );
