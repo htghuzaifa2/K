@@ -68,7 +68,6 @@ function TwitterPreview({ title, description, image, url }: { title: string; des
 
 function GeneratedTags({ title, description, image, url }: { title: string; description: string; image: string; url: string }) {
     const { toast } = useToast();
-
     const tags = `<!-- Essential OG Tags -->
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
