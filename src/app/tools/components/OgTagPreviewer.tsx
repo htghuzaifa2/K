@@ -1,13 +1,14 @@
+
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { FancyAccordionButton } from './FancyAccordionButton';
-import { Clipboard, ImageUp, Link, Code, RefreshCw } from 'lucide-react';
+import { Clipboard, ImageUp, Link as LinkIcon, Code, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -66,6 +67,8 @@ function TwitterPreview({ title, description, image, url }: { title: string; des
 }
 
 function GeneratedTags({ title, description, image, url }: { title: string; description: string; image: string; url: string }) {
+    const { toast } = useToast();
+
     const tags = `<!-- Essential OG Tags -->
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
@@ -79,8 +82,6 @@ function GeneratedTags({ title, description, image, url }: { title: string; desc
 <meta name="twitter:description" content="${description}">
 <meta name="twitter:image" content="${image}">`;
     
-    const { toast } = useToast();
-
     const handleCopy = () => {
         navigator.clipboard.writeText(tags);
         toast({ title: 'Meta tags copied to clipboard!' });
@@ -101,15 +102,12 @@ function GeneratedTags({ title, description, image, url }: { title: string; desc
     );
 }
 
-
 export function OgTagPreviewer() {
   const [title, setTitle] = useState('My Awesome Website');
   const [description, setDescription] = useState('This is a great description for my website that will entice users to click.');
   const [url, setUrl] = useState(`https://www.${APP_NAME.toLowerCase()}`);
   const [imageUrl, setImageUrl] = useState('https://picsum.photos/seed/og-image/1200/630');
   const [tempImageUrl, setTempImageUrl] = useState<string | null>(null);
-
-  const { toast } = useToast();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -118,7 +116,7 @@ export function OgTagPreviewer() {
         URL.revokeObjectURL(tempImageUrl);
       }
       const objectUrl = URL.createObjectURL(file);
-      setTempImageUrl(objectUrl);
+      setTempImageUrl(objectUrl); 
       setImageUrl(objectUrl); 
     }
   };
@@ -137,6 +135,14 @@ export function OgTagPreviewer() {
   const displayImage = useMemo(() => {
     return tempImageUrl || imageUrl;
   }, [tempImageUrl, imageUrl]);
+  
+  useEffect(() => {
+    return () => {
+      if (tempImageUrl) {
+        URL.revokeObjectURL(tempImageUrl);
+      }
+    };
+  }, [tempImageUrl]);
 
   return (
     <div className="w-full">
@@ -229,3 +235,5 @@ export function OgTagPreviewer() {
     </div>
   );
 }
+
+    
