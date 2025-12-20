@@ -100,11 +100,6 @@ const tools: Tool[] = [
     slug: 'english-typing-test',
     title: 'English Typing Speed Test',
   },
-  {
-    id: 'og-tag-previewer',
-    slug: 'og-tag-previewer',
-    title: 'All-in-One Social Media OG Tag Previewer',
-  },
 ];
 
 // Sort tools by reversing the array, so latest added is first.
