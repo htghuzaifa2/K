@@ -1,11 +1,9 @@
-# Cache the prefetch script aggressively (1 year)
+
+# Speed up prefetch delivery
 /prefetch.js
   Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
 
-# Cache static assets (Next.js build output)
-/_next/static/*
-  Cache-Control: public, max-age=31536000, immutable
-
-# Standard caching for HTML (1 hour)
+# Global caching rules for Cloudflare Pages
 /*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400

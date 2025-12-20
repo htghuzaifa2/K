@@ -9,6 +9,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { APP_NAME } from '@/lib/constants';
 import { ScrollToTop } from '@/components/scroll-to-top';
 import { Inter, Roboto } from 'next/font/google';
+import ExternalPrefetch from '@/components/ExternalPrefetch';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -108,6 +109,8 @@ export default function RootLayout({
             <ScrollToTop />
           </CartProvider>
         </ThemeProvider>
+        {/* Next.js <Link> handles internal routes. This handles external. */}
+        <ExternalPrefetch />
       </body>
     </html>
   );
