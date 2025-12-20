@@ -92,7 +92,7 @@ function GeneratedTags({ title, description, image, url }: { title: string; desc
              <h3 className="text-xl font-semibold text-center">Generated Meta Tags</h3>
             <div className="relative">
                 <pre className="bg-muted text-muted-foreground p-4 rounded-md overflow-x-auto text-sm">
-                    <code className="font-mono">{tags}</code>
+                    <code>{tags}</code>
                 </pre>
                 <Button variant="ghost" size="icon" className="absolute top-2 right-2" onClick={handleCopy}>
                     <Clipboard className="h-4 w-4" />
@@ -225,7 +225,7 @@ export function OgTagPreviewer() {
                 <li>Fill in the <strong>Title</strong>, <strong>Description</strong>, and <strong>URL</strong> for your webpage.</li>
                 <li>Provide an <strong>Image URL</strong> or upload an image from your computer to see how it will appear in social shares.</li>
                 <li>Switch between the <strong>Google</strong>, <strong>Facebook</strong>, and <strong>Twitter</strong> tabs to see a live preview for each platform.</li>
-                <li>The tool will automatically generate the necessary <strong>meta tags</strong> for you. Copy and paste them into the `<head>` section of your website’s HTML.</li>
+                <li>The tool will automatically generate the necessary <strong>meta tags</strong> for you. Copy and paste them into the ` + "`<head>`" + ` section of your website’s HTML.</li>
               </ol>
               <p>It’s perfect for digital marketers, SEO specialists, and developers who want to ensure their content looks professional and clickable everywhere it’s shared.</p>
             </AccordionContent>
@@ -235,5 +235,3 @@ export function OgTagPreviewer() {
     </div>
   );
 }
-
-    
