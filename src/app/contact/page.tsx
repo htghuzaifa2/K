@@ -66,10 +66,10 @@ export default function ContactPage() {
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16 max-w-4xl mx-auto">
         <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 text-center animate-fade-in-up" style={{ animationDelay: '150ms', animationFillMode: 'backwards' }}>
           <CardHeader className="items-center">
-            <CardTitle className="flex items-center gap-3 text-2xl font-headline">
+            <h2 className="flex items-center gap-3 text-2xl font-headline font-bold">
               <Mail className="h-8 w-8 text-primary" />
               Email Support
-            </CardTitle>
+            </h2>
           </CardHeader>
           <CardContent>
             <a href="mailto:support@kimi.pk" className="text-lg text-primary hover:underline">
@@ -80,10 +80,10 @@ export default function ContactPage() {
         </Card>
         <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 text-center animate-fade-in-up" style={{ animationDelay: '300ms', animationFillMode: 'backwards' }}>
           <CardHeader className="items-center">
-            <CardTitle className="flex items-center gap-3 text-2xl font-headline">
+            <h2 className="flex items-center gap-3 text-2xl font-headline font-bold">
               <Phone className="h-8 w-8 text-primary" />
               WhatsApp
-            </CardTitle>
+            </h2>
           </CardHeader>
           <CardContent>
             <a href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-lg text-primary hover:underline">

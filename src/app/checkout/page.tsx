@@ -129,7 +129,7 @@ export default function CheckoutPage() {
             <div className="lg:col-span-3">
             <Card>
                 <CardHeader>
-                <CardTitle>Customer Information</CardTitle>
+                <h2 className="text-2xl font-bold">Customer Information</h2>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <FormField
@@ -301,7 +301,7 @@ export default function CheckoutPage() {
             <div className="lg:col-span-2">
                 <Card className="sticky top-20">
                     <CardHeader>
-                        <CardTitle>Order Summary</CardTitle>
+                        <h2 className="text-2xl font-bold">Order Summary</h2>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">

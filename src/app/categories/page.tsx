@@ -54,7 +54,7 @@ export default function CategoriesPage() {
                     />
                     <div className="absolute inset-0 bg-black/40" />
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
                     <h2 className="text-2xl font-bold text-white font-headline tracking-wide">
                       {categoryName}
                     </h2>

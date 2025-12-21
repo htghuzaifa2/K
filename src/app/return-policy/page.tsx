@@ -38,10 +38,10 @@ export default function ReturnPolicyPage() {
       <div className="grid md:grid-cols-2 gap-8 mb-12">
         <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 border-green-500/50 animate-fade-in-up" style={{ animationDelay: '150ms', animationFillMode: 'backwards' }}>
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-2xl font-headline text-green-600 dark:text-green-500">
+            <h2 className="flex items-center gap-3 text-2xl font-headline font-bold text-green-600 dark:text-green-500">
               <CheckCircle2 className="h-8 w-8" />
               Conditions Eligible for Return
-            </CardTitle>
+            </h2>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 text-muted-foreground">
@@ -57,10 +57,10 @@ export default function ReturnPolicyPage() {
 
         <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 border-destructive/50 animate-fade-in-up" style={{ animationDelay: '300ms', animationFillMode: 'backwards' }}>
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-2xl font-headline text-destructive">
+            <h2 className="flex items-center gap-3 text-2xl font-headline font-bold text-destructive">
               <XCircle className="h-8 w-8" />
               Conditions Not Eligible for Return
-            </CardTitle>
+            </h2>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 text-muted-foreground">
@@ -83,7 +83,7 @@ export default function ReturnPolicyPage() {
                 style={{ animationDelay: `${450 + index * 150}ms`, animationFillMode: 'backwards' }}
             >
                 <CardHeader>
-                    <CardTitle className="font-headline text-2xl">{step.title}</CardTitle>
+                    <h3 className="font-headline text-2xl font-bold">{step.title}</h3>
                 </CardHeader>
                 <CardContent className="text-muted-foreground space-y-2" dangerouslySetInnerHTML={{ __html: step.content }} />
             </Card>

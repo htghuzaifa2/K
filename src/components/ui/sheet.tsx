@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -106,7 +107,7 @@ const SheetTitle = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
 >(({ className, ...props }, ref) => (
-  <SheetPrimitive.Title
+  <h2
     ref={ref}
     className={cn("text-lg font-semibold text-foreground", className)}
     {...props}

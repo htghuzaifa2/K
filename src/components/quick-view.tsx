@@ -60,7 +60,7 @@ export function QuickView({ product, open, onOpenChange }: QuickViewProps) {
           </div>
           <div className="flex flex-col p-6 border-t sm:border-t-0 sm:border-l bg-secondary/50 overflow-hidden">
             <DialogHeader className="mb-4 text-left flex-shrink-0">
-              <DialogTitle className="text-2xl font-headline">{product.name}</DialogTitle>
+              <h2 className="text-2xl font-headline font-bold">{product.name}</h2>
             </DialogHeader>
             <ScrollArea className="flex-grow pr-4 -mr-4 mb-4">
               <div className="space-y-4">

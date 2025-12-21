@@ -99,10 +99,10 @@ export default function FaqPage() {
             style={{ animationDelay: `${150 + index * 150}ms`, animationFillMode: 'backwards' }}
           >
             <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-2xl md:text-3xl font-headline">
+              <h2 className="flex items-center gap-3 text-2xl md:text-3xl font-headline font-bold">
                 {section.icon}
                 {section.category}
-              </CardTitle>
+              </h2>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible className="w-full">

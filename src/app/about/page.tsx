@@ -47,10 +47,10 @@ export default function AboutPage() {
       <section className="mb-16 animate-fade-in-up" style={{ animationDelay: '150ms', animationFillMode: 'backwards' }}>
         <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-3xl font-headline">
+            <h2 className="flex items-center gap-3 text-3xl font-headline font-bold">
               <Users className="h-8 w-8 text-primary" />
               Who We Are
-            </CardTitle>
+            </h2>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -83,10 +83,10 @@ export default function AboutPage() {
        <section className="mb-16 grid md:grid-cols-2 gap-8">
          <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '450ms', animationFillMode: 'backwards' }}>
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-3xl font-headline">
+            <h2 className="flex items-center gap-3 text-3xl font-headline font-bold">
               <Target className="h-8 w-8 text-primary" />
                Our Vision
-            </CardTitle>
+            </h2>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -96,10 +96,10 @@ export default function AboutPage() {
         </Card>
          <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '600ms', animationFillMode: 'backwards' }}>
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-3xl font-headline">
+            <h2 className="flex items-center gap-3 text-3xl font-headline font-bold">
                 <ShieldCheck className="h-8 w-8 text-primary" />
                 Our Commitment
-            </CardTitle>
+            </h2>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground text-base leading-relaxed">

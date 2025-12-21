@@ -48,10 +48,10 @@ export default function ShippingPolicyPage() {
       <div className="grid md:grid-cols-2 gap-8 mb-12">
         <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 animate-fade-in-up" style={{ animationDelay: '150ms', animationFillMode: 'backwards' }}>
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-2xl font-headline">
+            <h2 className="flex items-center gap-3 text-2xl font-headline font-bold">
               <Truck className="h-8 w-8 text-primary" />
               Shipping Charges
-            </CardTitle>
+            </h2>
           </CardHeader>
           <CardContent className="space-y-3 text-muted-foreground">
              <p>Free Delivery on all orders above <span className="font-bold text-primary">PKR 2,500</span>.</p>
@@ -61,10 +61,10 @@ export default function ShippingPolicyPage() {
         </Card>
         <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 animate-fade-in-up" style={{ animationDelay: '300ms', animationFillMode: 'backwards' }}>
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-2xl font-headline">
+            <h2 className="flex items-center gap-3 text-2xl font-headline font-bold">
               <Banknote className="h-8 w-8 text-primary" />
               Payment Methods
-            </CardTitle>
+            </h2>
           </CardHeader>
           <CardContent className="text-muted-foreground">
             <p className="mb-3">We accept Advance Payment via the following options:</p>
@@ -86,10 +86,10 @@ export default function ShippingPolicyPage() {
                 style={{ animationDelay: `${450 + index * 150}ms`, animationFillMode: 'backwards' }}
             >
               <CardHeader>
-                <CardTitle className={`flex items-center gap-3 font-headline text-2xl ${card.titleColor || ''}`}>
+                <h3 className={`flex items-center gap-3 font-headline text-2xl font-bold ${card.titleColor || ''}`}>
                     {card.icon}
                     {card.title}
-                </CardTitle>
+                </h3>
               </CardHeader>
               <CardContent className="text-muted-foreground space-y-3" dangerouslySetInnerHTML={{ __html: card.content }} />
             </Card>
