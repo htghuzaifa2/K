@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef, useEffect, useCallback, useState } from 'react';
@@ -186,12 +185,12 @@ export default function Hero() {
   return (
     <div
       ref={containerRef}
-      className="relative flex h-[40vh] min-h-[350px] flex-col items-center justify-center overflow-hidden bg-black text-white md:h-[50vh] md:min-h-[400px]"
+      className="relative flex h-[40vh] min-h-[350px] flex-col items-center justify-center overflow-hidden bg-background text-foreground md:h-[50vh] md:min-h-[400px]"
     >
       <div className="absolute inset-0 bg-grid-white-500/10" />
       <div
         ref={blobRef}
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 animate-[spin_20s_linear_infinite] rounded-full bg-gradient-to-tr from-primary/50 via-accent/50 to-primary/50 opacity-20 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 animate-[spin_20s_linear_infinite] rounded-full bg-gradient-to-tr from-primary/70 via-accent/70 to-primary/70 opacity-30 blur-3xl"
       />
        {imageStates.map((img) => (
         <Image
@@ -219,7 +218,7 @@ export default function Hero() {
         <h1 className="font-headline text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
           Discover What's Next.
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-300">
+        <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
           Explore curated tech, insightful articles, and developer tools designed to inspire your next big idea.
         </p>
         <div className="mt-10">
