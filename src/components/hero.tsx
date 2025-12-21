@@ -186,7 +186,7 @@ export default function Hero() {
   return (
     <div
       ref={containerRef}
-      className="relative flex h-[60vh] min-h-[450px] flex-col items-center justify-center overflow-hidden bg-black text-white md:h-[70vh] md:min-h-[600px]"
+      className="relative flex h-[40vh] min-h-[350px] flex-col items-center justify-center overflow-hidden bg-black text-white md:h-[50vh] md:min-h-[400px]"
     >
       <div className="absolute inset-0 bg-grid-white-500/10" />
       <div
