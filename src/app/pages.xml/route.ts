@@ -19,6 +19,8 @@ export async function GET() {
     { url: `${baseUrl}/return-policy`, changeFrequency: 'yearly', priority: 0.5 },
     { url: `${baseUrl}/shipping-policy`, changeFrequency: 'yearly', priority: 0.5 },
     { url: `${baseUrl}/cash-on-delivery`, changeFrequency: 'yearly', priority: 0.5 },
+    { url: `${baseUrl}/privacy-policy`, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/terms-of-service`, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

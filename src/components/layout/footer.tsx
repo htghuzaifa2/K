@@ -7,6 +7,8 @@ const footerLinks = [
     { name: 'Contact', href: '/contact' },
     { name: 'Shipping Policy', href: '/shipping-policy' },
     { name: 'Return Policy', href: '/return-policy' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Service', href: '/terms-of-service' },
     { name: 'Cash on Delivery', href: '/cash-on-delivery' },
     { name: 'FAQ', href: '/faq' },
 ];
