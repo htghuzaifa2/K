@@ -31,6 +31,7 @@ export default function NotFound() {
   const globalIndex = useRef(0);
   const lastPosition = useRef({ x: 0, y: 0 });
   const idleTimeout = useRef<NodeJS.Timeout | null>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const [isClient, setIsClient] = useState(false);
 
@@ -106,12 +107,10 @@ export default function NotFound() {
 
   }, []);
 
-  const handleOnMove = useCallback((e: MouseEvent | TouchEvent) => {
+  const handleInteraction = useCallback((e: MouseEvent | TouchEvent) => {
       if (idleTimeout.current) {
         clearTimeout(idleTimeout.current);
       }
-
-      if (isMobile && e.type !== 'touchmove') return;
 
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
@@ -121,37 +120,45 @@ export default function NotFound() {
         clientY - lastPosition.current.y
       );
 
-      if (distanceFromLast > window.innerWidth / 120) {
+      const isClick = e.type === 'click' || e.type === 'touchstart';
+
+      if (isClick || distanceFromLast > window.innerWidth / 120) {
         activateImage(clientX, clientY);
       }
 
       idleTimeout.current = setTimeout(clearAllImages, 500);
 
     },
-    [activateImage, isMobile, clearAllImages]
+    [activateImage, clearAllImages]
   );
 
   useEffect(() => {
-    if (!isClient) return;
+    if (!isClient || !mainRef.current) return;
+    
+    const mainEl = mainRef.current;
 
-    window.addEventListener("mousemove", handleOnMove);
-    window.addEventListener("touchmove", handleOnMove);
+    mainEl.addEventListener("mousemove", handleInteraction);
+    mainEl.addEventListener("touchmove", handleInteraction, { passive: true });
+    mainEl.addEventListener("click", handleInteraction);
+    mainEl.addEventListener("touchstart", handleInteraction, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", handleOnMove);
-      window.removeEventListener("touchmove", handleOnMove);
+      mainEl.removeEventListener("mousemove", handleInteraction);
+      mainEl.removeEventListener("touchmove", handleInteraction);
+      mainEl.removeEventListener("click", handleInteraction);
+      mainEl.removeEventListener("touchstart", handleInteraction);
       if (idleTimeout.current) {
         clearTimeout(idleTimeout.current);
       }
     };
-  }, [handleOnMove, isClient]);
+  }, [handleInteraction, isClient]);
 
   if (!isClient) {
     return null;
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white p-4 overflow-hidden relative">
+    <main ref={mainRef} className="flex min-h-screen flex-col items-center justify-center bg-black text-white p-4 overflow-hidden relative">
       <div className="absolute inset-0 bg-grid-white-500/10" />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black" />
 
