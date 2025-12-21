@@ -1,137 +1,88 @@
-
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import Autoplay from "embla-carousel-autoplay";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
-import { Button } from './ui/button';
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-
-const slides = [
-  {
-    title: "Explore Our Full Collection",
-    description: "Discover everything from cutting-edge tech gadgets to essential lifestyle accessories, all in one place.",
-    buttonText: "Shop All Products",
-    href: "/products",
-    background: "bg-primary/10",
-  },
-  {
-    title: "Shop by Category",
-    description: "Browse our curated collections, thoughtfully organized to help you find exactly what you need.",
-    buttonText: "Explore Categories",
-    href: "/categories",
-    background: "bg-accent/10",
-  },
-  {
-    title: "Insights & Ideas",
-    description: "Your source for the latest tech trends, expert tutorials, and insightful articles.",
-    buttonText: "Read Our Blog",
-    href: "/blogs",
-    background: "bg-primary/10",
-  },
-  {
-    title: "The Modern Toolkit",
-    description: "A suite of handy online utilities designed to accelerate your creative and development workflow.",
-    buttonText: "Discover Tools",
-    href: "/tools",
-    background: "bg-accent/10",
-  }
-];
+import { Button } from './ui/button';
 
 export default function Hero() {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-
-  const plugin = useRef(
-    Autoplay({ delay: 7000, stopOnInteraction: false, stopOnMouseEnter: true })
-  );
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  const blobRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const btnBlobRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
-    if (!api) {
-      return;
-    }
-    
-    setCurrent(api.selectedScrollSnap());
-    
-    const onSelect = (api: CarouselApi) => {
-      setCurrent(api.selectedScrollSnap());
-    };
+    const container = containerRef.current;
+    if (!container) return;
 
-    const onInteraction = () => {
-      if (plugin.current.options.stopOnInteraction === false) {
-        plugin.current.reset();
+    const handleMouseMove = (event: MouseEvent) => {
+      const { clientX, clientY } = event;
+      const blob = blobRef.current;
+      if (blob) {
+        blob.animate(
+          {
+            left: `${clientX}px`,
+            top: `${clientY}px`,
+          },
+          { duration: 3000, fill: 'forwards' }
+        );
       }
     };
     
-    api.on('select', onSelect);
-    api.on('pointerDown', onInteraction);
-
+    container.addEventListener('mousemove', handleMouseMove);
+    
     return () => {
-      api.off('select', onSelect);
-      api.off('pointerDown', onInteraction);
+      container.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [api]);
+  }, []);
 
-  const handleDotClick = (index: number) => {
-    api?.scrollTo(index);
-    if (plugin.current.options.stopOnInteraction === false) {
-        plugin.current.reset();
+  useEffect(() => {
+    const btn = btnRef.current;
+    if (!btn) return;
+    
+    const handleBtnMouseMove = (event: MouseEvent) => {
+        const { clientX, clientY } = event;
+        const btnBlob = btnBlobRef.current;
+        const { top, left } = btn.getBoundingClientRect();
+        if (btnBlob) {
+            btnBlob.animate({
+                left: `${clientX - left}px`,
+                top: `${clientY - top}px`,
+            }, { duration: 400, fill: "forwards" });
+        }
     }
-  };
+    
+    btn.addEventListener('mousemove', handleBtnMouseMove);
+    
+    return () => {
+       btn.removeEventListener('mousemove', handleBtnMouseMove);
+    }
+  }, []);
 
   return (
-    <div className="w-full relative">
-      <Carousel
-        setApi={setApi}
-        plugins={[plugin.current]}
-        opts={{
-            loop: true,
-        }}
-        className="w-full"
-      >
-        <CarouselContent>
-          {slides.map((slide, index) => (
-            <CarouselItem key={index}>
-              <div className="p-0">
-                <Card className="border-0 rounded-none shadow-none">
-                  <CardContent className={cn("relative flex items-center justify-center p-6 h-[40vh] min-h-[300px]", slide.background)}>
-                    <div className="relative z-10 text-center">
-                       <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-foreground">
-                        {slide.title}
-                      </h1>
-                      <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl text-foreground/80">
-                        {slide.description}
-                      </p>
-                      <Button asChild size="lg" className="mt-8">
-                        <Link href={slide.href}>{slide.buttonText}</Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleDotClick(index)}
-              className={cn(
-                'h-2 w-2 rounded-full transition-all duration-300',
-                current === index ? 'w-4 bg-primary' : 'bg-primary/50'
-              )}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+    <div
+      ref={containerRef}
+      className="relative flex h-[60vh] min-h-[400px] flex-col items-center justify-center overflow-hidden bg-black text-white"
+    >
+      <div className="absolute inset-0 bg-grid-white-500/10" />
+      <div
+        ref={blobRef}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 animate-[spin_20s_linear_infinite] rounded-full bg-gradient-to-tr from-primary/70 via-accent/70 to-primary/70 opacity-30 blur-3xl"
+      />
+      <div className="relative z-10 text-center">
+        <h1 className="font-headline text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
+          Discover What's Next.
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-300">
+          Explore curated tech, insightful articles, and developer tools designed to inspire your next big idea.
+        </p>
+        <div className="mt-10">
+          <Button asChild ref={btnRef} className="fancy-btn" size="lg">
+            <Link href="/products">
+              <span className="text">Shop Now</span>
+              <span ref={btnBlobRef} className="blob"></span>
+            </Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
