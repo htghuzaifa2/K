@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useEffect, useCallback, useState } from 'react';
@@ -219,7 +220,7 @@ export default function Hero() {
           Discover What's Next.
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-          Explore curated tech, insightful articles, and developer tools designed to inspire your next big idea.
+          Shop leatest Tech and Explore curated tech, insightful articles, and developer tools designed to inspire your next big idea.
         </p>
         <div className="mt-10">
           <Button asChild ref={btnRef} className="fancy-btn" size="lg">
@@ -233,3 +234,4 @@ export default function Hero() {
     </div>
   );
 }
+
