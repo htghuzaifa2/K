@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -139,14 +140,10 @@ export default function NotFound() {
 
     mainEl.addEventListener("mousemove", handleInteraction);
     mainEl.addEventListener("touchmove", handleInteraction, { passive: true });
-    mainEl.addEventListener("click", handleInteraction);
-    mainEl.addEventListener("touchstart", handleInteraction, { passive: true });
 
     return () => {
       mainEl.removeEventListener("mousemove", handleInteraction);
       mainEl.removeEventListener("touchmove", handleInteraction);
-      mainEl.removeEventListener("click", handleInteraction);
-      mainEl.removeEventListener("touchstart", handleInteraction);
       if (idleTimeout.current) {
         clearTimeout(idleTimeout.current);
       }
@@ -159,8 +156,8 @@ export default function NotFound() {
 
   return (
     <main ref={mainRef} className="flex min-h-screen flex-col items-center justify-center bg-black text-white p-4 overflow-hidden relative">
-      <div className="absolute inset-0 bg-grid-white-500/10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black" />
+      <div className="absolute inset-0 bg-grid-white-500/10 -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black -z-10" />
 
       {imageStates.map((img) => (
         <Image
@@ -171,7 +168,7 @@ export default function NotFound() {
           width={150}
           height={225}
           className={`
-            absolute rounded-lg object-cover pointer-events-none
+            absolute rounded-lg object-cover pointer-events-none -z-10
             ${
               img.status === "active" ? "opacity-100" : "opacity-0"
             }
@@ -185,7 +182,7 @@ export default function NotFound() {
         />
       ))}
 
-      <div className="relative z-20 flex flex-col items-center text-center p-8">
+      <div className="relative z-10 flex flex-col items-center text-center p-8">
         <h1 className="text-5xl md:text-7xl font-bold font-headline text-white leading-tight">
           Empty canvas humm.
         </h1>
@@ -193,7 +190,7 @@ export default function NotFound() {
          That's how we like to start.
         </p>
       </div>
-      <div className="relative z-20 mt-8">
+      <div className="relative z-10 mt-8">
         <Button asChild variant="outline" className="bg-white text-black hover:bg-neutral-200 hover:text-black">
           <Link href="/">Lost? Lets Return to Home</Link>
         </Button>

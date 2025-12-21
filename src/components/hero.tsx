@@ -145,15 +145,11 @@ export default function Hero() {
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener("mousemove", handleInteraction);
     container.addEventListener("touchmove", handleInteraction, { passive: true });
-    container.addEventListener("click", handleInteraction);
-    container.addEventListener("touchstart", handleInteraction, { passive: true });
     
     return () => {
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener("mousemove", handleInteraction);
       container.removeEventListener("touchmove", handleInteraction);
-      container.removeEventListener("click", handleInteraction);
-      container.removeEventListener("touchstart", handleInteraction);
       if (idleTimeout.current) {
         clearTimeout(idleTimeout.current);
       }
@@ -188,10 +184,10 @@ export default function Hero() {
       ref={containerRef}
       className="relative flex h-[40vh] min-h-[350px] flex-col items-center justify-center overflow-hidden bg-background text-foreground md:h-[50vh] md:min-h-[400px]"
     >
-      <div className="absolute inset-0 bg-grid-white-500/10" />
+      <div className="absolute inset-0 bg-grid-white-500/10 -z-10" />
       <div
         ref={blobRef}
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 animate-[spin_20s_linear_infinite] rounded-full bg-gradient-to-tr from-primary/70 via-accent/70 to-primary/70 opacity-30 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 animate-[spin_20s_linear_infinite] rounded-full bg-gradient-to-tr from-primary/70 via-accent/70 to-primary/70 opacity-30 blur-3xl -z-10"
       />
        {imageStates.map((img) => (
         <Image
@@ -202,7 +198,7 @@ export default function Hero() {
           width={150}
           height={225}
           className={`
-            absolute rounded-lg object-cover pointer-events-none shadow-2xl shadow-black/50
+            absolute rounded-lg object-cover pointer-events-none shadow-2xl shadow-black/50 -z-10
             ${
               img.status === "active" ? "opacity-100" : "opacity-0"
             }
@@ -234,4 +230,3 @@ export default function Hero() {
     </div>
   );
 }
-
